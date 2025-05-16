@@ -33,4 +33,12 @@ if (typeof window !== 'undefined') {
   });
 }
 
-export { auth, db, storage, analytics, app as default };
+export { 
+  auth, 
+  db, 
+  storage, 
+  analytics, 
+  googleProvider, 
+  signInWithPopup,
+  app as default 
+};

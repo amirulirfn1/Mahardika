@@ -88,6 +88,43 @@ export const uploadFile = async (file, path) => {
   return getDownloadURL(snapshot.ref);
 };
 
+// Helper to create or update user profile in Firestore
+export const createUserProfileDocument = async (user, additionalData = {}) => {
+  if (!user) return;
+
+  const userRef = doc(db, 'users', user.uid);
+  const snapshot = await getDoc(userRef);
+  const { displayName, email, photoURL } = user;
+  const createdAt = new Date();
+
+  if (!snapshot.exists()) {
+    try {
+      await setDoc(userRef, {
+        displayName,
+        email,
+        photoURL,
+        createdAt,
+        updatedAt: createdAt,
+        ...additionalData
+      });
+    } catch (error) {
+      console.error('Error creating user profile:', error);
+    }
+  } else {
+    try {
+      await updateDoc(userRef, {
+        displayName: displayName || snapshot.data().displayName,
+        photoURL: photoURL || snapshot.data().photoURL,
+        updatedAt: createdAt
+      });
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+    }
+  }
+
+  return userRef;
+};
+
 // Helper to get current user
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {

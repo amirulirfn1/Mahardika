@@ -1,0 +1,66 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn()    { return request.auth.uid != null; }
+    function isAdmin()       { return request.auth.token.role == 'admin'; }
+    function isStaff()       { return request.auth.token.role == 'staff'; }
+    function isCustomer()    { return request.auth.token.role == 'customer'; }
+
+    // Users: read own or any by admin; write only by admin
+    match /users/{uid} {
+      allow read:  if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      allow write: if isAdmin();
+    }
+
+    // Vehicles: customers CRUD their own; admin can do anything
+    match /vehicles/{vehicleId} {
+      allow create: if isCustomer() && request.resource.data.ownerUid == request.auth.uid;
+      allow read, update, delete:
+        if isAdmin() ||
+           (isCustomer() && resource.data.ownerUid == request.auth.uid);
+    }
+
+    // Policies: create by customer; read by owner or staff/admin; update payments by staff/admin
+    match /policies/{policyId} {
+      allow create: if isCustomer() && request.resource.data.customerUid == request.auth.uid;
+      allow read:   if isAdmin() || isStaff() ||
+                    (isCustomer() && resource.data.customerUid == request.auth.uid);
+      allow update: if isAdmin() || isStaff();
+      allow delete: if isAdmin();
+    }
+
+    // Payments: staff/admin create; customer and staff/admin read own policy payments
+    match /payments/{paymentId} {
+      allow create: if isAdmin() || isStaff();
+      allow read:   if isAdmin() || isStaff() ||
+                    (isCustomer() &&
+                      get(/databases/$(database)/documents/policies/$(resource.data.policyId)).data.customerUid == request.auth.uid);
+      allow update, delete: if isAdmin();
+    }
+
+    // Loyalty points: customer read own; admin read/write all
+    match /loyaltyPoints/{uid} {
+      allow read:  if isAdmin() || (isCustomer() && request.auth.uid == uid);
+      allow write: if isAdmin();
+    }
+
+    // Reference data: tiers
+    match /tiers/{tierId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Roles
+    match /roles/{roleId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Config
+    match /config/{configId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+  }
+}

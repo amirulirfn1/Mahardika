@@ -2,6 +2,13 @@
   "name": "react-pwa",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": "Amirul Irfan <amirulirfan.utm@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amirulirfn1/Mahardika.git"
+  },
+  "homepage": "https://github.com/amirulirfn1/Mahardika#readme",
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "axios": "^1.9.0",

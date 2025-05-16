@@ -1,4 +1,4 @@
-/* Custom styles */
+/* Basic styles - we'll add more later */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,12 +6,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f3f4f6; /* gray-100 equivalent */
 }
 
-/* Ensure the app takes full viewport height */
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }

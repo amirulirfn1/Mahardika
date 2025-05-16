@@ -37,8 +37,6 @@ export {
   auth, 
   db, 
   storage, 
-  analytics, 
-  googleProvider, 
-  signInWithPopup,
+  analytics,
   app as default 
 };

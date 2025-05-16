@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/amirulirfn1/Mahardika.git"
   },
-  "homepage": "https://github.com/amirulirfn1/Mahardika#readme",
+  "homepage": ".",
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "axios": "^1.9.0",
@@ -21,14 +21,12 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^11.0.5",
     "yup": "^1.6.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:css": "tailwindcss -i ./src/index.css -o ./src/tailwind.css",
-    "prestart": "npm run build:css",
-    "prebuild": "npm run build:css",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -51,8 +49,9 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.7"
+    "@tailwindcss/postcss": "^4.1.7",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1"
   }
 }

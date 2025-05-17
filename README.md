@@ -1,6 +1,6 @@
 # Mahardika Web Portal
 
-[![CI/CD](https://github.com/amirulirfn1/Mahardika/actions/workflows/firebase-hosting-merge.yml/badge.svg?branch=main)](https://github.com/amirulirfn1/Mahardika/actions/workflows/firebase-hosting-merge.yml)
+[![CI/CD](https://github.com/amirulirfn1/Mahardika/actions/workflows/firebase-deploy.yml/badge.svg?branch=main)](https://github.com/amirulirfn1/Mahardika/actions/workflows/firebase-deploy.yml)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 A modern web portal built with React, Firebase, and Material-UI.

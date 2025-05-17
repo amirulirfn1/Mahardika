@@ -38,6 +38,15 @@ jobs:
         working-directory: ./react-pwa
         run: npm ci --prefer-offline --no-audit
         
+      - name: Run ESLint
+        working-directory: ./react-pwa
+        run: npm run lint --if-present
+        
+      - name: Run tests
+        working-directory: ./react-pwa
+        run: |
+          npm run test -- --watchAll=false --passWithNoTests
+        
       - name: Build React app
         working-directory: ./react-pwa
         env:

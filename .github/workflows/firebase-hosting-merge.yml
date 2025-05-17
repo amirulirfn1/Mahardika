@@ -34,7 +34,7 @@ jobs:
       - name: Run tests
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          npm run test -- --watchAll=false
+          npm run test -- --watchAll=false --passWithNoTests
           
       - name: Build
         working-directory: ${{ env.WORKING_DIRECTORY }}

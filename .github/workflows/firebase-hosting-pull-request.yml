@@ -44,6 +44,7 @@ jobs:
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
           npm run test -- --watchAll=false --passWithNoTests
+          # If you want to add tests later, create them in the __tests__ directory
           
       - name: Build
         working-directory: ${{ env.WORKING_DIRECTORY }}

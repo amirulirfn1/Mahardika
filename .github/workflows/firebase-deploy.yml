@@ -1,4 +1,4 @@
-name: Build and Deploy to Firebase
+name: Deploy to Firebase Hosting
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_and_deploy:
+  deploy_hosting:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -18,36 +18,27 @@ jobs:
           node-version: 18
           cache: 'npm'
           cache-dependency-path: react-pwa/package-lock.json
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: react-pwa/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('react-pwa/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
+      
       - name: Install dependencies
         working-directory: ./react-pwa
-        run: npm ci --prefer-offline --no-audit
+        run: npm ci --legacy-peer-deps
+      
+      - name: Run tests
+        working-directory: ./react-pwa
+        run: |
+          npm run test -- --watchAll=false --passWithNoTests
 
-      - name: Build React app
+      - name: Build
         working-directory: ./react-pwa
         env:
           CI: false # Prevents treating warnings as errors
         run: npm run build
-        
-      - name: Cache build output
-        uses: actions/cache@v3
-        with:
-          path: react-pwa/build
-          key: ${{ runner.os }}-build-${{ github.sha }}
 
-      - name: Deploy to Firebase
+      - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAHARDIKA }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
           projectId: mahardika-59eee
-          entryPoint: ./react-pwa
+          entryPoint: './react-pwa'

@@ -1,6 +1,7 @@
+# Workflow file refreshed to fix 'on:' event trigger error
 name: Deploy to Firebase Hosting on PR
 
-on: 
+on:
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]

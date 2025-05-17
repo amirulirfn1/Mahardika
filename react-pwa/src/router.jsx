@@ -6,7 +6,7 @@ import { PortalLayout } from './layouts/PortalLayout';
 import ErrorBoundary from './components/ErrorBoundary'; // Add this import
 
 // Protected Route component for role-based access
-function ProtectedRoute({ roles, redirectTo = '/unauthorized' }) {
+function ProtectedRoute({ roles, redirectTo = '/unauthorized', children }) {
   const { currentUser, loading, userRole, isAdmin, isStaff } = useAuth();
   const location = useLocation();
 
@@ -56,8 +56,8 @@ function ProtectedRoute({ roles, redirectTo = '/unauthorized' }) {
   }
 
   console.log('ProtectedRoute - Access granted');
-  // Render the child routes if authorized
-  return <Outlet />;
+  // Render the children or outlet based on how it's used
+  return children || <Outlet />;
 }
 
 // Public route component (for sign-in, etc.)
@@ -198,56 +198,49 @@ export function AppRouter() {
         {/* Public Routes - Only accessible when not logged in */}
         <Route element={<PublicRoute restricted={true} />}>
           <Route path="/signin" element={<SignInPage />} />
+          {/* Add any other auth-related routes here */}
           
-          {/* Redirect all sign-in related paths to /signin */}
-          {signInPaths.map((path, index) => (
-            path !== '/signin' && (
-              <Route 
-                key={`signin-redirect-${index}`} 
-                path={path} 
-                element={<Navigate to="/signin" replace />} 
-              />
-            )
+          {/* Redirect any other sign-in related paths to /signin */}
+          {signInPaths.filter(p => p !== '/signin').map(path => (
+            <Route key={path} path={path} element={<Navigate to="/signin" replace />} />
           ))}
         </Route>
         
+        {/* Root path handling */}
+        <Route path="/" element={<AuthRedirect />} />
+        
+        {/* Special pages - no auth required */}
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="/not-found" element={<NotFoundPage />} />
         
-        {/* Root route - Redirect based on authentication and role */}
+        {/* Dashboard Routes - Only accessible to admin/staff */}
         <Route 
-          path="/" 
+          path="/dashboard" 
           element={
-            <ProtectedRoute>
-              <AuthRedirect />
+            <ProtectedRoute roles={['admin', 'staff']}>
+              <DashboardLayout />
             </ProtectedRoute>
-          } 
-        />
-        
-        {/* Admin/Staff Routes - Only accessible to admin and staff */}
-        <Route element={<ProtectedRoute roles={['admin', 'staff']} />}>
-          <Route path="/dashboard" element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="home" element={<DashboardHome />} />
-            {/* Add more dashboard routes here */}
-          </Route>
+          }
+        >
+          <Route index element={<DashboardHome />} />
+          {/* Add more dashboard routes here */}
         </Route>
         
         {/* Portal Routes - Accessible to all authenticated users */}
-        <Route path="/portal" element={
-          <ProtectedRoute>
-            <PortalLayout />
-          </ProtectedRoute>
-        }>
+        <Route 
+          path="/portal" 
+          element={
+            <ProtectedRoute>
+              <PortalLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<PortalHome />} />
           {/* Add more portal routes here */}
         </Route>
         
         {/* Catch-all route */}
-        <Route path="*" element={
-          <ProtectedRoute>
-            <Navigate to="/" replace />
-          </ProtectedRoute>
-        } />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
     </React.Suspense>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,10 +19,18 @@ export function Footer() {
                   <strong>Email:</strong> info@example.com<br />
                 </p>
                 <div className="social-links mt-3">
-                  <a href="#" className="twitter"><i className="bi bi-twitter"></i></a>
-                  <a href="#" className="facebook"><i className="bi bi-facebook"></i></a>
-                  <a href="#" className="instagram"><i className="bi bi-instagram"></i></a>
-                  <a href="#" className="linkedin"><i className="bi bi-linkedin"></i></a>
+                  <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="twitter">
+                    <i className="bi bi-twitter"></i>
+                  </a>
+                  <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="facebook">
+                    <i className="bi bi-facebook"></i>
+                  </a>
+                  <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" className="instagram">
+                    <i className="bi bi-instagram"></i>
+                  </a>
+                  <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="linkedin">
+                    <i className="bi bi-linkedin"></i>
+                  </a>
                 </div>
               </div>
             </div>

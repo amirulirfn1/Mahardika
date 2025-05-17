@@ -144,13 +144,13 @@ function Dashboard() {
             </ul>
           </li>
           <li className="nav-item">
-            <Link to="/patients" className="nav-link collapsed">
+            <Link to="/patients" className="nav-link">
               <i className="bi bi-people"></i>
               <span>Patients</span>
             </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link collapsed" data-bs-target="#doctors-nav" data-bs-toggle="collapse" href="#">
+            <a className="nav-link collapsed" data-bs-target="#doctors-nav" data-bs-toggle="collapse" href="#doctors-nav">
               <i className="bi bi-person-badge"></i><span>Doctors</span><i className="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="doctors-nav" className="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -305,7 +305,7 @@ function Dashboard() {
                           <td><span className="text-primary">$64</span></td>
                         </tr>
                         <tr>
-                          <th scope="row"><a href="#">#2456</a></th>
+                          <th scope="row"><button type="button" className="btn btn-link p-0" onClick={(e) => handleNavigation(e, '/appointments/2456')}>#2456</button></th>
                           <td>Bridie Kessler</td>
                           <td>Eye Exam</td>
                           <td><span className="text-primary">$47</span></td>

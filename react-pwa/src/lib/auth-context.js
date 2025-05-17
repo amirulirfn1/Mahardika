@@ -30,7 +30,7 @@ export function AuthProvider({ children }) {
   // Check if user is admin based on email
   const isAdminEmail = useCallback((email) => {
     return email && adminEmails.includes(email);
-  }, []);
+  }, [adminEmails]);
 
   // Fetch user data from Firestore
   const fetchUserData = useCallback(async (user) => {

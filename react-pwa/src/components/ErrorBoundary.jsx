@@ -1,49 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ErrorFallback from '../ui/shared/components/ErrorFallback';
 
-class ErrorBoundary extends Component {
+class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: null, errorInfo: null };
+    this.resetError = this.resetError.bind(this);
   }
 
   static getDerivedStateFromError(error) {
-    return { hasError: true };
+    return { hasError: true, error };
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Error boundary caught:', error, errorInfo);
+    console.error('Error caught by boundary:', error, errorInfo);
+    this.setState({ errorInfo });
+    
+    // You could log this error to an error reporting service
+    // logErrorToService(error, errorInfo);
+  }
+  
+  resetError() {
+    this.setState({ hasError: false, error: null, errorInfo: null });
   }
 
   render() {
     if (this.state.hasError) {
-      return (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-          padding: '20px',
-          textAlign: 'center'
-        }}>
-          <h1>Something went wrong</h1>
-          <p>We're working on fixing this issue. Please try refreshing the page.</p>
-          <button 
-            onClick={() => window.location.reload()}
-            style={{
-              marginTop: '20px',
-              padding: '10px 20px',
-              fontSize: '16px',
-              cursor: 'pointer'
-            }}
-          >
-            Refresh Page
-          </button>
-        </div>
-      );
+      return <ErrorFallback error={this.state.error} resetErrorBoundary={this.resetError} />;
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 

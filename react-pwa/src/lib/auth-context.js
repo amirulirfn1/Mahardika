@@ -24,13 +24,12 @@ export function AuthProvider({ children }) {
   const [userRole, setUserRole] = useState(null);
   const [userData, setUserData] = useState(null);
 
-  // Admin emails that should always have admin access
-  const adminEmails = ['amirulirfan.utm@gmail.com'];
-
   // Check if user is admin based on email
   const isAdminEmail = useCallback((email) => {
+    // Admin emails that should always have admin access
+    const adminEmails = ['amirulirfan.utm@gmail.com'];
     return email && adminEmails.includes(email);
-  }, [adminEmails]);
+  }, []);
 
   // Fetch user data from Firestore
   const fetchUserData = useCallback(async (user) => {
@@ -50,40 +49,62 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     console.log('[DEBUG] AuthProvider - Setting up auth state listener');
+    
+    // Log initial state
+    console.log('[DEBUG] AuthProvider - Initial state:', { 
+      currentUser: currentUser ? 'Authenticated' : 'Not authenticated',
+      loading,
+      userRole,
+      userData: !!userData
+    });
+    
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log('[DEBUG] Auth state changed:', user ? 'User logged in' : 'No user');
+      console.log('[DEBUG] Auth state changed - User signed in:', user ? user.email : 'No user signed in');
+      
       if (user) {
-        // Check if user is admin by email
-        const isAdmin = isAdminEmail(user.email);
-        console.log('[DEBUG] User email:', user.email, 'Is admin:', isAdmin);
-        
-        // Get user data from Firestore
-        console.log('[DEBUG] Fetching user data for UID:', user.uid);
-        const userData = await fetchUserData(user);
-        console.log('[DEBUG] User data from Firestore:', userData);
-        setUserData(userData);
-        
-        // Set user role (prioritize Firestore role, fallback to email check)
-        if (userData && userData.role) {
-          setUserRole(userData.role);
-        } else if (isAdmin) {
-          setUserRole('admin');
-        } else {
-          setUserRole('user');
+        console.log('[DEBUG] Auth state changed - User signed in:', user.email);
+        try {
+          const userData = await fetchUserData(user);
+          console.log('[DEBUG] Fetched user data:', userData);
+          
+          // Set user role based on email or user data
+          if (isAdminEmail(user.email) || (userData && userData.role === 'admin')) {
+            setUserRole('admin');
+          } else if (userData && userData.role) {
+            setUserRole(userData.role);
+          } else {
+            setUserRole('user');
+          }
+          
+          setUserData(userData);
+          setCurrentUser({
+            ...user,
+            userRole: userRole || 'No role set',
+            userData: !!userData
+          });
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          setUserRole(null);
+          setUserData(null);
+          setCurrentUser(null);
         }
       } else {
+        console.log('[DEBUG] Auth state changed - No user signed in');
+        setCurrentUser(null);
         setUserRole(null);
         setUserData(null);
       }
-      setCurrentUser(user);
       setLoading(false);
     });
-
-    return unsubscribe;
+    
+    return () => {
+      console.log('[DEBUG] AuthProvider - Cleaning up auth state listener');
+      unsubscribe();
+    };
   }, [fetchUserData, isAdminEmail]);
 
   // Sign in with email and password
-  const loginWithEmail = async (email, password) => {
+  const signInWithEmail = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       return userCredential.user;
@@ -92,6 +113,9 @@ export function AuthProvider({ children }) {
       throw new Error(error.message || 'Failed to sign in');
     }
   };
+  
+  // Alias for backward compatibility
+  const loginWithEmail = signInWithEmail;
 
   // Sign up with email and password
   const signUpWithEmail = async (email, password, displayName) => {
@@ -122,27 +146,10 @@ export function AuthProvider({ children }) {
   };
 
   // Sign in with Google
-  const loginWithGoogle = async () => {
+  const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      
-      // Check if user exists in Firestore
-      const userDoc = await getDoc(doc(db, 'users', user.uid));
-      
-      if (!userDoc.exists()) {
-        // Create user document if it doesn't exist
-        await setDoc(doc(db, 'users', user.uid), {
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName || '',
-          photoURL: user.photoURL || '',
-          role: isAdminEmail(user.email) ? 'admin' : 'user',
-          createdAt: new Date().toISOString()
-        });
-      }
-      
-      return user;
+      return result.user;
     } catch (error) {
       console.error('Error signing in with Google:', error);
       throw new Error(error.message || 'Failed to sign in with Google');
@@ -150,7 +157,7 @@ export function AuthProvider({ children }) {
   };
 
   // Sign out
-  const logoutUser = async () => {
+  const signOutUser = async () => {
     try {
       await signOut(auth);
     } catch (error) {
@@ -158,6 +165,9 @@ export function AuthProvider({ children }) {
       throw new Error(error.message || 'Failed to sign out');
     }
   };
+  
+  // Alias for backward compatibility
+  const logout = signOutUser;
 
   const value = {
     currentUser,
@@ -167,15 +177,17 @@ export function AuthProvider({ children }) {
     isAdmin: userRole === 'admin' || isAdminEmail(currentUser?.email),
     isStaff: userRole === 'staff',
     isCustomer: userRole === 'customer' || userRole === 'user',
-    loginWithEmail,
+    loginWithEmail, // deprecated, use signInWithEmail instead
+    signInWithEmail,
+    signInWithGoogle,
     signUpWithEmail,
-    loginWithGoogle,
-    logout: logoutUser
+    logout, // deprecated, use signOutUser instead
+    signOut: signOutUser,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }

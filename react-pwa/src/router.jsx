@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from './lib/auth-context';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { PortalLayout } from './layouts/PortalLayout';
+import ErrorBoundary from './components/ErrorBoundary'; // Add this import
 
 // Protected Route component for role-based access
 function ProtectedRoute({ roles, redirectTo = '/unauthorized' }) {
@@ -37,9 +38,9 @@ function ProtectedRoute({ roles, redirectTo = '/unauthorized' }) {
     );
   }
 
-  // Redirect to login if not authenticated
+  // Redirect to sign-in if not authenticated
   if (!currentUser) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/signin" state={{ from: location }} replace />;
   }
 
   // Check if user has required role
@@ -59,13 +60,13 @@ function ProtectedRoute({ roles, redirectTo = '/unauthorized' }) {
   return <Outlet />;
 }
 
-// Public route component (for login, etc.)
+// Public route component (for sign-in, etc.)
 function PublicRoute({ restricted = false }) {
   const { currentUser } = useAuth();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
 
-  // If user is logged in and tries to access a restricted route (like login)
+  // If user is signed in and tries to access a restricted route (like sign-in)
   if (currentUser && restricted) {
     return <Navigate to={from} replace />;
   }
@@ -80,7 +81,7 @@ const lazyLoad = (path) => {
 
 // Paths relative to src directory
 const paths = {
-  login: 'ui/shared/pages/LoginPage',
+  signin: 'ui/shared/pages/SignInPage',
   unauthorized: 'ui/shared/pages/UnauthorizedPage',
   notFound: 'ui/shared/pages/NotFoundPage',
   dashboardHome: 'ui/dashboard/pages/DashboardHome',
@@ -88,39 +89,55 @@ const paths = {
   dashboard: 'ui/portal/pages/Dashboard', // Points to the index.js in Dashboard folder
 };
 
-// Lazy load pages for better performance
-const LoginPage = lazyLoad(paths.login);
-const UnauthorizedPage = lazyLoad(paths.unauthorized);
-const NotFoundPage = lazyLoad(paths.notFound);
+// List of all sign-in related paths that should redirect to /signin
+const signInPaths = [
+  '/signin',
+  '/sign-in',
+  '/auth/signin',
+  '/account/signin'
+];
+
+// Lazy load pages for better performance with error boundaries
+const withErrorBoundary = (Component) => (props) => (
+  <ErrorBoundary>
+    <Component {...props} />
+  </ErrorBoundary>
+);
+
+const SignInPage = withErrorBoundary(lazyLoad(paths.signin));
+const UnauthorizedPage = withErrorBoundary(lazyLoad(paths.unauthorized));
+const NotFoundPage = withErrorBoundary(lazyLoad(paths.notFound));
 
 // Dashboard pages
-const DashboardHome = lazyLoad(paths.dashboardHome);
-const Dashboard = lazyLoad(paths.dashboard);
+const DashboardHome = withErrorBoundary(lazyLoad(paths.dashboardHome));
+const Dashboard = withErrorBoundary(lazyLoad(paths.dashboard));
 // Import other dashboard pages as needed
 
 // Portal pages
-const PortalHome = lazyLoad(paths.portalHome);
+const PortalHome = withErrorBoundary(lazyLoad(paths.portalHome));
 // Import other portal pages as needed
 
 // Auth redirect component
 function AuthRedirect() {
   const { currentUser, loading, userRole, isAdmin, isStaff } = useAuth();
   const location = useLocation();
+  const from = location.state?.from;
 
   // Debug logging
-  console.log('AuthRedirect - User:', {
-    currentUser: !!currentUser,
+  console.log('[DEBUG] AuthRedirect - Auth state:', {
+    hasUser: !!currentUser,
     loading,
     userRole,
     isAdmin,
     isStaff,
     email: currentUser?.email,
-    pathname: location.pathname
+    pathname: location.pathname,
+    from: from?.pathname
   });
 
   // Show loading state while auth is being checked
   if (loading) {
-    console.log('AuthRedirect - Auth state loading...');
+    console.log('[DEBUG] AuthRedirect - Auth state loading...');
     return (
       <div style={{
         display: 'flex',
@@ -128,38 +145,70 @@ function AuthRedirect() {
         alignItems: 'center',
         height: '100vh',
         fontSize: '18px',
-        color: '#4a5568'
+        backgroundColor: '#f8f9fa',
+        color: '#2c3e50'
       }}>
         <div>Loading your dashboard...</div>
       </div>
     );
   }
 
-  // If no user is logged in, redirect to login
+  // If no user is signed in, redirect to sign-in
   if (!currentUser) {
-    console.log('AuthRedirect - No user, redirecting to login');
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    console.log('[DEBUG] AuthRedirect - No user, redirecting to sign-in');
+    return <Navigate to="/signin" state={{ from: location }} replace />;
   }
   
-  // Get the redirect path from location state or default to dashboard/portal
-  let redirectPath = location.state?.from?.pathname || '/';
-  
-  // If coming from root path, determine where to redirect based on role
-  if (redirectPath === '/') {
-    redirectPath = isAdmin || isStaff ? '/dashboard' : '/portal';
+  // If we're at root, determine where to redirect based on role
+  if (location.pathname === '/') {
+    const redirectPath = (isAdmin || isStaff) ? '/dashboard' : '/portal';
+    console.log('[DEBUG] AuthRedirect - Root path detected, redirecting to:', redirectPath);
+    return <Navigate to={redirectPath} replace />;
   }
   
-  console.log('AuthRedirect - Redirecting to:', redirectPath);
-  return <Navigate to={redirectPath} replace />;
+  // If we have a 'from' location, go there (for example after login)
+  if (from && from.pathname !== '/signin' && from.pathname !== '/') {
+    console.log('[DEBUG] AuthRedirect - Redirecting to previous location:', from.pathname);
+    return <Navigate to={from.pathname} replace />;
+  }
+  
+  // Default behavior for other cases - stay where you are
+  console.log('[DEBUG] AuthRedirect - No redirection needed');
+  return null;
 }
 
 export function AppRouter() {
+  console.log('[DEBUG] AppRouter - Rendering router');
+  
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
+    <React.Suspense fallback={
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        fontSize: '18px',
+        backgroundColor: '#f8f9fa',
+        color: '#2c3e50'
+      }}>
+        <div>Loading application...</div>
+      </div>
+    }>
       <Routes>
         {/* Public Routes - Only accessible when not logged in */}
         <Route element={<PublicRoute restricted={true} />}>
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signin" element={<SignInPage />} />
+          
+          {/* Redirect all sign-in related paths to /signin */}
+          {signInPaths.map((path, index) => (
+            path !== '/signin' && (
+              <Route 
+                key={`signin-redirect-${index}`} 
+                path={path} 
+                element={<Navigate to="/signin" replace />} 
+              />
+            )
+          ))}
         </Route>
         
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
@@ -184,15 +233,21 @@ export function AppRouter() {
         </Route>
         
         {/* Portal Routes - Accessible to all authenticated users */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/portal" element={<PortalLayout />}>
-            <Route index element={<PortalHome />} />
-            {/* Add more portal routes here */}
-          </Route>
+        <Route path="/portal" element={
+          <ProtectedRoute>
+            <PortalLayout />
+          </ProtectedRoute>
+        }>
+          <Route index element={<PortalHome />} />
+          {/* Add more portal routes here */}
         </Route>
         
         {/* Catch-all route */}
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*" element={
+          <ProtectedRoute>
+            <Navigate to="/" replace />
+          </ProtectedRoute>
+        } />
       </Routes>
     </React.Suspense>
   );

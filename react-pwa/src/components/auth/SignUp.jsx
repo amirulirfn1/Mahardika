@@ -13,7 +13,7 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
-  const { signUpWithEmail, loginWithGoogle } = useAuth();
+  const { signUpWithEmail, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -38,7 +38,7 @@ const SignUp = () => {
   const handleGoogleSignUp = async () => {
     try {
       setLoading(true);
-      await loginWithGoogle();
+      await signInWithGoogle();
       navigate('/');
     } catch (err) {
       setError(err.message || 'Failed to sign up with Google');
@@ -148,7 +148,7 @@ const SignUp = () => {
         </form>
         
         <div className="auth-footer">
-          Already have an account? <Link to="/signin">Sign in</Link>
+          <p>Already have an account? <Link to="/signin">Log in</Link></p>
         </div>
       </div>
     </div>

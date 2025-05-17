@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Import CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'aos/dist/aos.css';
 import 'boxicons/css/boxicons.min.css';
@@ -12,14 +11,51 @@ import 'remixicon/fonts/remixicon.css';
 import 'simple-datatables/dist/style.css';
 import '../../../../../src/assets/portal/css/niceadmin-style.css';
 
-function Dashboard() {
+// Error boundary for the dashboard
+class DashboardErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Dashboard Error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="alert alert-danger m-3">
+          <h4>Something went wrong with the dashboard.</h4>
+          <p>Please refresh the page or contact support if the problem persists.</p>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+function DashboardContent() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [timeRange, setTimeRange] = useState('today');
+  const navigate = useNavigate();
 
   // Toggle sidebar
-  const toggleSidebar = () => {
-    setSidebarCollapsed(!sidebarCollapsed);
+  const toggleSidebar = useCallback(() => {
+    setSidebarCollapsed(prev => !prev);
     document.body.classList.toggle('toggle-sidebar');
-  };
+  }, []);
+
+  // Handle navigation
+  const handleNavigation = useCallback((e, path) => {
+    e.preventDefault();
+    if (path) navigate(path);
+  }, [navigate]);
 
   // Initialize tooltips
   useEffect(() => {
@@ -64,9 +100,16 @@ function Dashboard() {
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
             <li className="nav-item d-block d-lg-none">
-              <a className="nav-link nav-icon search-bar-toggle" href="#">
+              <button 
+                type="button" 
+                className="nav-link nav-icon search-bar-toggle border-0 bg-transparent" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('.search-bar').classList.toggle('search-bar-show');
+                }}
+              >
                 <i className="bi bi-search"></i>
-              </a>
+              </button>
             </li>
 
             <li className="nav-item dropdown">
@@ -260,7 +303,7 @@ function Dashboard() {
                           <div className="activite-label">56 min</div>
                           <i className='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                           <div className="activity-content">
-                            Appointment with <a href="#" className="fw-bold text-dark">Dr. Smith</a> has been confirmed
+                            Appointment with <span className="fw-bold text-dark">Dr. Smith</span> has been confirmed
                           </div>
                         </div>
                       </div>
@@ -275,14 +318,28 @@ function Dashboard() {
               {/* Recent Sales */}
               <div className="card">
                 <div className="filter">
-                  <a className="icon" href="#" data-bs-toggle="dropdown"><i className="bi bi-three-dots"></i></a>
+                  <button type="button" className="icon border-0 bg-transparent" data-bs-toggle="dropdown">
+                    <i className="bi bi-three-dots"></i>
+                  </button>
                   <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li className="dropdown-header text-start">
                       <h6>Filter</h6>
                     </li>
-                    <li><a className="dropdown-item" href="#">Today</a></li>
-                    <li><a className="dropdown-item" href="#">This Month</a></li>
-                    <li><a className="dropdown-item" href="#">This Year</a></li>
+                    <li>
+                      <button type="button" className="dropdown-item" onClick={() => setTimeRange('today')}>
+                        Today
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" className="dropdown-item" onClick={() => setTimeRange('month')}>
+                        This Month
+                      </button>
+                    </li>
+                    <li>
+                      <button type="button" className="dropdown-item" onClick={() => setTimeRange('year')}>
+                        This Year
+                      </button>
+                    </li>
                   </ul>
                 </div>
                 <div className="card-body pb-0">
@@ -299,7 +356,7 @@ function Dashboard() {
                       </thead>
                       <tbody>
                         <tr>
-                          <th scope="row"><a href="#">#2457</a></th>
+                          <th scope="row"><button type="button" className="btn btn-link p-0" onClick={(e) => handleNavigation(e, '/appointments/2457')}>#2457</button></th>
                           <td>Brandon Jacob</td>
                           <td>Dental Checkup</td>
                           <td><span className="text-primary">$64</span></td>
@@ -332,4 +389,11 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+// Wrap DashboardContent with error boundary
+export default function Dashboard() {
+  return (
+    <DashboardErrorBoundary>
+      <DashboardContent />
+    </DashboardErrorBoundary>
+  );
+}

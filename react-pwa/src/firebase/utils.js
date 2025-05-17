@@ -20,9 +20,12 @@ import {
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Auth functions
-export const loginWithEmail = (email, password) => {
+export const signInWithEmail = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
+
+// Alias for backward compatibility
+export const loginWithEmail = signInWithEmail;
 
 export const registerWithEmail = async (email, password, displayName) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -30,9 +33,12 @@ export const registerWithEmail = async (email, password, displayName) => {
   return userCredential;
 };
 
-export const logoutUser = () => {
+export const signOutUser = () => {
   return signOut(auth);
 };
+
+// Alias for backward compatibility
+export const logoutUser = signOutUser;
 
 export const resetPassword = (email) => {
   return sendPasswordResetEmail(auth, email);

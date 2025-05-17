@@ -6,8 +6,8 @@ export function RequireAuth({ children, allowedRoles = [] }) {
   const location = useLocation();
 
   if (!currentUser) {
-    // Redirect to login page if not authenticated
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    // Redirect to sign-in page if not authenticated
+    return <Navigate to="/signin" state={{ from: location }} replace />;
   }
 
   if (allowedRoles.length > 0 && !allowedRoles.includes(userRole)) {

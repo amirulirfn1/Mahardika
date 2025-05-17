@@ -11,7 +11,7 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
-  const { loginWithEmail, loginWithGoogle } = useAuth();
+  const { signInWithEmail, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
@@ -22,7 +22,7 @@ const SignIn = () => {
     setLoading(true);
     
     try {
-      await loginWithEmail(email, password);
+      await signInWithEmail(email, password);
       navigate(from, { replace: true });
     } catch (err) {
       setError(err.message || 'Failed to sign in');
@@ -33,7 +33,7 @@ const SignIn = () => {
   const handleGoogleSignIn = async () => {
     try {
       setLoading(true);
-      await loginWithGoogle();
+      await signInWithGoogle();
       navigate(from, { replace: true });
     } catch (err) {
       setError(err.message || 'Failed to sign in with Google');
@@ -116,7 +116,7 @@ const SignIn = () => {
         </form>
         
         <div className="auth-footer">
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          <p>Don't have an account? <Link to="/signup">Create an account</Link></p>
         </div>
       </div>
     </div>

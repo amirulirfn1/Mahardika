@@ -1,8 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer id="footer">
       <div className="footer-top">
@@ -49,11 +48,11 @@ export function Footer() {
             <div className="col-lg-3 col-md-6 footer-links">
               <h4>Our Services</h4>
               <ul>
-                <li><i className="bx bx-chevron-right"></i> <a href="#">Medical Checkup</a></li>
-                <li><i className="bx bx-chevron-right"></i> <a href="#">Dental Care</a></li>
-                <li><i className="bx bx-chevron-right"></i> <a href="#">Cardiology</a></li>
-                <li><i className="bx bx-chevron-right"></i> <a href="#">Diagnosis</a></li>
-                <li><i className="bx bx-chevron-right"></i> <a href="#">Ambulance Service</a></li>
+                <li><i className="bx bx-chevron-right"></i> <button type="button" className="btn btn-link p-0 border-0 bg-transparent text-start">Medical Checkup</button></li>
+                <li><i className="bx bx-chevron-right"></i> <button type="button" className="btn btn-link p-0 border-0 bg-transparent text-start">Dental Care</button></li>
+                <li><i className="bx bx-chevron-right"></i> <button type="button" className="btn btn-link p-0 border-0 bg-transparent text-start">Cardiology</button></li>
+                <li><i className="bx bx-chevron-right"></i> <button type="button" className="btn btn-link p-0 border-0 bg-transparent text-start">Diagnosis</button></li>
+                <li><i className="bx bx-chevron-right"></i> <button type="button" className="btn btn-link p-0 border-0 bg-transparent text-start">Ambulance Service</button></li>
               </ul>
             </div>
 
@@ -74,7 +73,7 @@ export function Footer() {
           &copy; Copyright <strong><span>Mahardika</span></strong>. All Rights Reserved
         </div>
         <div className="credits">
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          Designed by <a href="https://bootstrapmade.com/" target="_blank" rel="noopener noreferrer">BootstrapMade</a>
         </div>
       </div>
     </footer>

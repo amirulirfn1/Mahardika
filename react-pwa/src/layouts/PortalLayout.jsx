@@ -1,33 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { RequireAuth } from '../lib/RequireAuth';
+import { Box } from '@mui/material';
 import { Header } from '../ui/portal/components/Header';
 import { Footer } from '../ui/portal/components/Footer';
+import Topbar from '../ui/portal/components/Topbar';
 
 export function PortalLayout() {
-  // Add page-specific classes to body
-  useEffect(() => {
-    document.body.classList.add('index-page');
-    
-    return () => {
-      document.body.classList.remove('index-page');
-    };
-  }, []);
-
   return (
-    <RequireAuth>
-      <div className="d-flex flex-column min-vh-100">
-        {/* Header */}
-        <Header />
-        
-        {/* Main Content */}
-        <main className="flex-grow-1">
-          <Outlet />
-        </main>
-        
-        {/* Footer */}
-        <Footer />
-      </div>
-    </RequireAuth>
+    <Box className="portal-layout" sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      {/* Topbar with contact info and social links */}
+      <Topbar />
+      
+      {/* Main Header with navigation */}
+      <Header />
+      
+      {/* Main Content */}
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <Outlet />
+      </Box>
+      
+      {/* Footer */}
+      <Footer />
+    </Box>
   );
 }

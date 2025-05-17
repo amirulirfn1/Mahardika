@@ -5,12 +5,12 @@ import SignIn from '../../../components/auth/SignIn';
 // Import CSS from src directory
 import '../../../../src/assets/dashboard/css/style.css';
 
-function LoginPage() {
+function SignInPage() {
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
   
   return (
-    <div className="login-page">
+    <div className="signin-page">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-8 col-lg-6">
@@ -22,4 +22,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignInPage;

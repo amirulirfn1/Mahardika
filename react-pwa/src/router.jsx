@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from './lib/auth-context';
 import { DashboardLayout } from './layouts/DashboardLayout';
@@ -10,40 +10,47 @@ function ProtectedRoute({ roles, redirectTo = '/unauthorized' }) {
   const location = useLocation();
 
   // Debug logging
-  console.log('ProtectedRoute - Auth State:', {
-    currentUser: !!currentUser,
-    loading,
-    userRole,
-    isAdmin,
-    isStaff,
-    requiredRoles: roles,
-    hasRequiredRole: roles ? roles.some(role => {
-      if (role === 'admin') return isAdmin;
-      if (role === 'staff') return isStaff;
-      return userRole === role;
-    }) : true
-  });
+  useEffect(() => {
+    console.log('[DEBUG] ProtectedRoute - Auth State:', {
+      currentUser: !!currentUser,
+      loading,
+      userRole,
+      isAdmin,
+      isStaff,
+      requiredRoles: roles,
+      path: window.location.pathname
+    });
+  }, [currentUser, loading, userRole, isAdmin, isStaff, roles]);
 
   // Show loading state while auth is being checked
   if (loading) {
-    console.log('ProtectedRoute - Auth state loading...');
-    return <div>Loading...</div>;
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        fontSize: '24px'
+      }}>
+        <div>Verifying authentication...</div>
+      </div>
+    );
   }
 
   // Redirect to login if not authenticated
   if (!currentUser) {
-    console.log('ProtectedRoute - No user, redirecting to login');
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   // Check if user has required role
-  if (roles && !roles.some(role => {
+  const hasRequiredRole = !roles || roles.some(role => {
     if (role === 'admin') return isAdmin;
     if (role === 'staff') return isStaff;
     return userRole === role;
-  })) {
-    console.log('ProtectedRoute - Unauthorized role, redirecting to:', redirectTo);
-    // Redirect to unauthorized or a different route if role doesn't match
+  });
+
+  if (!hasRequiredRole) {
+    console.warn(`Access denied. Required roles: ${roles}, User role: ${userRole}`);
     return <Navigate to={redirectTo} state={{ from: location }} replace />;
   }
 
@@ -114,7 +121,18 @@ function AuthRedirect() {
   // Show loading state while auth is being checked
   if (loading) {
     console.log('AuthRedirect - Auth state loading...');
-    return <div>Loading...</div>;
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        fontSize: '18px',
+        color: '#4a5568'
+      }}>
+        <div>Loading your dashboard...</div>
+      </div>
+    );
   }
 
   // If no user is logged in, redirect to login
@@ -124,21 +142,15 @@ function AuthRedirect() {
   }
   
   // Get the redirect path from location state or default to dashboard/portal
-  const from = location.state?.from?.pathname || 
-              (isAdmin || isStaff ? 
-                (location.pathname === '/' ? '/dashboard' : location.pathname) : 
-                (location.pathname === '/' ? '/portal' : location.pathname)
-              );
+  let redirectPath = location.state?.from?.pathname || '/';
   
-  // If user is admin or staff, redirect to dashboard (or requested path)
-  if (isAdmin || isStaff) {
-    console.log('AuthRedirect - Admin/Staff detected, redirecting to:', from);
-    return <Navigate to={from} replace />;
+  // If coming from root path, determine where to redirect based on role
+  if (redirectPath === '/') {
+    redirectPath = isAdmin || isStaff ? '/dashboard' : '/portal';
   }
   
-  // For all other authenticated users, redirect to portal (or requested path)
-  console.log('AuthRedirect - Regular user, redirecting to:', from);
-  return <Navigate to={from} replace />;
+  console.log('AuthRedirect - Redirecting to:', redirectPath);
+  return <Navigate to={redirectPath} replace />;
 }
 
 export function AppRouter() {

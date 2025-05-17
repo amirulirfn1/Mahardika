@@ -1,6 +1,15 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { 
+  getAuth, 
+  GoogleAuthProvider, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signInWithPopup, 
+  signOut, 
+  updateProfile,
+  onAuthStateChanged 
+} from 'firebase/auth';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,6 +26,7 @@ const firebaseConfig = {
 let app;
 let auth;
 let db;
+let googleProvider;
 
 try {
   // Check if Firebase app is already initialized
@@ -31,6 +41,12 @@ try {
   // Initialize auth and firestore
   auth = getAuth(app);
   db = getFirestore(app);
+  googleProvider = new GoogleAuthProvider();
+  
+  // Add Google scopes if needed
+  googleProvider.addScope('profile');
+  googleProvider.addScope('email');
+  
 } catch (error) {
   console.error('Firebase initialization error:', error);
   // Fallback initialization in case of any errors
@@ -38,8 +54,23 @@ try {
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
     db = getFirestore(app);
+    googleProvider = new GoogleAuthProvider();
   }
 }
 
-export { auth, db };
+export { 
+  auth, 
+  db, 
+  googleProvider,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+  onAuthStateChanged,
+  doc,
+  getDoc,
+  setDoc
+};
+
 export default app;

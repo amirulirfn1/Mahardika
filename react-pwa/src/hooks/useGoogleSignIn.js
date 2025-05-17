@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { auth, googleProvider, signInWithPopup, createUserProfileDocument } from '../firebase';
+import { auth } from '../lib/firebase';
+import { createUserProfileDocument } from '../lib/user-utils';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 export function useGoogleSignIn() {
   const [loading, setLoading] = useState(false);
@@ -10,8 +12,11 @@ export function useGoogleSignIn() {
     setError(null);
     
     try {
+      // Create a new Google provider instance
+      const provider = new GoogleAuthProvider();
+      
       // Sign in with Google
-      const result = await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, provider);
       const { user } = result;
       
       // Create or update user profile in Firestore

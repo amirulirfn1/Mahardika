@@ -1,16 +1,38 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Admin emails
+    function getAdminEmails() {
+      return ['amirulirfan.utm@gmail.com'];
+    }
+    
+    function isAdminEmail(email) {
+      return email in getAdminEmails();
+    }
+    
     // Helper functions
     function isSignedIn()    { return request.auth.uid != null; }
-    function isAdmin()       { return request.auth.token.role == 'admin'; }
+    function isAdmin()       { return isAdminEmail(request.auth.token.email) || request.auth.token.role == 'admin'; }
     function isStaff()       { return request.auth.token.role == 'staff'; }
     function isCustomer()    { return request.auth.token.role == 'customer'; }
 
     // Users: read own or any by admin; write only by admin
     match /users/{uid} {
-      allow read:  if isSignedIn() && (request.auth.uid == uid || isAdmin());
-      allow write: if isAdmin();
+      // Allow read if signed in and either reading own data or is admin
+      allow read: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+      
+      // Allow create if user doesn't exist yet and either:
+      // - Creating own document with matching UID, or
+      // - Is admin creating any user
+      allow create: if 
+        (!exists(/databases/$(database)/documents/users/$(uid)) &&
+         ((request.auth.uid == uid && request.resource.id == uid) || isAdmin()));
+      
+      // Allow update if admin or user updating own data
+      allow update: if isAdmin() || request.auth.uid == uid;
+      
+      // Only allow admins to delete users
+      allow delete: if isAdmin();
     }
 
     // Vehicles: customers CRUD their own; admin can do anything

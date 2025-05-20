@@ -4,28 +4,29 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 
-// Your web app's Firebase configuration
+// Firebase configuration using environment variables
 const firebaseConfig = {
-  // Use environment variables if available (development), otherwise use hardcoded values (production)
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyD5JKcjbnU-fNWyR4Or8fqD08O-_uMvf9Q",
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "mahardika-59eee.firebaseapp.com",
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "mahardika-59eee",
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "mahardika-59eee.firebasestorage.app",
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "121241559543",
-  appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:121241559543:web:c6c137853403a833eecef2",
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || "G-KE2VXWQ3MS"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-// Log Firebase initialization for debugging
-console.log('[Firebase] Initializing with config:', {
-  apiKey: firebaseConfig.apiKey ? "[HIDDEN]" : "[MISSING]",
-  authDomain: firebaseConfig.authDomain,
-  projectId: firebaseConfig.projectId,
-  storageBucket: firebaseConfig.storageBucket,
-  messagingSenderId: firebaseConfig.messagingSenderId,
-  appId: firebaseConfig.appId ? "[PRESENT]" : "[MISSING]",
-  measurementId: firebaseConfig.measurementId
-});
+// Check if configuration is complete
+const missingKeys = Object.entries(firebaseConfig)
+  .filter(([_, value]) => !value)
+  .map(([key]) => key);
+
+// Log configuration status
+if (missingKeys.length > 0) {
+  console.warn(`[Firebase] Missing configuration keys: ${missingKeys.join(', ')}`);
+  console.warn('[Firebase] Please ensure environment variables are properly set');
+} else {
+  console.log('[Firebase] Configuration loaded successfully');
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

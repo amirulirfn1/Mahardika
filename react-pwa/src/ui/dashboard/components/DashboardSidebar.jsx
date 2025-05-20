@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../lib/auth-context';
 
-const DashboardSidebar = ({ toggleSidebar, isSidebarToggled }) => {
+const DashboardSidebar = () => {
   const location = useLocation();
-  const { currentUser, isAdmin } = useAuth();
+  const navigate = useNavigate();
+  const { currentUser, isAdmin, isStaff, userRole } = useAuth();
   
   // State for nested menu items
   const [openSubMenu, setOpenSubMenu] = useState({
     patients: false,
     appointments: false,
+    billing: false,
+    reports: false,
     settings: false
   });
   
@@ -21,12 +24,21 @@ const DashboardSidebar = ({ toggleSidebar, isSidebarToggled }) => {
     }));
   };
   
-  // Check if a route is active
+  // Enhanced check if a route is active - includes partial matches for better UX
   const isRouteActive = (route) => {
-    return location.pathname === route || location.pathname.startsWith(`${route}/`);
+    // Exact match
+    if (location.pathname === route) return true;
+    
+    // Parent route match (e.g., /dashboard/patients/new should activate the /dashboard/patients route)
+    if (route !== '/dashboard' && location.pathname.startsWith(`${route}/`)) return true;
+    
+    // Dashboard home should only be active on exact match
+    if (route === '/dashboard' && location.pathname !== '/dashboard') return false;
+    
+    return false;
   };
 
-  // Set active menu based on current route
+  // Set active menu based on current route - automatically expands relevant submenus
   useEffect(() => {
     // Extract the main section from the path (e.g. /dashboard/patients/new -> patients)
     const pathSegments = location.pathname.split('/');
@@ -34,22 +46,31 @@ const DashboardSidebar = ({ toggleSidebar, isSidebarToggled }) => {
       const mainSection = pathSegments[2];
       // Open the submenu for the active section
       if (mainSection && openSubMenu.hasOwnProperty(mainSection)) {
-        setOpenSubMenu(prev => ({
-          ...prev,
-          [mainSection]: true
-        }));
+        // Close all menus first, then open only the active one
+        const newOpenState = Object.keys(openSubMenu).reduce((acc, key) => {
+          acc[key] = key === mainSection;
+          return acc;
+        }, {});
+        
+        setOpenSubMenu(newOpenState);
       }
     }
   }, [location.pathname]);
 
   return (
-    <aside id="sidebar" className={`sidebar ${isSidebarToggled ? 'toggle-sidebar' : ''}`}>
+    <aside id="sidebar" className="sidebar">
       <ul className="sidebar-nav" id="sidebar-nav">
+        {/* Dashboard Logo for Mobile */}
+        <div className="sidebar-logo d-md-none text-center mb-3">
+          <Link to="/dashboard">
+            <img src="/assets/dashboard/img/logo.png" alt="Mahardika" className="img-fluid" style={{ maxHeight: '60px' }} />
+          </Link>
+        </div>
         
         {/* Dashboard */}
         <li className="nav-item">
           <Link 
-            className={`nav-link ${!isRouteActive('/dashboard') || location.pathname !== '/dashboard' ? 'collapsed' : ''}`}
+            className={`nav-link ${!isRouteActive('/dashboard') ? 'collapsed' : ''}`}
             to="/dashboard"
           >
             <i className="bi bi-grid"></i>
@@ -140,8 +161,80 @@ const DashboardSidebar = ({ toggleSidebar, isSidebarToggled }) => {
           </Link>
         </li>
 
+        {/* Billing Management */}
+        <li className="nav-item">
+          <a 
+            className={`nav-link ${!isRouteActive('/dashboard/billing') ? 'collapsed' : ''}`} 
+            onClick={() => handleSubMenuToggle('billing')}
+            data-bs-target="#billing-nav" 
+            data-bs-toggle="collapse" 
+            href="#"
+          >
+            <i className="bi bi-cash-coin"></i>
+            <span>Billing</span>
+            <i className={`bi bi-chevron-${openSubMenu.billing ? 'up' : 'down'} ms-auto`}></i>
+          </a>
+          <ul 
+            id="billing-nav" 
+            className={`nav-content collapse ${openSubMenu.billing ? 'show' : ''}`} 
+            data-bs-parent="#sidebar-nav"
+          >
+            <li>
+              <Link to="/dashboard/billing/invoices" className={isRouteActive('/dashboard/billing/invoices') ? 'active' : ''}>
+                <i className="bi bi-circle"></i><span>Invoices</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/billing/payments" className={isRouteActive('/dashboard/billing/payments') ? 'active' : ''}>
+                <i className="bi bi-circle"></i><span>Payments</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/billing/insurance" className={isRouteActive('/dashboard/billing/insurance') ? 'active' : ''}>
+                <i className="bi bi-circle"></i><span>Insurance</span>
+              </Link>
+            </li>
+          </ul>
+        </li>
+
+        {/* Reports and Analytics */}
+        <li className="nav-item">
+          <a 
+            className={`nav-link ${!isRouteActive('/dashboard/reports') ? 'collapsed' : ''}`} 
+            onClick={() => handleSubMenuToggle('reports')}
+            data-bs-target="#reports-nav" 
+            data-bs-toggle="collapse" 
+            href="#"
+          >
+            <i className="bi bi-bar-chart"></i>
+            <span>Reports</span>
+            <i className={`bi bi-chevron-${openSubMenu.reports ? 'up' : 'down'} ms-auto`}></i>
+          </a>
+          <ul 
+            id="reports-nav" 
+            className={`nav-content collapse ${openSubMenu.reports ? 'show' : ''}`} 
+            data-bs-parent="#sidebar-nav"
+          >
+            <li>
+              <Link to="/dashboard/reports/patient-stats" className={isRouteActive('/dashboard/reports/patient-stats') ? 'active' : ''}>
+                <i className="bi bi-circle"></i><span>Patient Statistics</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/reports/financial" className={isRouteActive('/dashboard/reports/financial') ? 'active' : ''}>
+                <i className="bi bi-circle"></i><span>Financial Reports</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/reports/operational" className={isRouteActive('/dashboard/reports/operational') ? 'active' : ''}>
+                <i className="bi bi-circle"></i><span>Operational Data</span>
+              </Link>
+            </li>
+          </ul>
+        </li>
+
         {/* Staff Management (Admin only) */}
-        {isAdmin && (
+        {(isAdmin || userRole === 'admin') && (
           <li className="nav-item">
             <Link 
               className={`nav-link ${!isRouteActive('/dashboard/staff') ? 'collapsed' : ''}`}
@@ -153,8 +246,21 @@ const DashboardSidebar = ({ toggleSidebar, isSidebarToggled }) => {
           </li>
         )}
 
+        {/* Inventory Management (Admin and Staff) */}
+        {(isAdmin || isStaff || userRole === 'admin' || userRole === 'staff') && (
+          <li className="nav-item">
+            <Link 
+              className={`nav-link ${!isRouteActive('/dashboard/inventory') ? 'collapsed' : ''}`}
+              to="/dashboard/inventory"
+            >
+              <i className="bi bi-box"></i>
+              <span>Inventory</span>
+            </Link>
+          </li>
+        )}
+
         {/* Divider */}
-        <li className="nav-heading">Pages</li>
+        <li className="nav-heading">User</li>
 
         {/* Profile */}
         <li className="nav-item">
@@ -203,15 +309,28 @@ const DashboardSidebar = ({ toggleSidebar, isSidebarToggled }) => {
           </ul>
         </li>
 
+        {/* Help */}
+        <li className="nav-item">
+          <Link className="nav-link collapsed" to="/help">
+            <i className="bi bi-question-circle"></i>
+            <span>Help & Support</span>
+          </Link>
+        </li>
+
         {/* Portal */}
         <li className="nav-item">
-          <Link 
-            className="nav-link collapsed"
-            to="/portal"
-          >
-            <i className="bi bi-window"></i>
-            <span>Go to Portal</span>
+          <Link className="nav-link collapsed" to="/portal">
+            <i className="bi bi-house-door"></i>
+            <span>Main Website</span>
           </Link>
+        </li>
+
+        {/* Version Information */}
+        <li className="sidebar-footer">
+          <div className="small text-muted d-flex justify-content-between" style={{ padding: '10px 15px' }}>
+            <div>Version 1.0.0</div>
+            <div>{new Date().getFullYear()} Mahardika</div>
+          </div>
         </li>
       </ul>
     </aside>

@@ -50,53 +50,64 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     console.log('[DEBUG] AuthProvider - Setting up auth state listener');
     
-    // Log initial state
-    console.log('[DEBUG] AuthProvider - Initial state:', { 
-      currentUser: currentUser ? 'Authenticated' : 'Not authenticated',
-      loading,
-      userRole,
-      userData: !!userData
-    });
-    
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      console.log('[DEBUG] Auth state changed - User signed in:', user ? user.email : 'No user signed in');
+    const handleAuthStateChanged = async (user) => {
+      console.log('[DEBUG] Auth state changed - User:', user ? user.email : 'No user');
       
       if (user) {
-        console.log('[DEBUG] Auth state changed - User signed in:', user.email);
+        console.log('[DEBUG] Processing user:', user.email);
         try {
           const userData = await fetchUserData(user);
           console.log('[DEBUG] Fetched user data:', userData);
           
-          // Set user role based on email or user data
+          // Determine user role
+          let role = 'user';
           if (isAdminEmail(user.email) || (userData && userData.role === 'admin')) {
-            setUserRole('admin');
+            role = 'admin';
           } else if (userData && userData.role) {
-            setUserRole(userData.role);
-          } else {
-            setUserRole('user');
+            role = userData.role;
           }
           
+          // Update all state in a single batch
+          setUserRole(role);
           setUserData(userData);
           setCurrentUser({
             ...user,
-            userRole: userRole || 'No role set',
-            userData: !!userData
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            userRole: role,
+            userData: userData || {}
           });
+          
+          console.log('[DEBUG] Updated user state:', { 
+            email: user.email, 
+            role,
+            hasUserData: !!userData 
+          });
+          
         } catch (error) {
-          console.error('Error fetching user data:', error);
+          console.error('Error in auth state change handler:', error);
+          // Reset state on error
           setUserRole(null);
           setUserData(null);
           setCurrentUser(null);
         }
       } else {
-        console.log('[DEBUG] Auth state changed - No user signed in');
+        console.log('[DEBUG] No user signed in, resetting state');
         setCurrentUser(null);
         setUserRole(null);
         setUserData(null);
       }
+      
+      // Only set loading to false after all state updates
       setLoading(false);
-    });
+    };
     
+    // Set up the auth state listener
+    const unsubscribe = onAuthStateChanged(auth, handleAuthStateChanged);
+    
+    // Cleanup function
     return () => {
       console.log('[DEBUG] AuthProvider - Cleaning up auth state listener');
       unsubscribe();

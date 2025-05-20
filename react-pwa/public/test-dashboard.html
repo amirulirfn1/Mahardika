@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Test Page</title>
+  <link rel="stylesheet" href="/assets/dashboard/css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .test-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    h1 {
+      color: #4154f1;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <h1>Dashboard Styles Test</h1>
+    
+    <div class="card">
+      <h2>Card Title</h2>
+      <p>This is a test card to check if the dashboard styles are loading correctly.</p>
+      <button class="btn btn-primary">Test Button</button>
+    </div>
+    
+    <div class="alert alert-success">
+      This is a success alert to test Bootstrap styles
+    </div>
+    
+    <div>
+      <h3>Test Results:</h3>
+      <div id="test-results">
+        <p>Testing styles...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Test if styles are loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const results = document.getElementById('test-results');
+      
+      // Test 1: Check if style.css is loaded
+      const styleTest = document.createElement('p');
+      const styleLink = Array.from(document.styleSheets).some(sheet => 
+        sheet.href && sheet.href.includes('style.css')
+      );
+      
+      styleTest.textContent = `Style.css loaded: ${styleLink ? '✅' : '❌'}`;
+      results.appendChild(styleTest);
+      
+      // Test 2: Check if Bootstrap classes are working
+      const bootstrapTest = document.createElement('p');
+      const testElement = document.createElement('div');
+      testElement.style.display = 'none';
+      testElement.className = 'd-flex';
+      document.body.appendChild(testElement);
+      const flexDisplay = window.getComputedStyle(testElement).display;
+      document.body.removeChild(testElement);
+      
+      bootstrapTest.textContent = `Bootstrap styles working: ${flexDisplay === 'flex' ? '✅' : '❌'}`;
+      results.appendChild(bootstrapTest);
+      
+      // Test 3: Check if custom styles are applied
+      const customTest = document.createElement('p');
+      const btn = document.querySelector('.btn');
+      const btnStyle = btn ? window.getComputedStyle(btn) : null;
+      const isCustomStyled = btnStyle && btnStyle.backgroundColor === 'rgb(65, 84, 241)';
+      
+      customTest.textContent = `Custom styles applied: ${isCustomStyled ? '✅' : '❌'}`;
+      results.appendChild(customTest);
+    });
+  </script>
+</body>
+</html>

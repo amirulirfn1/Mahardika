@@ -15,26 +15,7 @@
   function toggleScrolled() {
     const selectBody = document.querySelector('body');
     const selectHeader = document.querySelector('#header');
-
-    // If selectBody is null, we can't do anything. This is the primary error reported.
-    if (!selectBody) {
-      return;
-    }
-
-    // If selectHeader is null, the condition on its classList cannot be checked.
-    // The original logic implies if header doesn't have specific classes, or doesn't exist, function should return.
-    if (!selectHeader) {
-      return;
-    }
-    
-    // Original condition, now safe because selectHeader is not null
-    if (!selectHeader.classList.contains('scroll-up-sticky') && 
-        !selectHeader.classList.contains('sticky-top') && 
-        !selectHeader.classList.contains('fixed-top')) {
-      return;
-    }
-
-    // Original logic, now safe because selectBody is not null
+    if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
     window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
   }
 

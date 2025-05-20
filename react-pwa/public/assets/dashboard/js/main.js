@@ -8,312 +8,291 @@
 
 (function() {
   "use strict";
-
-  /**
-   * Easy selector helper function
-   */
+  
+  // Safe query selector - returns null instead of throwing errors
   const select = (el, all = false) => {
-    el = el.trim()
-    if (all) {
-      return [...document.querySelectorAll(el)]
-    } else {
-      return document.querySelector(el)
+    try {
+      if (!el || typeof el !== 'string') {
+        console.warn('Invalid selector provided:', el);
+        return all ? [] : null;
+      }
+      
+      el = el.trim();
+      if (!el) {
+        console.warn('Empty selector provided');
+        return all ? [] : null;
+      }
+      
+      if (all) {
+        const elements = document.querySelectorAll(el);
+        return elements ? Array.from(elements) : [];
+      } else {
+        return document.querySelector(el);
+      }
+    } catch (e) {
+      console.warn('Error selecting element:', el, e);
+      return all ? [] : null;
     }
-  }
+  };
 
-  /**
-   * Easy event listener function
-   */
+  // Safe event listener function
   const on = (type, el, listener, all = false) => {
-    if (all) {
-      select(el, all).forEach(e => e.addEventListener(type, listener))
-    } else {
-      select(el, all).addEventListener(type, listener)
+    try {
+      if (!el) {
+        console.warn('No selector provided for event listener');
+        return;
+      }
+      let selectEl = select(el, all);
+      if (selectEl) {
+        if (all) {
+          selectEl.forEach(e => e.addEventListener(type, listener));
+        } else {
+          selectEl.addEventListener(type, listener);
+        }
+      }
+    } catch (error) {
+      console.error('Error adding event listener:', error);
     }
-  }
+  };
 
-  /**
-   * Easy on scroll event listener 
-   */
+  // Safe scroll event listener 
   const onscroll = (el, listener) => {
-    el.addEventListener('scroll', listener)
-  }
-
-  /**
-   * Sidebar toggle
-   */
-  if (select('.toggle-sidebar-btn')) {
-    on('click', '.toggle-sidebar-btn', function(e) {
-      select('body').classList.toggle('toggle-sidebar')
-    })
-  }
-
-  /**
-   * Search bar toggle
-   */
-  if (select('.search-bar-toggle')) {
-    on('click', '.search-bar-toggle', function(e) {
-      select('.search-bar').classList.toggle('search-bar-show')
-    })
-  }
-
-  /**
-   * Navbar links active state on scroll
-   */
-  let navbarlinks = select('#navbar .scrollto', true)
-  const navbarlinksActive = () => {
-    let position = window.scrollY + 200
-    navbarlinks.forEach(navbarlink => {
-      if (!navbarlink.hash) return
-      let section = select(navbarlink.hash)
-      if (!section) return
-      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-        navbarlink.classList.add('active')
-      } else {
-        navbarlink.classList.remove('active')
+    try {
+      if (!listener || typeof listener !== 'function') {
+        console.warn('Invalid scroll listener provided');
+        return;
       }
-    })
-  }
-  window.addEventListener('load', navbarlinksActive)
-  onscroll(document, navbarlinksActive)
-
-  /**
-   * Toggle .header-scrolled class to #header when page is scrolled
-   */
-  let selectHeader = select('#header')
-  if (selectHeader) {
-    const headerScrolled = () => {
-      if (window.scrollY > 100) {
-        selectHeader.classList.add('header-scrolled')
+      
+      if (el && typeof el.addEventListener === 'function') {
+        el.addEventListener('scroll', listener);
+      } else if (el) {
+        console.warn('Invalid element provided for scroll listener, using window instead');
+        window.addEventListener('scroll', listener);
       } else {
-        selectHeader.classList.remove('header-scrolled')
+        window.addEventListener('scroll', listener);
       }
+    } catch (e) {
+      console.warn('Error in onscroll:', e);
     }
-    window.addEventListener('load', headerScrolled)
-    onscroll(document, headerScrolled)
-  }
+  };
 
-  /**
-   * Back to top button
-   */
-  let backtotop = select('.back-to-top')
-  if (backtotop) {
-    const toggleBacktotop = () => {
-      if (window.scrollY > 100) {
-        backtotop.classList.add('active')
-      } else {
-        backtotop.classList.remove('active')
+  // Initialize the dashboard
+  function initializeDashboard() {
+    // Sidebar toggle
+    try {
+      if (select('.toggle-sidebar-btn')) {
+        on('click', '.toggle-sidebar-btn', function(e) {
+          const body = select('body');
+          if (body) body.classList.toggle('toggle-sidebar');
+        });
       }
+    } catch (e) {
+      console.warn('Error in sidebar toggle:', e);
     }
-    window.addEventListener('load', toggleBacktotop)
-    onscroll(document, toggleBacktotop)
-  }
 
-  /**
-   * Initiate tooltips
-   */
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-  var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-  })
-
-  /**
-   * Initiate quill editors
-   */
-  if (select('.quill-editor-default')) {
-    new Quill('.quill-editor-default', {
-      theme: 'snow'
-    });
-  }
-
-  if (select('.quill-editor-bubble')) {
-    new Quill('.quill-editor-bubble', {
-      theme: 'bubble'
-    });
-  }
-
-  if (select('.quill-editor-full')) {
-    new Quill(".quill-editor-full", {
-      modules: {
-        toolbar: [
-          [{
-            font: []
-          }, {
-            size: []
-          }],
-          ["bold", "italic", "underline", "strike"],
-          [{
-              color: []
-            },
-            {
-              background: []
-            }
-          ],
-          [{
-              script: "super"
-            },
-            {
-              script: "sub"
-            }
-          ],
-          [{
-              list: "ordered"
-            },
-            {
-              list: "bullet"
-            },
-            {
-              indent: "-1"
-            },
-            {
-              indent: "+1"
-            }
-          ],
-          ["direction", {
-            align: []
-          }],
-          ["link", "image", "video"],
-          ["clean"]
-        ]
-      },
-      theme: "snow"
-    });
-  }
-
-  /**
-   * Initiate TinyMCE Editor
-   */
-
-  const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
-
-  tinymce.init({
-    selector: 'textarea.tinymce-editor',
-    plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
-    editimage_cors_hosts: ['picsum.photos'],
-    menubar: 'file edit view insert format tools table help',
-    toolbar: "undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | save print | pagebreak anchor codesample | ltr rtl",
-    autosave_ask_before_unload: true,
-    autosave_interval: '30s',
-    autosave_prefix: '{path}{query}-{id}-',
-    autosave_restore_when_empty: false,
-    autosave_retention: '2m',
-    image_advtab: true,
-    link_list: [{
-        title: 'My page 1',
-        value: 'https://www.tiny.cloud'
-      },
-      {
-        title: 'My page 2',
-        value: 'http://www.moxiecode.com'
-      }
-    ],
-    image_list: [{
-        title: 'My page 1',
-        value: 'https://www.tiny.cloud'
-      },
-      {
-        title: 'My page 2',
-        value: 'http://www.moxiecode.com'
-      }
-    ],
-    image_class_list: [{
-        title: 'None',
-        value: ''
-      },
-      {
-        title: 'Some class',
-        value: 'class-name'
-      }
-    ],
-    importcss_append: true,
-    file_picker_callback: (callback, value, meta) => {
-      /* Provide file and text for the link dialog */
-      if (meta.filetype === 'file') {
-        callback('https://www.google.com/logos/google.jpg', {
-          text: 'My text'
+    // Search bar toggle
+    try {
+      if (select('.search-bar-toggle')) {
+        on('click', '.search-bar-toggle', function(e) {
+          const searchBar = select('.search-bar');
+          if (searchBar) searchBar.classList.toggle('search-bar-show');
         });
       }
+    } catch (e) {
+      console.warn('Error in search bar toggle:', e);
+    }
 
-      /* Provide image and alt text for the image dialog */
-      if (meta.filetype === 'image') {
-        callback('https://www.google.com/logos/google.jpg', {
-          alt: 'My alt text'
-        });
+    // Navbar links active state on scroll
+    try {
+      let navbarlinks = select('#navbar .scrollto', true);
+      if (navbarlinks && navbarlinks.length > 0) {
+        const navbarlinksActive = () => {
+          let position = window.scrollY + 200;
+          navbarlinks.forEach(navbarlink => {
+            if (!navbarlink.hash) return;
+            let section = select(navbarlink.hash);
+            if (!section) return;
+            if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+              navbarlink.classList.add('active');
+            } else {
+              navbarlink.classList.remove('active');
+            }
+          });
+        };
+        window.addEventListener('load', navbarlinksActive);
+        onscroll(document, navbarlinksActive);
       }
+    } catch (e) {
+      console.warn('Error in navbar links:', e);
+    }
 
-      /* Provide alternative source and posted for the media dialog */
-      if (meta.filetype === 'media') {
-        callback('movie.mp4', {
-          source2: 'alt.ogg',
-          poster: 'https://www.google.com/logos/google.jpg'
-        });
+    // Toggle .header-scrolled class to #header when page is scrolled
+    try {
+      const headerElement = select('#header');
+      if (headerElement && headerElement.nodeType === Node.ELEMENT_NODE) {
+        const headerScrolled = () => {
+          try {
+            if (!headerElement || !headerElement.classList) return;
+            const shouldScroll = window.scrollY > 100;
+            if (shouldScroll) {
+              headerElement.classList.add('header-scrolled');
+            } else {
+              headerElement.classList.remove('header-scrolled');
+            }
+          } catch (e) {
+            console.warn('Error in header scroll handler:', e);
+          }
+        };
+        
+        // Run once on load
+        headerScrolled();
+        
+        // Then add scroll listener
+        if (typeof window !== 'undefined') {
+          window.addEventListener('scroll', headerScrolled, { passive: true });
+        }
+      } else {
+        console.warn('Header element (#header) not found or invalid in the DOM');
       }
-    },
-    height: 600,
-    image_caption: true,
-    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-    noneditable_class: 'mceNonEditable',
-    toolbar_mode: 'sliding',
-    contextmenu: 'link image table',
-    skin: useDarkMode ? 'oxide-dark' : 'oxide',
-    content_css: useDarkMode ? 'dark' : 'default',
-    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
-  });
+    } catch (e) {
+      console.warn('Error initializing header scroll:', e);
+    }
 
-  /**
-   * Initiate Bootstrap validation check
-   */
-  var needsValidation = document.querySelectorAll('.needs-validation')
+    // Back to top button
+    try {
+      let backtotop = select('.back-to-top');
+      if (backtotop) {
+        const toggleBacktotop = () => {
+          if (window.scrollY > 100) {
+            backtotop.classList.add('active');
+          } else {
+            backtotop.classList.remove('active');
+          }
+        };
+        window.addEventListener('load', toggleBacktotop);
+        onscroll(document, toggleBacktotop);
+      }
+    } catch (e) {
+      console.warn('Error in back to top button:', e);
+    }
 
-  Array.prototype.slice.call(needsValidation)
-    .forEach(function(form) {
-      form.addEventListener('submit', function(event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
+    // Initiate tooltips
+    try {
+      if (typeof bootstrap !== 'undefined') {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        if (tooltipTriggerList && tooltipTriggerList.length > 0) {
+          const tooltipList = [].slice.call(tooltipTriggerList).map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Error initializing tooltips:', e);
+    }
+
+    // Initiate quill editors
+    try {
+      if (typeof Quill !== 'undefined') {
+        if (select('.quill-editor-default')) {
+          new Quill('.quill-editor-default', {
+            theme: 'snow'
+          });
         }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-
-  /**
-   * Initiate Datatables
-   */
-  const datatables = select('.datatable', true)
-  datatables.forEach(datatable => {
-    new simpleDatatables.DataTable(datatable, {
-      perPageSelect: [5, 10, 15, ["All", -1]],
-      columns: [{
-          select: 2,
-          sortSequence: ["desc", "asc"]
-        },
-        {
-          select: 3,
-          sortSequence: ["desc"]
-        },
-        {
-          select: 4,
-          cellClass: "green",
-          headerClass: "red"
+        if (select('.quill-editor-bubble')) {
+          new Quill('.quill-editor-bubble', {
+            theme: 'bubble'
+          });
         }
-      ]
-    });
-  })
 
-  /**
-   * Autoresize echart charts
-   */
-  const mainContainer = select('#main');
-  if (mainContainer) {
-    setTimeout(() => {
-      new ResizeObserver(function() {
-        select('.echart', true).forEach(getEchart => {
-          echarts.getInstanceByDom(getEchart).resize();
-        })
-      }).observe(mainContainer);
-    }, 200);
+        if (select('.quill-editor-full')) {
+          new Quill(".quill-editor-full", {
+            modules: {
+              toolbar: [
+                [{
+                  font: []
+                }, {
+                  size: []
+                }],
+                ["bold", "italic", "underline", "strike"],
+                [{
+                    color: []
+                  },
+                  {
+                    background: []
+                  }
+                ],
+                [{
+                    script: "super"
+                  },
+                  {
+                    script: "sub"
+                  }
+                ],
+                [{
+                    list: "ordered"
+                  },
+                  {
+                    list: "bullet"
+                  },
+                  {
+                    indent: "-1"
+                  },
+                  {
+                    indent: "+1"
+                  }
+                ],
+                ["direction", {
+                  align: []
+                }],
+                ["link", "image", "video"],
+                ["clean"]
+              ]
+            },
+            theme: "snow"
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Error initializing Quill editors:', e);
+    }
+
+    // Initiate TinyMCE Editor
+    try {
+      if (typeof tinymce !== 'undefined') {
+        const useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
+
+        if (document.querySelector('textarea.tinymce-editor')) {
+          tinymce.init({
+            selector: '#editor',
+            plugins: 'code',
+            toolbar: 'code'
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Error initializing TinyMCE editor:', e);
+    }
   }
 
+  // Initialize the dashboard when the DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        initializeDashboard();
+      } catch (e) {
+        console.error('Error initializing dashboard:', e);
+      }
+    });
+  } else {
+    // DOMContentLoaded has already fired
+    setTimeout(function() {
+      try {
+        initializeDashboard();
+      } catch (e) {
+        console.error('Error initializing dashboard:', e);
+      }
+    }, 0);
+  }
 })();

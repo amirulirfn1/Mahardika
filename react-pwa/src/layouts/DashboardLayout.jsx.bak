@@ -1,0 +1,316 @@
+import React, { useState, useEffect } from 'react';
+import { Outlet, Link } from 'react-router-dom';
+import { useAuth } from '../lib/auth-context';
+import DashboardSidebar from '../ui/dashboard/components/DashboardSidebar';
+import DashboardHeader from '../ui/dashboard/components/DashboardHeader';
+import { useDashboardScripts } from '../hooks/useDashboardScripts';
+
+// Import CSS files
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'boxicons/css/boxicons.min.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
+import 'remixicon/fonts/remixicon.css';
+import 'simple-datatables/dist/style.css';
+
+// Loading component
+const LoadingOverlay = () => (
+  <div style={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    zIndex: 9999,
+  }}>
+    <div className="spinner-border text-primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  </div>
+);
+
+// Error component
+const ErrorMessage = ({ error }) => (
+  <div className="alert alert-danger" role="alert">
+    <h4 className="alert-heading">Error loading dashboard</h4>
+    <p>{error?.message || 'An unknown error occurred'}</p>
+    <hr />
+    <p className="mb-0">Please try refreshing the page or contact support if the problem persists.</p>
+  </div>
+);
+
+const DashboardLayout = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { currentUser } = useAuth();
+  
+  // Dynamically load dashboard styles
+  useEffect(() => {
+    const loadStyles = () => {
+      // First, try to load the main stylesheet
+      const styleLink = document.createElement('link');
+      styleLink.href = process.env.PUBLIC_URL + '/assets/dashboard/css/style.css';
+      styleLink.rel = 'stylesheet';
+      styleLink.id = 'dashboard-styles';
+      
+      // Create a placeholder stylesheet as fallback
+      const placeholderLink = document.createElement('link');
+      placeholderLink.href = process.env.PUBLIC_URL + '/assets/dashboard/css/placeholder.css';
+      placeholderLink.rel = 'stylesheet';
+      placeholderLink.id = 'dashboard-placeholder-styles';
+      
+      // Function to remove placeholder
+      const removePlaceholder = () => {
+        const existingPlaceholder = document.getElementById('dashboard-placeholder-styles');
+        if (existingPlaceholder && document.head.contains(existingPlaceholder)) {
+          document.head.removeChild(existingPlaceholder);
+        }
+      };
+      
+      // Function to load main styles
+      const loadMainStyles = () => {
+        // Check if the stylesheet is already loaded
+        const existingStyles = document.getElementById('dashboard-styles');
+        if (existingStyles) {
+          return;
+        }
+        
+        // Load main styles
+        styleLink.onload = () => {
+          console.log('Dashboard styles loaded successfully');
+          removePlaceholder();
+          setLoading(false);
+        };
+        
+        styleLink.onerror = (e) => {
+          console.warn('Failed to load dashboard styles:', e);
+          // If main styles fail to load, ensure placeholder is active
+          if (!document.getElementById('dashboard-placeholder-styles')) {
+            document.head.appendChild(placeholderLink);
+          }
+          setLoading(false);
+        };
+        
+        document.head.appendChild(styleLink);
+      };
+      
+      // First load the placeholder
+      placeholderLink.onload = () => {
+        console.log('Placeholder styles loaded');
+        // Now try to load the main styles
+        loadMainStyles();
+      };
+      
+      placeholderLink.onerror = (e) => {
+        console.warn('Failed to load placeholder styles:', e);
+        // Even if placeholder fails, try to load main styles
+        loadMainStyles();
+      };
+      
+      document.head.appendChild(placeholderLink);
+      
+      // Cleanup function
+      return () => {
+        const existingStyles = document.getElementById('dashboard-styles');
+        const existingPlaceholder = document.getElementById('dashboard-placeholder-styles');
+        
+        if (existingStyles && document.head.contains(existingStyles)) {
+          document.head.removeChild(existingStyles);
+        }
+        if (existingPlaceholder && document.head.contains(existingPlaceholder)) {
+          document.head.removeChild(existingPlaceholder);
+        }
+      };
+    };
+    
+    try {
+      loadStyles();
+    } catch (err) {
+      console.error('Error loading dashboard styles:', err);
+      setError(err);
+      setLoading(false);
+    }
+  }, []);
+
+  // Load dashboard scripts
+  useDashboardScripts();
+
+  // Show loading state
+  if (loading) {
+    return <LoadingOverlay />;
+  }
+
+  // Show error state
+  if (error) {
+    return <ErrorMessage error={error} />;
+  }
+
+  // Check if user is authenticated
+  if (!currentUser) {
+    return (
+      <div className="container mt-5">
+        <div className="alert alert-warning">
+          You need to be logged in to access the dashboard. <Link to="/login">Login here</Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Main dashboard layout
+  return (
+    <div className="d-flex">
+      {/* Sidebar */}
+      <DashboardSidebar />
+      
+      {/* Main content */}
+      <div className="flex-grow-1">
+        {/* Header */}
+        <DashboardHeader />
+        
+        {/* Main content area */}
+        <main className="p-4">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardLayout;
+  <div style={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 9999,
+    flexDirection: 'column',
+  }}>
+    <div className="spinner-border text-primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+    <div className="mt-3">Loading dashboard resources...</div>
+  </div>
+);
+
+// Error component
+const ErrorMessage = ({ error }) => (
+  <div className="alert alert-danger" role="alert">
+    <h4 className="alert-heading">Error loading dashboard</h4>
+    <p>{error?.message || 'An unknown error occurred while loading the dashboard.'}</p>
+    <hr />
+    <p className="mb-0">Please try refreshing the page or contact support if the issue persists.</p>
+  </div>
+);
+
+export function DashboardLayout() {
+  const { currentUser, userRole } = useAuth();
+  const [isSidebarToggled, setIsSidebarToggled] = useState(false);
+
+  // Toggle sidebar function
+  const toggleSidebar = () => {
+    setIsSidebarToggled(!isSidebarToggled);
+    document.body.classList.toggle('toggle-sidebar');
+  };
+
+  // Use the dashboard scripts hook
+  const { isLoading, error, loadDashboardScripts, cleanupScripts } = useDashboardScripts();
+  
+  // Load dashboard scripts when component mounts
+  useEffect(() => {
+    // Add dashboard class to body
+    document.body.classList.add('dashboard-page');
+    
+    // Load dashboard scripts
+    loadDashboardScripts();
+    
+    // Set up sidebar toggle
+    const handleSidebarToggle = () => {
+      document.body.classList.toggle('toggle-sidebar');
+    };
+    
+    // Add event listeners for sidebar toggle
+    const toggleButtons = document.querySelectorAll('.toggle-sidebar-btn');
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', handleSidebarToggle);
+    });
+    
+    // Cleanup function
+    return () => {
+      // Remove dashboard class from body
+      document.body.classList.remove('dashboard-page');
+      document.body.classList.remove('toggle-sidebar');
+      
+      // Remove event listeners
+      toggleButtons.forEach(button => {
+        button.removeEventListener('click', handleSidebarToggle);
+      });
+      
+      // Clean up scripts if needed
+      cleanupScripts();
+    };
+  }, [loadDashboardScripts, cleanupScripts]);
+  
+  // Show loading or error state if needed
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
+  
+  if (error) {
+    return (
+      <div className="container mt-5">
+        <ErrorMessage error={error} />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/* ======= Header ======= */}
+      <DashboardHeader toggleSidebar={toggleSidebar} />
+      
+      {/* ======= Sidebar ======= */}
+      <DashboardSidebar toggleSidebar={toggleSidebar} isSidebarToggled={isSidebarToggled} />
+
+      {/* ======= Main Content ======= */}
+      <main id="main" className="main">
+        <div className="pagetitle">
+          <h1>Dashboard</h1>
+          <nav>
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item"><Link to="/dashboard">Home</Link></li>
+              <li className="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </nav>
+        </div>
+
+        <section className="section dashboard">
+          <Outlet />
+        </section>
+      </main>
+
+      {/* ======= Footer ======= */}
+      <footer id="footer" className="footer">
+        <div className="copyright">
+          &copy; {new Date().getFullYear()} <strong><span>Mahardika</span></strong>. All Rights Reserved
+        </div>
+        <div className="credits">
+          Healthcare Management System
+        </div>
+      </footer>
+
+      {/* ======= Back to top button ======= */}
+      <a href="#" className="back-to-top d-flex align-items-center justify-content-center">
+        <i className="bi bi-arrow-up-short"></i>
+      </a>
+    </>
+  );
+}

@@ -3,42 +3,58 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Mahardika - Healthcare Management System" />
+    <meta
+      name="description"
+      content="Mahardika Healthcare Management System"
+    />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Mahardika Healthcare</title>
     
-    <!-- Portal Template CSS (Medilab) -->
+    <!-- Vendor CSS Files for Portal -->
     <link href="%PUBLIC_URL%/assets/portal/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="%PUBLIC_URL%/assets/portal/vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="%PUBLIC_URL%/assets/portal/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="%PUBLIC_URL%/assets/portal/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="%PUBLIC_URL%/assets/portal/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="%PUBLIC_URL%/assets/portal/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/css/style.css" rel="stylesheet">
+    <link href="%PUBLIC_URL%/assets/portal/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    
+    <!-- Medilab Portal Main CSS -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/portal/css/main.css">
 
-    <!-- Dashboard Template CSS (NiceAdmin) -->
-    <link href="%PUBLIC_URL%/assets/dashboard/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/dashboard/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/dashboard/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/dashboard/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/dashboard/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/dashboard/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/dashboard/vendor/simple-datatables/style.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/dashboard/css/style.css" rel="stylesheet">
+    <!-- Dashboard Styles -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/dashboard/css/style.css">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     
-    <title>Mahardika - Healthcare Management System</title>
+    <!-- Fallback for non-JS -->
+    <noscript>
+      <style>
+        body { visibility: visible !important; opacity: 1 !important; }
+      </style>
+    </noscript>
+    
     <style>
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+      /* Enhanced CSS Resets */
+      *, *::before, *::after {
+        box-sizing: border-box;
       }
+      
+      html, body, #root {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+      }
+
+      /* Initial styles to prevent FOUC */
+      body { visibility: hidden; opacity: 0; transition: opacity 0.3s ease-in; }
+      body.loaded { visibility: visible; opacity: 1; }
       .app-loading {
         display: flex;
         flex-direction: column;
@@ -58,6 +74,37 @@
         animation: spin 1s linear infinite;
         margin-bottom: 16px;
       }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Fix for container width issues */
+      #root, .portal-layout {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      
+      /* Fix for duplicate footer issue */
+      #footer:not(:first-of-type) {
+        display: none;
+      }
+      
+      /* Fix for container widths in both portal and dashboard */
+      .container-fluid, .container {
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      
+      /* Ensure portal content is full width */
+      body > * {
+        max-width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -68,33 +115,5 @@
         <div>Loading Mahardika...</div>
       </div>
     </div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-    <!-- Template JS Files -->    
-    <!-- Portal Template JS (Medilab) -->
-    <script src="%PUBLIC_URL%/assets/portal/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="%PUBLIC_URL%/assets/portal/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/portal/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/portal/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/portal/vendor/php-email-form/validate.js"></script>
-    <script src="%PUBLIC_URL%/assets/portal/js/main.js"></script>
-
-    <!-- Dashboard Template JS (NiceAdmin) -->
-    <script src="%PUBLIC_URL%/assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/dashboard/vendor/chart.js/chart.umd.js"></script>
-    <script src="%PUBLIC_URL%/assets/dashboard/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/dashboard/vendor/echarts/echarts.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/dashboard/vendor/quill/quill.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/dashboard/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="%PUBLIC_URL%/assets/dashboard/vendor/tinymce/tinymce.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/dashboard/js/main.js"></script>
   </body>
 </html>

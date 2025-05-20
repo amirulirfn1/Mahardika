@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from './lib/auth-context';
-import { DashboardLayout } from './layouts/DashboardLayout';
+import DashboardLayout from './layouts/DashboardLayout';
 import { PortalLayout } from './layouts/PortalLayout';
 import ErrorBoundary from './components/ErrorBoundary'; // Add this import
 
@@ -13,7 +13,7 @@ function ProtectedRoute({ roles, redirectTo = '/unauthorized', children }) {
   // Debug logging
   useEffect(() => {
     console.log('[DEBUG] ProtectedRoute - Auth State:', {
-      currentUser: !!currentUser,
+      currentUser: currentUser ? 'Authenticated' : 'Not authenticated',
       loading,
       userRole,
       isAdmin,
@@ -31,27 +31,40 @@ function ProtectedRoute({ roles, redirectTo = '/unauthorized', children }) {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
-        fontSize: '24px'
+        fontSize: '24px',
+        backgroundColor: '#f8f9fa',
+        color: '#2c3e50'
       }}>
-        <div>Verifying authentication...</div>
+        <div>Checking authentication status...</div>
       </div>
     );
   }
 
   // Redirect to sign-in if not authenticated
   if (!currentUser) {
+    console.log('[DEBUG] ProtectedRoute - No user, redirecting to signin');
     return <Navigate to="/signin" state={{ from: location }} replace />;
   }
 
+  // If no roles required, just render the children
+  if (!roles || roles.length === 0) {
+    return children;
+  }
+
   // Check if user has required role
-  const hasRequiredRole = !roles || roles.some(role => {
-    if (role === 'admin') return isAdmin;
-    if (role === 'staff') return isStaff;
-    return userRole === role;
+  const hasRequiredRole = roles.some(role => {
+    switch (role) {
+      case 'admin':
+        return isAdmin || userRole === 'admin';
+      case 'staff':
+        return isStaff || userRole === 'staff';
+      default:
+        return userRole === role;
+    }
   });
 
   if (!hasRequiredRole) {
-    console.warn(`Access denied. Required roles: ${roles}, User role: ${userRole}`);
+    console.warn(`[DEBUG] Access denied - User role '${userRole}' does not have required roles:`, roles);
     return <Navigate to={redirectTo} state={{ from: location }} replace />;
   }
 
@@ -86,7 +99,7 @@ const paths = {
   notFound: 'ui/shared/pages/NotFoundPage',
   dashboardHome: 'ui/dashboard/pages/DashboardHome',
   portalHome: 'ui/portal/pages/PortalHome',
-  dashboard: 'ui/portal/pages/Dashboard', // Points to the index.js in Dashboard folder
+  dashboard: 'ui/portal/pages/Dashboard',
 };
 
 // List of all sign-in related paths that should redirect to /signin
@@ -104,18 +117,41 @@ const withErrorBoundary = (Component) => (props) => (
   </ErrorBoundary>
 );
 
-const SignInPage = withErrorBoundary(lazyLoad(paths.signin));
-const UnauthorizedPage = withErrorBoundary(lazyLoad(paths.unauthorized));
-const NotFoundPage = withErrorBoundary(lazyLoad(paths.notFound));
+// Helper function to create lazy-loaded components with error boundaries
+const createLazyComponent = (path, fallbackPath = '') => {
+  try {
+    return withErrorBoundary(lazyLoad(path));
+  } catch (error) {
+    console.warn(`Failed to load ${path}:`, error);
+    if (fallbackPath) {
+      return withErrorBoundary(lazyLoad(fallbackPath));
+    }
+    throw error;
+  }
+};
 
-// Dashboard pages
-const DashboardHome = withErrorBoundary(lazyLoad(paths.dashboardHome));
-const Dashboard = withErrorBoundary(lazyLoad(paths.dashboard));
-// Import other dashboard pages as needed
+// Create components
+const SignInPage = createLazyComponent(paths.signin);
+const UnauthorizedPage = createLazyComponent(paths.unauthorized);
+const NotFoundPage = createLazyComponent(paths.notFound);
 
-// Portal pages
-const PortalHome = withErrorBoundary(lazyLoad(paths.portalHome));
-// Import other portal pages as needed
+// Create dashboard components
+const DashboardHome = createLazyComponent(paths.dashboardHome, 'ui/dashboard/pages/DashboardHome');
+
+// Create portal components
+const PortalHome = createLazyComponent(paths.portalHome, 'ui/portal/pages/PortalHome');
+
+// Create dashboard routes
+export const dashboardRoutes = [
+  { path: '', element: <DashboardHome /> },
+  // Add more dashboard routes here
+];
+
+// Create portal routes
+export const portalRoutes = [
+  { path: '', element: <PortalHome /> },
+  // Add more portal routes here
+];
 
 // Auth redirect component
 function AuthRedirect() {
@@ -177,6 +213,19 @@ function AuthRedirect() {
   return null;
 }
 
+// Create route elements with proper error boundaries
+const DashboardLayoutWithAuth = () => (
+  <ProtectedRoute roles={['admin', 'staff']}>
+    <DashboardLayout />
+  </ProtectedRoute>
+);
+
+const PortalLayoutWithAuth = () => (
+  <ProtectedRoute>
+    <PortalLayout />
+  </ProtectedRoute>
+);
+
 export function AppRouter() {
   console.log('[DEBUG] AppRouter - Rendering router');
   
@@ -198,7 +247,6 @@ export function AppRouter() {
         {/* Public Routes - Only accessible when not logged in */}
         <Route element={<PublicRoute restricted={true} />}>
           <Route path="/signin" element={<SignInPage />} />
-          {/* Add any other auth-related routes here */}
           
           {/* Redirect any other sign-in related paths to /signin */}
           {signInPaths.filter(p => p !== '/signin').map(path => (
@@ -214,29 +262,17 @@ export function AppRouter() {
         <Route path="/not-found" element={<NotFoundPage />} />
         
         {/* Dashboard Routes - Only accessible to admin/staff */}
-        <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute roles={['admin', 'staff']}>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<DashboardHome />} />
-          {/* Add more dashboard routes here */}
+        <Route path="/dashboard" element={<DashboardLayoutWithAuth />}>
+          {dashboardRoutes.map((route, index) => (
+            <Route key={index} {...route} />
+          ))}
         </Route>
         
         {/* Portal Routes - Accessible to all authenticated users */}
-        <Route 
-          path="/portal" 
-          element={
-            <ProtectedRoute>
-              <PortalLayout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<PortalHome />} />
-          {/* Add more portal routes here */}
+        <Route path="/portal" element={<PortalLayoutWithAuth />}>
+          {portalRoutes.map((route, index) => (
+            <Route key={index} {...route} />
+          ))}
         </Route>
         
         {/* Catch-all route */}

@@ -36,29 +36,50 @@ export function Header() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+    if (!isMobileMenuOpen) {
+      document.body.classList.add('mobile-nav-active');
+    } else {
+      document.body.classList.remove('mobile-nav-active');
+    }
   };
 
   // Add class to body
   useEffect(() => {
     document.body.classList.add('portal-page');
     
+    // Initialize mobile nav functionality
+    const initMobileNav = () => {
+      document.querySelectorAll('.navbar .dropdown > a').forEach(item => {
+        item.addEventListener('click', function(e) {
+          if (window.innerWidth < 1200) {
+            e.preventDefault();
+            this.nextElementSibling.classList.toggle('dropdown-active');
+          }
+        });
+      });
+    };
+    
+    initMobileNav();
+    
     return () => {
       document.body.classList.remove('portal-page');
+      document.body.classList.remove('mobile-nav-active');
     };
   }, []);
 
   return (
     <header id="header" className={`fixed-top ${isScrolled ? 'header-scrolled' : ''}`}>
-      <div className="container d-flex align-items-center">
+      <div className="container d-flex align-items-center justify-content-between">
+        <Link to="/portal" className="logo d-flex align-items-center">
+          <img src="/assets/portal/img/logo.png" alt="" />
+          <h1>Mahardika</h1>
+        </Link>
 
-        <h1 className="logo me-auto">
-          <Link to="/portal">Mahardika</Link>
-        </h1>
-
-        <nav id="navbar" className="navbar order-last order-lg-0">
+        <nav id="navbar" className={`navbar ${isMobileMenuOpen ? 'navbar-mobile' : ''}`}>
           <ul>
             <li><Link className="nav-link scrollto active" to="/portal">Home</Link></li>
             <li><Link className="nav-link scrollto" to="/portal#about">About</Link></li>
+            <li><Link className="nav-link scrollto" to="/portal#services">Services</Link></li>
             <li><Link className="nav-link scrollto" to="/portal#departments">Departments</Link></li>
             <li><Link className="nav-link scrollto" to="/portal#doctors">Doctors</Link></li>
             <li className="dropdown">
@@ -76,11 +97,15 @@ export function Header() {
             </li>
             <li><Link className="nav-link scrollto" to="/portal#contact">Contact</Link></li>
           </ul>
-          <i className={`bi ${isMobileMenuOpen ? 'bi-x' : 'bi-list'} mobile-nav-toggle`} onClick={toggleMobileMenu}></i>
+          <i 
+            className={`bi ${isMobileMenuOpen ? 'bi-x' : 'bi-list'} mobile-nav-toggle`} 
+            onClick={toggleMobileMenu}
+          ></i>
         </nav>
 
-        <Link to="/portal#appointment" className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
-
+        <Link to="/portal#appointment" className="appointment-btn scrollto">
+          <span className="d-none d-md-inline">Make an</span> Appointment
+        </Link>
       </div>
     </header>
   );

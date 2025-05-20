@@ -7,7 +7,7 @@ import './index.css';
 import App from './App';
 import { AuthProvider } from './lib/auth-context';
 import ErrorBoundary from './components/ErrorBoundary';
-import './firebase/config'; // Initialize Firebase
+import './firebase'; // Initialize Firebase
 
 console.log('[DEBUG] Initializing application...');
 

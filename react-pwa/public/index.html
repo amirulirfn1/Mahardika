@@ -3,51 +3,85 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="theme-color" content="#000000" />
     <meta
-      name="description"
-      content="Mahardika Healthcare Management System"
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Mahardika Healthcare Management System" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Mahardika Healthcare</title>
-    
+
     <!-- Environment configuration (generated during build) -->
     <script src="%PUBLIC_URL%/env-config.js"></script>
-    
+
     <!-- Vendor CSS Files for Portal -->
-    <link href="%PUBLIC_URL%/assets/portal/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="%PUBLIC_URL%/assets/portal/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    
+    <link
+      href="%PUBLIC_URL%/assets/portal/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/portal/vendor/animate.css/animate.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/portal/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/portal/vendor/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/portal/vendor/remixicon/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/portal/vendor/swiper/swiper-bundle.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="%PUBLIC_URL%/assets/portal/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+
     <!-- Medilab Portal Main CSS -->
-    <link rel="stylesheet" href="%PUBLIC_URL%/assets/portal/css/main.css">
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/portal/css/main.css" />
+
+    <!-- Custom CSS to fix layout issues -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/portal/css/custom.css" />
 
     <!-- Dashboard Styles -->
-    <link rel="stylesheet" href="%PUBLIC_URL%/assets/dashboard/css/style.css">
-    
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/dashboard/css/style.css" />
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
     <!-- Fallback for non-JS -->
     <noscript>
       <style>
-        body { visibility: visible !important; opacity: 1 !important; }
+        body {
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
       </style>
     </noscript>
-    
+
     <style>
       /* Enhanced CSS Resets */
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
       }
-      
-      html, body, #root {
+
+      html,
+      body,
+      #root {
         margin: 0;
         padding: 0;
         width: 100%;
@@ -56,15 +90,23 @@
       }
 
       /* Initial styles to prevent FOUC */
-      body { visibility: hidden; opacity: 0; transition: opacity 0.3s ease-in; }
-      body.loaded { visibility: visible; opacity: 1; }
+      body {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s ease-in;
+      }
+      body.loaded {
+        visibility: visible;
+        opacity: 1;
+      }
       .app-loading {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
         background-color: #f8f9fa;
         color: #2c3e50;
       }
@@ -78,32 +120,38 @@
         margin-bottom: 16px;
       }
       @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
-      
+
       /* Fix for container width issues */
-      #root, .portal-layout {
+      #root,
+      .portal-layout {
         width: 100%;
         max-width: 100%;
         padding: 0;
         margin: 0;
       }
-      
+
       /* Fix for duplicate footer issue */
       #footer:not(:first-of-type) {
         display: none;
       }
-      
+
       /* Fix for container widths in both portal and dashboard */
-      .container-fluid, .container {
+      .container-fluid,
+      .container {
         width: 100%;
         padding-left: 15px;
         padding-right: 15px;
         margin-right: auto;
         margin-left: auto;
       }
-      
+
       /* Ensure portal content is full width */
       body > * {
         max-width: 100%;
@@ -118,5 +166,10 @@
         <div>Loading Mahardika...</div>
       </div>
     </div>
+
+    <!-- Vendor JS Files -->
+    <script src="%PUBLIC_URL%/assets/portal/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/portal/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="%PUBLIC_URL%/assets/portal/vendor/swiper/swiper-bundle.min.js"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
-# Mahardika PWA
+# Mahardika Healthcare Management System
 
-A Progressive Web Application built with React, Firebase, and Tailwind CSS.
+A modern healthcare management system built with React and Firebase.
 
 ## Features
 
@@ -10,68 +10,116 @@ A Progressive Web Application built with React, Firebase, and Tailwind CSS.
 - 📊 Interactive dashboard with charts and data tables
 - 🚀 Automated deployments with GitHub Actions
 
+## Prerequisites
+
+- Node.js (v16 or higher recommended)
+- npm or yarn
+
 ## Getting Started
 
-### Prerequisites
+### 1. Clone the Repository
 
-- Node.js (v14 or later)
-- npm or yarn
-- NiceAdmin template files (for dashboard)
+```bash
+git clone https://github.com/amirulirfn1/Mahardika.git
+cd Mahardika-2/react-pwa
+```
 
-### Installation
+### 2. Configure Environment Variables
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Set up the dashboard template (see [Dashboard Setup](#dashboard-setup))
+Create a `.env` file in the `react-pwa` directory with your Firebase configuration:
 
-4. Start the development server:
-   ```bash
-   npm start
-   ```
+```
+# Firebase Configuration
+REACT_APP_FIREBASE_API_KEY=YOUR_API_KEY
+REACT_APP_FIREBASE_AUTH_DOMAIN=YOUR_AUTH_DOMAIN
+REACT_APP_FIREBASE_PROJECT_ID=YOUR_PROJECT_ID
+REACT_APP_FIREBASE_STORAGE_BUCKET=YOUR_STORAGE_BUCKET
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=YOUR_MESSAGING_SENDER_ID
+REACT_APP_FIREBASE_APP_ID=YOUR_APP_ID
+REACT_APP_FIREBASE_MEASUREMENT_ID=YOUR_MEASUREMENT_ID
+
+# Application Environment
+NODE_ENV=development
+REACT_APP_ENV=development
+```
+
+Replace the placeholder values with your actual Firebase configuration. You can obtain these from your Firebase project settings.
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+### 4. Start the Development Server
+
+```bash
+npm start
+```
+
+The application should now be running on [http://localhost:3000](http://localhost:3000).
 
 ## Available Scripts
 
-- `npm start`: Start the development server
-- `npm test`: Run tests
-- `npm run build`: Build for production
-- `npm run eject`: Eject from Create React App
+In the project directory, you can run:
+
+- `npm start`: Runs the app in development mode
+- `npm run build`: Builds the app for production to the `build` folder
+- `npm test`: Launches the test runner
+- `npm run deploy`: Deploys the application to Firebase Hosting
+
+## Project Structure
+
+```
+react-pwa/
+│
+├── public/              # Static files
+│   ├── assets/          # CSS, images, and other assets
+│   ├── env-config.js    # Environment variables for production builds
+│   └── index.html       # Main HTML file
+│
+├── scripts/             # Build and utility scripts
+│
+├── src/                 # Source code
+│   ├── assets/          # Project-specific assets
+│   ├── components/      # Reusable components
+│   ├── firebase/        # Firebase configuration and services
+│   ├── hooks/           # Custom React hooks
+│   ├── layouts/         # Layout components
+│   ├── lib/             # Utility libraries
+│   └── ui/              # UI components organized by feature
+│       ├── dashboard/   # Dashboard-related components
+│       ├── portal/      # Portal-related components
+│       └── shared/      # Shared UI components
+│
+└── .env                 # Environment variables for development
+```
 
 ## Authentication
 
-The application uses Firebase Authentication with the following demo accounts:
+The application uses Firebase Authentication with the following features:
 
-- **Admin**: admin@example.com / password123
-- **User**: user@example.com / password123
+- Email/Password authentication
+- Google sign-in
+- Role-based access control
 
-## Dashboard Setup
+## Firebase Configuration
 
-The admin dashboard is built using the NiceAdmin template. Before running the application, you'll need to set up the dashboard template files.
+This project uses Firebase for:
 
-1. Locate your NiceAdmin template directory
-2. Run the template copy script:
-   ```bash
-   node scripts/copy-template.js "path/to/your/niceadmin/template"
-   ```
-   Or on Windows, double-click `scripts/copy-template.bat` and follow the prompts.
+- Authentication
+- Cloud Firestore
+- Storage
+- Analytics
 
-3. The dashboard will be available at `/dashboard` after authentication
+## Troubleshooting
 
-For more detailed instructions, see [DASHBOARD_SETUP.md](./DASHBOARD_SETUP.md).
+If you encounter issues with Firebase configuration:
 
-## Deployment
-
-To deploy the application:
-
-1. Make sure all template files are copied (see [Dashboard Setup](#dashboard-setup))
-2. Build the production version:
-   ```bash
-   npm run build
-   ```
-2. Deploy the contents of the `build` directory to your hosting service.
+1. Make sure your `.env` file has all required Firebase variables
+2. Check if the Firebase project is correctly set up with authentication methods enabled
+3. Verify that your Firebase project has appropriate Firestore rules
 
 ## License
 
-MIT © 2025 Amirul Irfan
+MIT

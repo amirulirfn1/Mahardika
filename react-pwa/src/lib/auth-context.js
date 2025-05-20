@@ -7,10 +7,12 @@ import {
   signInWithPopup, 
   signOut, 
   updateProfile,
-  onAuthStateChanged 
-} from './firebase';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from './firebase';
+  onAuthStateChanged,
+  db,
+  doc,
+  getDoc,
+  setDoc
+} from '../firebase';
 
 export const AuthContext = createContext();
 

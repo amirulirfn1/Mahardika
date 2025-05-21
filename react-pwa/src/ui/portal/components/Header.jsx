@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../../../firebase/config';
-import { signOut } from 'firebase/auth';
+import { auth, signOut } from '../../../firebase/config';
 import { useAuth } from '../../../lib/auth-context';
 
 export function Header() {

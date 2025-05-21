@@ -12,7 +12,7 @@ import {
   doc,
   getDoc,
   setDoc
-} from '../firebase';
+} from '../firebase/config';
 
 export const AuthContext = createContext();
 

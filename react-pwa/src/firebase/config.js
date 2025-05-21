@@ -1,8 +1,38 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
-import { getAnalytics, isSupported } from 'firebase/analytics';
+import { initializeApp, getApp, getApps } from 'firebase/app';
+import { 
+  getAuth,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged,
+  updateProfile
+} from 'firebase/auth';
+import { 
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+  getDocs,
+  serverTimestamp,
+  Timestamp
+} from 'firebase/firestore';
+import { 
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject
+} from 'firebase/storage';
+import { getAnalytics, isSupported, logEvent } from 'firebase/analytics';
 
 // Firebase configuration using environment variables
 // First try to get from window.ENV (for production), then fallback to process.env (for development)
@@ -39,7 +69,17 @@ if (missingKeys.length > 0) {
 }
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+let app;
+// Check if Firebase app is already initialized
+if (getApps().length === 0) {
+  // Initialize Firebase app if not already initialized
+  app = initializeApp(firebaseConfig);
+} else {
+  // Use existing app if already initialized
+  app = getApp();
+}
 
 // Initialize Firebase services
 const auth = getAuth(app);
@@ -56,10 +96,97 @@ if (typeof window !== 'undefined') {
   });
 }
 
+// Auth Providers
+const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope('profile');
+googleProvider.addScope('email');
+
+const facebookProvider = new FacebookAuthProvider();
+
+// Firestore helpers
+const createUserProfileDocument = async (userAuth, additionalData = {}) => {
+  if (!userAuth) return;
+
+  const userRef = doc(db, 'users', userAuth.uid);
+  const snapshot = await getDoc(userRef);
+
+  if (!snapshot.exists()) {
+    const { displayName, email, photoURL } = userAuth;
+    const createdAt = new Date(); // Consider using serverTimestamp for consistency
+
+    try {
+      await setDoc(userRef, {
+        displayName,
+        email,
+        photoURL,
+        createdAt,
+        ...additionalData
+      });
+    } catch (error) {
+      console.error('Error creating user profile', error);
+    }
+  }
+
+  return userRef;
+};
+
+// Storage helpers
+const uploadFile = async (file, path) => {
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, file);
+  return getDownloadURL(storageRef);
+};
+
+const deleteFile = async (filePath) => {
+  const fileRef = ref(storage, filePath);
+  return deleteObject(fileRef);
+};
+
 export { 
+  // Core
+  app,
   auth, 
   db, 
   storage, 
   analytics,
+  serverTimestamp,
+  Timestamp,
+
+  // Auth
+  googleProvider,
+  facebookProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+  updateProfile,
+  onAuthStateChanged,
+  
+  // Firestore
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+  getDocs,
+  
+  // Storage
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+  
+  // Helpers
+  createUserProfileDocument,
+  uploadFile,
+  deleteFile,
+  
+  // Analytics
+  logEvent,
+  
   app as default 
 };

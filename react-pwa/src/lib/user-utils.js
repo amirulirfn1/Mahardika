@@ -1,5 +1,4 @@
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from './firebase';
+import { db, doc, setDoc, getDoc, serverTimestamp } from '../firebase/config';
 
 export async function createUserProfileDocument(user, additionalData = {}) {
   if (!user) return;

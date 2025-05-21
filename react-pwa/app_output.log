@@ -1,0 +1,74 @@
+
+> react-pwa@0.1.0 prestart
+> node scripts/generate-env-config.js
+
+✅ Environment configuration generated at /app/react-pwa/public/env-config.js
+
+> react-pwa@0.1.0 start
+> react-scripts start
+
+(node:3819) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:3819) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+Starting the development server...
+
+Compiled with warnings.
+
+Failed to parse source map from '/app/react-pwa/node_modules/@srexi/purecounterjs/dist/purecounter.js.map' file: Error: ENOENT: no such file or directory, open '/app/react-pwa/node_modules/@srexi/purecounterjs/dist/purecounter.js.map'
+
+[eslint] 
+src/ui/portal/components/Header.jsx
+  Line 9:11:   'currentUser' is assigned a value but never used                                                                                                                                                                                                                                                                                                                   no-unused-vars
+  Line 85:15:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 94:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+assets by path static/js/*.js 10.7 MiB
+  assets by chunk 3.45 MiB (id hint: vendors)
+    asset static/js/vendors-node_modules_react-icons_fa_index_esm_js.chunk.js 1.57 MiB [emitted] (id hint: vendors) 1 related asset
+    asset static/js/vendors-node_modules_react-icons_fc_index_esm_js-node_modules_react-toastify_dist_index_mjs.chunk.js 519 KiB [emitted] (id hint: vendors) 1 related asset
+    asset static/js/vendors-node_modules_mui_material_MenuItem_MenuItem_js-node_modules_mui_material_TextField_Te-6877ad.chunk.js 493 KiB [emitted] (id hint: vendors) 1 related asset
+    + 12 assets
+  + 45 assets
+assets by path static/media/ 6.87 MiB
+  assets by chunk 6.39 MiB (auxiliary name: main) 10 assets
+  assets by path static/media/*.new 28.3 KiB 3 assets
+  assets by chunk 307 KiB (auxiliary id hint: vendors) 2 assets
+  + 3 assets
+asset asset-manifest.json 17.4 KiB [emitted]
+asset index.html 4.57 KiB [emitted]
+cached modules 10.4 MiB (javascript) 6.87 MiB (asset) 32 KiB (runtime) [cached] 1203 modules
+modules by layer 38.1 KiB (javascript) 8.59 KiB (asset)
+  optional modules 8.76 KiB (javascript) 8.59 KiB (asset) [optional]
+    ./src/components/auth/ProtectedRoute.js 2.12 KiB [optional] [built]
+    ./src/firebase/utils.js 4.43 KiB [optional] [built]
+    ./src/lib/user-utils.js 2.17 KiB [optional] [built]
+    ./src/ui/dashboard/components/DashboardHeader.jsx.new 8.59 KiB (asset) 42 bytes (javascript) [optional] [built]
+  ./src/index.js 2.41 KiB [built]
+  ./src/lib/auth-context.js 7.19 KiB [built]
+  ./src/firebase/config.js 5.12 KiB [built]
+  ./src/ lazy ^\.\/.*$ namespace object 160 bytes [built]
+  ./src/ui/portal/components/Header.jsx 12.5 KiB [built]
+  ./src/hooks/useGoogleSignIn.js 2.02 KiB [built]
+
+WARNING in ./node_modules/@srexi/purecounterjs/dist/purecounter.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from '/app/react-pwa/node_modules/@srexi/purecounterjs/dist/purecounter.js.map' file: Error: ENOENT: no such file or directory, open '/app/react-pwa/node_modules/@srexi/purecounterjs/dist/purecounter.js.map'
+ @ ./src/ui/portal/components/CountsSection.jsx 6:0-47 12:8-19
+ @ ./src/ lazy ^\.\/.*$ namespace object ./ui/portal/components/CountsSection.jsx ./ui/portal/components/CountsSection
+ @ ./src/router.jsx 165:39-58
+ @ ./src/App.js 7:0-37 75:37-46
+ @ ./src/index.js 10:0-24 21:39-42
+
+WARNING in [eslint] 
+src/ui/portal/components/Header.jsx
+  Line 9:11:   'currentUser' is assigned a value but never used                                                                                                                                                                                                                                                                                                                   no-unused-vars
+  Line 85:15:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 94:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+1 warning has detailed information that is not shown.
+Use 'stats.errorDetails: true' resp. '--stats-error-details' to show it.
+
+webpack 5.99.8 compiled with 2 warnings in 5532 ms

@@ -1,0 +1,33 @@
+{
+  "name": "mahardika-admin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mahardika Internal Insurance Policy Platform",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start",
+    "lint": "pnpm --filter web lint",
+    "test": "pnpm --filter web test",
+    "type-check": "pnpm --filter web type-check",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop",
+    "supabase:reset": "supabase db reset",
+    "supabase:migration": "supabase migration new",
+    "supabase:push": "supabase db push",
+    "supabase:deploy": "supabase functions deploy"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "supabase": "^2.23.4",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

@@ -11,6 +11,7 @@
     "build": "pnpm --filter admin-web build",
     "start": "pnpm --filter admin-web start",
     "lint": "pnpm --filter admin-web lint",
+    "lint:fix": "pnpm --filter admin-web lint:fix",
     "test": "pnpm --filter admin-web test",
     "type-check": "pnpm --filter admin-web type-check",
     "supabase:start": "supabase start",

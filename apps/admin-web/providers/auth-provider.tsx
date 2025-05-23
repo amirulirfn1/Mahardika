@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import { useRouter, usePathname } from 'next/navigation'
 
 interface Profile {
@@ -45,6 +45,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   const fetchProfile = async (userId: string) => {
+    // Skip if Supabase is not configured (e.g., during build time)
+    if (!isSupabaseConfigured()) {
+      return null
+    }
+
     try {
       const { data, error } = await supabase
         .from('profiles')
@@ -65,13 +70,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const refetchProfile = async () => {
-    if (user) {
+    if (user && isSupabaseConfigured()) {
       const profileData = await fetchProfile(user.id)
       setProfile(profileData)
     }
   }
 
   useEffect(() => {
+    // Skip authentication setup if Supabase is not configured (e.g., during build time)
+    if (!isSupabaseConfigured()) {
+      setLoading(false)
+      return
+    }
+
     const getInitialSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
       
@@ -124,12 +135,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [router, pathname])
 
   const signOut = async () => {
-    await supabase.auth.signOut()
+    if (isSupabaseConfigured()) {
+      await supabase.auth.signOut()
+    }
   }
 
   // Redirect to login if not authenticated and not on login page
   useEffect(() => {
-    if (!loading && !user && pathname !== '/login') {
+    if (!loading && !user && pathname !== '/login' && isSupabaseConfigured()) {
       router.push('/login')
     }
   }, [loading, user, pathname, router])

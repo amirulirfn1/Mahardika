@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,6 +21,11 @@ export default function LoginPage() {
   const { user } = useAuth()
 
   useEffect(() => {
+    // Skip if Supabase is not configured (e.g., during build time)
+    if (!isSupabaseConfigured()) {
+      return
+    }
+
     // If user is already logged in, redirect to dashboard
     if (user) {
       router.push('/dashboard')
@@ -35,6 +40,13 @@ export default function LoginPage() {
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      setError('Authentication service is not available.')
+      return
+    }
+
     setLoading(true)
     setError('')
 
@@ -55,6 +67,12 @@ export default function LoginPage() {
   }
 
   const handleGoogleLogin = async () => {
+    // Check if Supabase is configured
+    if (!isSupabaseConfigured()) {
+      setError('Authentication service is not available.')
+      return
+    }
+
     setLoading(true)
     setError('')
 
@@ -89,6 +107,14 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {!isSupabaseConfigured() && (
+            <Alert>
+              <AlertDescription>
+                Authentication service is being configured. Please try again later.
+              </AlertDescription>
+            </Alert>
+          )}
+
           {error && (
             <Alert variant="destructive">
               <AlertDescription>{error}</AlertDescription>
@@ -105,7 +131,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                disabled={loading}
+                disabled={loading || !isSupabaseConfigured()}
               />
             </div>
             <div className="space-y-2">
@@ -117,10 +143,10 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                disabled={loading}
+                disabled={loading || !isSupabaseConfigured()}
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full" disabled={loading || !isSupabaseConfigured()}>
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -150,7 +176,7 @@ export default function LoginPage() {
             variant="outline"
             className="w-full"
             onClick={handleGoogleLogin}
-            disabled={loading}
+            disabled={loading || !isSupabaseConfigured()}
           >
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

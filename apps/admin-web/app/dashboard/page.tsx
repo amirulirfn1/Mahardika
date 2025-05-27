@@ -3,7 +3,8 @@
 import { useAuth } from '@/providers/auth-provider'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Shield, Users, FileText, CreditCard, LogOut } from 'lucide-react'
+import { Shield, Users, FileText, CreditCard, LogOut, Car } from 'lucide-react'
+import Link from 'next/link'
 
 export default function DashboardPage() {
   const { user, profile, signOut } = useAuth()
@@ -113,22 +114,39 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Button className="h-20 flex flex-col items-center justify-center" disabled>
-                  <FileText className="h-6 w-6 mb-2" />
-                  Manage Policies
-                  <span className="text-xs opacity-70">Coming soon</span>
-                </Button>
-                <Button className="h-20 flex flex-col items-center justify-center" disabled>
-                  <Users className="h-6 w-6 mb-2" />
-                  Customer Management
-                  <span className="text-xs opacity-70">Coming soon</span>
-                </Button>
-                <Button className="h-20 flex flex-col items-center justify-center" disabled>
-                  <CreditCard className="h-6 w-6 mb-2" />
-                  Payment Records
-                  <span className="text-xs opacity-70">Coming soon</span>
-                </Button>
+                <Link href="/dashboard/policies">
+                  <Button className="h-20 flex flex-col items-center justify-center w-full">
+                    <FileText className="h-6 w-6 mb-2" />
+                    Manage Policies
+                    <span className="text-xs opacity-70">View & edit policies</span>
+                  </Button>
+                </Link>
+                <Link href="/dashboard/vehicles">
+                  <Button className="h-20 flex flex-col items-center justify-center w-full">
+                    <Car className="h-6 w-6 mb-2" />
+                    Manage Vehicles
+                    <span className="text-xs opacity-70">Vehicle registry</span>
+                  </Button>
+                </Link>
+                <Link href="/dashboard/payments">
+                  <Button className="h-20 flex flex-col items-center justify-center w-full">
+                    <CreditCard className="h-6 w-6 mb-2" />
+                    Payment Records
+                    <span className="text-xs opacity-70">Track payments & invoices</span>
+                  </Button>
+                </Link>
               </div>
+              {profile.role === 'admin' && (
+                <div className="mt-4">
+                  <Link href="/dashboard/admin/users">
+                    <Button className="h-20 flex flex-col items-center justify-center w-full" variant="outline">
+                      <Users className="h-6 w-6 mb-2" />
+                      User Management
+                      <span className="text-xs opacity-70">Admin only - Manage roles</span>
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </CardContent>
           </Card>
 

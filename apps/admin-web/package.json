@@ -12,6 +12,9 @@
     "format:check": "biome format .",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -59,6 +62,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@playwright/test": "^1.52.0",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.2",
     "@types/jest": "^29.5.8",

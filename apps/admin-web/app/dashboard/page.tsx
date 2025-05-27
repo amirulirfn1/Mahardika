@@ -128,12 +128,25 @@ export default function DashboardPage() {
                     <span className="text-xs opacity-70">Vehicle registry</span>
                   </Button>
                 </Link>
-                <Button className="h-20 flex flex-col items-center justify-center" disabled>
-                  <CreditCard className="h-6 w-6 mb-2" />
-                  Payment Records
-                  <span className="text-xs opacity-70">Coming soon</span>
-                </Button>
+                <Link href="/dashboard/payments">
+                  <Button className="h-20 flex flex-col items-center justify-center w-full">
+                    <CreditCard className="h-6 w-6 mb-2" />
+                    Payment Records
+                    <span className="text-xs opacity-70">Track payments & invoices</span>
+                  </Button>
+                </Link>
               </div>
+              {profile.role === 'admin' && (
+                <div className="mt-4">
+                  <Link href="/dashboard/admin/users">
+                    <Button className="h-20 flex flex-col items-center justify-center w-full" variant="outline">
+                      <Users className="h-6 w-6 mb-2" />
+                      User Management
+                      <span className="text-xs opacity-70">Admin only - Manage roles</span>
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </CardContent>
           </Card>
 

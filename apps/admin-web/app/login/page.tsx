@@ -1,98 +1,98 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { supabase, isSupabaseConfigured } from '@/lib/supabase'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Loader2, Mail, Shield } from 'lucide-react'
-import { useAuth } from '@/providers/auth-provider'
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2, Mail, Shield } from "lucide-react";
+import { useAuth } from "@/providers/auth-provider";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const { user } = useAuth()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { user } = useAuth();
 
   useEffect(() => {
     // Skip if Supabase is not configured (e.g., during build time)
     if (!isSupabaseConfigured()) {
-      return
+      return;
     }
 
     // If user is already logged in, redirect to dashboard
     if (user) {
-      router.push('/dashboard')
+      router.push("/dashboard");
     }
 
     // Check for error messages
-    const errorParam = searchParams.get('error')
-    if (errorParam === 'unauthorized') {
-      setError('Access denied. This platform is for admin and staff only.')
+    const errorParam = searchParams.get("error");
+    if (errorParam === "unauthorized") {
+      setError("Access denied. This platform is for admin and staff only.");
     }
-  }, [user, router, searchParams])
+  }, [user, router, searchParams]);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
+    e.preventDefault();
+
     // Check if Supabase is configured
     if (!isSupabaseConfigured()) {
-      setError('Authentication service is not available.')
-      return
+      setError("Authentication service is not available.");
+      return;
     }
 
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError("");
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
-      })
+      });
 
       if (error) {
-        setError(error.message)
+        setError(error.message);
       }
-    } catch (err) {
-      setError('An unexpected error occurred')
+    } catch (_err) {
+      setError("An unexpected error occurred");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleGoogleLogin = async () => {
     // Check if Supabase is configured
     if (!isSupabaseConfigured()) {
-      setError('Authentication service is not available.')
-      return
+      setError("Authentication service is not available.");
+      return;
     }
 
-    setLoading(true)
-    setError('')
+    setLoading(true);
+    setError("");
 
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider: "google",
         options: {
           redirectTo: `${window.location.origin}/dashboard`,
         },
-      })
+      });
 
       if (error) {
-        setError(error.message)
-        setLoading(false)
+        setError(error.message);
+        setLoading(false);
       }
-    } catch (err) {
-      setError('An unexpected error occurred')
-      setLoading(false)
+    } catch (_err) {
+      setError("An unexpected error occurred");
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
@@ -102,9 +102,7 @@ export default function LoginPage() {
             <Shield className="h-6 w-6 text-blue-600" />
           </div>
           <CardTitle className="text-2xl font-bold">Mahardika Insurance</CardTitle>
-          <CardDescription>
-            Admin & Staff Portal
-          </CardDescription>
+          <CardDescription>Admin & Staff Portal</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {!isSupabaseConfigured() && (
@@ -166,9 +164,7 @@ export default function LoginPage() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
-              </span>
+              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
             </div>
           </div>
 
@@ -209,5 +205,5 @@ export default function LoginPage() {
         </CardContent>
       </Card>
     </div>
-  )
-} 
+  );
+}

@@ -1,25 +1,25 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { Providers } from '@/providers/providers'
-import { Toaster } from '@/components/ui/sonner'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Providers } from "@/providers/providers";
+import { Toaster } from "@/components/ui/sonner";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Mahardika Insurance Admin',
-  description: 'Internal insurance policy management platform',
-  manifest: '/manifest.json',
+  title: "Mahardika Insurance Admin",
+  description: "Internal insurance policy management platform",
+  manifest: "/manifest.json",
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -30,5 +30,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-  )
-} 
+  );
+}

@@ -1,19 +1,19 @@
-'use client'
+"use client";
 
-import { useAuth } from '@/providers/auth-provider'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Shield, Users, FileText, CreditCard, LogOut } from 'lucide-react'
+import { useAuth } from "@/providers/auth-provider";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Shield, Users, FileText, CreditCard, LogOut } from "lucide-react";
 
 export default function DashboardPage() {
-  const { user, profile, signOut } = useAuth()
+  const { user, profile, signOut } = useAuth();
 
   if (!user || !profile) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -31,7 +31,7 @@ export default function DashboardPage() {
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-right">
-                <p className="text-sm font-medium text-gray-900">{profile.full_name || 'User'}</p>
+                <p className="text-sm font-medium text-gray-900">{profile.full_name || "User"}</p>
                 <p className="text-xs text-gray-500 capitalize">{profile.role}</p>
               </div>
               <Button variant="outline" onClick={signOut}>
@@ -49,7 +49,7 @@ export default function DashboardPage() {
           {/* Welcome Section */}
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome back, {profile.full_name || 'User'}!
+              Welcome back, {profile.full_name || "User"}!
             </h2>
             <p className="text-gray-600">
               Manage insurance policies, track renewals, and monitor customer loyalty points.
@@ -107,9 +107,7 @@ export default function DashboardPage() {
           <Card>
             <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>
-                Common tasks and navigation shortcuts
-              </CardDescription>
+              <CardDescription>Common tasks and navigation shortcuts</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -136,9 +134,7 @@ export default function DashboardPage() {
           <Card className="mt-6">
             <CardHeader>
               <CardTitle>System Status</CardTitle>
-              <CardDescription>
-                Current system information and health
-              </CardDescription>
+              <CardDescription>Current system information and health</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
@@ -164,5 +160,5 @@ export default function DashboardPage() {
         </div>
       </main>
     </div>
-  )
-} 
+  );
+}

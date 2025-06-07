@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button, Card, colors } from '@mahardika/ui';
+import { Button, Card, AIChat, colors } from '@mahardika/ui';
 
 export default function HomePage() {
   const [clickCount, setClickCount] = React.useState(0);
@@ -186,6 +186,17 @@ export default function HomePage() {
               </p>
             </Card>
           </div>
+        </Card>
+      </section>
+
+      {/* AI Chat Component */}
+      <section style={{ marginBottom: '3rem' }}>
+        <Card title="AI Assistant" subtitle="DeepSeek-powered chat with Mahardika branding" variant="branded" size="lg">
+          <AIChat 
+            onMessage={(userMessage, aiResponse) => {
+              console.log('Chat interaction:', { userMessage, aiResponse });
+            }}
+          />
         </Card>
       </section>
 

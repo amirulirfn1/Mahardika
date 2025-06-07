@@ -9,6 +9,8 @@
     "dev": "pnpm run --filter='@mahardika/web' dev",
     "lint": "pnpm run --filter='./packages/*' lint",
     "clean": "pnpm run --filter='./packages/*' clean",
+    "bootstrap": "scripts/bootstrap.bat",
+    "bootstrap:bash": "bash scripts/bootstrap.sh",
     "security:check": "node scripts/security-check.js",
     "security:scan": "git log --all -p | grep -i 'api_key\\|secret\\|password\\|token' || echo 'No secrets found'",
     "env:template": "cp .env.local.example .env.local",

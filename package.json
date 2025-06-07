@@ -7,24 +7,44 @@
     "build": "pnpm run --filter='./packages/*' build",
     "test": "pnpm run --filter='./packages/*' test",
     "dev": "pnpm run --filter='@mahardika/web' dev",
-    "lint": "pnpm run --filter='./packages/*' lint",
+    "lint": "pnpm run --filter='./packages/*' lint && pnpm run --filter='./apps/*' lint",
+    "lint:fix": "pnpm run --filter='./packages/*' lint:fix && pnpm run --filter='./apps/*' lint:fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:test": "node scripts/lint-test.js",
     "clean": "pnpm run --filter='./packages/*' clean",
     "bootstrap": "scripts/bootstrap.bat",
     "bootstrap:bash": "bash scripts/bootstrap.sh",
     "security:check": "node scripts/security-check.js",
     "security:scan": "git log --all -p | grep -i 'api_key\\|secret\\|password\\|token' || echo 'No secrets found'",
     "env:template": "cp .env.local.example .env.local",
-    "pre-commit": "pnpm run security:check && pnpm run build && pnpm run test"
+    "pre-commit": "pnpm run format:check && pnpm run lint && pnpm run security:check && pnpm run build && pnpm run test"
   },
-  "keywords": ["mahardika", "monorepo", "ui", "react", "nextjs"],
+  "keywords": [
+    "mahardika",
+    "monorepo",
+    "ui",
+    "react",
+    "nextjs"
+  ],
   "author": "Mahardika Team",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.19.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "prettier": "^3.4.2",
     "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"
   }
-} 
+}

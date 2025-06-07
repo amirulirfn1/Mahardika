@@ -36,7 +36,7 @@ describe('Card Component', () => {
         Card content here
       </Card>
     );
-    
+
     expect(screen.getByText('Main Title')).toBeInTheDocument();
     expect(screen.getByText('Supporting text')).toBeInTheDocument();
     expect(screen.getByText('Card content here')).toBeInTheDocument();
@@ -81,19 +81,19 @@ describe('Card Component', () => {
   it('handles mouse events for hover states', () => {
     const handleMouseEnter = vi.fn();
     const handleMouseLeave = vi.fn();
-    
+
     render(
       <Card onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         Hover Card
       </Card>
     );
-    
+
     const cardElement = screen.getByText('Hover Card').parentElement;
-    
+
     if (cardElement) {
       fireEvent.mouseEnter(cardElement);
       expect(handleMouseEnter).toHaveBeenCalledTimes(1);
-      
+
       fireEvent.mouseLeave(cardElement);
       expect(handleMouseLeave).toHaveBeenCalledTimes(1);
     }
@@ -105,7 +105,7 @@ describe('Card Component', () => {
         Card content
       </Card>
     );
-    
+
     const card = screen.getByTestId('custom-card');
     expect(card).toHaveAttribute('aria-label', 'Custom Card');
   });
@@ -113,14 +113,14 @@ describe('Card Component', () => {
   it('applies custom styles when provided', () => {
     const customStyle = { margin: '20px' };
     render(<Card style={customStyle}>Styled Card</Card>);
-    
+
     const cardElement = screen.getByText('Styled Card').parentElement;
     expect(cardElement).toBeInTheDocument();
   });
 
   it('combines all features together', () => {
     render(
-      <Card 
+      <Card
         title="Full Featured Card"
         subtitle="With all props"
         variant="branded"
@@ -131,11 +131,13 @@ describe('Card Component', () => {
         <button>Action Button</button>
       </Card>
     );
-    
+
     expect(screen.getByText('Full Featured Card')).toBeInTheDocument();
     expect(screen.getByText('With all props')).toBeInTheDocument();
     expect(screen.getByText('Complex content here')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /action button/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /action button/i })
+    ).toBeInTheDocument();
     expect(screen.getByTestId('full-card')).toBeInTheDocument();
   });
-}); 
+});

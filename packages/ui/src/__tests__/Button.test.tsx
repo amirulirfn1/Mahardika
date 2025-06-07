@@ -62,45 +62,53 @@ describe('Button Component', () => {
   it('calls onClick handler when clicked', () => {
     const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Clickable Button</Button>);
-    
+
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    
+
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
   it('does not call onClick when disabled', () => {
     const handleClick = vi.fn();
-    render(<Button disabled onClick={handleClick}>Disabled Button</Button>);
-    
+    render(
+      <Button disabled onClick={handleClick}>
+        Disabled Button
+      </Button>
+    );
+
     const button = screen.getByRole('button');
     fireEvent.click(button);
-    
+
     expect(handleClick).not.toHaveBeenCalled();
   });
 
   it('handles mouse events for hover states', () => {
     const handleMouseEnter = vi.fn();
     const handleMouseLeave = vi.fn();
-    
+
     render(
       <Button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         Hover Button
       </Button>
     );
-    
+
     const button = screen.getByRole('button');
-    
+
     fireEvent.mouseEnter(button);
     expect(handleMouseEnter).toHaveBeenCalledTimes(1);
-    
+
     fireEvent.mouseLeave(button);
     expect(handleMouseLeave).toHaveBeenCalledTimes(1);
   });
 
   it('passes through additional props', () => {
-    render(<Button data-testid="custom-button" aria-label="Custom Button">Button</Button>);
-    
+    render(
+      <Button data-testid="custom-button" aria-label="Custom Button">
+        Button
+      </Button>
+    );
+
     const button = screen.getByTestId('custom-button');
     expect(button).toHaveAttribute('aria-label', 'Custom Button');
   });
@@ -108,8 +116,8 @@ describe('Button Component', () => {
   it('applies custom styles when provided', () => {
     const customStyle = { margin: '10px' };
     render(<Button style={customStyle}>Styled Button</Button>);
-    
+
     const button = screen.getByRole('button');
     expect(button).toBeInTheDocument();
   });
-}); 
+});

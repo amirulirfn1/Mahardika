@@ -69,7 +69,7 @@ A React component library featuring:
 #### Usage
 
 ```tsx
-import { Button, Card, colors } from "@mahardika/ui";
+import { Button, Card, colors } from '@mahardika/ui';
 
 function App() {
   return (
@@ -173,7 +173,7 @@ When creating new components, follow these guidelines:
 
 4. **Use in the web app**:
    ```tsx
-   import { ComponentName } from "@mahardika/ui";
+   import { ComponentName } from '@mahardika/ui';
    ```
 
 ## 📋 Available Scripts
@@ -201,4 +201,5 @@ ISC License
 
 ## 🏢 About Mahardika
 
-Mahardika is a startup project focused on building innovative solutions with modern web technologies.
+Mahardika is a startup project focused on building innovative solutions with modern web
+technologies.

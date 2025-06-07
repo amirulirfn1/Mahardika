@@ -9,7 +9,10 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   subtitle?: string;
 }
 
-const getCardStyles = (variant: CardProps['variant'], size: CardProps['size']) => {
+const getCardStyles = (
+  variant: CardProps['variant'],
+  size: CardProps['size']
+) => {
   const baseStyles = {
     borderRadius: '0.5rem', // 0.5rem as specified in requirements
     transition: 'all 0.2s ease-in-out',
@@ -34,9 +37,11 @@ const getCardStyles = (variant: CardProps['variant'], size: CardProps['size']) =
     default: {
       backgroundColor: colors.white,
       border: `1px solid ${colors.border.light}`,
-      boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+      boxShadow:
+        '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
       ':hover': {
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        boxShadow:
+          '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         transform: 'translateY(-1px)',
       },
     },
@@ -44,9 +49,11 @@ const getCardStyles = (variant: CardProps['variant'], size: CardProps['size']) =
       background: `linear-gradient(135deg, ${colors.navy} 0%, ${colors.gray[800]} 100%)`,
       border: `1px solid ${colors.navy}`,
       color: colors.white,
-      boxShadow: '0 4px 6px -1px rgba(13, 27, 42, 0.2), 0 2px 4px -1px rgba(13, 27, 42, 0.1)',
+      boxShadow:
+        '0 4px 6px -1px rgba(13, 27, 42, 0.2), 0 2px 4px -1px rgba(13, 27, 42, 0.1)',
       ':hover': {
-        boxShadow: '0 10px 15px -3px rgba(13, 27, 42, 0.3), 0 4px 6px -2px rgba(13, 27, 42, 0.2)',
+        boxShadow:
+          '0 10px 15px -3px rgba(13, 27, 42, 0.3), 0 4px 6px -2px rgba(13, 27, 42, 0.2)',
         transform: 'translateY(-2px)',
       },
     },
@@ -56,7 +63,8 @@ const getCardStyles = (variant: CardProps['variant'], size: CardProps['size']) =
       color: colors.navy,
       ':hover': {
         backgroundColor: colors.background.neutral,
-        boxShadow: '0 4px 6px -1px rgba(13, 27, 42, 0.1), 0 2px 4px -1px rgba(13, 27, 42, 0.06)',
+        boxShadow:
+          '0 4px 6px -1px rgba(13, 27, 42, 0.1), 0 2px 4px -1px rgba(13, 27, 42, 0.06)',
         transform: 'translateY(-1px)',
       },
     },
@@ -120,7 +128,7 @@ const getSubtitleStyles = (variant: CardProps['variant']) => {
   };
 };
 
-export const Card: React.FC<CardProps> = ({ 
+export const Card: React.FC<CardProps> = ({
   variant = 'default',
   size = 'md',
   children,
@@ -129,10 +137,10 @@ export const Card: React.FC<CardProps> = ({
   style,
   onMouseEnter,
   onMouseLeave,
-  ...props 
+  ...props
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
-  
+
   const cardStyles = getCardStyles(variant, size);
   const hoverStyles = isHovered ? cardStyles[':hover'] : {};
   const titleStyles = getTitleStyles(variant);
@@ -159,19 +167,9 @@ export const Card: React.FC<CardProps> = ({
       onMouseLeave={handleMouseLeave}
       {...props}
     >
-      {title && (
-        <h3 style={titleStyles}>
-          {title}
-        </h3>
-      )}
-      {subtitle && (
-        <p style={subtitleStyles}>
-          {subtitle}
-        </p>
-      )}
-      <div>
-        {children}
-      </div>
+      {title && <h3 style={titleStyles}>{title}</h3>}
+      {subtitle && <p style={subtitleStyles}>{subtitle}</p>}
+      <div>{children}</div>
     </div>
   );
-}; 
+};

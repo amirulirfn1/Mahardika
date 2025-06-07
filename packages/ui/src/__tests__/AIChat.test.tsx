@@ -14,18 +14,20 @@ describe('AIChat Component', () => {
 
   it('renders with initial welcome message', () => {
     render(<AIChat />);
-    
+
     expect(screen.getByText('Mahardika AI Assistant')).toBeInTheDocument();
     expect(screen.getByText('Powered by DeepSeek AI')).toBeInTheDocument();
-    expect(screen.getByText('Welcome to Mahardika AI Assistant!')).toBeInTheDocument();
+    expect(
+      screen.getByText('Welcome to Mahardika AI Assistant!')
+    ).toBeInTheDocument();
   });
 
   it('renders input field and send button', () => {
     render(<AIChat />);
-    
+
     const textarea = screen.getByPlaceholderText(/Type your message here/);
     const sendButton = screen.getByRole('button', { name: /send/i });
-    
+
     expect(textarea).toBeInTheDocument();
     expect(sendButton).toBeInTheDocument();
     expect(sendButton).toBeDisabled(); // Should be disabled when input is empty
@@ -33,12 +35,12 @@ describe('AIChat Component', () => {
 
   it('enables send button when text is entered', () => {
     render(<AIChat />);
-    
+
     const textarea = screen.getByPlaceholderText(/Type your message here/);
     const sendButton = screen.getByRole('button', { name: /send/i });
-    
+
     fireEvent.change(textarea, { target: { value: 'Hello AI!' } });
-    
+
     expect(sendButton).not.toBeDisabled();
   });
 
@@ -49,24 +51,27 @@ describe('AIChat Component', () => {
     });
 
     render(<AIChat />);
-    
+
     const textarea = screen.getByPlaceholderText(/Type your message here/);
     const sendButton = screen.getByRole('button', { name: /send/i });
-    
+
     fireEvent.change(textarea, { target: { value: 'Hello AI!' } });
     fireEvent.click(sendButton);
-    
-    expect(mockFetch).toHaveBeenCalledWith('/api/chat', expect.objectContaining({
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        message: 'Hello AI!',
-        apiKey: undefined,
-      }),
-    }));
-    
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      '/api/chat',
+      expect.objectContaining({
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: 'Hello AI!',
+          apiKey: undefined,
+        }),
+      })
+    );
+
     await waitFor(() => {
       expect(screen.getByText('Hello AI!')).toBeInTheDocument();
     });
@@ -79,12 +84,12 @@ describe('AIChat Component', () => {
     });
 
     render(<AIChat />);
-    
+
     const textarea = screen.getByPlaceholderText(/Type your message here/);
-    
+
     fireEvent.change(textarea, { target: { value: 'Test message' } });
     fireEvent.keyPress(textarea, { key: 'Enter', code: 'Enter' });
-    
+
     expect(mockFetch).toHaveBeenCalled();
   });
 
@@ -92,13 +97,13 @@ describe('AIChat Component', () => {
     mockFetch.mockRejectedValueOnce(new Error('Network error'));
 
     render(<AIChat />);
-    
+
     const textarea = screen.getByPlaceholderText(/Type your message here/);
     const sendButton = screen.getByRole('button', { name: /send/i });
-    
+
     fireEvent.change(textarea, { target: { value: 'Test message' } });
     fireEvent.click(sendButton);
-    
+
     await waitFor(() => {
       expect(screen.getByText(/Error: Network error/)).toBeInTheDocument();
     });
@@ -106,23 +111,25 @@ describe('AIChat Component', () => {
 
   it('shows loading state during API call', async () => {
     let resolvePromise: (value: any) => void;
-    const promise = new Promise((resolve) => {
+    const promise = new Promise(resolve => {
       resolvePromise = resolve;
     });
-    
+
     mockFetch.mockReturnValueOnce(promise);
 
     render(<AIChat />);
-    
+
     const textarea = screen.getByPlaceholderText(/Type your message here/);
     const sendButton = screen.getByRole('button', { name: /send/i });
-    
+
     fireEvent.change(textarea, { target: { value: 'Test message' } });
     fireEvent.click(sendButton);
-    
+
     expect(screen.getByText('AI is thinking...')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sending/i })).toBeInTheDocument();
-    
+    expect(
+      screen.getByRole('button', { name: /sending/i })
+    ).toBeInTheDocument();
+
     // Resolve the promise to complete the test
     resolvePromise!({
       ok: true,
@@ -138,13 +145,13 @@ describe('AIChat Component', () => {
     });
 
     render(<AIChat onMessage={mockOnMessage} />);
-    
+
     const textarea = screen.getByPlaceholderText(/Type your message here/);
     const sendButton = screen.getByRole('button', { name: /send/i });
-    
+
     fireEvent.change(textarea, { target: { value: 'User message' } });
     fireEvent.click(sendButton);
-    
+
     await waitFor(() => {
       expect(mockOnMessage).toHaveBeenCalledWith('User message', 'AI response');
     });
@@ -158,18 +165,21 @@ describe('AIChat Component', () => {
     });
 
     render(<AIChat apiKey={testApiKey} />);
-    
+
     const textarea = screen.getByPlaceholderText(/Type your message here/);
     const sendButton = screen.getByRole('button', { name: /send/i });
-    
+
     fireEvent.change(textarea, { target: { value: 'Test' } });
     fireEvent.click(sendButton);
-    
-    expect(mockFetch).toHaveBeenCalledWith('/api/chat', expect.objectContaining({
-      body: JSON.stringify({
-        message: 'Test',
-        apiKey: testApiKey,
-      }),
-    }));
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      '/api/chat',
+      expect.objectContaining({
+        body: JSON.stringify({
+          message: 'Test',
+          apiKey: testApiKey,
+        }),
+      })
+    );
   });
-}); 
+});

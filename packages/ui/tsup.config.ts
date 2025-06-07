@@ -11,4 +11,4 @@ export default defineConfig({
   banner: {
     js: '// @mahardika/ui - Mahardika UI Component Library',
   },
-}); 
+});

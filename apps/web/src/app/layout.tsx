@@ -3,7 +3,8 @@ import { colors } from '@mahardika/ui';
 
 export const metadata: Metadata = {
   title: 'Mahardika Platform',
-  description: 'Mahardika Platform - Showcasing beautiful UI components with navy and gold branding',
+  description:
+    'Mahardika Platform - Showcasing beautiful UI components with navy and gold branding',
   keywords: ['mahardika', 'ui', 'components', 'react', 'nextjs'],
 };
 
@@ -33,4 +34,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-} 
+}

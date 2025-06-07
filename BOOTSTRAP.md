@@ -1,6 +1,7 @@
 # Mahardika Platform Bootstrap
 
-Complete setup automation for the Mahardika Platform development environment with dependency checks, package installation, and configuration.
+Complete setup automation for the Mahardika Platform development environment with dependency checks,
+package installation, and configuration.
 
 ## 🚀 Quick Start
 
@@ -320,7 +321,8 @@ pnpm run security:check
 - **Navy:** `#0D1B2A` - Primary brand color
 - **Gold:** `#F4B400` - Accent brand color
 
-These colors are automatically included in your environment configuration and can be used throughout your application for consistent theming.
+These colors are automatically included in your environment configuration and can be used throughout
+your application for consistent theming.
 
 ---
 

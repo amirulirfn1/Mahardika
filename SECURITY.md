@@ -2,7 +2,9 @@
 
 ## Overview
 
-Comprehensive security implementation for the Mahardika platform monorepo, focusing on environment variables, secrets management, and sensitive data protection with navy #0D1B2A and gold #F4B400 branding.
+Comprehensive security implementation for the Mahardika platform monorepo, focusing on environment
+variables, secrets management, and sensitive data protection with navy #0D1B2A and gold #F4B400
+branding.
 
 ## 🛡️ Environment Variables & Secrets Management
 
@@ -164,47 +166,39 @@ Create `scripts/security-check.js`:
  * Verifies no secrets are accidentally committed
  */
 
-const fs = require("fs");
-const path = require("path");
-const { execSync } = require("child_process");
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
 
 // Mahardika brand colors for output
 const colors = {
-  navy: "\x1b[38;2;13;27;42m",
-  gold: "\x1b[38;2;244;180;0m",
-  reset: "\x1b[0m",
-  red: "\x1b[31m",
-  green: "\x1b[32m",
+  navy: '\x1b[38;2;13;27;42m',
+  gold: '\x1b[38;2;244;180;0m',
+  reset: '\x1b[0m',
+  red: '\x1b[31m',
+  green: '\x1b[32m',
 };
 
 console.log(`${colors.navy}🔒 Mahardika Security Check${colors.reset}`);
-console.log(
-  `${colors.gold}Scanning for potential security issues...${colors.reset}\n`
-);
+console.log(`${colors.gold}Scanning for potential security issues...${colors.reset}\n`);
 
 // Check for .env files in git
 try {
-  const gitStatus = execSync("git status --porcelain", { encoding: "utf8" });
-  const envFiles = gitStatus
-    .split("\n")
-    .filter((line) => line.includes(".env"));
+  const gitStatus = execSync('git status --porcelain', { encoding: 'utf8' });
+  const envFiles = gitStatus.split('\n').filter(line => line.includes('.env'));
 
   if (envFiles.length > 0) {
-    console.log(
-      `${colors.red}❌ Environment files found in git status:${colors.reset}`
-    );
-    envFiles.forEach((file) => console.log(`   ${file}`));
+    console.log(`${colors.red}❌ Environment files found in git status:${colors.reset}`);
+    envFiles.forEach(file => console.log(`   ${file}`));
     process.exit(1);
   }
 } catch (error) {
-  console.log(
-    `${colors.gold}⚠️  Not a git repository or git not available${colors.reset}`
-  );
+  console.log(`${colors.gold}⚠️  Not a git repository or git not available${colors.reset}`);
 }
 
 // Check for secrets in staged files
 try {
-  const diff = execSync("git diff --cached", { encoding: "utf8" });
+  const diff = execSync('git diff --cached', { encoding: 'utf8' });
   const secretPatterns = [
     /api[_-]?key[s]?\s*[:=]\s*['"']?[a-zA-Z0-9_-]{20,}['"']?/gi,
     /secret[_-]?key[s]?\s*[:=]\s*['"']?[a-zA-Z0-9_-]{20,}['"']?/gi,
@@ -213,21 +207,17 @@ try {
   ];
 
   let foundSecrets = false;
-  secretPatterns.forEach((pattern) => {
+  secretPatterns.forEach(pattern => {
     const matches = diff.match(pattern);
     if (matches) {
       foundSecrets = true;
-      console.log(
-        `${colors.red}❌ Potential secrets found in staged files:${colors.reset}`
-      );
-      matches.forEach((match) => console.log(`   ${match}`));
+      console.log(`${colors.red}❌ Potential secrets found in staged files:${colors.reset}`);
+      matches.forEach(match => console.log(`   ${match}`));
     }
   });
 
   if (foundSecrets) {
-    console.log(
-      `\n${colors.red}Please remove secrets before committing!${colors.reset}`
-    );
+    console.log(`\n${colors.red}Please remove secrets before committing!${colors.reset}`);
     process.exit(1);
   }
 } catch (error) {
@@ -235,26 +225,20 @@ try {
 }
 
 // Verify .env.local.example exists
-if (!fs.existsSync(".env.local.example")) {
-  console.log(
-    `${colors.red}❌ .env.local.example template missing${colors.reset}`
-  );
+if (!fs.existsSync('.env.local.example')) {
+  console.log(`${colors.red}❌ .env.local.example template missing${colors.reset}`);
   process.exit(1);
 }
 
 // Verify .gitignore includes .env*
-const gitignore = fs.readFileSync(".gitignore", "utf8");
-if (!gitignore.includes(".env*")) {
-  console.log(
-    `${colors.red}❌ .gitignore missing .env* wildcard${colors.reset}`
-  );
+const gitignore = fs.readFileSync('.gitignore', 'utf8');
+if (!gitignore.includes('.env*')) {
+  console.log(`${colors.red}❌ .gitignore missing .env* wildcard${colors.reset}`);
   process.exit(1);
 }
 
 console.log(`${colors.green}✅ Security check passed!${colors.reset}`);
-console.log(
-  `${colors.navy}All environment files and secrets properly protected${colors.reset}`
-);
+console.log(`${colors.navy}All environment files and secrets properly protected${colors.reset}`);
 ```
 
 ## 🚀 Deployment Security
@@ -290,7 +274,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: '18'
       - name: Install dependencies
         run: pnpm install
       - name: Run security check
@@ -299,8 +283,8 @@ jobs:
         run: pnpm run build
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          NEXT_PUBLIC_BRAND_NAVY: "#0D1B2A"
-          NEXT_PUBLIC_BRAND_GOLD: "#F4B400"
+          NEXT_PUBLIC_BRAND_NAVY: '#0D1B2A'
+          NEXT_PUBLIC_BRAND_GOLD: '#F4B400'
 ```
 
 ## 📋 Security Checklist

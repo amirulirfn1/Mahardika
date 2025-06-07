@@ -1,14 +1,19 @@
 import React from 'react';
 import { colors } from './colors';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   disabled?: boolean;
 }
 
-const getButtonStyles = (variant: ButtonProps['variant'], size: ButtonProps['size'], disabled: boolean) => {
+const getButtonStyles = (
+  variant: ButtonProps['variant'],
+  size: ButtonProps['size'],
+  disabled: boolean
+) => {
   const baseStyles = {
     fontFamily: 'system-ui, -apple-system, sans-serif',
     fontWeight: '600',
@@ -31,13 +36,13 @@ const getButtonStyles = (variant: ButtonProps['variant'], size: ButtonProps['siz
       lineHeight: '1.25rem',
     },
     md: {
-      padding: '0.75rem 1.5rem', 
+      padding: '0.75rem 1.5rem',
       fontSize: '1rem',
       lineHeight: '1.5rem',
     },
     lg: {
       padding: '1rem 2rem',
-      fontSize: '1.125rem', 
+      fontSize: '1.125rem',
       lineHeight: '1.75rem',
     },
   };
@@ -48,34 +53,40 @@ const getButtonStyles = (variant: ButtonProps['variant'], size: ButtonProps['siz
       backgroundColor: colors.navy,
       borderColor: colors.navy,
       color: colors.white,
-      ':hover': !disabled ? {
-        backgroundColor: colors.gray[800],
-        borderColor: colors.gray[800],
-        transform: 'translateY(-1px)',
-        boxShadow: '0 4px 8px rgba(13, 27, 42, 0.2)',
-      } : {},
+      ':hover': !disabled
+        ? {
+            backgroundColor: colors.gray[800],
+            borderColor: colors.gray[800],
+            transform: 'translateY(-1px)',
+            boxShadow: '0 4px 8px rgba(13, 27, 42, 0.2)',
+          }
+        : {},
     },
     secondary: {
       backgroundColor: colors.gold,
       borderColor: colors.gold,
       color: colors.navy,
-      ':hover': !disabled ? {
-        backgroundColor: '#E6A200',
-        borderColor: '#E6A200', 
-        transform: 'translateY(-1px)',
-        boxShadow: '0 4px 8px rgba(244, 180, 0, 0.2)',
-      } : {},
+      ':hover': !disabled
+        ? {
+            backgroundColor: '#E6A200',
+            borderColor: '#E6A200',
+            transform: 'translateY(-1px)',
+            boxShadow: '0 4px 8px rgba(244, 180, 0, 0.2)',
+          }
+        : {},
     },
     outline: {
       backgroundColor: 'transparent',
       borderColor: colors.navy,
       color: colors.navy,
-      ':hover': !disabled ? {
-        backgroundColor: colors.navy,
-        color: colors.white,
-        transform: 'translateY(-1px)',
-        boxShadow: '0 4px 8px rgba(13, 27, 42, 0.2)',
-      } : {},
+      ':hover': !disabled
+        ? {
+            backgroundColor: colors.navy,
+            color: colors.white,
+            transform: 'translateY(-1px)',
+            boxShadow: '0 4px 8px rgba(13, 27, 42, 0.2)',
+          }
+        : {},
     },
   };
 
@@ -86,18 +97,18 @@ const getButtonStyles = (variant: ButtonProps['variant'], size: ButtonProps['siz
   };
 };
 
-export const Button: React.FC<ButtonProps> = ({ 
+export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
-  size = 'md', 
+  size = 'md',
   children,
   disabled = false,
   style,
   onMouseEnter,
   onMouseLeave,
-  ...props 
+  ...props
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
-  
+
   const buttonStyles = getButtonStyles(variant, size, disabled);
   const hoverStyles = isHovered && !disabled ? buttonStyles[':hover'] : {};
 
@@ -126,4 +137,4 @@ export const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-}; 
+};

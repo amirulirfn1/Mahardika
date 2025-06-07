@@ -1,6 +1,6 @@
 /**
  * @mahardika/ui - Mahardika UI Component Library
- * 
+ *
  * A comprehensive UI component library featuring the official Mahardika brand colors
  * (navy #0D1B2A and gold #F4B400) with consistent styling and accessibility.
  */
@@ -20,4 +20,4 @@ export { AIChat } from './AIChat';
 export type { AIChatProps } from './AIChat';
 
 export { SecurityStatus } from './SecurityStatus';
-export type { SecurityStatusProps } from './SecurityStatus'; 
+export type { SecurityStatusProps } from './SecurityStatus';

@@ -2,7 +2,8 @@
 
 ## Overview
 
-Complete implementation guide for initializing git, creating commits, and pushing the Mahardika monorepo to GitHub with navy #0D1B2A and gold #F4B400 branding.
+Complete implementation guide for initializing git, creating commits, and pushing the Mahardika
+monorepo to GitHub with navy #0D1B2A and gold #F4B400 branding.
 
 ## 📋 Prerequisites
 
@@ -197,34 +198,34 @@ Mahardika/
 ```typescript
 export const colors = {
   // Primary Mahardika brand colors
-  navy: "#0D1B2A", // Main brand navy
-  gold: "#F4B400", // Accent gold
+  navy: '#0D1B2A', // Main brand navy
+  gold: '#F4B400', // Accent gold
 
   // Extended palette
   gray: {
-    50: "#F8FAFC",
-    100: "#F1F5F9",
-    200: "#E2E8F0",
-    300: "#CBD5E1",
-    400: "#94A3B8",
-    500: "#64748B",
-    600: "#475569",
-    700: "#334155",
-    800: "#1E293B",
-    900: "#0F172A",
+    50: '#F8FAFC',
+    100: '#F1F5F9',
+    200: '#E2E8F0',
+    300: '#CBD5E1',
+    400: '#94A3B8',
+    500: '#64748B',
+    600: '#475569',
+    700: '#334155',
+    800: '#1E293B',
+    900: '#0F172A',
   },
 
   // Semantic colors
   background: {
-    primary: "#0D1B2A",
-    secondary: "#1E293B",
-    tertiary: "#F8FAFC",
+    primary: '#0D1B2A',
+    secondary: '#1E293B',
+    tertiary: '#F8FAFC',
   },
 
   text: {
-    primary: "#F8FAFC",
-    secondary: "#CBD5E1",
-    accent: "#F4B400",
+    primary: '#F8FAFC',
+    secondary: '#CBD5E1',
+    accent: '#F4B400',
   },
 } as const;
 ```

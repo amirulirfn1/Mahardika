@@ -1,4 +1,4 @@
- {
+{
   "compilerOptions": {
     "composite": true,
     "skipLibCheck": true,
@@ -9,4 +9,4 @@
     "noEmit": true
   },
   "include": ["vitest.config.ts"]
-} 
+}

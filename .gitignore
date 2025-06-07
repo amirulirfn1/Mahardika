@@ -15,12 +15,77 @@ out/
 build/
 dist/
 
-# Environment variables
+# Environment variables and secrets
+.env*
 .env
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
+.env.staging
+.env.staging.local
+
+# API Keys and secrets
+secrets/
+*.key
+*.pem
+*.p12
+*.crt
+*.csr
+*.pfx
+.secret
+.secrets
+secrets.json
+secrets.yaml
+secrets.yml
+config/secrets/
+keys/
+certificates/
+
+# Authentication and tokens
+.auth
+auth.json
+token.json
+tokens/
+.firebase/
+.vercel/env
+.netlify/
+.aws/
+.gcp/
+
+# Database credentials
+database.env
+db.env
+db-credentials.*
+
+# CI/CD secrets
+.github/secrets/
+.gitlab-ci.yml.local
+.circleci/secrets/
+
+# Docker secrets
+docker-compose.override.yml
+docker-compose.secrets.yml
+.docker/
+docker/secrets/
+
+# Terraform secrets
+terraform.tfvars
+*.tfvars.json
+.terraform/
+terraform.tfstate*
+.terraformrc
+terraform.rc
+
+# Cloud provider configs
+.aws/credentials
+.aws/config
+.azure/
+.gcloud/
+.kube/config
 
 # Logs
 npm-debug.log*

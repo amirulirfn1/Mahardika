@@ -17,4 +17,7 @@ export { Card } from './Card';
 export type { CardProps } from './Card';
 
 export { AIChat } from './AIChat';
-export type { AIChatProps } from './AIChat'; 
+export type { AIChatProps } from './AIChat';
+
+export { SecurityStatus } from './SecurityStatus';
+export type { SecurityStatusProps } from './SecurityStatus'; 

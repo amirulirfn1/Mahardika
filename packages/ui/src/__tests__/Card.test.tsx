@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 import { Card } from '../Card';
 import { colors } from '../colors';
 
@@ -78,8 +79,8 @@ describe('Card Component', () => {
   });
 
   it('handles mouse events for hover states', () => {
-    const handleMouseEnter = jest.fn();
-    const handleMouseLeave = jest.fn();
+    const handleMouseEnter = vi.fn();
+    const handleMouseLeave = vi.fn();
     
     render(
       <Card onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

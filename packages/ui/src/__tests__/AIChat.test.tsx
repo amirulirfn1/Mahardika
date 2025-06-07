@@ -1,9 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { vi } from 'vitest';
 import { AIChat } from '../AIChat';
 
 // Mock fetch
-const mockFetch = jest.fn();
+const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
 describe('AIChat Component', () => {
@@ -130,7 +131,7 @@ describe('AIChat Component', () => {
   });
 
   it('calls onMessage callback when provided', async () => {
-    const mockOnMessage = jest.fn();
+    const mockOnMessage = vi.fn();
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: async () => ({ response: 'AI response' }),

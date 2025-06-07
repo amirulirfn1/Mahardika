@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 import { Button } from '../Button';
 import { colors } from '../colors';
 
@@ -59,7 +60,7 @@ describe('Button Component', () => {
   });
 
   it('calls onClick handler when clicked', () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Clickable Button</Button>);
     
     const button = screen.getByRole('button');
@@ -69,7 +70,7 @@ describe('Button Component', () => {
   });
 
   it('does not call onClick when disabled', () => {
-    const handleClick = jest.fn();
+    const handleClick = vi.fn();
     render(<Button disabled onClick={handleClick}>Disabled Button</Button>);
     
     const button = screen.getByRole('button');
@@ -79,8 +80,8 @@ describe('Button Component', () => {
   });
 
   it('handles mouse events for hover states', () => {
-    const handleMouseEnter = jest.fn();
-    const handleMouseLeave = jest.fn();
+    const handleMouseEnter = vi.fn();
+    const handleMouseLeave = vi.fn();
     
     render(
       <Button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>

@@ -8,7 +8,11 @@
     "test": "pnpm run --filter='./packages/*' test",
     "dev": "pnpm run --filter='@mahardika/web' dev",
     "lint": "pnpm run --filter='./packages/*' lint",
-    "clean": "pnpm run --filter='./packages/*' clean"
+    "clean": "pnpm run --filter='./packages/*' clean",
+    "security:check": "node scripts/security-check.js",
+    "security:scan": "git log --all -p | grep -i 'api_key\\|secret\\|password\\|token' || echo 'No secrets found'",
+    "env:template": "cp .env.local.example .env.local",
+    "pre-commit": "pnpm run security:check && pnpm run build && pnpm run test"
   },
   "keywords": ["mahardika", "monorepo", "ui", "react", "nextjs"],
   "author": "Mahardika Team",

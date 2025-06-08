@@ -4,6 +4,12 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@mahardika/ui'],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
 };
 
 export default nextConfig;

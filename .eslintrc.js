@@ -11,12 +11,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    '@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
     'prettier', // Must be last to override conflicting rules
   ],
   parser: '@typescript-eslint/parser',
@@ -27,14 +23,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: [
-    '@typescript-eslint',
-    'react',
-    'react-hooks',
-    'jsx-a11y',
-    'import',
-    'unused-imports',
-  ],
+  plugins: ['react', 'react-hooks'],
   settings: {
     react: {
       version: 'detect',

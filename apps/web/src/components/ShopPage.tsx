@@ -317,14 +317,19 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
         <div className="container">
           <div className="row">
             <div className="col-lg-6 mb-4">
-              <BrandCard variant="white" size="md" className="h-100">
+              <BrandCard
+                variant="navy-outline"
+                size="md"
+                className="h-100"
+                style={{ backgroundColor: 'white' }}
+              >
                 <h3 className="h4 mb-3" style={{ color: colors.navy }}>
                   About Our Services
                 </h3>
                 <p style={{ color: colors.gray[700] }}>{agency.description}</p>
                 {agency.website_url && (
                   <BrandButton
-                    variant="navy-outline"
+                    variant="outline-navy"
                     size="md"
                     onClick={() => window.open(agency.website_url, '_blank')}
                   >
@@ -412,7 +417,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                   Call Now
                 </BrandButton>
                 <BrandButton
-                  variant="gold-outline"
+                  variant="outline-gold"
                   size="lg"
                   className="px-5"
                   style={{ color: 'white', borderColor: colors.gold }}

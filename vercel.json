@@ -18,8 +18,17 @@
   "functions": {
     "apps/web/src/app/api/chat/route.ts": {
       "maxDuration": 30
+    },
+    "apps/web/src/app/api/cron/updateClamSig.ts": {
+      "maxDuration": 300
     }
   },
+  "crons": [
+    {
+      "path": "/api/cron/updateClamSig",
+      "schedule": "0 2 * * *"
+    }
+  ],
   "regions": ["iad1"],
   "installCommand": "pnpm install",
   "buildCommand": "cd apps/web && pnpm build",

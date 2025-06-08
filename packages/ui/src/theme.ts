@@ -3,6 +3,55 @@
  * Comprehensive design system for consistent styling across all components
  */
 
+// Bootstrap 5 Color Override Map
+export const bootstrapColorOverrides = {
+  primary: '#0D1B2A', // Mahardika Navy
+  secondary: '#6B7280', // Neutral gray
+  success: '#10B981',
+  info: '#3B82F6',
+  warning: '#F4B400', // Mahardika Gold
+  danger: '#EF4444',
+  light: '#F9FAFB',
+  dark: '#111827',
+} as const;
+
+// SCSS Variables for Bootstrap integration
+export const scssVariables = `
+// Mahardika Brand Colors for Bootstrap
+$primary: #0D1B2A;
+$secondary: #6B7280;
+$success: #10B981;
+$info: #3B82F6;
+$warning: #F4B400;
+$danger: #EF4444;
+$light: #F9FAFB;
+$dark: #111827;
+
+// Mahardika specific variables
+$mahardika-navy: #0D1B2A;
+$mahardika-gold: #F4B400;
+$mahardika-border-radius: 0.5rem;
+
+// Bootstrap overrides
+$border-radius: $mahardika-border-radius;
+$border-radius-sm: 0.25rem;
+$border-radius-lg: 0.75rem;
+$border-radius-xl: 1rem;
+$border-radius-pill: 50rem;
+
+// Component specific overrides
+$btn-border-radius: $mahardika-border-radius;
+$card-border-radius: $mahardika-border-radius;
+$input-border-radius: $mahardika-border-radius;
+$modal-border-radius: $mahardika-border-radius;
+$popover-border-radius: $mahardika-border-radius;
+$tooltip-border-radius: $mahardika-border-radius;
+
+// Typography
+$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$font-family-monospace: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+`;
+
 export const theme = {
   // Brand Colors - Official Mahardika palette
   colors: {

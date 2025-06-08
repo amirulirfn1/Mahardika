@@ -9,7 +9,7 @@
 export { colors } from './colors';
 export type { Colors, ColorKey } from './colors';
 
-export { theme } from './theme';
+export { theme, bootstrapColorOverrides, scssVariables } from './theme';
 export type {
   Theme,
   ThemeColors,

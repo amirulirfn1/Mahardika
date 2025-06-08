@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors } from './colors';
+import { theme } from './theme';
 
 export interface BrandCardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?:
@@ -27,46 +27,26 @@ const getBrandCardStyles = (
   pattern: BrandCardProps['pattern']
 ) => {
   const baseStyles = {
-    borderRadius: '0.5rem',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
+    borderRadius: theme.borderRadius.lg,
+    transition: theme.transitions.brand,
+    fontFamily: theme.typography.fontFamily.primary,
     position: 'relative' as const,
     overflow: 'hidden' as const,
   };
 
   // Enhanced size variants for brand cards
-  const sizeStyles = {
-    sm: {
-      padding: '1.25rem',
-      minHeight: '120px',
-    },
-    md: {
-      padding: '1.75rem',
-      minHeight: '160px',
-    },
-    lg: {
-      padding: '2.5rem',
-      minHeight: '200px',
-    },
-    xl: {
-      padding: '3.5rem',
-      minHeight: '280px',
-    },
-  };
+  const sizeStyles = theme.components.card.sizes;
 
   // Elevation styles
   const elevationStyles = {
     low: {
-      boxShadow:
-        '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+      boxShadow: theme.shadows.sm,
     },
     medium: {
-      boxShadow:
-        '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      boxShadow: theme.shadows.md,
     },
     high: {
-      boxShadow:
-        '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      boxShadow: theme.shadows.xl,
     },
   };
 
@@ -98,81 +78,81 @@ const getBrandCardStyles = (
   // Enhanced variant styles with Mahardika brand identity
   const variantStyles = {
     'navy-primary': {
-      background: `linear-gradient(135deg, ${colors.navy} 0%, #1a2332 100%)`,
-      border: `1px solid ${colors.navy}`,
-      color: colors.white,
-      boxShadow: '0 8px 32px 0 rgba(13, 27, 42, 0.37)',
+      background: theme.colors.gradients.primary,
+      border: `1px solid ${theme.colors.navy}`,
+      color: theme.colors.white,
+      boxShadow: theme.shadows.brand.navy.lg,
       ':hover': {
         transform: 'translateY(-4px)',
-        boxShadow: '0 16px 40px 0 rgba(13, 27, 42, 0.45)',
+        boxShadow: theme.shadows.brand.navy.xl,
       },
       ...patternStyles[pattern || 'none'],
     },
     'gold-primary': {
-      background: `linear-gradient(135deg, ${colors.gold} 0%, #FFD23F 100%)`,
-      border: `1px solid ${colors.gold}`,
-      color: colors.navy,
-      boxShadow: '0 8px 32px 0 rgba(244, 180, 0, 0.37)',
+      background: theme.colors.gradients.secondary,
+      border: `1px solid ${theme.colors.gold}`,
+      color: theme.colors.navy,
+      boxShadow: theme.shadows.brand.gold.lg,
       ':hover': {
         transform: 'translateY(-4px)',
-        boxShadow: '0 16px 40px 0 rgba(244, 180, 0, 0.45)',
+        boxShadow: theme.shadows.brand.gold.xl,
       },
       ...patternStyles[pattern || 'none'],
     },
     'navy-outline': {
-      backgroundColor: 'transparent',
-      border: `2px solid ${colors.navy}`,
-      color: colors.navy,
+      backgroundColor: theme.colors.transparent,
+      border: `2px solid ${theme.colors.navy}`,
+      color: theme.colors.navy,
       backdropFilter: 'blur(8px)',
       ':hover': {
-        backgroundColor: 'rgba(13, 27, 42, 0.05)',
+        backgroundColor: theme.colors.hover.navyLight,
         transform: 'translateY(-2px)',
-        boxShadow: '0 8px 25px 0 rgba(13, 27, 42, 0.15)',
+        boxShadow: theme.shadows.brand.navy.md,
       },
     },
     'gold-outline': {
-      backgroundColor: 'transparent',
-      border: `2px solid ${colors.gold}`,
-      color: colors.gold,
+      backgroundColor: theme.colors.transparent,
+      border: `2px solid ${theme.colors.gold}`,
+      color: theme.colors.gold,
       backdropFilter: 'blur(8px)',
       ':hover': {
-        backgroundColor: 'rgba(244, 180, 0, 0.05)',
+        backgroundColor: theme.colors.hover.goldLight,
         transform: 'translateY(-2px)',
-        boxShadow: '0 8px 25px 0 rgba(244, 180, 0, 0.15)',
+        boxShadow: theme.shadows.brand.gold.md,
       },
     },
     gradient: {
-      background: `linear-gradient(135deg, ${colors.navy} 0%, ${colors.gold} 50%, ${colors.navy} 100%)`,
+      background: theme.colors.gradients.animated,
       border: 'none',
-      color: colors.white,
+      color: theme.colors.white,
       backgroundSize: '200% 200%',
       animation: 'gradientShift 6s ease infinite',
       ':hover': {
         transform: 'translateY(-4px)',
-        boxShadow: '0 20px 40px 0 rgba(13, 27, 42, 0.4)',
+        boxShadow: theme.shadows.brand.navy.xl,
       },
       ...patternStyles[pattern || 'none'],
     },
     'navy-glass': {
-      background: 'rgba(13, 27, 42, 0.85)',
+      background: theme.colors.background.glass.navy,
       border: `1px solid rgba(13, 27, 42, 0.2)`,
-      color: colors.white,
+      color: theme.colors.white,
       backdropFilter: 'blur(16px) saturate(180%)',
       ':hover': {
         background: 'rgba(13, 27, 42, 0.9)',
         transform: 'translateY(-2px)',
-        boxShadow: '0 12px 32px 0 rgba(13, 27, 42, 0.3)',
+        boxShadow: theme.shadows.brand.navy.lg,
       },
     },
     'gold-glass': {
-      background: 'rgba(244, 180, 0, 0.85)',
+      background: theme.colors.background.glass.gold,
       border: `1px solid rgba(244, 180, 0, 0.2)`,
-      color: colors.navy,
+      color: theme.colors.navy,
       backdropFilter: 'blur(16px) saturate(180%)',
       ':hover': {
         background: 'rgba(244, 180, 0, 0.9)',
         transform: 'translateY(-2px)',
-        boxShadow: '0 12px 32px 0 rgba(244, 180, 0, 0.3)',
+        boxShadow: theme.shadows.brand.gold.lg,
       },
     },
   };
@@ -187,21 +167,24 @@ const getBrandCardStyles = (
 
 const getBrandTitleStyles = (variant: BrandCardProps['variant']) => {
   const baseStyles = {
-    margin: '0 0 0.75rem 0',
-    fontWeight: '700',
-    fontSize: '1.5rem',
-    lineHeight: '2rem',
-    letterSpacing: '-0.025em',
+    margin: `0 0 ${theme.spacing[3]} 0`,
+    fontWeight: theme.typography.fontWeight.bold,
+    fontSize: theme.typography.fontSize['2xl'],
+    lineHeight: theme.typography.lineHeight.tight,
+    letterSpacing: theme.typography.letterSpacing.tight,
   };
 
   const variantStyles = {
-    'navy-primary': { color: colors.gold },
-    'gold-primary': { color: colors.navy },
-    'navy-outline': { color: colors.navy },
-    'gold-outline': { color: colors.gold },
-    gradient: { color: colors.white, textShadow: '0 2px 4px rgba(0,0,0,0.3)' },
-    'navy-glass': { color: colors.gold },
-    'gold-glass': { color: colors.navy },
+    'navy-primary': { color: theme.colors.gold },
+    'gold-primary': { color: theme.colors.navy },
+    'navy-outline': { color: theme.colors.navy },
+    'gold-outline': { color: theme.colors.gold },
+    gradient: {
+      color: theme.colors.white,
+      textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+    },
+    'navy-glass': { color: theme.colors.gold },
+    'gold-glass': { color: theme.colors.navy },
   };
 
   return {
@@ -212,20 +195,23 @@ const getBrandTitleStyles = (variant: BrandCardProps['variant']) => {
 
 const getBrandSubtitleStyles = (variant: BrandCardProps['variant']) => {
   const baseStyles = {
-    margin: '0 0 1.5rem 0',
-    fontSize: '1rem',
-    lineHeight: '1.5rem',
+    margin: `0 0 ${theme.spacing[6]} 0`,
+    fontSize: theme.typography.fontSize.base,
+    lineHeight: theme.typography.lineHeight.normal,
     opacity: 0.9,
   };
 
   const variantStyles = {
-    'navy-primary': { color: colors.white },
-    'gold-primary': { color: colors.navy },
-    'navy-outline': { color: colors.gray[600] },
-    'gold-outline': { color: colors.gray[600] },
-    gradient: { color: colors.white, textShadow: '0 1px 2px rgba(0,0,0,0.2)' },
-    'navy-glass': { color: colors.white },
-    'gold-glass': { color: colors.navy },
+    'navy-primary': { color: theme.colors.white },
+    'gold-primary': { color: theme.colors.navy },
+    'navy-outline': { color: theme.colors.gray[600] },
+    'gold-outline': { color: theme.colors.gray[600] },
+    gradient: {
+      color: theme.colors.white,
+      textShadow: '0 1px 2px rgba(0,0,0,0.2)',
+    },
+    'navy-glass': { color: theme.colors.white },
+    'gold-glass': { color: theme.colors.navy },
   };
 
   return {

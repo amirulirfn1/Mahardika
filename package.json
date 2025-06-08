@@ -18,10 +18,10 @@
     "bootstrap:bash": "bash scripts/bootstrap.sh",
     "security:check": "node scripts/security-check.js",
     "security:scan": "git log --all -p | grep -i 'api_key\\|secret\\|password\\|token' || echo 'No secrets found'",
-    "check-brand": "node scripts/check-brand.js",
+    "check:brand-colors": "node scripts/check-brand-colors.js",
     "env:template": "cp .env.local.example .env.local",
     "env:test": "node scripts/env-test.js",
-    "pre-commit": "pnpm run check-brand && pnpm run format:check && pnpm run lint && pnpm run security:check && pnpm run build && pnpm run test",
+    "pre-commit": "pnpm run check:brand-colors && pnpm run format:check && pnpm run lint && pnpm run security:check && pnpm run build && pnpm run test",
     "prepare": "husky"
   },
   "keywords": [

@@ -89,10 +89,10 @@ export default function HomePage() {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => window.open('/shop', '_blank')}
+              onClick={() => window.open('/terms', '_blank')}
               style={{ minWidth: '200px' }}
             >
-              🛒 Shop
+              📋 Terms of Service
             </Button>
           </div>
         </Card>

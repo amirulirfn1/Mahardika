@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors } from './colors';
+import { theme } from './theme';
 
 export interface BrandButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,12 +17,12 @@ const getBrandButtonStyles = (
   disabled: boolean
 ) => {
   const baseStyles = {
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-    fontWeight: '600',
-    borderRadius: '0.5rem',
+    fontFamily: theme.typography.fontFamily.primary,
+    fontWeight: theme.typography.fontWeight.semibold,
+    borderRadius: theme.borderRadius.lg,
     border: '2px solid',
     cursor: disabled ? 'not-allowed' : 'pointer',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    transition: theme.transitions.brand,
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -33,111 +33,92 @@ const getBrandButtonStyles = (
   };
 
   // Size variants with enhanced spacing for brand components
-  const sizeStyles = {
-    sm: {
-      padding: '0.75rem 1.25rem',
-      fontSize: '0.875rem',
-      lineHeight: '1.25rem',
-      gap: '0.5rem',
-    },
-    md: {
-      padding: '1rem 2rem',
-      fontSize: '1rem',
-      lineHeight: '1.5rem',
-      gap: '0.75rem',
-    },
-    lg: {
-      padding: '1.25rem 2.5rem',
-      fontSize: '1.125rem',
-      lineHeight: '1.75rem',
-      gap: '1rem',
-    },
-  };
+  const sizeStyles = theme.components.button.sizes;
 
   // Enhanced variant styles with Mahardika brand identity
   const variantStyles = {
     navy: {
-      backgroundColor: colors.navy,
-      borderColor: colors.navy,
-      color: colors.white,
-      boxShadow: '0 4px 14px 0 rgba(13, 27, 42, 0.39)',
+      backgroundColor: theme.colors.navy,
+      borderColor: theme.colors.navy,
+      color: theme.colors.white,
+      boxShadow: theme.shadows.brand.navy.sm,
       ':hover': !disabled
         ? {
-            backgroundColor: '#1a2332',
-            borderColor: '#1a2332',
+            backgroundColor: theme.colors.hover.navy,
+            borderColor: theme.colors.hover.navy,
             transform: 'translateY(-2px)',
-            boxShadow: '0 8px 25px 0 rgba(13, 27, 42, 0.5)',
+            boxShadow: theme.shadows.brand.navy.md,
           }
         : {},
       ':active': !disabled
         ? {
             transform: 'translateY(0px)',
-            boxShadow: '0 2px 8px 0 rgba(13, 27, 42, 0.4)',
+            boxShadow: theme.shadows.brand.navy.sm,
           }
         : {},
     },
     gold: {
-      backgroundColor: colors.gold,
-      borderColor: colors.gold,
-      color: colors.navy,
-      boxShadow: '0 4px 14px 0 rgba(244, 180, 0, 0.39)',
+      backgroundColor: theme.colors.gold,
+      borderColor: theme.colors.gold,
+      color: theme.colors.navy,
+      boxShadow: theme.shadows.brand.gold.sm,
       ':hover': !disabled
         ? {
-            backgroundColor: '#FFD23F',
-            borderColor: '#FFD23F',
+            backgroundColor: theme.colors.hover.gold,
+            borderColor: theme.colors.hover.gold,
             transform: 'translateY(-2px)',
-            boxShadow: '0 8px 25px 0 rgba(244, 180, 0, 0.5)',
+            boxShadow: theme.shadows.brand.gold.md,
           }
         : {},
       ':active': !disabled
         ? {
             transform: 'translateY(0px)',
-            boxShadow: '0 2px 8px 0 rgba(244, 180, 0, 0.4)',
+            boxShadow: theme.shadows.brand.gold.sm,
           }
         : {},
     },
     'outline-navy': {
-      backgroundColor: 'transparent',
-      borderColor: colors.navy,
-      color: colors.navy,
+      backgroundColor: theme.colors.transparent,
+      borderColor: theme.colors.navy,
+      color: theme.colors.navy,
       ':hover': !disabled
         ? {
-            backgroundColor: colors.navy,
-            color: colors.white,
+            backgroundColor: theme.colors.navy,
+            color: theme.colors.white,
             transform: 'translateY(-2px)',
-            boxShadow: '0 8px 25px 0 rgba(13, 27, 42, 0.3)',
+            boxShadow: theme.shadows.brand.navy.md,
           }
         : {},
       ':active': !disabled
         ? {
             transform: 'translateY(0px)',
-            backgroundColor: '#1a2332',
+            backgroundColor: theme.colors.hover.navy,
           }
         : {},
     },
     'outline-gold': {
-      backgroundColor: 'transparent',
-      borderColor: colors.gold,
-      color: colors.gold,
+      backgroundColor: theme.colors.transparent,
+      borderColor: theme.colors.gold,
+      color: theme.colors.gold,
       ':hover': !disabled
         ? {
-            backgroundColor: colors.gold,
-            color: colors.navy,
+            backgroundColor: theme.colors.gold,
+            color: theme.colors.navy,
             transform: 'translateY(-2px)',
-            boxShadow: '0 8px 25px 0 rgba(244, 180, 0, 0.3)',
+            boxShadow: theme.shadows.brand.gold.md,
           }
         : {},
       ':active': !disabled
         ? {
             transform: 'translateY(0px)',
-            backgroundColor: '#E6A200',
+            backgroundColor: theme.colors.active.gold,
           }
         : {},
     },
     gradient: {
-      background: `linear-gradient(135deg, ${colors.navy} 0%, ${colors.gold} 100%)`,
-      borderColor: 'transparent',
-      color: colors.white,
+      background: theme.colors.gradients.brand,
+      borderColor: theme.colors.transparent,
+      color: theme.colors.white,
       position: 'relative' as const,
       overflow: 'hidden' as const,
       ':before': {
@@ -147,15 +128,15 @@ const getBrandButtonStyles = (
         left: 0,
         right: 0,
         bottom: 0,
-        background: `linear-gradient(135deg, ${colors.gold} 0%, ${colors.navy} 100%)`,
+        background: theme.colors.gradients.brandReverse,
         opacity: 0,
-        transition: 'opacity 0.3s ease',
+        transition: theme.transitions.opacity,
         zIndex: 1,
       },
       ':hover': !disabled
         ? {
             transform: 'translateY(-2px)',
-            boxShadow: '0 8px 30px 0 rgba(13, 27, 42, 0.4)',
+            boxShadow: theme.shadows.brand.navy.xl,
             ':before': {
               opacity: 1,
             },

@@ -157,6 +157,9 @@ temp/
 *.sln
 *.sw?
 
+# TypeScript build info files
+*.tsbuildinfo
+
 # OS generated files
 Thumbs.db 
 .vercel

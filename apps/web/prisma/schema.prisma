@@ -52,6 +52,8 @@ model Agency {
   customers  Customer[]
   policies   Policy[]
   reviews    Review[]
+  orders     Order[]
+  products   Product[]
   
   @@map("agencies")
 }
@@ -132,6 +134,7 @@ model Customer {
   agency   Agency   @relation(fields: [agency_id], references: [id], onDelete: Cascade)
   policies Policy[]
   reviews  Review[]
+  orders   Order[]
   
   @@map("customers")
   @@index([agency_id])
@@ -198,6 +201,7 @@ model Review {
   id          String  @id @default(uuid()) @db.Uuid
   agency_id   String  @db.Uuid
   customer_id String  @db.Uuid
+  order_id    String? @db.Uuid
   
   // Review Details
   rating      Int     @db.SmallInt // 1-5 scale
@@ -212,6 +216,11 @@ model Review {
   // Response
   response         String?   @db.Text
   response_date    DateTime? @db.Timestamptz(6)
+  response_by      String?   @db.Uuid
+  
+  // Review Source
+  review_token     String?   @db.Uuid
+  review_source    String?   @default("direct") @db.VarChar(50) // direct, email_link, etc.
   
   // Timestamps
   created_at DateTime @default(now()) @db.Timestamptz(6)
@@ -224,7 +233,9 @@ model Review {
   @@map("reviews")
   @@index([agency_id, rating]) // Composite index for performance
   @@index([customer_id])
+  @@index([order_id])
   @@index([is_featured])
+  @@index([review_token])
 }
 
 // =============================================================================
@@ -346,4 +357,149 @@ model Notification {
   @@index([agency_id])
   @@index([user_id])
   @@index([is_read])
+}
+
+// =============================================================================
+// ORDER MANAGEMENT SYSTEM
+// =============================================================================
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  CLEARED
+  CANCELLED
+  REFUNDED
+}
+
+model Order {
+  id          String      @id @default(uuid()) @db.Uuid
+  agency_id   String      @db.Uuid
+  customer_id String      @db.Uuid
+  
+  // Order Details
+  order_number String @unique @db.VarChar(100)
+  state        OrderStatus @default(PENDING)
+  
+  // Financial
+  amount       Decimal @db.Decimal(10, 2)
+  currency     String  @default("USD") @db.VarChar(3)
+  tax_amount   Decimal @default(0) @db.Decimal(10, 2)
+  total_amount Decimal @db.Decimal(10, 2)
+  
+  // Payment
+  payment_method   String? @db.VarChar(50)
+  payment_status   String? @db.VarChar(50)
+  payment_intent_id String? @db.VarChar(255)
+  
+  // Review System
+  review_token     String? @unique @db.Uuid
+  review_token_expires_at DateTime? @db.Timestamptz(6)
+  review_sent_at   DateTime? @db.Timestamptz(6)
+  
+  // Metadata
+  order_data Json?
+  notes      String? @db.Text
+  
+  // Timestamps
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+  
+  // Relations
+  agency      Agency      @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  customer    Customer    @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  order_items OrderItem[]
+  
+  @@map("orders")
+  @@index([agency_id])
+  @@index([customer_id])
+  @@index([order_number])
+  @@index([state])
+  @@index([review_token])
+}
+
+model OrderItem {
+  id       String @id @default(uuid()) @db.Uuid
+  order_id String @db.Uuid
+  
+  // Product Details
+  product_name        String  @db.VarChar(255)
+  product_description String? @db.Text
+  product_sku        String? @db.VarChar(100)
+  
+  // Pricing
+  unit_price  Decimal @db.Decimal(10, 2)
+  quantity    Int     @default(1)
+  total_price Decimal @db.Decimal(10, 2)
+  
+  // Metadata
+  product_data Json?
+  
+  // Timestamps
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+  
+  // Relations
+  order Order @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  
+  @@map("order_items")
+  @@index([order_id])
+}
+
+// =============================================================================
+// MARKETPLACE PRODUCTS
+// =============================================================================
+
+model Product {
+  id          String  @id @default(uuid()) @db.Uuid
+  agency_id   String  @db.Uuid
+  
+  // Product Details
+  name        String  @db.VarChar(255)
+  description String? @db.Text
+  slug        String  @db.VarChar(100)
+  sku         String? @db.VarChar(100)
+  
+  // Pricing
+  price       Decimal @db.Decimal(10, 2)
+  compare_price Decimal? @db.Decimal(10, 2)
+  currency    String  @default("USD") @db.VarChar(3)
+  
+  // Product Status
+  is_active   Boolean @default(true)
+  is_featured Boolean @default(false)
+  
+  // Categories and Tags
+  category    String? @db.VarChar(100)
+  tags        String[]
+  
+  // Media
+  image_url   String? @db.VarChar(500)
+  images      String[]
+  
+  // Inventory
+  track_inventory Boolean @default(false)
+  inventory_qty   Int     @default(0)
+  allow_backorder Boolean @default(false)
+  
+  // SEO
+  meta_title       String? @db.VarChar(255)
+  meta_description String? @db.VarChar(500)
+  
+  // Metadata
+  product_data Json?
+  
+  // Timestamps
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+  
+  // Relations
+  agency Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  
+  @@map("products")
+  @@index([agency_id])
+  @@index([slug])
+  @@index([category])
+  @@index([is_active])
+  @@index([is_featured])
+  @@unique([agency_id, slug])
 } 

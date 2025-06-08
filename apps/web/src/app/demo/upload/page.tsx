@@ -535,8 +535,6 @@ export default function UploadDemoPage() {
           <BossUploadForm
             onUploadComplete={handleUploadComplete}
             onUploadError={handleUploadError}
-            endpoint={getEndpoint()}
-            maxFileSize={10}
           />
         </div>
 

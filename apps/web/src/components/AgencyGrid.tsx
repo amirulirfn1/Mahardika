@@ -268,10 +268,10 @@ export default function AgencyGrid({
               <div key={agency.id} className="col-lg-4 col-md-6">
                 <BrandCard
                   variant="navy-outline"
-                  style={{ backgroundColor: 'white' }}
                   size="md"
                   className="h-100 position-relative"
                   style={{
+                    backgroundColor: 'white',
                     transition: 'all 0.3s ease',
                     cursor: 'pointer',
                   }}

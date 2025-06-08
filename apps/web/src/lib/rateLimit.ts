@@ -86,7 +86,8 @@ class MemoryStore implements RateLimitStore {
   // Cleanup expired entries periodically
   cleanup(): void {
     const now = new Date();
-    for (const [key, value] of this.store.entries()) {
+    const entries = Array.from(this.store.entries());
+    for (const [key, value] of entries) {
       if (value.resetTime < now) {
         this.store.delete(key);
       }
@@ -371,5 +372,4 @@ export async function checkRateLimit(
   };
 }
 
-// Export types
-export type { RateLimitConfig, RateLimitResult, RateLimitStore };
+// Types are already exported above as interfaces

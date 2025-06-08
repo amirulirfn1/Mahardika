@@ -89,10 +89,10 @@ export default function HomePage() {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => window.location.reload()}
+              onClick={() => window.open('/style-guide', '_blank')}
               style={{ minWidth: '200px' }}
             >
-              🎨 UI Components
+              🎨 Style Guide
             </Button>
           </div>
         </Card>

@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Mahardika Platform Pre-commit Hook
+# Ensures code quality and brand consistency before commits
+
+echo "🎨 Running Mahardika brand color checks..."
+node scripts/check-brand.js
+
+echo "📋 Running code quality checks..."
+pnpm run format:check
+pnpm run lint
+
+echo "🔒 Running security checks..."
+pnpm run security:check
+
+echo "🏗️  Building project..."
+pnpm run build
+
+echo "🧪 Running tests..."
+pnpm run test
+
+echo "✅ All pre-commit checks passed!"

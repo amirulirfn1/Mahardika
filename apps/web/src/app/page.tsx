@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button, Card, AIChat, colors } from '@mahardika/ui';
+import { MAHARDIKA_COLORS, APP_CONFIG, FEATURE_FLAGS } from '../lib/env';
 
 export default function HomePage() {
   const [clickCount, setClickCount] = React.useState(0);
@@ -31,13 +32,13 @@ export default function HomePage() {
             fontSize: '3rem',
             fontWeight: '700',
             margin: '0 0 1rem 0',
-            background: `linear-gradient(45deg, ${colors.gold} 0%, #FFD700 100%)`,
+            background: `linear-gradient(45deg, ${MAHARDIKA_COLORS.gold} 0%, #FFD700 100%)`,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}
         >
-          Mahardika Platform
+          {APP_CONFIG.name}
         </h1>
         <p
           style={{
@@ -53,6 +54,49 @@ export default function HomePage() {
           principles.
         </p>
       </header>
+
+      {/* Navigation Links */}
+      <section style={{ marginBottom: '3rem', textAlign: 'center' }}>
+        <Card
+          title="Demo Applications"
+          subtitle="Explore our sample applications built with Mahardika UI"
+          variant="branded"
+          size="md"
+        >
+          <div
+            style={{
+              display: 'flex',
+              gap: '1rem',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <Button
+              size="lg"
+              onClick={() => window.open('/dashboard', '_blank')}
+              style={{ minWidth: '200px' }}
+            >
+              🏢 Insurance Dashboard
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() => window.open('/brand-showcase', '_blank')}
+              style={{ minWidth: '200px' }}
+            >
+              ✨ Brand Components
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => window.location.reload()}
+              style={{ minWidth: '200px' }}
+            >
+              🎨 UI Components
+            </Button>
+          </div>
+        </Card>
+      </section>
 
       {/* Button Showcase */}
       <section style={{ marginBottom: '3rem' }}>

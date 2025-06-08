@@ -21,3 +21,10 @@ export type { AIChatProps } from './AIChat';
 
 export { SecurityStatus } from './SecurityStatus';
 export type { SecurityStatusProps } from './SecurityStatus';
+
+// Export brand components
+export { BrandButton, BrandButtonTemplates } from './BrandButton';
+export type { BrandButtonProps } from './BrandButton';
+
+export { BrandCard, BrandCardTemplates } from './BrandCard';
+export type { BrandCardProps } from './BrandCard';

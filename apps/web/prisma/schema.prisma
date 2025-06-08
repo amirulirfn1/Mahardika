@@ -54,6 +54,11 @@ model Agency {
   reviews    Review[]
   orders     Order[]
   products   Product[]
+  ai_usage               AiUsage[]
+  referral_wallet        ReferralWallet?
+  referral_transactions  ReferralTransaction[]
+  kpi_reports           KpiReport[]
+  emails                Email[]
   
   @@map("agencies")
 }
@@ -502,4 +507,200 @@ model Product {
   @@index([is_active])
   @@index([is_featured])
   @@unique([agency_id, slug])
+}
+
+// =============================================================================
+// AI USAGE & TOKEN MANAGEMENT
+// =============================================================================
+
+model AiUsage {
+  id        String @id @default(uuid()) @db.Uuid
+  agency_id String @db.Uuid
+  user_id   String? @db.Uuid
+  
+  // Usage Details
+  model      String @db.VarChar(50) // 'deepseek-chat'
+  tokens     Int    @db.Integer     // Number of tokens used
+  cost       Decimal? @db.Decimal(10, 4) // Cost in USD if applicable
+  
+  // Request Details
+  input_text  String? @db.Text
+  output_text String? @db.Text
+  language    String  @default("en") @db.VarChar(5) // 'en', 'ms'
+  
+  // Metadata
+  request_id String? @db.VarChar(255)
+  metadata   Json?
+  
+  // Timestamps
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  
+  // Relations
+  agency Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  
+  @@map("ai_usage")
+  @@index([agency_id])
+  @@index([user_id])
+  @@index([created_at])
+  @@index([agency_id, created_at]) // For monthly usage queries
+}
+
+// =============================================================================
+// REFERRAL WALLET SYSTEM
+// =============================================================================
+
+model ReferralWallet {
+  id        String @id @default(uuid()) @db.Uuid
+  agency_id String @db.Uuid
+  
+  // Wallet Balance
+  balance          Decimal @default(0) @db.Decimal(10, 2)
+  pending_balance  Decimal @default(0) @db.Decimal(10, 2)
+  lifetime_earned  Decimal @default(0) @db.Decimal(10, 2)
+  
+  // Referral Stats
+  total_referrals       Int @default(0)
+  successful_referrals  Int @default(0)
+  
+  // Timestamps
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+  
+  // Relations
+  agency       Agency                @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  transactions ReferralTransaction[]
+  
+  @@map("referral_wallets")
+  @@unique([agency_id])
+  @@index([agency_id])
+}
+
+model ReferralTransaction {
+  id         String @id @default(uuid()) @db.Uuid
+  wallet_id  String @db.Uuid
+  agency_id  String @db.Uuid
+  
+  // Transaction Details
+  type        String  @db.VarChar(50) // 'earn', 'withdraw', 'bonus'
+  amount      Decimal @db.Decimal(10, 2)
+  status      String  @default("completed") @db.VarChar(50) // 'pending', 'completed', 'failed'
+  description String? @db.Text
+  
+  // Related Data
+  referred_agency_id String? @db.Uuid
+  order_id          String? @db.Uuid
+  
+  // Metadata
+  metadata Json?
+  
+  // Timestamps
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  
+  // Relations
+  wallet ReferralWallet @relation(fields: [wallet_id], references: [id], onDelete: Cascade)
+  agency Agency         @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  
+  @@map("referral_transactions")
+  @@index([wallet_id])
+  @@index([agency_id])
+  @@index([created_at])
+}
+
+// =============================================================================
+// KPI REPORTS
+// =============================================================================
+
+model KpiReport {
+  id        String @id @default(uuid()) @db.Uuid
+  agency_id String @db.Uuid
+  
+  // Report Details
+  report_type   String @db.VarChar(50) // 'monthly', 'quarterly', 'annual'
+  period_start  DateTime @db.Date
+  period_end    DateTime @db.Date
+  
+  // KPI Metrics
+  renewal_rate      Decimal? @db.Decimal(5, 2) // Percentage
+  total_premium     Decimal? @db.Decimal(15, 2)
+  avg_response_ms   Int?     @db.Integer
+  total_policies    Int?     @db.Integer
+  new_customers     Int?     @db.Integer
+  customer_satisfaction Decimal? @db.Decimal(3, 2) // 1-5 rating
+  
+  // File Storage
+  pdf_url      String? @db.VarChar(500)
+  storage_path String? @db.VarChar(500)
+  file_size    BigInt? @db.BigInt
+  
+  // Generation Status
+  status        String @default("generating") @db.VarChar(50) // 'generating', 'completed', 'failed'
+  error_message String? @db.Text
+  
+  // Timestamps
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+  
+  // Relations
+  agency Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  
+  @@map("kpi_reports")
+  @@index([agency_id])
+  @@index([period_start])
+  @@index([status])
+}
+
+// =============================================================================
+// EMAILS TABLE FOR NOTIFICATIONS
+// =============================================================================
+
+model Email {
+  id        String @id @default(uuid()) @db.Uuid
+  agency_id String @db.Uuid
+  
+  // Recipient Details
+  to_email    String @db.VarChar(255)
+  to_name     String? @db.VarChar(255)
+  cc_emails   String[] @default([])
+  bcc_emails  String[] @default([])
+  
+  // Email Content
+  subject     String @db.VarChar(500)
+  html_body   String @db.Text
+  text_body   String? @db.Text
+  
+  // Email Type & Template
+  email_type  String @db.VarChar(100) // 'renewal_reminder', 'welcome', 'invoice', etc.
+  template_id String? @db.VarChar(100)
+  
+  // Sending Status
+  status       String @default("pending") @db.VarChar(50) // 'pending', 'sent', 'failed', 'delivered', 'opened'
+  sent_at      DateTime? @db.Timestamptz(6)
+  delivered_at DateTime? @db.Timestamptz(6)
+  opened_at    DateTime? @db.Timestamptz(6)
+  
+  // Error Tracking
+  error_message String? @db.Text
+  retry_count   Int     @default(0)
+  max_retries   Int     @default(3)
+  
+  // Related Objects
+  policy_id    String? @db.Uuid
+  customer_id  String? @db.Uuid
+  order_id     String? @db.Uuid
+  
+  // Metadata
+  metadata Json?
+  
+  // Timestamps
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+  
+  // Relations
+  agency Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  
+  @@map("emails")
+  @@index([agency_id])
+  @@index([status])
+  @@index([email_type])
+  @@index([sent_at])
 } 

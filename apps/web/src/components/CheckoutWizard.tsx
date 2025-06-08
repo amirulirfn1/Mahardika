@@ -77,7 +77,7 @@ export default function CheckoutWizard({
         customer_name: customerInfo.customer_name,
         customer_email: customerInfo.customer_email,
         customer_phone: customerInfo.customer_phone,
-        items: items,
+        items,
         payment_method: paymentInfo.payment_method,
         notes: paymentInfo.notes,
       };

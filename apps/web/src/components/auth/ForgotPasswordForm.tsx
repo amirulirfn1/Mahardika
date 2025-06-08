@@ -113,7 +113,7 @@ export default function ForgotPasswordForm({
         <div className="card success-card shadow-sm">
           <div className="card-body text-center p-4">
             <div className="success-icon mb-3">
-              <i className="bi bi-check-circle-fill"></i>
+              <i className="bi bi-check-circle-fill" />
             </div>
             <h4
               className="card-title mb-3"
@@ -132,7 +132,7 @@ export default function ForgotPasswordForm({
               className="btn btn-primary btn-back w-100"
               onClick={onBackToLogin}
             >
-              <i className="bi bi-arrow-left me-2"></i>
+              <i className="bi bi-arrow-left me-2" />
               Back to Login
             </button>
           </div>
@@ -259,7 +259,7 @@ export default function ForgotPasswordForm({
         {/* Header */}
         <div className="form-header p-4 text-center">
           <div className="form-icon mb-2">
-            <i className="bi bi-key-fill"></i>
+            <i className="bi bi-key-fill" />
           </div>
           <h3 className="mb-1">Forgot Password?</h3>
           <p className="mb-0 opacity-75">
@@ -287,7 +287,7 @@ export default function ForgotPasswordForm({
                     borderRadius: '0.5rem 0 0 0.5rem',
                   }}
                 >
-                  <i className="bi bi-envelope text-muted"></i>
+                  <i className="bi bi-envelope text-muted" />
                 </span>
                 <input
                   type="email"
@@ -304,7 +304,7 @@ export default function ForgotPasswordForm({
                 />
                 {error && (
                   <div className="invalid-feedback d-block">
-                    <i className="bi bi-exclamation-circle me-1"></i>
+                    <i className="bi bi-exclamation-circle me-1" />
                     {error}
                   </div>
                 )}
@@ -319,12 +319,12 @@ export default function ForgotPasswordForm({
               >
                 {isLoading || isValidating ? (
                   <>
-                    <div className="loading-spinner me-2 d-inline-block"></div>
+                    <div className="loading-spinner me-2 d-inline-block" />
                     Sending Reset Link...
                   </>
                 ) : (
                   <>
-                    <i className="bi bi-send me-2"></i>
+                    <i className="bi bi-send me-2" />
                     Send Reset Link
                   </>
                 )}
@@ -337,7 +337,7 @@ export default function ForgotPasswordForm({
                 className="btn btn-link btn-back-link p-0"
                 onClick={onBackToLogin}
               >
-                <i className="bi bi-arrow-left me-1"></i>
+                <i className="bi bi-arrow-left me-1" />
                 Back to Login
               </button>
             </div>
@@ -353,7 +353,7 @@ export default function ForgotPasswordForm({
             <i
               className="bi bi-shield-check me-1"
               style={{ color: MAHARDIKA_COLORS.gold }}
-            ></i>
+            />
             Your security is our priority
           </small>
         </div>

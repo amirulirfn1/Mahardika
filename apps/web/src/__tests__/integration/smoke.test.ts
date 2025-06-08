@@ -55,7 +55,7 @@ describe('PDF Compression + AV Scan Integration Smoke Test', () => {
   });
 
   test('should validate compression efficiency', async () => {
-    const largeContent = '%PDF-1.4\n' + 'Large PDF content '.repeat(100);
+    const largeContent = `%PDF-1.4\n${'Large PDF content '.repeat(100)}`;
     const largeFile = new File([largeContent], 'large-policy.pdf', {
       type: 'application/pdf',
     });

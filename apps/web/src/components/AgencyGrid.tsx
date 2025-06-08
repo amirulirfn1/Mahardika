@@ -35,7 +35,7 @@ export default function AgencyGrid({
 
   // Filter and sort agencies
   const filteredAndSortedAgencies = useMemo(() => {
-    let filtered = agencies.filter(
+    const filtered = agencies.filter(
       agency =>
         agency.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         agency.description.toLowerCase().includes(searchTerm.toLowerCase()) ||

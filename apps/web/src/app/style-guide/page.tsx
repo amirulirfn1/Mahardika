@@ -89,7 +89,7 @@ const StyleGuidePage = () => {
             <span
               className="navbar-toggler-icon"
               style={{ filter: 'invert(1)' }}
-            ></span>
+            />
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
@@ -167,7 +167,7 @@ const StyleGuidePage = () => {
                           backgroundColor: color.hex,
                           borderRadius: '0.5rem 0.5rem 0 0',
                         }}
-                      ></div>
+                      />
                       <div className="p-3">
                         <h5
                           className="card-title mb-2"
@@ -474,7 +474,7 @@ const StyleGuidePage = () => {
                       backgroundColor: 'rgba(255, 255, 255, 0.9)',
                       resize: 'vertical',
                     }}
-                  ></textarea>
+                  />
                 </div>
 
                 <div className="mb-3">

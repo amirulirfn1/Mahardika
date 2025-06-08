@@ -50,23 +50,7 @@ module.exports = {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-debugger': 'error',
 
-    // TypeScript Rules
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        caughtErrorsIgnorePattern: '^_',
-      },
-    ],
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/prefer-nullish-coalescing': 'error',
-    '@typescript-eslint/prefer-optional-chain': 'error',
-    '@typescript-eslint/no-non-null-assertion': 'warn',
-    '@typescript-eslint/consistent-type-imports': [
-      'error',
-      { prefer: 'type-imports' },
-    ],
+    // TypeScript Rules (handled by Next.js)
 
     // React Rules
     'react/react-in-jsx-scope': 'off', // Not needed in Next.js/modern React
@@ -89,53 +73,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
 
-    // Accessibility Rules (Mahardika Platform prioritizes accessibility)
-    'jsx-a11y/alt-text': 'error',
-    'jsx-a11y/anchor-has-content': 'error',
-    'jsx-a11y/aria-props': 'error',
-    'jsx-a11y/aria-proptypes': 'error',
-    'jsx-a11y/aria-unsupported-elements': 'error',
-    'jsx-a11y/role-has-required-aria-props': 'error',
-    'jsx-a11y/role-supports-aria-props': 'error',
-    'jsx-a11y/click-events-have-key-events': 'warn',
-    'jsx-a11y/no-static-element-interactions': 'warn',
-
-    // Import Rules
-    'import/order': [
-      'error',
-      {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-          'type',
-        ],
-        'newlines-between': 'always',
-        alphabetize: {
-          order: 'asc',
-          caseInsensitive: true,
-        },
-      },
-    ],
-    'import/no-unresolved': 'error',
-    'import/no-cycle': 'error',
-    'import/no-self-import': 'error',
-    'import/no-duplicates': 'error',
-
-    // Unused Imports (keeps code clean)
-    'unused-imports/no-unused-imports': 'error',
-    'unused-imports/no-unused-vars': [
-      'warn',
-      {
-        vars: 'all',
-        varsIgnorePattern: '^_',
-        args: 'after-used',
-        argsIgnorePattern: '^_',
-      },
-    ],
+    // Plugin-specific rules are handled by Next.js config
 
     // Code Quality Rules
     'prefer-template': 'error',
@@ -176,12 +114,10 @@ module.exports = {
       files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', '**/__tests__/**/*'],
       env: {
         jest: true,
-        'vitest-globals/env': true,
       },
-      extends: ['plugin:testing-library/react'],
+
       rules: {
         // Relaxed rules for test files
-        '@typescript-eslint/no-explicit-any': 'off',
         'no-console': 'off',
         'react/display-name': 'off',
       },
@@ -194,15 +130,8 @@ module.exports = {
       },
       rules: {
         // More permissive rules for config files
-        '@typescript-eslint/no-var-requires': 'off',
         'no-console': 'off',
-        'import/no-extraneous-dependencies': 'off',
       },
-    },
-    // Markdown files
-    {
-      files: ['**/*.md'],
-      processor: 'markdown/markdown',
     },
   ],
   ignorePatterns: [

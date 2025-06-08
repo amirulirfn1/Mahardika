@@ -88,9 +88,9 @@ export async function POST(request: NextRequest) {
       .insert({
         agency_id: userRecord.agency_id,
         customer_id: checkoutData.customer_id,
-        amount: amount,
-        tax_amount: tax_amount,
-        total_amount: total_amount,
+        amount,
+        tax_amount,
+        total_amount,
         payment_method: checkoutData.payment_method || 'pending',
         payment_status: 'pending',
         notes: checkoutData.notes,

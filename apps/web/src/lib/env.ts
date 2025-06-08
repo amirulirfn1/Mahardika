@@ -20,7 +20,7 @@ export const APP_CONFIG = {
 export const API_CONFIG = {
   deepseek: {
     apiKey: process.env.DEEPSEEK_API_KEY,
-    enabled: !!process.env.DEEPSEEK_API_KEY,
+    enabled: Boolean(process.env.DEEPSEEK_API_KEY),
   },
 } as const;
 
@@ -38,9 +38,9 @@ export const DATABASE_CONFIG = {
     url: process.env.NEXT_PUBLIC_SUPABASE_URL,
     anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
-    enabled: !!(
+    enabled: Boolean(
       process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     ),
   },
   databaseUrl: process.env.DATABASE_URL,
@@ -51,7 +51,7 @@ export const AUTH_CONFIG = {
   nextAuth: {
     secret: process.env.NEXTAUTH_SECRET,
     url: process.env.NEXTAUTH_URL || 'http://localhost:3000',
-    enabled: !!process.env.NEXTAUTH_SECRET,
+    enabled: Boolean(process.env.NEXTAUTH_SECRET),
   },
 } as const;
 
@@ -61,12 +61,14 @@ export const EXTERNAL_SERVICES = {
     publicKey: process.env.STRIPE_PUBLIC_KEY,
     secretKey: process.env.STRIPE_SECRET_KEY,
     webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
-    enabled: !!(process.env.STRIPE_PUBLIC_KEY && process.env.STRIPE_SECRET_KEY),
+    enabled: Boolean(
+      process.env.STRIPE_PUBLIC_KEY && process.env.STRIPE_SECRET_KEY
+    ),
   },
   sendgrid: {
     apiKey: process.env.SENDGRID_API_KEY,
     fromEmail: process.env.SENDGRID_FROM_EMAIL,
-    enabled: !!process.env.SENDGRID_API_KEY,
+    enabled: Boolean(process.env.SENDGRID_API_KEY),
   },
 } as const;
 
@@ -75,15 +77,15 @@ export const ANALYTICS_CONFIG = {
   googleAnalytics: {
     id: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID,
     measurementId: process.env.GOOGLE_ANALYTICS_MEASUREMENT_ID,
-    enabled: !!process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID,
+    enabled: Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID),
   },
   mixpanel: {
     token: process.env.NEXT_PUBLIC_MIXPANEL_TOKEN,
-    enabled: !!process.env.NEXT_PUBLIC_MIXPANEL_TOKEN,
+    enabled: Boolean(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN),
   },
   vercel: {
     analyticsId: process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID,
-    enabled: !!process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID,
+    enabled: Boolean(process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID),
   },
 } as const;
 

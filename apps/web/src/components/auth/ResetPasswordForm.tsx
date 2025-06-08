@@ -112,7 +112,7 @@ export default function ResetPasswordForm() {
                       className="mb-3"
                       style={{ color: MAHARDIKA_COLORS.gold, fontSize: '3rem' }}
                     >
-                      <i className="bi bi-check-circle-fill"></i>
+                      <i className="bi bi-check-circle-fill" />
                     </div>
                     <h4
                       className="card-title mb-3"
@@ -277,7 +277,7 @@ export default function ResetPasswordForm() {
                               className="spinner-border spinner-border-sm"
                               role="status"
                               aria-hidden="true"
-                            ></span>
+                            />
                             <span className="ms-2">Resetting...</span>
                           </>
                         ) : (

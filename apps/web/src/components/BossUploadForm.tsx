@@ -255,7 +255,7 @@ export default function BossUploadForm({
                 <div
                   className="progress-bar bg-success"
                   style={{ width: `${progress.percentage}%` }}
-                ></div>
+                />
               </div>
             </div>
           )}

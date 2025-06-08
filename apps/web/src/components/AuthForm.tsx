@@ -214,7 +214,7 @@ export default function AuthForm({
             className="alert alert-danger"
             style={{
               borderRadius: '0.5rem',
-              backgroundColor: colors.error + '10',
+              backgroundColor: `${colors.error}10`,
               borderColor: colors.error,
               color: colors.error,
             }}
@@ -414,7 +414,7 @@ export default function AuthForm({
                     className="spinner-border spinner-border-sm me-2"
                     role="status"
                     aria-hidden="true"
-                  ></span>
+                  />
                   {activeTab === 'login'
                     ? 'Signing In...'
                     : 'Creating Account...'}

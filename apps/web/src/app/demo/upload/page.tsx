@@ -391,7 +391,7 @@ export default function UploadDemoPage() {
           <i
             className="bi bi-cloud-arrow-up me-3"
             style={{ color: MAHARDIKA_COLORS.gold }}
-          ></i>
+          />
           Mahardika Upload Demo
         </h1>
         <p className="demo-subtitle">
@@ -406,14 +406,14 @@ export default function UploadDemoPage() {
               className={`toggle-option ${demoMode === 'compress' ? 'active' : ''}`}
               onClick={() => setDemoMode('compress')}
             >
-              <i className="bi bi-gear-fill me-2"></i>
+              <i className="bi bi-gear-fill me-2" />
               Compress & Scan
             </button>
             <button
               className={`toggle-option ${demoMode === 'legacy' ? 'active' : ''}`}
               onClick={() => setDemoMode('legacy')}
             >
-              <i className="bi bi-upload me-2"></i>
+              <i className="bi bi-upload me-2" />
               Legacy Upload
             </button>
           </div>
@@ -430,7 +430,7 @@ export default function UploadDemoPage() {
           >
             <i
               className={`bi ${showStats ? 'bi-eye-fill' : 'bi-eye-slash-fill'} me-2`}
-            ></i>
+            />
             {showStats ? 'Hide Stats' : 'Show Stats'}
           </button>
         </div>
@@ -438,19 +438,19 @@ export default function UploadDemoPage() {
         {/* Feature Badges */}
         <div style={{ marginBottom: '2rem' }}>
           <span className="feature-badge">
-            <i className="bi bi-shield-check"></i>
+            <i className="bi bi-shield-check" />
             Virus Scanning
           </span>
           <span className="feature-badge">
-            <i className="bi bi-arrow-down-circle"></i>
+            <i className="bi bi-arrow-down-circle" />
             PDF Compression
           </span>
           <span className="feature-badge">
-            <i className="bi bi-lock"></i>
+            <i className="bi bi-lock" />
             Signed URLs
           </span>
           <span className="feature-badge">
-            <i className="bi bi-speedometer2"></i>
+            <i className="bi bi-speedometer2" />
             Progress Tracking
           </span>
         </div>
@@ -509,7 +509,7 @@ export default function UploadDemoPage() {
         {/* Upload Section */}
         <div className="upload-section">
           <h2 className="section-title">
-            <i className="section-icon bi bi-cloud-upload-fill"></i>
+            <i className="section-icon bi bi-cloud-upload-fill" />
             {demoMode === 'compress' ? 'Advanced Upload' : 'Legacy Upload'}
           </h2>
 
@@ -542,13 +542,13 @@ export default function UploadDemoPage() {
         <div className="results-section">
           <div className="results-header">
             <h2 className="section-title">
-              <i className="section-icon bi bi-list-check"></i>
+              <i className="section-icon bi bi-list-check" />
               Upload Results
               <span className="results-count">{uploadResults.length}</span>
             </h2>
             {uploadResults.length > 0 && (
               <button className="clear-results" onClick={clearResults}>
-                <i className="bi bi-trash me-1"></i>
+                <i className="bi bi-trash me-1" />
                 Clear
               </button>
             )}
@@ -564,7 +564,7 @@ export default function UploadDemoPage() {
                   marginBottom: '1rem',
                   display: 'block',
                 }}
-              ></i>
+              />
               No uploads yet. Try uploading a PDF file to see the results!
             </div>
           ) : (
@@ -579,7 +579,7 @@ export default function UploadDemoPage() {
                   >
                     <i
                       className={`bi ${result.success ? 'bi-check-circle-fill' : 'bi-x-circle-fill'}`}
-                    ></i>
+                    />
                     {result.success ? 'Upload Successful' : 'Upload Failed'}
                   </div>
                   <div className="result-timestamp">
@@ -630,7 +630,7 @@ export default function UploadDemoPage() {
                         >
                           <i
                             className={`bi ${result.scanResults.infected ? 'bi-shield-x' : 'bi-shield-check'} me-2`}
-                          ></i>
+                          />
                           Virus Scan:{' '}
                           {result.scanResults.infected ? 'INFECTED' : 'CLEAN'}
                         </div>
@@ -652,7 +652,7 @@ export default function UploadDemoPage() {
 
                 {!result.success && result.error && (
                   <div style={{ color: '#dc3545', marginTop: '0.5rem' }}>
-                    <i className="bi bi-exclamation-triangle me-2"></i>
+                    <i className="bi bi-exclamation-triangle me-2" />
                     {result.error}
                   </div>
                 )}

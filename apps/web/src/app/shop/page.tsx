@@ -95,7 +95,7 @@ const ShopIndexPage = () => {
             <span
               className="navbar-toggler-icon"
               style={{ filter: 'invert(1)' }}
-            ></span>
+            />
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">

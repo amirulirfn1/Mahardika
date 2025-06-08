@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { withRateLimit, aiMessageRateLimit } from '@/lib/rateLimit';
 
 interface ChatRequest {
   message: string;
@@ -13,7 +14,7 @@ interface DeepSeekResponse {
   }>;
 }
 
-export async function POST(request: NextRequest) {
+async function handleChat(request: NextRequest): Promise<NextResponse> {
   try {
     const { message, apiKey }: ChatRequest = await request.json();
 
@@ -74,15 +75,34 @@ export async function POST(request: NextRequest) {
     const aiResponse =
       data.choices?.[0]?.message?.content || 'No response generated';
 
-    return NextResponse.json({
-      response: aiResponse,
-      timestamp: new Date().toISOString(),
-    });
+    return NextResponse.json(
+      {
+        response: aiResponse,
+        timestamp: new Date().toISOString(),
+        service: 'Mahardika AI Chat',
+        colors: {
+          navy: '#0D1B2A',
+          gold: '#F4B400',
+        },
+      },
+      {
+        headers: {
+          'X-Mahardika-Service': 'ai-chat',
+        },
+      }
+    );
   } catch (error) {
     console.error('Chat API Error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: 'Internal server error',
+        service: 'Mahardika AI Chat',
+        timestamp: new Date().toISOString(),
+      },
       { status: 500 }
     );
   }
 }
+
+// Export rate-limited handler
+export const POST = withRateLimit(aiMessageRateLimit, handleChat);

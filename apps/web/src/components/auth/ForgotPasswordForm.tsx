@@ -368,14 +368,20 @@ export function ForgotPasswordExample() {
 
   const handleSubmit = async (email: string) => {
     setIsLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsLoading(false);
-    console.log('Password reset requested for:', email);
+    try {
+      const { resetPassword } = await import('@/lib/supabase');
+      await resetPassword(email);
+      console.log('Password reset requested for:', email);
+    } catch (error) {
+      console.error('Password reset error:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleBackToLogin = () => {
-    console.log('Navigate back to login');
+    window.location.href = '/auth';
   };
 
   return (

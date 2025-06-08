@@ -21,6 +21,9 @@
     },
     "apps/web/src/app/api/cron/updateClamSig.ts": {
       "maxDuration": 300
+    },
+    "apps/web/src/app/api/compressUpload/route.ts": {
+      "maxDuration": 60
     }
   },
   "crons": [

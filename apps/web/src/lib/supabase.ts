@@ -1,3 +1,10 @@
+/**
+ * =============================================================================
+ * Mahardika Platform - Supabase Client Configuration
+ * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * =============================================================================
+ */
+
 import { createClient } from '@supabase/supabase-js';
 import { DATABASE_CONFIG } from './env';
 
@@ -31,27 +38,21 @@ export interface AgencyReview {
   created_at: string;
 }
 
-// Create Supabase client
-function createSupabaseClient() {
-  if (!DATABASE_CONFIG.supabase.enabled) {
-    throw new Error(
-      'Supabase configuration is incomplete. Please check your environment variables.'
-    );
-  }
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-  return createClient(
-    DATABASE_CONFIG.supabase.url!,
-    DATABASE_CONFIG.supabase.anonKey!,
-    {
-      auth: {
-        persistSession: false, // We're not using auth in this example
-      },
-    }
-  );
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase environment variables');
 }
 
-// Export the client (will throw if not configured)
-export const supabase = createSupabaseClient();
+// Create Supabase client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+});
 
 // Helper functions for common operations
 export const agencyService = {
@@ -166,3 +167,60 @@ export const mockReviewsData: AgencyReview[] = [
 export function isSupabaseConfigured(): boolean {
   return DATABASE_CONFIG.supabase.enabled;
 }
+
+/**
+ * Password reset functionality
+ */
+export const resetPassword = async (email: string, redirectTo?: string) => {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: redirectTo || `${window.location.origin}/auth/reset-password`,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+/**
+ * Update password after reset
+ */
+export const updatePassword = async (newPassword: string) => {
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+};
+
+/**
+ * Get current user session
+ */
+export const getCurrentUser = async () => {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return user;
+};
+
+/**
+ * Sign out current user
+ */
+export const signOut = async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+};

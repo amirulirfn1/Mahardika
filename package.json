@@ -4,7 +4,7 @@
   "private": true,
   "description": "Mahardika Platform - Complete monorepo with UI library and applications",
   "scripts": {
-    "build": "pnpm run --filter='./packages/*' build",
+    "build": "pnpm run --filter='./packages/*' build && pnpm run --filter='@mahardika/web' build",
     "test": "pnpm run --filter='./packages/*' test && pnpm run test:scripts",
     "test:scripts": "cd scripts && jest --config jest.config.js",
     "dev": "pnpm run --filter='@mahardika/web' dev",

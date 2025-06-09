@@ -5,19 +5,19 @@
 # Ensures code quality and brand consistency before commits
 
 echo "🎨 Running Mahardika brand color checks..."
-node scripts/check-brand.js
+node scripts/check-brand-colors.js
 
 echo "📋 Running code quality checks..."
-pnpm run format:check
-pnpm run lint
+npm run format:check
+npm run lint
 
 echo "🔒 Running security checks..."
-pnpm run security:check
+npm run security:check
 
 echo "🏗️  Building project..."
-pnpm run build
+npm run build
 
 echo "🧪 Running tests..."
-pnpm run test
+npm run test
 
 echo "✅ All pre-commit checks passed!"

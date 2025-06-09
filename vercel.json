@@ -1,10 +1,9 @@
 {
   "framework": "nextjs",
-  "installCommand": "npm ci --ignore-scripts && cd packages/ui && npm ci && cd ../../apps/web && npm ci",
-  "buildCommand": "cd packages/ui && npm run build && cd ../../apps/web && DATABASE_URL='postgresql://placeholder:placeholder@placeholder:5432/placeholder' npm run build",
-  "outputDirectory": "apps/web/.next",
+  "rootDirectory": "apps/web",
+  "buildCommand": "cd ../../packages/ui && npm ci && npm run build && cd ../../apps/web && npm ci && DATABASE_URL='postgresql://placeholder:placeholder@placeholder:5432/placeholder' npm run build",
   "functions": {
-    "apps/web/src/app/api/**/*.ts": {
+    "src/app/api/**/*.ts": {
       "runtime": "nodejs18.x"
     }
   }

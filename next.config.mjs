@@ -10,6 +10,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  distDir: 'apps/web/.next',
 };
 
 export default nextConfig;

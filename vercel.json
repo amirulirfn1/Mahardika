@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "npm install --legacy-peer-deps && cd packages/ui && npm run build && cd ../apps/web && npm run build && cd ../..",
+  "buildCommand": "npm install --legacy-peer-deps && npm run build --workspace=packages/ui && npm run build --workspace=apps/web",
   "outputDirectory": "apps/web/.next",
   "devCommand": "cd apps/web && npm run dev"
 }

@@ -1,19 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "apps/web/package.json",
-      "use": "@vercel/next",
-      "config": {
-        "installCommand": "npm install --legacy-peer-deps",
-        "buildCommand": "cd ../../ && npm install --legacy-peer-deps && cd packages/ui && npm run build && cd ../apps/web && npm run build"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "apps/web/$1"
-    }
-  ]
+  "framework": "nextjs",
+  "buildCommand": "npm install --legacy-peer-deps && cd packages/ui && npm run build && cd ../apps/web && npm run build && cd ../..",
+  "outputDirectory": "apps/web/.next",
+  "devCommand": "cd apps/web && npm run dev"
 }

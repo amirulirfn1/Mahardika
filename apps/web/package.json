@@ -23,7 +23,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@mahardika/ui": "*",
+    "@mahardika/ui": "file:./ui-dist",
     "@prisma/client": "^5.19.1",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.50.0",

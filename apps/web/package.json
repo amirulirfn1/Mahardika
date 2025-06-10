@@ -22,8 +22,9 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-      "dependencies": {
-      "@prisma/client": "^5.19.1",
+"dependencies": {
+    "@mahardika/ui": "*",
+     "@prisma/client": "^5.19.1",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.50.0",
     "bcryptjs": "^2.4.3",

@@ -69,6 +69,9 @@
     "showcase"
   ],
   "author": "Mahardika Team",
+  "engines": {
+    "node": "20.x"
+  },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   }

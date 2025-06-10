@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { BrandButton, BrandCard, colors } from '../../../components/ui';
+import { BrandButton, BrandCard, colors } from '@mahardika/ui';
 import {
   agencyService,
   mockAgencyData,

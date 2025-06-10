@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BrandButton, BrandCard } from '../../../components/ui';
+import { BrandButton, BrandCard } from '@mahardika/ui';
 
 // Sample shop data
 const shopCategories = [

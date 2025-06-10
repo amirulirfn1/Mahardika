@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { colors } from '../../components/ui';
+import { colors } from '@mahardika/ui';
 
 export const metadata: Metadata = {
   title: 'Mahardika Platform',

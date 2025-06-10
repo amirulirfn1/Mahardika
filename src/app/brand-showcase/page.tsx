@@ -6,7 +6,7 @@ import {
   BrandButtonTemplates,
   BrandCard,
   BrandCardTemplates,
-} from '../../../components/ui';
+} from '@mahardika/ui';
 
 export default function BrandShowcasePage() {
   return (

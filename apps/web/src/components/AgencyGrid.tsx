@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { BrandButton, BrandCard, colors } from '../../components/ui';
+import { BrandButton, BrandCard, colors } from '@mahardika/ui';
 
 interface Agency {
   id: string;

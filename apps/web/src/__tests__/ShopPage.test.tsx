@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { colors } from '../components/ui';
+import { colors } from '@mahardika/ui';
 import ShopPage from '../components/ShopPage';
 import { Agency, AgencyReview } from '../lib/supabase';
 

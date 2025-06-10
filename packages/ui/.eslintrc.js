@@ -7,9 +7,11 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    '@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -17,7 +19,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['react', 'react-hooks'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint'],
   settings: {
     react: {
       version: 'detect',
@@ -33,7 +35,8 @@ module.exports = {
     'prefer-const': 'error',
     'no-var': 'error',
     'no-console': ['warn', { allow: ['warn', 'error'] }],
-    'no-unused-vars': [
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': [
       'error',
       {
         argsIgnorePattern: '^_',
@@ -46,7 +49,6 @@ module.exports = {
       files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', '**/__tests__/**/*'],
       env: {
         jest: true,
-        'vitest-globals/env': true,
       },
       rules: {
         'no-console': 'off',

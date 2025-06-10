@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { BrandButton, BrandCard } from '../../../components/ui';
+import { BrandButton, BrandCard } from '@mahardika/ui';
 
 const StyleGuidePage = () => {
   const [formData, setFormData] = useState({

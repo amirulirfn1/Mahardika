@@ -22,7 +22,7 @@
     "env:template": "cp .env.local.example .env.local",
     "env:test": "node scripts/env-test.js",
     "pre-commit": "npm run check:brand-colors && npm run format:check && npm run lint && npm run security:check && npm run build && npm run test",
-    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production' && !process.env.CI && !process.env.VERCEL) { try { require('husky').install() } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e } }\""
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production' && !process.env.CI && !process.env.VERCEL) { try { require('husky') } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e } }\""
   },
   "keywords": [
     "mahardika",

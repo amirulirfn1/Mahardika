@@ -1,0 +1,40 @@
+# Development files
+.husky
+.git
+.gitignore
+.eslintrc.js
+.prettierrc
+.prettierignore
+
+# Documentation
+*.md
+CODE_REVIEW_CHECKLIST.md
+ENV_CONFIGURATION.md
+GIT_IMPLEMENTATION.md
+IMPLEMENTATION_COMPLETE.md
+IMPLEMENTATION_SUMMARY.md
+LINTING.md
+PROMPT_GUIDELINES.md
+SECURITY.md
+SUPABASE_PASSWORD_RESET_SETUP.md
+BOOTSTRAP.md
+
+# Scripts
+scripts/
+build.sh
+
+# Tests
+**/__tests__/
+**/*.test.*
+**/*.spec.*
+coverage/
+
+# Node modules and cache
+node_modules/
+.cache/
+.turbo/
+
+# Temporary files
+.DS_Store
+.env.local
+.env.*.local 

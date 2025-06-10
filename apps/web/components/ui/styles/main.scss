@@ -1,0 +1,248 @@
+// Mahardika Brand SCSS - Main entry point for Bootstrap integration
+// Import this file in your main layout to apply Mahardika branding to Bootstrap
+
+// 1. Import Mahardika brand variables first (must be before Bootstrap)
+@import 'variables';
+
+// 2. Import Bootstrap (you can import specific components or all of Bootstrap)
+// Note: In a real project, you would import Bootstrap from node_modules
+// @import '~bootstrap/scss/bootstrap';
+
+// 3. Custom Mahardika utilities and overrides
+.bg-mahardika-navy {
+  background-color: $mahardika-navy !important;
+}
+
+.bg-mahardika-gold {
+  background-color: $mahardika-gold !important;
+}
+
+.text-mahardika-navy {
+  color: $mahardika-navy !important;
+}
+
+.text-mahardika-gold {
+  color: $mahardika-gold !important;
+}
+
+.border-mahardika-navy {
+  border-color: $mahardika-navy !important;
+}
+
+.border-mahardika-gold {
+  border-color: $mahardika-gold !important;
+}
+
+// Mahardika standard border radius utility
+.rounded-mahardika {
+  border-radius: $mahardika-border-radius !important;
+}
+
+// Brand gradient utilities
+.bg-gradient-mahardika-primary {
+  background: linear-gradient(
+    135deg,
+    $mahardika-navy 0%,
+    lighten($mahardika-navy, 10%) 100%
+  ) !important;
+}
+
+.bg-gradient-mahardika-secondary {
+  background: linear-gradient(
+    135deg,
+    $mahardika-gold 0%,
+    lighten($mahardika-gold, 10%) 100%
+  ) !important;
+}
+
+.bg-gradient-mahardika-brand {
+  background: linear-gradient(
+    135deg,
+    $mahardika-navy 0%,
+    $mahardika-gold 100%
+  ) !important;
+}
+
+// Brand button variants (supplements existing Bootstrap buttons)
+.btn-mahardika-outline-navy {
+  color: $mahardika-navy;
+  border-color: $mahardika-navy;
+  background-color: transparent;
+
+  &:hover {
+    color: white;
+    background-color: $mahardika-navy;
+    border-color: $mahardika-navy;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 $focus-ring-width rgba(13, 27, 42, $focus-ring-opacity);
+  }
+}
+
+.btn-mahardika-outline-gold {
+  color: $mahardika-gold;
+  border-color: $mahardika-gold;
+  background-color: transparent;
+
+  &:hover {
+    color: $mahardika-navy;
+    background-color: $mahardika-gold;
+    border-color: $mahardika-gold;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 $focus-ring-width rgba(244, 180, 0, $focus-ring-opacity);
+  }
+}
+
+// Card hover effects with brand colors
+.card-mahardika-hover {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(13, 27, 42, 0.15);
+    border-color: $mahardika-gold;
+  }
+}
+
+// Link styling with brand colors
+.link-mahardika {
+  color: $mahardika-navy;
+  text-decoration: none;
+
+  &:hover {
+    color: darken($mahardika-navy, 15%);
+    text-decoration: underline;
+    text-decoration-color: $mahardika-gold;
+  }
+}
+
+// Brand navigation styling
+.navbar-mahardika {
+  background-color: $mahardika-navy !important;
+
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+
+    &:hover {
+      color: $mahardika-gold !important;
+    }
+  }
+
+  .navbar-toggler {
+    border-color: rgba(244, 180, 0, 0.5);
+
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba(244, 180, 0, 0.25);
+    }
+  }
+}
+
+// Form styling enhancements
+.form-control-mahardika {
+  border-radius: $mahardika-border-radius;
+  border-color: rgba(13, 27, 42, 0.25);
+
+  &:focus {
+    border-color: $mahardika-navy;
+    box-shadow: 0 0 0 $focus-ring-width rgba(13, 27, 42, $focus-ring-opacity);
+  }
+}
+
+// Modal enhancements
+.modal-mahardika {
+  .modal-content {
+    border-radius: $mahardika-border-radius;
+    border: none;
+    box-shadow: 0 1rem 3rem rgba(13, 27, 42, 0.175);
+  }
+
+  .modal-header {
+    background-color: $mahardika-navy;
+    color: white;
+    border-bottom: none;
+    border-radius: $mahardika-border-radius $mahardika-border-radius 0 0;
+
+    .btn-close {
+      filter: invert(1) grayscale(100%) brightness(200%);
+    }
+  }
+
+  .modal-footer {
+    border-top: 1px solid rgba(13, 27, 42, 0.125);
+  }
+}
+
+// Alert styling with brand colors
+.alert-mahardika-navy {
+  color: white;
+  background-color: $mahardika-navy;
+  border-color: darken($mahardika-navy, 5%);
+}
+
+.alert-mahardika-gold {
+  color: $mahardika-navy;
+  background-color: lighten($mahardika-gold, 35%);
+  border-color: $mahardika-gold;
+}
+
+// Progress bar brand styling
+.progress-mahardika {
+  .progress-bar {
+    background-color: $mahardika-navy;
+  }
+
+  &.progress-gold .progress-bar {
+    background-color: $mahardika-gold;
+  }
+}
+
+// Responsive utilities for brand elements
+@media (max-width: 768px) {
+  .btn-mahardika-responsive {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .card-mahardika-responsive {
+    margin-bottom: 1rem;
+  }
+}
+
+// Animation utilities
+.fade-in-mahardika {
+  animation: fadeInMahardika 0.5s ease-in-out;
+}
+
+@keyframes fadeInMahardika {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Loading spinner with brand colors
+.spinner-mahardika {
+  border: 3px solid rgba(13, 27, 42, 0.1);
+  border-top: 3px solid $mahardika-navy;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

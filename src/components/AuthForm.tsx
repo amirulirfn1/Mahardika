@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '../../components/ui';
 
 interface AuthFormProps {
   onLogin?: (email: string, password: string) => Promise<void>;

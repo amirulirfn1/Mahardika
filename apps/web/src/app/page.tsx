@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button, Card } from '@mahardika/ui';
+import { Button, Card } from '../../components/ui';
 import { MAHARDIKA_COLORS } from '../lib/env';
 
 export default function HomePage() {

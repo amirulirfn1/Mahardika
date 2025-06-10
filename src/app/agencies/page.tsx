@@ -1,4 +1,4 @@
-import { colors } from '@mahardika/ui';
+import { colors } from '../../../components/ui';
 import AgencyGrid from '../../components/AgencyGrid';
 
 // Mock data for demonstration

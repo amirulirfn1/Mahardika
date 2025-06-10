@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '../../../components/ui';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { colors } from '@mahardika/ui';
+import { colors } from '../../../components/ui';
 import AuthForm from '../../components/AuthForm';
 
 export default function AuthPage() {

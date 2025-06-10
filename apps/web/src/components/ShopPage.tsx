@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '../../components/ui';
 import { Agency, AgencyReview } from '../lib/supabase';
 
 interface ShopPageProps {

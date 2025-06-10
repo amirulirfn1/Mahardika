@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '../../../components/ui';
 
 export default function PrivacyPolicy() {
   return (

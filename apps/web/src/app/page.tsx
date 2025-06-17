@@ -198,265 +198,113 @@ export default function HomePage() {
               Visit Shop
             </Button>
           </Card>
+        </div>
 
-          <Card
-            title="🔐 Enterprise Security"
-            subtitle="Bank-grade security & compliance"
-            variant="branded"
-            size="lg"
-          >
-            <p style={{ 
-              color: 'rgba(255, 255, 255, 0.8)', 
-              margin: '0 0 1.5rem 0',
-              lineHeight: '1.6'
+        {/* Stats Section */}
+        <div style={{
+          display: 'grid',
+          gap: '2rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          textAlign: 'center',
+          padding: '3rem 0'
+        }}>
+          <div>
+            <h3 style={{ 
+              fontSize: '3rem', 
+              fontWeight: '700', 
+              color: MAHARDIKA_COLORS.gold,
+              margin: '0 0 0.5rem 0'
             }}>
-              Advanced security features including end-to-end encryption, 
-              multi-factor authentication, and compliance with industry standards.
+              50+
+            </h3>
+            <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
+              UI Components
             </p>
-            <Button 
-              variant="secondary" 
-              size="sm"
-              onClick={() => window.location.href = '/auth'}
-            >
-              Security Details
-            </Button>
-          </Card>
-
-          <Card
-            title="⚡ Cloud Infrastructure"
-            subtitle="Scalable and reliable performance"
-            variant="branded"
-            size="lg"
-          >
-            <p style={{ 
-              color: 'rgba(255, 255, 255, 0.8)', 
-              margin: '0 0 1.5rem 0',
-              lineHeight: '1.6'
+          </div>
+          <div>
+            <h3 style={{ 
+              fontSize: '3rem', 
+              fontWeight: '700', 
+              color: MAHARDIKA_COLORS.gold,
+              margin: '0 0 0.5rem 0'
             }}>
-              Built on modern cloud infrastructure ensuring 99.9% uptime, 
-              automatic scaling, and global content delivery.
+              99.9%
+            </h3>
+            <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
+              Uptime
             </p>
-            <Button 
-              variant="secondary" 
-              size="sm"
-              onClick={() => window.location.href = '/terms'}
-            >
-              Service Terms
-            </Button>
-          </Card>
+          </div>
+          <div>
+            <h3 style={{ 
+              fontSize: '3rem', 
+              fontWeight: '700', 
+              color: MAHARDIKA_COLORS.gold,
+              margin: '0 0 0.5rem 0'
+            }}>
+              1000+
+            </h3>
+            <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
+              Happy Users
+            </p>
+          </div>
+          <div>
+            <h3 style={{ 
+              fontSize: '3rem', 
+              fontWeight: '700', 
+              color: MAHARDIKA_COLORS.gold,
+              margin: '0 0 0.5rem 0'
+            }}>
+              24/7
+            </h3>
+            <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
+              Support
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Call to Action Section */}
+      {/* CTA Section */}
       <section style={{
         padding: '4rem 2rem',
         textAlign: 'center',
-        background: 'rgba(0, 0, 0, 0.3)',
-        backdropFilter: 'blur(10px)'
+        maxWidth: '800px',
+        margin: '0 auto'
       }}>
         <div style={{
-          maxWidth: '800px',
-          margin: '0 auto'
+          background: 'rgba(244, 180, 0, 0.1)',
+          border: '1px solid rgba(244, 180, 0, 0.3)',
+          borderRadius: '20px',
+          padding: '3rem 2rem'
         }}>
           <h2 style={{
             fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
             fontWeight: '600',
-            margin: '0 0 1.5rem 0',
-            color: 'white'
+            margin: '0 0 1rem 0',
+            color: MAHARDIKA_COLORS.gold
           }}>
-            Ready to Transform Your Business?
+            Ready to Get Started?
           </h2>
-          
           <p style={{
-            fontSize: '1.125rem',
             color: 'rgba(255, 255, 255, 0.8)',
-            margin: '0 0 2.5rem 0',
+            fontSize: '1.125rem',
+            margin: '0 0 2rem 0',
             lineHeight: '1.6'
           }}>
-            Join thousands of businesses already using Mahardika to streamline operations, 
-            boost productivity, and drive growth. Start your journey today.
+            Join thousands of businesses already using Mahardika to streamline their operations and drive growth.
           </p>
-
-          <div style={{
-            display: 'flex',
-            gap: '1rem',
-            justifyContent: 'center',
-            flexWrap: 'wrap'
-          }}>
-            <Button 
-              size="lg"
-              onClick={() => window.location.href = '/auth'}
-              style={{ 
-                minWidth: '180px',
-                fontSize: '1.1rem',
-                padding: '1rem 2rem'
-              }}
-            >
-              Start Free Trial
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => window.location.href = '/brand-showcase'}
-              style={{ 
-                minWidth: '180px',
-                fontSize: '1.1rem',
-                padding: '1rem 2rem',
-                borderColor: 'rgba(255, 255, 255, 0.3)',
-                color: 'rgba(255, 255, 255, 0.9)'
-              }}
-            >
-              View Components
-            </Button>
-          </div>
+          <Button 
+            size="lg"
+            onClick={() => window.location.href = '/dashboard'}
+            style={{ 
+              minWidth: '250px',
+              fontSize: '1.2rem',
+              padding: '1.25rem 2.5rem'
+            }}
+          >
+            Start Your Journey
+          </Button>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer style={{
-        padding: '3rem 2rem 2rem 2rem',
-        textAlign: 'center',
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-        background: 'rgba(0, 0, 0, 0.2)'
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto'
-        }}>
-          <div style={{
-            display: 'grid',
-            gap: '2rem',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            marginBottom: '2rem',
-            textAlign: 'left'
-          }}>
-            <div>
-              <h3 style={{
-                color: MAHARDIKA_COLORS.gold,
-                fontSize: '1.25rem',
-                fontWeight: '600',
-                margin: '0 0 1rem 0'
-              }}>
-                Platform
-              </h3>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem'
-              }}>
-                <a href="/dashboard" style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem'
-                }}>Dashboard</a>
-                <a href="/agencies" style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem'
-                }}>Agencies</a>
-                <a href="/marketplace" style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem'
-                }}>Marketplace</a>
-              </div>
-            </div>
-
-            <div>
-              <h3 style={{
-                color: MAHARDIKA_COLORS.gold,
-                fontSize: '1.25rem',
-                fontWeight: '600',
-                margin: '0 0 1rem 0'
-              }}>
-                Resources
-              </h3>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem'
-              }}>
-                <a href="/demo/upload" style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem'
-                }}>Demo</a>
-                <a href="/brand-showcase" style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem'
-                }}>Brand Guide</a>
-                <a href="/style-guide" style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem'
-                }}>Style Guide</a>
-              </div>
-            </div>
-
-            <div>
-              <h3 style={{
-                color: MAHARDIKA_COLORS.gold,
-                fontSize: '1.25rem',
-                fontWeight: '600',
-                margin: '0 0 1rem 0'
-              }}>
-                Legal
-              </h3>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem'
-              }}>
-                <a href="/terms" style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem'
-                }}>Terms of Service</a>
-                <a href="/privacy" style={{
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  textDecoration: 'none',
-                  fontSize: '0.95rem'
-                }}>Privacy Policy</a>
-              </div>
-            </div>
-
-            <div>
-              <h3 style={{
-                color: MAHARDIKA_COLORS.gold,
-                fontSize: '1.25rem',
-                fontWeight: '600',
-                margin: '0 0 1rem 0'
-              }}>
-                Contact
-              </h3>
-              <p style={{
-                color: 'rgba(255, 255, 255, 0.7)',
-                margin: '0',
-                fontSize: '0.95rem',
-                lineHeight: '1.5'
-              }}>
-                Built with modern technology stack:<br/>
-                Next.js • React • TypeScript • Supabase
-              </p>
-            </div>
-          </div>
-
-          <div style={{
-            paddingTop: '2rem',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-            textAlign: 'center'
-          }}>
-            <p style={{
-              color: 'rgba(255, 255, 255, 0.6)',
-              margin: '0',
-              fontSize: '0.875rem'
-            }}>
-              © 2024 Mahardika Platform. Built with ❤️ using our brand colors: Navy #0D1B2A • Gold #F4B400
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

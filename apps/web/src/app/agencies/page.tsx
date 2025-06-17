@@ -122,7 +122,7 @@ const mockAgencies = [
 export default function AgenciesPage() {
   return (
     <div style={{ backgroundColor: colors.gray[50], minHeight: '100vh' }}>
-      {/* Header Section */}
+      {/* Hero Section */}
       <div
         className="py-5"
         style={{
@@ -155,10 +155,8 @@ export default function AgenciesPage() {
       </div>
 
       {/* Agencies Grid */}
-      <div className="py-5">
-        <div className="container">
-          <AgencyGrid agencies={mockAgencies} />
-        </div>
+      <div className="container py-5">
+        <AgencyGrid agencies={mockAgencies} />
       </div>
 
       {/* Call to Action */}
@@ -177,25 +175,23 @@ export default function AgenciesPage() {
               <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
                 <a
                   href="tel:+1-800-MAHARDIKA"
-                  className="btn btn-lg"
+                  className="btn btn-lg text-decoration-none"
                   style={{
                     backgroundColor: colors.gold,
                     color: colors.navy,
                     borderRadius: '0.5rem',
                     fontWeight: '600',
                     border: 'none',
-                    textDecoration: 'none',
                   }}
                 >
                   📞 Call an Expert
                 </a>
                 <a
                   href="/contact"
-                  className="btn btn-lg btn-outline-light"
+                  className="btn btn-lg btn-outline-light text-decoration-none"
                   style={{
                     borderRadius: '0.5rem',
                     fontWeight: '600',
-                    textDecoration: 'none',
                   }}
                 >
                   💬 Live Chat

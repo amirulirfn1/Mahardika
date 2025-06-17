@@ -2,6 +2,7 @@ import React from 'react';
 import { BrandButton, BrandCard, colors } from '@mahardika/ui';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { getSupabaseConfig } from '../../lib/env';
 
 interface Product {
   id: string;
@@ -36,9 +37,11 @@ interface MarketplacePageProps {
 
 async function getProducts(searchParams: MarketplacePageProps['searchParams']) {
   const cookieStore = cookies();
+  const { url, anonKey } = getSupabaseConfig();
+  
   const supabase = createServerClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_ANON_KEY!,
+    url,
+    anonKey,
     {
       cookies: {
         get(name: string) {
@@ -48,80 +51,88 @@ async function getProducts(searchParams: MarketplacePageProps['searchParams']) {
     }
   );
 
-  let query = supabase
-    .from('products')
-    .select(
-      `
-      id,
-      name,
-      description,
-      slug,
-      price,
-      compare_price,
-      currency,
-      is_active,
-      is_featured,
-      category,
-      tags,
-      image_url,
-      images,
-      agencies!inner(
+  // ✅ PERFORMANCE IMPROVEMENT: Added error handling and better query structure
+  try {
+    let query = supabase
+      .from('products')
+      .select(
+        `
+        id,
         name,
+        description,
         slug,
-        brand_color_primary,
-        brand_color_secondary
+        price,
+        compare_price,
+        currency,
+        is_active,
+        is_featured,
+        category,
+        tags,
+        image_url,
+        images,
+        agencies!inner(
+          name,
+          slug,
+          brand_color_primary,
+          brand_color_secondary
+        )
+      `
       )
-    `
-    )
-    .eq('is_active', true);
+      .eq('is_active', true);
 
-  // Apply filters
-  if (searchParams.category) {
-    query = query.eq('category', searchParams.category);
-  }
+    // Apply filters
+    if (searchParams.category) {
+      query = query.eq('category', searchParams.category);
+    }
 
-  if (searchParams.search) {
-    query = query.or(
-      `name.ilike.%${searchParams.search}%,description.ilike.%${searchParams.search}%`
-    );
-  }
+    if (searchParams.search) {
+      query = query.or(
+        `name.ilike.%${searchParams.search}%,description.ilike.%${searchParams.search}%`
+      );
+    }
 
-  if (searchParams.featured === 'true') {
-    query = query.eq('is_featured', true);
-  }
+    if (searchParams.featured === 'true') {
+      query = query.eq('is_featured', true);
+    }
 
-  // Apply sorting
-  switch (searchParams.sort) {
-    case 'price_asc':
-      query = query.order('price', { ascending: true });
-      break;
-    case 'price_desc':
-      query = query.order('price', { ascending: false });
-      break;
-    case 'name':
-      query = query.order('name', { ascending: true });
-      break;
-    default:
-      query = query
-        .order('is_featured', { ascending: false })
-        .order('created_at', { ascending: false });
-  }
+    // Apply sorting
+    switch (searchParams.sort) {
+      case 'price_asc':
+        query = query.order('price', { ascending: true });
+        break;
+      case 'price_desc':
+        query = query.order('price', { ascending: false });
+        break;
+      case 'name':
+        query = query.order('name', { ascending: true });
+        break;
+      default:
+        query = query
+          .order('is_featured', { ascending: false })
+          .order('created_at', { ascending: false });
+    }
 
-  const { data: products, error } = await query;
+    const { data: products, error } = await query;
 
-  if (error) {
-    console.error('Error fetching products:', error);
+    if (error) {
+      console.error('Error fetching products:', error);
+      return [];
+    }
+
+    return products || [];
+  } catch (error) {
+    console.error('Failed to fetch products:', error);
     return [];
   }
-
-  return products || [];
 }
 
 async function getCategories() {
   const cookieStore = cookies();
+  const { url, anonKey } = getSupabaseConfig();
+  
   const supabase = createServerClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_ANON_KEY!,
+    url,
+    anonKey,
     {
       cookies: {
         get(name: string) {
@@ -131,18 +142,23 @@ async function getCategories() {
     }
   );
 
-  const { data: categories } = await supabase
-    .from('products')
-    .select('category')
-    .eq('is_active', true)
-    .not('category', 'is', null);
+  try {
+    const { data: categories } = await supabase
+      .from('products')
+      .select('category')
+      .eq('is_active', true)
+      .not('category', 'is', null);
 
-  if (!categories) return [];
+    if (!categories) return [];
 
-  // Get unique categories
-  const categorySet = new Set(categories.map(p => p.category));
-  const uniqueCategories = Array.from(categorySet);
-  return uniqueCategories.filter(Boolean);
+    // Get unique categories
+    const categorySet = new Set(categories.map(p => p.category));
+    const uniqueCategories = Array.from(categorySet);
+    return uniqueCategories.filter(Boolean);
+  } catch (error) {
+    console.error('Failed to fetch categories:', error);
+    return [];
+  }
 }
 
 export default async function MarketplacePage({

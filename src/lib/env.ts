@@ -95,6 +95,53 @@ export type AppConfig = typeof APP_CONFIG;
 export type FeatureFlags = typeof FEATURE_FLAGS;
 
 /**
+ * ✅ SAFETY IMPROVEMENT: Safe environment variable getter with validation
+ * Prevents runtime crashes from undefined environment variables
+ */
+export function getRequiredEnvVar(key: string, context?: string): string {
+  const value = process.env[key];
+  if (!value) {
+    const errorMsg = `Missing required environment variable: ${key}${
+      context ? ` (required for ${context})` : ''
+    }`;
+    console.error(errorMsg);
+    throw new Error(errorMsg);
+  }
+  return value;
+}
+
+/**
+ * ✅ SAFETY IMPROVEMENT: Safe Supabase configuration getter
+ * Validates required Supabase environment variables
+ */
+export function getSupabaseConfig() {
+  try {
+    return {
+      url: getRequiredEnvVar('NEXT_PUBLIC_SUPABASE_URL', 'Supabase client'),
+      anonKey: getRequiredEnvVar('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'Supabase client'),
+    };
+  } catch (error) {
+    console.error('Supabase configuration error:', error);
+    // Return safe defaults for development
+    if (APP_CONFIG.environment === 'development') {
+      return {
+        url: 'http://localhost:54321',
+        anonKey: 'development-key',
+      };
+    }
+    throw error;
+  }
+}
+
+/**
+ * ✅ SAFETY IMPROVEMENT: Safe service role key getter
+ * Only for server-side usage
+ */
+export function getSupabaseServiceKey(): string {
+  return getRequiredEnvVar('SUPABASE_SERVICE_ROLE_KEY', 'Supabase service operations');
+}
+
+/**
  * Validates required environment variables for the application
  * @returns Array of missing required environment variables
  */
@@ -108,6 +155,12 @@ export function validateEnvironment(): string[] {
     }
     if (!AUTH_CONFIG.nextAuth.secret) {
       missing.push('NEXTAUTH_SECRET');
+    }
+    if (!DATABASE_CONFIG.supabase.url) {
+      missing.push('NEXT_PUBLIC_SUPABASE_URL');
+    }
+    if (!DATABASE_CONFIG.supabase.anonKey) {
+      missing.push('NEXT_PUBLIC_SUPABASE_ANON_KEY');
     }
   }
 
@@ -178,6 +231,9 @@ export default {
   auth: AUTH_CONFIG,
   external: EXTERNAL_SERVICES,
   analytics: ANALYTICS_CONFIG,
+  getRequiredEnvVar,
+  getSupabaseConfig,
+  getSupabaseServiceKey,
   validateEnvironment,
   getEnvVar,
   isDevelopment,

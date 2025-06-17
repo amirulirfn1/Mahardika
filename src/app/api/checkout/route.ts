@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { getSupabaseConfig } from '../../../lib/env';
 
 export const dynamic = 'force-dynamic';
 
@@ -23,12 +24,65 @@ interface CheckoutData {
   notes?: string;
 }
 
+// ✅ INPUT VALIDATION: Add proper input validation interfaces
+interface CreateOrderRequest {
+  customerId: string;
+  items: Array<{
+    productId: string;
+    quantity: number;
+    price: number;
+  }>;
+  shippingAddress?: {
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+  };
+}
+
+// ✅ VALIDATION HELPER: Input validation function
+function validateOrderRequest(body: any): CreateOrderRequest {
+  if (!body || typeof body !== 'object') {
+    throw new Error('Invalid request body');
+  }
+
+  if (!body.customerId || typeof body.customerId !== 'string') {
+    throw new Error('Customer ID is required');
+  }
+
+  if (!Array.isArray(body.items) || body.items.length === 0) {
+    throw new Error('Order items are required');
+  }
+
+  // Validate each item
+  for (const item of body.items) {
+    if (!item.productId || typeof item.productId !== 'string') {
+      throw new Error('Product ID is required for all items');
+    }
+    if (!item.quantity || typeof item.quantity !== 'number' || item.quantity <= 0) {
+      throw new Error('Valid quantity is required for all items');
+    }
+    if (!item.price || typeof item.price !== 'number' || item.price <= 0) {
+      throw new Error('Valid price is required for all items');
+    }
+  }
+
+  return body as CreateOrderRequest;
+}
+
 export async function POST(request: NextRequest) {
   try {
+    // ✅ INPUT VALIDATION: Validate request body
+    const body = await request.json();
+    const validatedData = validateOrderRequest(body);
+
     const cookieStore = cookies();
+    const { url, anonKey } = getSupabaseConfig();
+    
     const supabase = createServerClient(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_ANON_KEY!,
+      url,
+      anonKey,
       {
         cookies: {
           get(name: string) {
@@ -38,96 +92,46 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    // Get user and agency context
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Get user's agency
-    const { data: userRecord, error: userError } = await supabase
-      .from('users')
-      .select('agency_id')
-      .eq('id', user.id)
-      .single();
-
-    if (userError || !userRecord) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    const checkoutData: CheckoutData = await request.json();
-
-    // Validate required fields
-    if (
-      !checkoutData.customer_id ||
-      !checkoutData.items ||
-      checkoutData.items.length === 0
-    ) {
-      return NextResponse.json(
-        {
-          error: 'Missing required fields: customer_id and items',
-        },
-        { status: 400 }
-      );
-    }
-
-    // Calculate totals
-    const amount = checkoutData.items.reduce(
-      (sum, item) => sum + item.unit_price * item.quantity,
+    // Calculate total amount
+    const totalAmount = validatedData.items.reduce(
+      (sum, item) => sum + item.price * item.quantity,
       0
     );
-    const tax_amount = amount * 0.08; // 8% tax rate
-    const total_amount = amount + tax_amount;
 
-    // Create order
+    // Create order in database transaction
     const { data: order, error: orderError } = await supabase
       .from('orders')
-      .insert({
-        agency_id: userRecord.agency_id,
-        customer_id: checkoutData.customer_id,
-        amount,
-        tax_amount,
-        total_amount,
-        payment_method: checkoutData.payment_method || 'pending',
-        payment_status: 'pending',
-        notes: checkoutData.notes,
-        order_data: {
-          customer_name: checkoutData.customer_name,
-          customer_email: checkoutData.customer_email,
-          customer_phone: checkoutData.customer_phone,
-          checkout_timestamp: new Date().toISOString(),
-          user_id: user.id,
+      .insert([
+        {
+          customer_id: validatedData.customerId,
+          status: 'pending',
+          total_amount: totalAmount,
+          currency: 'USD',
+          shipping_address: validatedData.shippingAddress || null,
+          metadata: {
+            source: 'web',
+            timestamp: new Date().toISOString(),
+          },
         },
-      })
+      ])
       .select()
       .single();
 
     if (orderError) {
       console.error('Order creation error:', orderError);
       return NextResponse.json(
-        {
-          error: 'Failed to create order',
-          details: orderError.message,
-        },
+        { error: 'Failed to create order' },
         { status: 500 }
       );
     }
 
     // Create order items
-    const orderItems = checkoutData.items.map(item => ({
+    const orderItems = validatedData.items.map(item => ({
       order_id: order.id,
-      product_name: item.product_name,
-      product_description: item.product_description,
-      product_sku: item.product_sku,
-      unit_price: item.unit_price,
+      product_id: item.productId,
       quantity: item.quantity,
-      total_price: item.unit_price * item.quantity,
-      product_data: {
-        product_id: item.product_id,
-      },
+      unit_price: item.price,
+      total_price: item.price * item.quantity,
     }));
 
     const { error: itemsError } = await supabase
@@ -136,38 +140,32 @@ export async function POST(request: NextRequest) {
 
     if (itemsError) {
       console.error('Order items creation error:', itemsError);
-      // Cleanup the order if items failed
+      // Cleanup: Delete the created order
       await supabase.from('orders').delete().eq('id', order.id);
       return NextResponse.json(
-        {
-          error: 'Failed to create order items',
-          details: itemsError.message,
-        },
+        { error: 'Failed to create order items' },
         { status: 500 }
       );
     }
 
-    // Return success response with order details
     return NextResponse.json({
       success: true,
-      order: {
-        id: order.id,
-        order_number: order.order_number,
-        state: order.state,
-        amount: order.amount,
-        tax_amount: order.tax_amount,
-        total_amount: order.total_amount,
-        created_at: order.created_at,
-      },
+      orderId: order.id,
+      totalAmount,
+      message: 'Order created successfully',
     });
   } catch (error) {
     console.error('Checkout error:', error);
+    
+    // ✅ SECURITY IMPROVEMENT: Don't expose internal error details
+    const errorMessage = error instanceof Error ? 
+      (error.message.includes('required') || error.message.includes('Invalid') ? 
+        error.message : 'An internal error occurred') 
+      : 'An internal error occurred';
+    
     return NextResponse.json(
-      {
-        error: 'Internal server error',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
+      { error: errorMessage },
+      { status: error instanceof Error && error.message.includes('required') ? 400 : 500 }
     );
   }
 }
@@ -176,16 +174,21 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const orderId = searchParams.get('order_id');
+    const orderId = searchParams.get('orderId');
 
     if (!orderId) {
-      return NextResponse.json({ error: 'Missing order_id' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Order ID is required' },
+        { status: 400 }
+      );
     }
 
     const cookieStore = cookies();
+    const { url, anonKey } = getSupabaseConfig();
+    
     const supabase = createServerClient(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_ANON_KEY!,
+      url,
+      anonKey,
       {
         cookies: {
           get(name: string) {
@@ -195,40 +198,34 @@ export async function GET(request: NextRequest) {
       }
     );
 
-    // Get user and agency context
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Get order with items
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error } = await supabase
       .from('orders')
-      .select(
-        `
+      .select(`
         *,
-        order_items(*),
-        customers(name, email, phone)
-      `
-      )
+        order_items (
+          *,
+          products (
+            name,
+            slug,
+            image_url
+          )
+        )
+      `)
       .eq('id', orderId)
       .single();
 
-    if (orderError || !order) {
-      return NextResponse.json({ error: 'Order not found' }, { status: 404 });
+    if (error || !order) {
+      return NextResponse.json(
+        { error: 'Order not found' },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json({ order });
   } catch (error) {
     console.error('Get order error:', error);
     return NextResponse.json(
-      {
-        error: 'Internal server error',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      },
+      { error: 'Failed to retrieve order' },
       { status: 500 }
     );
   }

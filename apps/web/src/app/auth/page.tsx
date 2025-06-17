@@ -6,7 +6,8 @@ import AuthForm from '../../components/AuthForm';
 export default function AuthPage() {
   // Mock authentication handlers
   const handleLogin = async (email: string, password: string) => {
-    console.log('Login attempt:', { email, password });
+    // ✅ SECURITY FIX: Never log passwords - only log email for debugging
+    console.log('Login attempt for user:', email);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     alert(`Login successful for ${email}`);
@@ -19,10 +20,9 @@ export default function AuthPage() {
     firstName: string,
     lastName: string
   ) => {
-    console.log('Register attempt:', {
+    // ✅ SECURITY FIX: Never log passwords - only log safe user data
+    console.log('Register attempt for user:', {
       email,
-      password,
-      confirmPassword,
       firstName,
       lastName,
     });

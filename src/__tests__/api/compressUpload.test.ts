@@ -43,10 +43,12 @@ Object.defineProperty(global, 'crypto', {
 describe('/api/compressUpload', () => {
   beforeEach(() => {
     process.env = {
+      ...process.env,
       NEXT_PUBLIC_SUPABASE_URL: 'https://test.supabase.co',
       SUPABASE_SERVICE_ROLE_KEY: 'test-service-key',
       ENABLE_VIRUS_SCAN: 'true',
       ENABLE_PDF_COMPRESSION: 'true',
+      NODE_ENV: 'test',
     };
     jest.clearAllMocks();
   });

@@ -186,7 +186,7 @@ const ShopIndexPage = () => {
             {shopCategories.map((category, index) => (
               <div key={index} className="col-md-6 col-lg-3">
                 <BrandCard
-                  variant={category.featured ? 'navy-outline' : 'default'}
+                  variant={category.featured ? 'navy-outline' : 'gold-outline'}
                   size="md"
                   className="h-100 text-center position-relative"
                   style={{

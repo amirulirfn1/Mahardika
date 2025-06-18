@@ -33,40 +33,29 @@ export const BrandButton: React.FC<BrandButtonProps> = ({
   );
 };
 
-// Prompt template variations for common use cases
+// Template variations for common use cases
 export const BrandButtonTemplates = {
   NavyPrimary: (props: Omit<BrandButtonProps, 'variant'>) => (
     <BrandButton
       variant="navy"
-      prompt="Primary action button in Mahardika navy"
       {...props}
     />
   ),
   GoldSecondary: (props: Omit<BrandButtonProps, 'variant'>) => (
     <BrandButton
       variant="gold"
-      prompt="Secondary action button in Mahardika gold"
       {...props}
     />
   ),
   NavyOutline: (props: Omit<BrandButtonProps, 'variant'>) => (
     <BrandButton
-      variant="outline-navy"
-      prompt="Outlined button with navy border"
+      variant="navy-outline"
       {...props}
     />
   ),
   GoldOutline: (props: Omit<BrandButtonProps, 'variant'>) => (
     <BrandButton
-      variant=\"gold-outline\"
-      prompt="Outlined button with gold border"
-      {...props}
-    />
-  ),
-  GradientFeature: (props: Omit<BrandButtonProps, 'variant'>) => (
-    <BrandButton
-      variant="gradient"
-      prompt="Feature button with navy-to-gold gradient"
+      variant="gold-outline"
       {...props}
     />
   ),

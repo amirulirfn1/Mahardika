@@ -226,7 +226,7 @@ export default function ErrorPage({
                   </BrandButton>
                 </Link>
                 {reset && (
-                  <BrandButton variant=\"gold-outline\" size="lg" onClick={reset}>
+                  <BrandButton variant="gold-outline" size="lg" onClick={reset}>
                     Try Again
                   </BrandButton>
                 )}

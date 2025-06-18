@@ -10,6 +10,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  swcMinify: false,
+  compiler: {
+    removeConsole: false,
+  },
 };
 
 export default nextConfig;

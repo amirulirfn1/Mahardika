@@ -8,7 +8,7 @@ export const MahardikaDemo: React.FC = () => {
     <div
       style={{
         padding: theme.spacing[8],
-        backgroundColor: theme.colors.background.neutral,
+        backgroundColor: theme.colors.background.secondary,
         fontFamily: theme.typography.fontFamily.primary,
         minHeight: '100vh',
       }}
@@ -57,14 +57,11 @@ export const MahardikaDemo: React.FC = () => {
           <BrandButton variant="gold" size="md">
             Gold Primary
           </BrandButton>
-          <BrandButton variant="outline-navy" size="md">
+          <BrandButton variant="navy-outline" size="md">
             Navy Outline
           </BrandButton>
-          <BrandButton variant=\"gold-outline\" size="md">
+          <BrandButton variant="gold-outline" size="md">
             Gold Outline
-          </BrandButton>
-          <BrandButton variant="gradient" size="md">
-            Gradient
           </BrandButton>
         </div>
       </BrandCard>
@@ -79,9 +76,8 @@ export const MahardikaDemo: React.FC = () => {
         <BrandCard
           variant="navy-primary"
           size="md"
-          title="Navy Primary"
+          title="🛡️ Navy Primary"
           subtitle="Primary brand card"
-          icon="🛡️"
         >
           <p
             style={{
@@ -99,9 +95,8 @@ export const MahardikaDemo: React.FC = () => {
         <BrandCard
           variant="gold-primary"
           size="md"
-          title="Gold Primary"
+          title="⭐ Gold Primary"
           subtitle="Secondary brand card"
-          icon="⭐"
         >
           <p
             style={{ color: theme.colors.navy, marginBottom: theme.spacing[4] }}
@@ -114,21 +109,20 @@ export const MahardikaDemo: React.FC = () => {
         </BrandCard>
 
         <BrandCard
-          variant="gradient"
+          variant="navy-outline"
           size="md"
-          title="Gradient Card"
-          subtitle="Animated gradient"
-          icon="🌟"
+          title="🌟 Navy Outline Card"
+          subtitle="Clean outlined design"
         >
           <p
             style={{
-              color: theme.colors.white,
+              color: theme.colors.navy,
               marginBottom: theme.spacing[4],
             }}
           >
-            Dynamic brand gradient animation
+            Professional outline card styling
           </p>
-          <BrandButton variant=\"gold-outline\" size="sm">
+          <BrandButton variant="gold-outline" size="sm">
             Explore
           </BrandButton>
         </BrandCard>

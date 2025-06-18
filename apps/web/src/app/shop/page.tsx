@@ -1,332 +1,588 @@
 'use client';
 
 import React from 'react';
-import { BrandButton, BrandCard } from '@mahardika/ui';
+import { Button, Card } from '@mahardika/ui';
+import { theme } from '@mahardika/ui/theme';
 
-// Sample shop data
+// Sample shop data with Fiverr-style categories
 const shopCategories = [
   {
-    slug: 'insurance-packages',
-    name: 'Insurance Packages',
-    description:
-      'Comprehensive insurance solutions for individuals and businesses',
-    icon: '🛡️',
-    productCount: 12,
+    slug: 'design-creative',
+    name: 'Design & Creative',
+    description: 'Logo design, web design, graphics, and creative services',
+    icon: '🎨',
+    serviceCount: 125,
     featured: true,
   },
   {
-    slug: 'financial-services',
-    name: 'Financial Services',
-    description: 'Investment and financial planning services',
-    icon: '💰',
-    productCount: 8,
+    slug: 'programming-tech',
+    name: 'Programming & Tech',
+    description: 'Web development, mobile apps, and technical solutions',
+    icon: '💻',
+    serviceCount: 89,
     featured: true,
   },
   {
-    slug: 'business-solutions',
-    name: 'Business Solutions',
-    description: 'Enterprise insurance and risk management',
-    icon: '🏢',
-    productCount: 15,
+    slug: 'business',
+    name: 'Business',
+    description: 'Consulting, market research, and business development',
+    icon: '💼',
+    serviceCount: 76,
     featured: false,
   },
   {
-    slug: 'personal-protection',
-    name: 'Personal Protection',
-    description: 'Individual and family protection plans',
-    icon: '👨‍👩‍👧‍👦',
-    productCount: 6,
+    slug: 'digital-marketing',
+    name: 'Digital Marketing',
+    description: 'SEO, social media, and online advertising',
+    icon: '📈',
+    serviceCount: 92,
     featured: true,
+  },
+  {
+    slug: 'writing-translation',
+    name: 'Writing & Translation',
+    description: 'Content writing, copywriting, and translation services',
+    icon: '✍️',
+    serviceCount: 54,
+    featured: false,
+  },
+  {
+    slug: 'video-animation',
+    name: 'Video & Animation',
+    description: 'Video editing, animation, and motion graphics',
+    icon: '🎬',
+    serviceCount: 67,
+    featured: false,
   },
 ];
 
-const featuredProducts = [
+const featuredServices = [
   {
-    slug: 'comprehensive-health-insurance',
-    name: 'Comprehensive Health Insurance',
-    price: 'From $89/month',
-    description: 'Complete health coverage for you and your family',
-    category: 'insurance-packages',
-    image: '🏥',
-    badge: 'Most Popular',
+    slug: 'premium-logo-design',
+    name: 'Professional Logo Design',
+    seller: 'DesignPro',
+    sellerLevel: 'Top Rated',
+    price: 'From $99',
+    originalPrice: '$149',
+    description: 'I will create a modern, professional logo for your business',
+    category: 'design-creative',
+    image: '🎨',
+    rating: 4.9,
+    reviews: 127,
+    deliveryTime: '3 days',
+    badge: 'Best Seller',
   },
   {
-    slug: 'business-liability-protection',
-    name: 'Business Liability Protection',
-    price: 'From $199/month',
-    description: 'Protect your business from unexpected risks',
-    category: 'business-solutions',
-    image: '🏢',
-    badge: 'Best Value',
-  },
-  {
-    slug: 'investment-portfolio-management',
-    name: 'Investment Portfolio Management',
-    price: 'From $299/month',
-    description: 'Professional investment management services',
-    category: 'financial-services',
-    image: '📈',
+    slug: 'full-stack-web-app',
+    name: 'Full-Stack Web Application',
+    seller: 'CodeMaster',
+    sellerLevel: 'Level 2',
+    price: 'From $299',
+    originalPrice: '$399',
+    description: 'I will develop a complete web application with modern tech stack',
+    category: 'programming-tech',
+    image: '💻',
+    rating: 4.8,
+    reviews: 89,
+    deliveryTime: '7 days',
     badge: 'Premium',
+  },
+  {
+    slug: 'seo-optimization',
+    name: 'Complete SEO Optimization',
+    seller: 'SEOExpert',
+    sellerLevel: 'Top Rated',
+    price: 'From $149',
+    originalPrice: '$199',
+    description: 'I will optimize your website for top search engine rankings',
+    category: 'digital-marketing',
+    image: '📈',
+    rating: 4.9,
+    reviews: 203,
+    deliveryTime: '5 days',
+    badge: 'Hot',
   },
 ];
 
 const ShopIndexPage = () => {
   return (
-    <div className="min-vh-100" style={{ backgroundColor: '#f8f9fa' }}>
-      <div className="container my-5">
-        {/* Header */}
-        <div className="text-center mb-5">
-          <h1 className="display-4 fw-bold" style={{ color: '#0D1B2A' }}>
-            Mahardika Shop
-          </h1>
-          <p className="lead" style={{ color: '#6C757D' }}>
-            Discover our comprehensive range of insurance and financial services
-          </p>
-          <div
-            className="d-inline-block px-4 py-2 rounded-pill"
-            style={{
-              backgroundColor: 'rgba(244, 180, 0, 0.1)',
-              border: '1px solid #F4B400',
-            }}
-          >
-            <span style={{ color: '#0D1B2A', fontWeight: 'bold' }}>
-              🛡️ Trusted • 💰 Affordable • 🏆 Award-Winning
-            </span>
+    <div style={{ backgroundColor: theme.colors.background.primary, minHeight: '100vh' }}>
+      {/* Hero Section */}
+      <section 
+        style={{
+          padding: `${theme.spacing[12]} ${theme.spacing[4]} ${theme.spacing[16]}`,
+          background: `linear-gradient(135deg, ${theme.colors.background.primary} 0%, ${theme.colors.background.secondary} 100%)`,
+          borderBottom: `1px solid ${theme.colors.border.light}`,
+        }}
+      >
+        <div className="container">
+          <div className="text-center">
+            <h1 
+              style={{
+                fontSize: theme.typography.fontSize['5xl'],
+                fontWeight: theme.typography.fontWeight.bold,
+                color: theme.colors.text.primary,
+                marginBottom: theme.spacing[4],
+                fontFamily: theme.typography.fontFamily.heading,
+              }}
+            >
+              Find services for your{' '}
+              <span 
+                style={{
+                  background: theme.colors.background.gradient,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                business
+              </span>
+            </h1>
+            <p 
+              style={{
+                fontSize: theme.typography.fontSize.xl,
+                color: theme.colors.text.secondary,
+                marginBottom: theme.spacing[8],
+                maxWidth: '600px',
+                margin: `0 auto ${theme.spacing[8]}`,
+                lineHeight: theme.typography.lineHeight.relaxed,
+              }}
+            >
+              Browse thousands of services from top-rated professionals around the world
+            </p>
+
+            {/* Search Bar */}
+            <div 
+              className="d-flex flex-column flex-md-row gap-3 justify-content-center align-items-center"
+              style={{ maxWidth: '600px', margin: '0 auto' }}
+            >
+              <div style={{ flex: 1, width: '100%' }}>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="What service are you looking for?"
+                  style={{
+                    padding: theme.spacing[4],
+                    fontSize: theme.typography.fontSize.base,
+                    borderRadius: theme.borderRadius.lg,
+                    border: `2px solid ${theme.colors.border.light}`,
+                    outline: 'none',
+                    fontFamily: theme.typography.fontFamily.body,
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = theme.colors.primary;
+                    e.target.style.boxShadow = `0 0 0 3px ${theme.colors.hover.overlay}`;
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = theme.colors.border.light;
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+              </div>
+              <Button 
+                variant="primary"
+                size="lg"
+                style={{ minWidth: '120px' }}
+              >
+                Search
+              </Button>
+            </div>
+
+            {/* Popular Searches */}
+            <div className="mt-4">
+              <span 
+                style={{
+                  fontSize: theme.typography.fontSize.sm,
+                  color: theme.colors.text.tertiary,
+                  marginRight: theme.spacing[2],
+                }}
+              >
+                Popular:
+              </span>
+              {['Logo Design', 'WordPress', 'SEO', 'Social Media'].map((term, index) => (
+                <span
+                  key={index}
+                  style={{
+                    display: 'inline-block',
+                    padding: `${theme.spacing[1]} ${theme.spacing[3]}`,
+                    marginRight: theme.spacing[2],
+                    marginBottom: theme.spacing[2],
+                    backgroundColor: theme.colors.background.primary,
+                    color: theme.colors.text.secondary,
+                    border: `1px solid ${theme.colors.border.light}`,
+                    borderRadius: theme.borderRadius.full,
+                    fontSize: theme.typography.fontSize.sm,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = theme.colors.primary;
+                    e.currentTarget.style.color = theme.colors.primary;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = theme.colors.border.light;
+                    e.currentTarget.style.color = theme.colors.text.secondary;
+                  }}
+                >
+                  {term}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Featured Products */}
-        <section className="mb-5">
-          <BrandCard variant="navy-primary" size="lg" className="mb-4">
-            <h2 className="h3 mb-4 text-white">⭐ Featured Products</h2>
-            <div className="row g-4">
-              {featuredProducts.map((product, index) => (
-                <div key={index} className="col-md-6 col-lg-4">
-                  <div
-                    className="card h-100 shadow-sm position-relative"
+      {/* Featured Services */}
+      <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
+        <div className="container">
+          <div className="d-flex align-items-center justify-content-between mb-8">
+            <div>
+              <h2 
+                style={{
+                  fontSize: theme.typography.fontSize['3xl'],
+                  fontWeight: theme.typography.fontWeight.bold,
+                  color: theme.colors.text.primary,
+                  marginBottom: theme.spacing[2],
+                }}
+              >
+                Featured Services
+              </h2>
+              <p 
+                style={{
+                  fontSize: theme.typography.fontSize.base,
+                  color: theme.colors.text.secondary,
+                  margin: 0,
+                }}
+              >
+                Hand-picked by our team
+              </p>
+            </div>
+            <Button variant="outline" size="md">
+              View All
+            </Button>
+          </div>
+
+          <div className="row g-4">
+            {featuredServices.map((service, index) => (
+              <div key={index} className="col-md-6 col-lg-4">
+                <Card
+                  variant="default"
+                  size="md"
+                  hoverable={true}
+                  style={{
+                    height: '100%',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    overflow: 'hidden',
+                  }}
+                  onClick={() => window.location.href = `/shop/${service.slug}`}
+                >
+                  {service.badge && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: theme.spacing[3],
+                        left: theme.spacing[3],
+                        backgroundColor: 
+                          service.badge === 'Best Seller' ? theme.colors.primary :
+                          service.badge === 'Premium' ? theme.colors.secondary :
+                          theme.colors.error,
+                        color: 'white',
+                        padding: `${theme.spacing[1]} ${theme.spacing[2]}`,
+                        borderRadius: theme.borderRadius.md,
+                        fontSize: theme.typography.fontSize.xs,
+                        fontWeight: theme.typography.fontWeight.semibold,
+                        textTransform: 'uppercase',
+                        zIndex: 1,
+                      }}
+                    >
+                      {service.badge}
+                    </div>
+                  )}
+
+                  {/* Service Image */}
+                  <div 
                     style={{
-                      borderRadius: '0.5rem',
-                      border: '2px solid #F4B400',
-                      transition: 'transform 0.2s ease-in-out',
+                      height: '160px',
+                      backgroundColor: theme.colors.background.secondary,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '4rem',
+                      marginBottom: theme.spacing[4],
                     }}
                   >
-                    {product.badge && (
-                      <div
-                        className="position-absolute top-0 end-0 m-2 px-2 py-1 rounded"
+                    {service.image}
+                  </div>
+
+                  {/* Seller Info */}
+                  <div className="d-flex align-items-center mb-3">
+                    <div 
+                      style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '50%',
+                        backgroundColor: theme.colors.primary,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        fontSize: theme.typography.fontSize.sm,
+                        fontWeight: theme.typography.fontWeight.semibold,
+                        marginRight: theme.spacing[2],
+                      }}
+                    >
+                      {service.seller.charAt(0)}
+                    </div>
+                    <div>
+                      <div 
                         style={{
-                          backgroundColor: '#F4B400',
-                          color: '#0D1B2A',
-                          fontSize: '0.75rem',
-                          fontWeight: 'bold',
-                          zIndex: 1,
+                          fontSize: theme.typography.fontSize.sm,
+                          fontWeight: theme.typography.fontWeight.medium,
+                          color: theme.colors.text.primary,
                         }}
                       >
-                        {product.badge}
+                        {service.seller}
                       </div>
-                    )}
-                    <div className="card-body p-4">
-                      <div
-                        className="text-center mb-3"
-                        style={{ fontSize: '3rem' }}
+                      <div 
+                        style={{
+                          fontSize: theme.typography.fontSize.xs,
+                          color: theme.colors.text.tertiary,
+                        }}
                       >
-                        {product.image}
+                        {service.sellerLevel}
                       </div>
-                      <h5
-                        className="card-title mb-2"
-                        style={{ color: '#0D1B2A' }}
+                    </div>
+                  </div>
+
+                  {/* Service Title */}
+                  <h3 
+                    style={{
+                      fontSize: theme.typography.fontSize.lg,
+                      fontWeight: theme.typography.fontWeight.semibold,
+                      color: theme.colors.text.primary,
+                      marginBottom: theme.spacing[2],
+                      lineHeight: theme.typography.lineHeight.tight,
+                    }}
+                  >
+                    {service.name}
+                  </h3>
+
+                  {/* Rating & Reviews */}
+                  <div className="d-flex align-items-center mb-3">
+                    <span style={{ color: '#FFD700', marginRight: theme.spacing[1] }}>★</span>
+                    <span 
+                      style={{
+                        fontSize: theme.typography.fontSize.sm,
+                        fontWeight: theme.typography.fontWeight.medium,
+                        color: theme.colors.text.primary,
+                        marginRight: theme.spacing[2],
+                      }}
+                    >
+                      {service.rating}
+                    </span>
+                    <span 
+                      style={{
+                        fontSize: theme.typography.fontSize.sm,
+                        color: theme.colors.text.tertiary,
+                      }}
+                    >
+                      ({service.reviews})
+                    </span>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="d-flex align-items-center justify-content-between mt-auto">
+                    <div>
+                      <div 
+                        style={{
+                          fontSize: theme.typography.fontSize.sm,
+                          color: theme.colors.text.tertiary,
+                          textDecoration: 'line-through',
+                        }}
                       >
-                        {product.name}
-                      </h5>
-                      <p
-                        className="card-text text-muted mb-3 small"
-                        style={{ lineHeight: '1.4' }}
-                      >
-                        {product.description}
-                      </p>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <span
-                          className="fw-bold"
-                          style={{ color: '#0D1B2A', fontSize: '1.1rem' }}
-                        >
-                          {product.price}
-                        </span>
-                        <BrandButton
-                          variant="gold"
-                          size="sm"
-                          onClick={() =>
-                            (window.location.href = `/shop/${product.slug}`)
-                          }
-                        >
-                          Get Quote
-                        </BrandButton>
+                        {service.originalPrice}
                       </div>
+                      <div 
+                        style={{
+                          fontSize: theme.typography.fontSize.lg,
+                          fontWeight: theme.typography.fontWeight.semibold,
+                          color: theme.colors.text.primary,
+                        }}
+                      >
+                        {service.price}
+                      </div>
+                    </div>
+                    <div 
+                      style={{
+                        fontSize: theme.typography.fontSize.sm,
+                        color: theme.colors.text.tertiary,
+                      }}
+                    >
+                      ⏱️ {service.deliveryTime}
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Grid */}
+      <section 
+        style={{
+          padding: `${theme.spacing[16]} ${theme.spacing[4]}`,
+          backgroundColor: theme.colors.background.secondary,
+        }}
+      >
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 
+              style={{
+                fontSize: theme.typography.fontSize['3xl'],
+                fontWeight: theme.typography.fontWeight.bold,
+                color: theme.colors.text.primary,
+                marginBottom: theme.spacing[4],
+              }}
+            >
+              Browse by Category
+            </h2>
+            <p 
+              style={{
+                fontSize: theme.typography.fontSize.lg,
+                color: theme.colors.text.secondary,
+                maxWidth: '600px',
+                margin: '0 auto',
+              }}
+            >
+              Explore our wide range of professional services
+            </p>
+          </div>
+
+          <div className="row g-4">
+            {shopCategories.map((category, index) => (
+              <div key={index} className="col-md-6 col-lg-4">
+                <Card
+                  variant="default"
+                  size="lg"
+                  hoverable={true}
+                  style={{
+                    height: '100%',
+                    cursor: 'pointer',
+                    textAlign: 'center',
+                    position: 'relative',
+                  }}
+                  onClick={() => window.location.href = `/shop?category=${category.slug}`}
+                >
+                  {category.featured && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: theme.spacing[4],
+                        right: theme.spacing[4],
+                        width: '12px',
+                        height: '12px',
+                        borderRadius: '50%',
+                        backgroundColor: theme.colors.primary,
+                      }}
+                    />
+                  )}
+                  
+                  <div style={{ fontSize: '4rem', marginBottom: theme.spacing[4] }}>
+                    {category.icon}
+                  </div>
+                  
+                  <h3 
+                    style={{
+                      fontSize: theme.typography.fontSize.xl,
+                      fontWeight: theme.typography.fontWeight.semibold,
+                      color: theme.colors.text.primary,
+                      marginBottom: theme.spacing[2],
+                    }}
+                  >
+                    {category.name}
+                  </h3>
+                  
+                  <p 
+                    style={{
+                      fontSize: theme.typography.fontSize.base,
+                      color: theme.colors.text.tertiary,
+                      lineHeight: theme.typography.lineHeight.relaxed,
+                      marginBottom: theme.spacing[4],
+                    }}
+                  >
+                    {category.description}
+                  </p>
+                  
+                  <div 
+                    style={{
+                      fontSize: theme.typography.fontSize.sm,
+                      color: theme.colors.primary,
+                      fontWeight: theme.typography.fontWeight.medium,
+                    }}
+                  >
+                    {category.serviceCount} services available
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Section */}
+      <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
+        <div className="container">
+          <div className="text-center">
+            <h2 
+              style={{
+                fontSize: theme.typography.fontSize['3xl'],
+                fontWeight: theme.typography.fontWeight.bold,
+                color: theme.colors.text.primary,
+                marginBottom: theme.spacing[8],
+              }}
+            >
+              Trusted by businesses worldwide
+            </h2>
+            
+            <div className="row g-4">
+              {[
+                { icon: '🏆', title: '10,000+', subtitle: 'Projects completed' },
+                { icon: '⭐', title: '4.9/5', subtitle: 'Average rating' },
+                { icon: '🌍', title: '150+', subtitle: 'Countries served' },
+                { icon: '👥', title: '5,000+', subtitle: 'Active sellers' },
+              ].map((stat, index) => (
+                <div key={index} className="col-md-6 col-lg-3">
+                  <div className="text-center">
+                    <div style={{ fontSize: '3rem', marginBottom: theme.spacing[2] }}>
+                      {stat.icon}
+                    </div>
+                    <div 
+                      style={{
+                        fontSize: theme.typography.fontSize['2xl'],
+                        fontWeight: theme.typography.fontWeight.bold,
+                        color: theme.colors.primary,
+                        marginBottom: theme.spacing[1],
+                      }}
+                    >
+                      {stat.title}
+                    </div>
+                    <div 
+                      style={{
+                        fontSize: theme.typography.fontSize.base,
+                        color: theme.colors.text.secondary,
+                      }}
+                    >
+                      {stat.subtitle}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-          </BrandCard>
-        </section>
-
-        {/* Categories Grid */}
-        <section className="mb-5">
-          <div className="row mb-4">
-            <div className="col">
-              <h2 className="h3 mb-3" style={{ color: '#0D1B2A' }}>
-                🏪 Shop by Category
-              </h2>
-              <p className="text-muted">
-                Browse our comprehensive range of insurance and financial
-                services
-              </p>
-            </div>
           </div>
-
-          <div className="row g-4">
-            {shopCategories.map((category, index) => (
-              <div key={index} className="col-md-6 col-lg-3">
-                <BrandCard
-                  variant={category.featured ? 'navy-outline' : 'gold-outline'}
-                  size="md"
-                  className="h-100 text-center position-relative"
-                  style={{
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                  }}
-                  onClick={() =>
-                    (window.location.href = `/shop?category=${category.slug}`)
-                  }
-                >
-                  {category.featured && (
-                    <div
-                      className="position-absolute top-0 end-0 m-2 px-2 py-1 rounded"
-                      style={{
-                        backgroundColor: '#F4B400',
-                        color: '#0D1B2A',
-                        fontSize: '0.7rem',
-                        fontWeight: 'bold',
-                        zIndex: 1,
-                      }}
-                    >
-                      Featured
-                    </div>
-                  )}
-
-                  <div className="mb-3" style={{ fontSize: '2.5rem' }}>
-                    {category.icon}
-                  </div>
-
-                  <h5 className="mb-2" style={{ color: '#0D1B2A' }}>
-                    {category.name}
-                  </h5>
-
-                  <p className="text-muted mb-3 small">
-                    {category.description}
-                  </p>
-
-                  <div className="mt-auto">
-                    <span
-                      className="badge rounded-pill mb-2"
-                      style={{
-                        backgroundColor: 'rgba(13, 27, 42, 0.1)',
-                        color: '#0D1B2A',
-                      }}
-                    >
-                      {category.productCount} products
-                    </span>
-                    <br />
-                    <BrandButton variant="outline-navy" size="sm">
-                      Explore →
-                    </BrandButton>
-                  </div>
-                </BrandCard>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Why Choose Us */}
-        <section className="mb-5">
-          <BrandCard variant="gold-primary" size="lg">
-            <div className="text-center text-white">
-              <h2 className="h3 mb-4">🏆 Why Choose Mahardika Shop?</h2>
-              <div className="row g-4">
-                <div className="col-md-3">
-                  <div className="mb-3" style={{ fontSize: '2rem' }}>
-                    ⚡
-                  </div>
-                  <h6 className="fw-bold mb-2">Fast Processing</h6>
-                  <p className="small mb-0 opacity-75">
-                    Get quotes and approvals in minutes, not days
-                  </p>
-                </div>
-                <div className="col-md-3">
-                  <div className="mb-3" style={{ fontSize: '2rem' }}>
-                    🛡️
-                  </div>
-                  <h6 className="fw-bold mb-2">Trusted Partners</h6>
-                  <p className="small mb-0 opacity-75">
-                    Work with vetted, licensed insurance providers
-                  </p>
-                </div>
-                <div className="col-md-3">
-                  <div className="mb-3" style={{ fontSize: '2rem' }}>
-                    💰
-                  </div>
-                  <h6 className="fw-bold mb-2">Best Rates</h6>
-                  <p className="small mb-0 opacity-75">
-                    Compare multiple quotes to find the best deal
-                  </p>
-                </div>
-                <div className="col-md-3">
-                  <div className="mb-3" style={{ fontSize: '2rem' }}>
-                    🎯
-                  </div>
-                  <h6 className="fw-bold mb-2">Expert Support</h6>
-                  <p className="small mb-0 opacity-75">
-                    Get help from insurance professionals 24/7
-                  </p>
-                </div>
-              </div>
-            </div>
-          </BrandCard>
-        </section>
-
-        {/* CTA Section */}
-        <section className="text-center">
-          <div
-            className="p-5 rounded"
-            style={{
-              backgroundColor: 'white',
-              border: '2px solid #0D1B2A',
-            }}
-          >
-            <h3 className="mb-3" style={{ color: '#0D1B2A' }}>
-              Need Help Finding the Right Coverage?
-            </h3>
-            <p className="text-muted mb-4">
-              Our insurance experts are standing by to help you choose the
-              perfect plan for your needs and budget.
-            </p>
-            <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-              <BrandButton
-                variant="navy"
-                size="lg"
-                onClick={() => (window.location.href = 'tel:+1-800-MAHARDIKA')}
-              >
-                📞 Call Expert
-              </BrandButton>
-              <BrandButton
-                variant="outline-gold"
-                size="lg"
-                onClick={() => (window.location.href = '/agencies')}
-              >
-                💬 Browse Agencies
-              </BrandButton>
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 };

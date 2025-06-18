@@ -2,307 +2,521 @@
 
 import React from 'react';
 import { Button, Card } from '@mahardika/ui';
-import { MAHARDIKA_COLORS } from '../lib/env';
+import { theme } from '@mahardika/ui/theme';
 
 export default function HomePage() {
   return (
-    <div style={{ 
-      minHeight: '100vh',
-      background: `linear-gradient(135deg, #0D1B2A 0%, #1a2c3d 100%)`
-    }}>
+    <div style={{ backgroundColor: theme.colors.background.primary }}>
       {/* Hero Section */}
-      <section style={{
-        padding: '4rem 2rem',
-        textAlign: 'center',
-        maxWidth: '1200px',
-        margin: '0 auto'
-      }}>
-        <div style={{
-          background: 'rgba(255, 255, 255, 0.05)',
-          backdropFilter: 'blur(10px)',
-          borderRadius: '20px',
-          padding: '4rem 2rem',
-          border: '1px solid rgba(244, 180, 0, 0.2)'
-        }}>
-          <h1 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-            fontWeight: '700',
-            margin: '0 0 1.5rem 0',
-            background: `linear-gradient(45deg, ${MAHARDIKA_COLORS.gold} 0%, #FFD700 100%)`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            letterSpacing: '-0.02em'
-          }}>
-            Welcome to Mahardika
-          </h1>
-          
-          <p style={{
-            fontSize: 'clamp(1.125rem, 2.5vw, 1.5rem)',
-            color: 'rgba(255, 255, 255, 0.9)',
-            maxWidth: '800px',
-            margin: '0 auto 2rem auto',
-            lineHeight: '1.6',
-            fontWeight: '300'
-          }}>
-            Empowering businesses with intelligent solutions, seamless integrations, 
-            and cutting-edge technology. Transform your operations with our comprehensive platform.
-          </p>
+      <section 
+        style={{
+          padding: `${theme.spacing[20]} ${theme.spacing[4]} ${theme.spacing[16]}`,
+          background: `linear-gradient(135deg, ${theme.colors.background.primary} 0%, ${theme.colors.background.secondary} 100%)`,
+        }}
+      >
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-6">
+              <h1 
+                style={{
+                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                  fontWeight: theme.typography.fontWeight.bold,
+                  fontFamily: theme.typography.fontFamily.heading,
+                  color: theme.colors.text.primary,
+                  lineHeight: theme.typography.lineHeight.tight,
+                  marginBottom: theme.spacing[6],
+                  letterSpacing: theme.typography.letterSpacing.tighter,
+                }}
+              >
+                Find the perfect{' '}
+                <span 
+                  style={{
+                    background: theme.colors.background.gradient,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  solution
+                </span>{' '}
+                for your business
+              </h1>
+              
+              <p 
+                style={{
+                  fontSize: theme.typography.fontSize.xl,
+                  color: theme.colors.text.secondary,
+                  lineHeight: theme.typography.lineHeight.relaxed,
+                  marginBottom: theme.spacing[8],
+                  fontWeight: theme.typography.fontWeight.regular,
+                }}
+              >
+                Connect with top-rated professionals and agencies. Get your projects done with confidence and quality.
+              </p>
 
-          <div style={{
-            display: 'flex',
-            gap: '1rem',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            marginTop: '2.5rem'
-          }}>
-            <Button 
-              size="lg" 
-              onClick={() => window.location.href = '/dashboard'}
-              style={{ 
-                minWidth: '200px',
-                fontSize: '1.1rem',
-                padding: '1rem 2rem'
+              <div className="d-flex flex-column flex-sm-row gap-4 mb-8">
+                <Button 
+                  variant="primary"
+                  size="lg"
+                  onClick={() => window.location.href = '/shop'}
+                  style={{ minWidth: '200px' }}
+                >
+                  Browse Services
+                </Button>
+                <Button 
+                  variant="outline"
+                  size="lg"
+                  onClick={() => window.location.href = '/agencies'}
+                  style={{ minWidth: '200px' }}
+                >
+                  Become a Seller
+                </Button>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="d-flex flex-wrap align-items-center gap-6">
+                <div className="d-flex align-items-center gap-2">
+                  <div 
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      backgroundColor: theme.colors.success,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '1.2rem',
+                    }}
+                  >
+                    ✓
+                  </div>
+                  <div>
+                    <div style={{ fontSize: theme.typography.fontSize.lg, fontWeight: theme.typography.fontWeight.semibold, color: theme.colors.text.primary }}>
+                      Trusted
+                    </div>
+                    <div style={{ fontSize: theme.typography.fontSize.sm, color: theme.colors.text.tertiary }}>
+                      by thousands
+                    </div>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center gap-2">
+                  <div 
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      backgroundColor: theme.colors.primary,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '1.2rem',
+                    }}
+                  >
+                    ⚡
+                  </div>
+                  <div>
+                    <div style={{ fontSize: theme.typography.fontSize.lg, fontWeight: theme.typography.fontWeight.semibold, color: theme.colors.text.primary }}>
+                      Fast
+                    </div>
+                    <div style={{ fontSize: theme.typography.fontSize.sm, color: theme.colors.text.tertiary }}>
+                      delivery
+                    </div>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center gap-2">
+                  <div 
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      backgroundColor: theme.colors.secondary,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '1.2rem',
+                    }}
+                  >
+                    ★
+                  </div>
+                  <div>
+                    <div style={{ fontSize: theme.typography.fontSize.lg, fontWeight: theme.typography.fontWeight.semibold, color: theme.colors.text.primary }}>
+                      Quality
+                    </div>
+                    <div style={{ fontSize: theme.typography.fontSize.sm, color: theme.colors.text.tertiary }}>
+                      guaranteed
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6 mt-8 mt-lg-0">
+              <div 
+                style={{
+                  position: 'relative',
+                  borderRadius: theme.borderRadius['2xl'],
+                  overflow: 'hidden',
+                  boxShadow: theme.colors.shadow.xl,
+                }}
+              >
+                <div 
+                  style={{
+                    background: theme.colors.background.gradient,
+                    padding: theme.spacing[8],
+                    color: 'white',
+                    textAlign: 'center',
+                    minHeight: '400px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <div style={{ fontSize: '4rem', marginBottom: theme.spacing[4] }}>🚀</div>
+                  <h3 style={{ fontSize: theme.typography.fontSize['2xl'], fontWeight: theme.typography.fontWeight.semibold, marginBottom: theme.spacing[2] }}>
+                    Launch Your Project
+                  </h3>
+                  <p style={{ fontSize: theme.typography.fontSize.base, opacity: 0.9 }}>
+                    Join thousands of satisfied clients who found their perfect match
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Popular Services */}
+      <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 
+              style={{
+                fontSize: theme.typography.fontSize['4xl'],
+                fontWeight: theme.typography.fontWeight.bold,
+                color: theme.colors.text.primary,
+                marginBottom: theme.spacing[4],
               }}
             >
-              Get Started
-            </Button>
+              Popular Services
+            </h2>
+            <p 
+              style={{
+                fontSize: theme.typography.fontSize.lg,
+                color: theme.colors.text.secondary,
+                maxWidth: '600px',
+                margin: '0 auto',
+              }}
+            >
+              Browse our most in-demand professional services
+            </p>
+          </div>
+
+          <div className="row g-4">
+            {[
+              {
+                icon: '💼',
+                title: 'Business Consulting',
+                description: 'Strategic advice to grow your business',
+                price: 'Starting at $99',
+                category: 'Business',
+                popular: true,
+              },
+              {
+                icon: '🎨',
+                title: 'Graphic Design',
+                description: 'Creative designs for your brand',
+                price: 'Starting at $49',
+                category: 'Design',
+                popular: false,
+              },
+              {
+                icon: '💻',
+                title: 'Web Development',
+                description: 'Custom websites and applications',
+                price: 'Starting at $199',
+                category: 'Technology',
+                popular: true,
+              },
+              {
+                icon: '📱',
+                title: 'Mobile Apps',
+                description: 'iOS and Android applications',
+                price: 'Starting at $299',
+                category: 'Technology',
+                popular: false,
+              },
+              {
+                icon: '📈',
+                title: 'Digital Marketing',
+                description: 'Grow your online presence',
+                price: 'Starting at $79',
+                category: 'Marketing',
+                popular: true,
+              },
+              {
+                icon: '✍️',
+                title: 'Content Writing',
+                description: 'Engaging content for your audience',
+                price: 'Starting at $29',
+                category: 'Writing',
+                popular: false,
+              },
+            ].map((service, index) => (
+              <div key={index} className="col-md-6 col-lg-4">
+                <Card
+                  variant="default"
+                  size="lg"
+                  hoverable={true}
+                  style={{
+                    height: '100%',
+                    cursor: 'pointer',
+                    position: 'relative',
+                  }}
+                  onClick={() => window.location.href = '/shop'}
+                >
+                  {service.popular && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: theme.spacing[4],
+                        right: theme.spacing[4],
+                        backgroundColor: theme.colors.primary,
+                        color: 'white',
+                        padding: `${theme.spacing[1]} ${theme.spacing[3]}`,
+                        borderRadius: theme.borderRadius.full,
+                        fontSize: theme.typography.fontSize.xs,
+                        fontWeight: theme.typography.fontWeight.semibold,
+                        textTransform: 'uppercase',
+                        letterSpacing: theme.typography.letterSpacing.wide,
+                      }}
+                    >
+                      Popular
+                    </div>
+                  )}
+                  <div className="text-center">
+                    <div style={{ fontSize: '3rem', marginBottom: theme.spacing[4] }}>
+                      {service.icon}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: theme.typography.fontSize.xs,
+                        fontWeight: theme.typography.fontWeight.semibold,
+                        color: theme.colors.primary,
+                        textTransform: 'uppercase',
+                        letterSpacing: theme.typography.letterSpacing.wide,
+                        marginBottom: theme.spacing[2],
+                      }}
+                    >
+                      {service.category}
+                    </div>
+                    <h3 
+                      style={{
+                        fontSize: theme.typography.fontSize.xl,
+                        fontWeight: theme.typography.fontWeight.semibold,
+                        color: theme.colors.text.primary,
+                        marginBottom: theme.spacing[2],
+                      }}
+                    >
+                      {service.title}
+                    </h3>
+                    <p 
+                      style={{
+                        fontSize: theme.typography.fontSize.base,
+                        color: theme.colors.text.tertiary,
+                        lineHeight: theme.typography.lineHeight.relaxed,
+                        marginBottom: theme.spacing[4],
+                      }}
+                    >
+                      {service.description}
+                    </p>
+                    <div 
+                      style={{
+                        fontSize: theme.typography.fontSize.lg,
+                        fontWeight: theme.typography.fontWeight.semibold,
+                        color: theme.colors.text.primary,
+                      }}
+                    >
+                      {service.price}
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
             <Button 
-              variant="outline" 
+              variant="outline"
               size="lg"
-              onClick={() => window.location.href = '/demo/upload'}
-              style={{ 
-                minWidth: '200px',
-                fontSize: '1.1rem',
-                padding: '1rem 2rem',
-                borderColor: MAHARDIKA_COLORS.gold,
-                color: MAHARDIKA_COLORS.gold
-              }}
+              onClick={() => window.location.href = '/shop'}
             >
-              View Demo
+              View All Services
             </Button>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section style={{
-        padding: '4rem 2rem',
-        maxWidth: '1200px',
-        margin: '0 auto'
-      }}>
-        <h2 style={{
-          fontSize: 'clamp(2rem, 4vw, 3rem)',
-          fontWeight: '600',
-          textAlign: 'center',
-          margin: '0 0 3rem 0',
-          color: MAHARDIKA_COLORS.gold
-        }}>
-          Platform Features
-        </h2>
-
-        <div style={{
-          display: 'grid',
-          gap: '2rem',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-          marginBottom: '3rem'
-        }}>
-          <Card
-            title="🤖 AI-Powered Analytics"
-            subtitle="Intelligent insights for better decisions"
-            variant="branded"
-            size="lg"
-          >
-            <p style={{ 
-              color: 'rgba(255, 255, 255, 0.8)', 
-              margin: '0 0 1.5rem 0',
-              lineHeight: '1.6'
-            }}>
-              Leverage advanced AI algorithms to analyze your data, predict trends, 
-              and provide actionable insights that drive business growth.
-            </p>
-            <Button 
-              variant="secondary" 
-              size="sm"
-              onClick={() => window.location.href = '/marketplace'}
+      <section 
+        style={{
+          padding: `${theme.spacing[16]} ${theme.spacing[4]}`,
+          backgroundColor: theme.colors.background.secondary,
+        }}
+      >
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 
+              style={{
+                fontSize: theme.typography.fontSize['4xl'],
+                fontWeight: theme.typography.fontWeight.bold,
+                color: theme.colors.text.primary,
+                marginBottom: theme.spacing[4],
+              }}
             >
-              Learn More
-            </Button>
-          </Card>
-
-          <Card
-            title="🏢 Agency Management"
-            subtitle="Streamline your business operations"
-            variant="branded"
-            size="lg"
-          >
-            <p style={{ 
-              color: 'rgba(255, 255, 255, 0.8)', 
-              margin: '0 0 1.5rem 0',
-              lineHeight: '1.6'
-            }}>
-              Comprehensive tools to manage agencies, track performance, 
-              handle client relationships, and optimize operational efficiency.
-            </p>
-            <Button 
-              variant="secondary" 
-              size="sm"
-              onClick={() => window.location.href = '/agencies'}
+              Why Choose Mahardika?
+            </h2>
+            <p 
+              style={{
+                fontSize: theme.typography.fontSize.lg,
+                color: theme.colors.text.secondary,
+                maxWidth: '600px',
+                margin: '0 auto',
+              }}
             >
-              Explore Agencies
-            </Button>
-          </Card>
-
-          <Card
-            title="📊 Real-time Dashboard"
-            subtitle="Monitor everything in one place"
-            variant="branded"
-            size="lg"
-          >
-            <p style={{ 
-              color: 'rgba(255, 255, 255, 0.8)', 
-              margin: '0 0 1.5rem 0',
-              lineHeight: '1.6'
-            }}>
-              Beautiful, responsive dashboards that provide real-time insights 
-              into your business metrics, KPIs, and operational status.
-            </p>
-            <Button 
-              variant="secondary" 
-              size="sm"
-              onClick={() => window.location.href = '/dashboard'}
-            >
-              View Dashboard
-            </Button>
-          </Card>
-
-          <Card
-            title="🛒 E-commerce Integration"
-            subtitle="Seamless shopping experiences"
-            variant="branded"
-            size="lg"
-          >
-            <p style={{ 
-              color: 'rgba(255, 255, 255, 0.8)', 
-              margin: '0 0 1.5rem 0',
-              lineHeight: '1.6'
-            }}>
-              Built-in e-commerce capabilities with secure payment processing, 
-              inventory management, and customer engagement tools.
-            </p>
-            <Button 
-              variant="secondary" 
-              size="sm"
-              onClick={() => window.location.href = '/shop'}
-            >
-              Visit Shop
-            </Button>
-          </Card>
-        </div>
-
-        {/* Stats Section */}
-        <div style={{
-          display: 'grid',
-          gap: '2rem',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          textAlign: 'center',
-          padding: '3rem 0'
-        }}>
-          <div>
-            <h3 style={{ 
-              fontSize: '3rem', 
-              fontWeight: '700', 
-              color: MAHARDIKA_COLORS.gold,
-              margin: '0 0 0.5rem 0'
-            }}>
-              50+
-            </h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-              UI Components
+              Everything you need to succeed in one platform
             </p>
           </div>
-          <div>
-            <h3 style={{ 
-              fontSize: '3rem', 
-              fontWeight: '700', 
-              color: MAHARDIKA_COLORS.gold,
-              margin: '0 0 0.5rem 0'
-            }}>
-              99.9%
-            </h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-              Uptime
-            </p>
-          </div>
-          <div>
-            <h3 style={{ 
-              fontSize: '3rem', 
-              fontWeight: '700', 
-              color: MAHARDIKA_COLORS.gold,
-              margin: '0 0 0.5rem 0'
-            }}>
-              1000+
-            </h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-              Happy Users
-            </p>
-          </div>
-          <div>
-            <h3 style={{ 
-              fontSize: '3rem', 
-              fontWeight: '700', 
-              color: MAHARDIKA_COLORS.gold,
-              margin: '0 0 0.5rem 0'
-            }}>
-              24/7
-            </h3>
-            <p style={{ color: 'rgba(255, 255, 255, 0.8)', margin: 0 }}>
-              Support
-            </p>
+
+          <div className="row g-4">
+            {[
+              {
+                icon: '🛡️',
+                title: 'Secure Payments',
+                description: 'Your money is safe with our secure payment system and buyer protection.',
+              },
+              {
+                icon: '⭐',
+                title: 'Top Talent',
+                description: 'Work with vetted professionals who deliver exceptional results.',
+              },
+              {
+                icon: '💬',
+                title: '24/7 Support',
+                description: 'Get help whenever you need it with our responsive customer support.',
+              },
+              {
+                icon: '🚀',
+                title: 'Fast Delivery',
+                description: 'Get your projects completed quickly with our efficient workflow.',
+              },
+            ].map((feature, index) => (
+              <div key={index} className="col-md-6 col-lg-3">
+                <div className="text-center">
+                  <div 
+                    style={{
+                      width: '80px',
+                      height: '80px',
+                      borderRadius: '50%',
+                      backgroundColor: theme.colors.background.primary,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '2rem',
+                      margin: '0 auto',
+                      marginBottom: theme.spacing[4],
+                      boxShadow: theme.colors.shadow.md,
+                    }}
+                  >
+                    {feature.icon}
+                  </div>
+                  <h3 
+                    style={{
+                      fontSize: theme.typography.fontSize.xl,
+                      fontWeight: theme.typography.fontWeight.semibold,
+                      color: theme.colors.text.primary,
+                      marginBottom: theme.spacing[2],
+                    }}
+                  >
+                    {feature.title}
+                  </h3>
+                  <p 
+                    style={{
+                      fontSize: theme.typography.fontSize.base,
+                      color: theme.colors.text.tertiary,
+                      lineHeight: theme.typography.lineHeight.relaxed,
+                    }}
+                  >
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section style={{
-        padding: '4rem 2rem',
-        textAlign: 'center',
-        maxWidth: '800px',
-        margin: '0 auto'
-      }}>
-        <div style={{
-          background: 'rgba(244, 180, 0, 0.1)',
-          border: '1px solid rgba(244, 180, 0, 0.3)',
-          borderRadius: '20px',
-          padding: '3rem 2rem'
-        }}>
-          <h2 style={{
-            fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
-            fontWeight: '600',
-            margin: '0 0 1rem 0',
-            color: MAHARDIKA_COLORS.gold
-          }}>
-            Ready to Get Started?
-          </h2>
-          <p style={{
-            color: 'rgba(255, 255, 255, 0.8)',
-            fontSize: '1.125rem',
-            margin: '0 0 2rem 0',
-            lineHeight: '1.6'
-          }}>
-            Join thousands of businesses already using Mahardika to streamline their operations and drive growth.
-          </p>
-          <Button 
+      <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
+        <div className="container">
+          <Card
+            variant="glass"
             size="lg"
-            onClick={() => window.location.href = '/dashboard'}
-            style={{ 
-              minWidth: '250px',
-              fontSize: '1.2rem',
-              padding: '1.25rem 2.5rem'
+            padding={false}
+            style={{
+              background: theme.colors.background.gradient,
+              border: 'none',
+              textAlign: 'center',
             }}
           >
-            Start Your Journey
-          </Button>
+            <div style={{ padding: `${theme.spacing[12]} ${theme.spacing[8]}`, color: 'white' }}>
+              <h2 
+                style={{
+                  fontSize: theme.typography.fontSize['3xl'],
+                  fontWeight: theme.typography.fontWeight.bold,
+                  marginBottom: theme.spacing[4],
+                }}
+              >
+                Ready to get started?
+              </h2>
+              <p 
+                style={{
+                  fontSize: theme.typography.fontSize.lg,
+                  marginBottom: theme.spacing[8],
+                  opacity: 0.9,
+                }}
+              >
+                Join thousands of businesses already using our platform
+              </p>
+              <div className="d-flex flex-column flex-sm-row gap-4 justify-content-center">
+                <Button 
+                  variant="secondary"
+                  size="lg"
+                  onClick={() => window.location.href = '/auth'}
+                  style={{ 
+                    minWidth: '200px',
+                    backgroundColor: 'white',
+                    color: theme.colors.primary,
+                  }}
+                >
+                  Get Started Today
+                </Button>
+                <Button 
+                  variant="outline"
+                  size="lg"
+                  onClick={() => window.location.href = '/demo/upload'}
+                  style={{ 
+                    minWidth: '200px',
+                    borderColor: 'white',
+                    color: 'white',
+                  }}
+                >
+                  View Demo
+                </Button>
+              </div>
+            </div>
+          </Card>
         </div>
       </section>
     </div>

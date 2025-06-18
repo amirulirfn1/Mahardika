@@ -1,472 +1,356 @@
 /**
- * Mahardika Brand Theme System
- * Comprehensive design system for consistent styling across all components
+ * Mahardika Modern Design System
+ * Apple-inspired typography with Fiverr-style marketplace aesthetics
+ * Focus: Clean, sophisticated, mobile-first
  */
 
-// Bootstrap 5 Color Override Map
+import { colors } from './colors';
+
+// Modern Typography System - Apple Style
+export const typography = {
+  fontFamily: {
+    primary: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif',
+    heading: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif',
+    body: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif',
+    mono: '"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas", monospace',
+  },
+
+  // Modern Scale - Mobile First
+  fontSize: {
+    xs: '0.75rem',    // 12px
+    sm: '0.875rem',   // 14px
+    base: '1rem',     // 16px
+    lg: '1.125rem',   // 18px
+    xl: '1.25rem',    // 20px
+    '2xl': '1.5rem',  // 24px
+    '3xl': '1.875rem', // 30px
+    '4xl': '2.25rem', // 36px
+    '5xl': '3rem',    // 48px
+    '6xl': '3.75rem', // 60px
+    '7xl': '4.5rem',  // 72px
+  },
+
+  fontWeight: {
+    light: '300',
+    regular: '400',
+    medium: '500',
+    semibold: '600',
+    bold: '700',
+    extrabold: '800',
+  },
+
+  lineHeight: {
+    none: '1',
+    tight: '1.25',
+    snug: '1.375',
+    normal: '1.5',
+    relaxed: '1.625',
+    loose: '2',
+  },
+
+  letterSpacing: {
+    tighter: '-0.02em',
+    tight: '-0.01em',
+    normal: '0em',
+    wide: '0.01em',
+    wider: '0.02em',
+    widest: '0.05em',
+  },
+};
+
+// Modern Spacing System
+export const spacing = {
+  0: '0',
+  1: '0.25rem',   // 4px
+  2: '0.5rem',    // 8px
+  3: '0.75rem',   // 12px
+  4: '1rem',      // 16px
+  5: '1.25rem',   // 20px
+  6: '1.5rem',    // 24px
+  8: '2rem',      // 32px
+  10: '2.5rem',   // 40px
+  12: '3rem',     // 48px
+  16: '4rem',     // 64px
+  20: '5rem',     // 80px
+  24: '6rem',     // 96px
+  32: '8rem',     // 128px
+  40: '10rem',    // 160px
+  48: '12rem',    // 192px
+  56: '14rem',    // 224px
+  64: '16rem',    // 256px
+};
+
+// Modern Breakpoints - Mobile First
+export const breakpoints = {
+  xs: '475px',
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
+  '2xl': '1536px',
+};
+
+// Modern Border Radius
+export const borderRadius = {
+  none: '0',
+  sm: '0.25rem',   // 4px
+  md: '0.375rem',  // 6px
+  lg: '0.5rem',    // 8px
+  xl: '0.75rem',   // 12px
+  '2xl': '1rem',   // 16px
+  '3xl': '1.5rem', // 24px
+  full: '9999px',
+};
+
+// Component Design System
+export const components = {
+  // Modern Button System
+  button: {
+    base: {
+      fontFamily: typography.fontFamily.primary,
+      fontWeight: typography.fontWeight.medium,
+      letterSpacing: typography.letterSpacing.tight,
+      borderRadius: borderRadius.lg,
+      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+      cursor: 'pointer',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      border: '1px solid transparent',
+      outline: 'none',
+      textDecoration: 'none',
+    },
+    sizes: {
+      xs: {
+        padding: `${spacing[2]} ${spacing[3]}`,
+        fontSize: typography.fontSize.xs,
+        lineHeight: typography.lineHeight.tight,
+      },
+      sm: {
+        padding: `${spacing[2]} ${spacing[4]}`,
+        fontSize: typography.fontSize.sm,
+        lineHeight: typography.lineHeight.tight,
+      },
+      md: {
+        padding: `${spacing[3]} ${spacing[5]}`,
+        fontSize: typography.fontSize.base,
+        lineHeight: typography.lineHeight.normal,
+      },
+      lg: {
+        padding: `${spacing[4]} ${spacing[6]}`,
+        fontSize: typography.fontSize.lg,
+        lineHeight: typography.lineHeight.normal,
+      },
+      xl: {
+        padding: `${spacing[5]} ${spacing[8]}`,
+        fontSize: typography.fontSize.xl,
+        lineHeight: typography.lineHeight.normal,
+      },
+    },
+    variants: {
+      primary: {
+        backgroundColor: colors.primary,
+        color: colors.text.inverse,
+        borderColor: colors.primary,
+        boxShadow: colors.shadow.sm,
+        ':hover': {
+          backgroundColor: colors.hover.primary,
+          borderColor: colors.hover.primary,
+          boxShadow: colors.shadow.md,
+          transform: 'translateY(-1px)',
+        },
+        ':active': {
+          transform: 'translateY(0)',
+          boxShadow: colors.shadow.sm,
+        },
+      },
+      secondary: {
+        backgroundColor: colors.background.primary,
+        color: colors.text.primary,
+        borderColor: colors.border.medium,
+        boxShadow: colors.shadow.sm,
+        ':hover': {
+          backgroundColor: colors.hover.light,
+          borderColor: colors.border.dark,
+          boxShadow: colors.shadow.md,
+        },
+      },
+      outline: {
+        backgroundColor: 'transparent',
+        color: colors.primary,
+        borderColor: colors.primary,
+        ':hover': {
+          backgroundColor: colors.hover.overlay,
+          borderColor: colors.hover.primary,
+        },
+      },
+      ghost: {
+        backgroundColor: 'transparent',
+        color: colors.text.primary,
+        borderColor: 'transparent',
+        ':hover': {
+          backgroundColor: colors.hover.light,
+        },
+      },
+    },
+  },
+
+  // Modern Card System
+  card: {
+    base: {
+      backgroundColor: colors.background.primary,
+      borderRadius: borderRadius.xl,
+      border: `1px solid ${colors.border.light}`,
+      overflow: 'hidden',
+      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+    },
+    sizes: {
+      sm: {
+        padding: spacing[4],
+      },
+      md: {
+        padding: spacing[6],
+      },
+      lg: {
+        padding: spacing[8],
+      },
+    },
+    variants: {
+      default: {
+        boxShadow: colors.shadow.sm,
+        ':hover': {
+          boxShadow: colors.shadow.lg,
+          transform: 'translateY(-2px)',
+        },
+      },
+      elevated: {
+        boxShadow: colors.shadow.md,
+        ':hover': {
+          boxShadow: colors.shadow.xl,
+          transform: 'translateY(-4px)',
+        },
+      },
+      outlined: {
+        borderColor: colors.border.medium,
+        boxShadow: 'none',
+        ':hover': {
+          borderColor: colors.border.dark,
+          boxShadow: colors.shadow.sm,
+        },
+      },
+      glass: {
+        backgroundColor: colors.background.glass,
+        backdropFilter: 'blur(20px)',
+        borderColor: colors.border.light,
+        boxShadow: colors.shadow.glass,
+      },
+    },
+  },
+
+  // Modern Input System
+  input: {
+    base: {
+      fontFamily: typography.fontFamily.body,
+      fontSize: typography.fontSize.base,
+      fontWeight: typography.fontWeight.regular,
+      lineHeight: typography.lineHeight.normal,
+      padding: `${spacing[3]} ${spacing[4]}`,
+      borderRadius: borderRadius.lg,
+      border: `1px solid ${colors.border.light}`,
+      backgroundColor: colors.background.primary,
+      color: colors.text.primary,
+      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+      outline: 'none',
+      ':focus': {
+        borderColor: colors.primary,
+        boxShadow: `0 0 0 3px ${colors.hover.overlay}`,
+      },
+      ':hover': {
+        borderColor: colors.border.medium,
+      },
+      '::placeholder': {
+        color: colors.text.placeholder,
+      },
+    },
+  },
+};
+
+// Complete Theme Export
+export const theme = {
+  colors,
+  typography,
+  spacing,
+  breakpoints,
+  borderRadius,
+  components,
+} as const;
+
+// Bootstrap 5 Modern Override Map
 export const bootstrapColorOverrides = {
-  primary: '#0D1B2A', // Mahardika Navy
-  secondary: '#6B7280', // Neutral gray
-  success: '#10B981',
-  info: '#3B82F6',
-  warning: '#F4B400', // Mahardika Gold
-  danger: '#EF4444',
-  light: '#F9FAFB',
-  dark: '#111827',
+  primary: colors.primary,
+  secondary: colors.gray[500],
+  success: colors.success,
+  info: colors.info,
+  warning: colors.warning,
+  danger: colors.error,
+  light: colors.gray[50],
+  dark: colors.gray[900],
 } as const;
 
 // SCSS Variables for Bootstrap integration
 export const scssVariables = `
-// Mahardika Brand Colors for Bootstrap
-$primary: #0D1B2A;
-$secondary: #6B7280;
-$success: #10B981;
-$info: #3B82F6;
-$warning: #F4B400;
-$danger: #EF4444;
-$light: #F9FAFB;
-$dark: #111827;
-
-// Mahardika specific variables
-$mahardika-navy: #0D1B2A;
-$mahardika-gold: #F4B400;
-$mahardika-border-radius: 0.5rem;
-
-// Bootstrap overrides
-$border-radius: $mahardika-border-radius;
-$border-radius-sm: 0.25rem;
-$border-radius-lg: 0.75rem;
-$border-radius-xl: 1rem;
-$border-radius-pill: 50rem;
-
-// Component specific overrides
-$btn-border-radius: $mahardika-border-radius;
-$card-border-radius: $mahardika-border-radius;
-$input-border-radius: $mahardika-border-radius;
-$modal-border-radius: $mahardika-border-radius;
-$popover-border-radius: $mahardika-border-radius;
-$tooltip-border-radius: $mahardika-border-radius;
+// Modern Color System
+$primary: ${colors.primary};
+$secondary: ${colors.gray[500]};
+$success: ${colors.success};
+$info: ${colors.info};
+$warning: ${colors.warning};
+$danger: ${colors.error};
+$light: ${colors.gray[50]};
+$dark: ${colors.gray[900]};
 
 // Typography
-$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-$font-family-monospace: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+$font-family-sans-serif: ${typography.fontFamily.primary};
+$font-family-monospace: ${typography.fontFamily.mono};
+
+// Modern Spacing
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  8: 2rem,
+  10: 2.5rem,
+  12: 3rem,
+  16: 4rem,
+  20: 5rem,
+  24: 6rem
+);
+
+// Modern Border Radius
+$border-radius: ${borderRadius.lg};
+$border-radius-sm: ${borderRadius.sm};
+$border-radius-lg: ${borderRadius.xl};
+$border-radius-xl: ${borderRadius['2xl']};
+$border-radius-pill: ${borderRadius.full};
+
+// Component overrides
+$btn-border-radius: ${borderRadius.lg};
+$card-border-radius: ${borderRadius.xl};
+$input-border-radius: ${borderRadius.lg};
+$modal-border-radius: ${borderRadius.xl};
+
+// Modern shadows
+$box-shadow: ${colors.shadow.sm};
+$box-shadow-sm: ${colors.shadow.xs};
+$box-shadow-lg: ${colors.shadow.lg};
 `;
 
-export const theme = {
-  // Brand Colors - Official Mahardika palette
-  colors: {
-    // Primary brand colors
-    navy: '#0D1B2A',
-    gold: '#F4B400',
-
-    // Extended brand palette
-    primary: '#0D1B2A', // Navy alias
-    secondary: '#F4B400', // Gold alias
-
-    // Neutral colors
-    white: '#FFFFFF',
-    black: '#000000',
-    transparent: 'transparent',
-
-    // Gray scale
-    gray: {
-      50: '#F9FAFB',
-      100: '#F3F4F6',
-      200: '#E5E7EB',
-      300: '#D1D5DB',
-      400: '#9CA3AF',
-      500: '#6B7280',
-      600: '#4B5563',
-      700: '#374151',
-      800: '#1F2937',
-      900: '#111827',
-    },
-
-    // State colors
-    success: '#10B981',
-    warning: '#F59E0B',
-    error: '#EF4444',
-    info: '#3B82F6',
-
-    // Component-specific colors
-    background: {
-      primary: '#0D1B2A',
-      secondary: '#F4B400',
-      neutral: '#F9FAFB',
-      dark: '#111827',
-      light: '#FFFFFF',
-      glass: {
-        navy: 'rgba(13, 27, 42, 0.85)',
-        gold: 'rgba(244, 180, 0, 0.85)',
-      },
-    },
-
-    text: {
-      primary: '#0D1B2A',
-      secondary: '#6B7280',
-      light: '#FFFFFF',
-      muted: '#9CA3AF',
-      inverse: '#FFFFFF',
-    },
-
-    border: {
-      light: '#E5E7EB',
-      medium: '#D1D5DB',
-      dark: '#374151',
-      navy: '#0D1B2A',
-      gold: '#F4B400',
-    },
-
-    // Hover and active states
-    hover: {
-      navy: '#1a2332',
-      gold: '#FFD23F',
-      navyLight: 'rgba(13, 27, 42, 0.05)',
-      goldLight: 'rgba(244, 180, 0, 0.05)',
-    },
-
-    active: {
-      navy: '#0a1520',
-      gold: '#E6A200',
-    },
-
-    // Gradient variations
-    gradients: {
-      primary: 'linear-gradient(135deg, #0D1B2A 0%, #1a2332 100%)',
-      secondary: 'linear-gradient(135deg, #F4B400 0%, #FFD23F 100%)',
-      brand: 'linear-gradient(135deg, #0D1B2A 0%, #F4B400 100%)',
-      brandReverse: 'linear-gradient(135deg, #F4B400 0%, #0D1B2A 100%)',
-      animated:
-        'linear-gradient(135deg, #0D1B2A 0%, #F4B400 50%, #0D1B2A 100%)',
-    },
-  },
-
-  // Typography
-  typography: {
-    fontFamily: {
-      primary: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
-      heading: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
-      mono: '"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace',
-    },
-
-    fontSize: {
-      xs: '0.75rem', // 12px
-      sm: '0.875rem', // 14px
-      base: '1rem', // 16px
-      lg: '1.125rem', // 18px
-      xl: '1.25rem', // 20px
-      '2xl': '1.5rem', // 24px
-      '3xl': '1.875rem', // 30px
-      '4xl': '2.25rem', // 36px
-      '5xl': '3rem', // 48px
-    },
-
-    fontWeight: {
-      light: '300',
-      normal: '400',
-      medium: '500',
-      semibold: '600',
-      bold: '700',
-      extrabold: '800',
-    },
-
-    lineHeight: {
-      none: '1',
-      tight: '1.25',
-      snug: '1.375',
-      normal: '1.5',
-      relaxed: '1.625',
-      loose: '2',
-    },
-
-    letterSpacing: {
-      tighter: '-0.05em',
-      tight: '-0.025em',
-      normal: '0em',
-      wide: '0.025em',
-      wider: '0.05em',
-      widest: '0.1em',
-    },
-  },
-
-  // Spacing scale
-  spacing: {
-    0: '0',
-    px: '1px',
-    0.5: '0.125rem', // 2px
-    1: '0.25rem', // 4px
-    1.5: '0.375rem', // 6px
-    2: '0.5rem', // 8px
-    2.5: '0.625rem', // 10px
-    3: '0.75rem', // 12px
-    3.5: '0.875rem', // 14px
-    4: '1rem', // 16px
-    5: '1.25rem', // 20px
-    6: '1.5rem', // 24px
-    7: '1.75rem', // 28px
-    8: '2rem', // 32px
-    9: '2.25rem', // 36px
-    10: '2.5rem', // 40px
-    11: '2.75rem', // 44px
-    12: '3rem', // 48px
-    14: '3.5rem', // 56px
-    16: '4rem', // 64px
-    20: '5rem', // 80px
-    24: '6rem', // 96px
-    28: '7rem', // 112px
-    32: '8rem', // 128px
-    36: '9rem', // 144px
-    40: '10rem', // 160px
-    44: '11rem', // 176px
-    48: '12rem', // 192px
-    52: '13rem', // 208px
-    56: '14rem', // 224px
-    60: '15rem', // 240px
-    64: '16rem', // 256px
-    72: '18rem', // 288px
-    80: '20rem', // 320px
-    96: '24rem', // 384px
-  },
-
-  // Border radius
-  borderRadius: {
-    none: '0',
-    sm: '0.125rem', // 2px
-    default: '0.25rem', // 4px
-    md: '0.375rem', // 6px
-    lg: '0.5rem', // 8px - Mahardika standard
-    xl: '0.75rem', // 12px
-    '2xl': '1rem', // 16px
-    '3xl': '1.5rem', // 24px
-    full: '9999px',
-  },
-
-  // Shadows
-  shadows: {
-    none: 'none',
-    sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    default: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-    md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-    '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-    inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-
-    // Brand-specific shadows
-    brand: {
-      navy: {
-        sm: '0 4px 14px 0 rgba(13, 27, 42, 0.39)',
-        md: '0 8px 25px 0 rgba(13, 27, 42, 0.5)',
-        lg: '0 16px 40px 0 rgba(13, 27, 42, 0.45)',
-        xl: '0 20px 50px 0 rgba(13, 27, 42, 0.4)',
-      },
-      gold: {
-        sm: '0 4px 14px 0 rgba(244, 180, 0, 0.39)',
-        md: '0 8px 25px 0 rgba(244, 180, 0, 0.5)',
-        lg: '0 16px 40px 0 rgba(244, 180, 0, 0.45)',
-        xl: '0 20px 50px 0 rgba(244, 180, 0, 0.4)',
-      },
-    },
-  },
-
-  // Transitions
-  transitions: {
-    none: 'none',
-    all: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)',
-    default: 'all 250ms cubic-bezier(0.4, 0, 0.2, 1)',
-    colors:
-      'color 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1)',
-    opacity: 'opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)',
-    shadow: 'box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1)',
-    transform: 'transform 150ms cubic-bezier(0.4, 0, 0.2, 1)',
-
-    // Brand-specific transitions
-    brand: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    smooth: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-  },
-
-  // Breakpoints
-  breakpoints: {
-    xs: '0px',
-    sm: '576px',
-    md: '768px',
-    lg: '992px',
-    xl: '1200px',
-    xxl: '1400px',
-  },
-
-  // Z-index scale
-  zIndex: {
-    hide: '-1',
-    auto: 'auto',
-    base: '0',
-    docked: '10',
-    dropdown: '1000',
-    sticky: '1020',
-    banner: '1030',
-    overlay: '1040',
-    modal: '1050',
-    popover: '1060',
-    skipLink: '1070',
-    toast: '1080',
-    tooltip: '1090',
-  },
-
-  // Component variants
-  components: {
-    button: {
-      sizes: {
-        sm: {
-          padding: '0.75rem 1.25rem',
-          fontSize: '0.875rem',
-          lineHeight: '1.25rem',
-          gap: '0.5rem',
-        },
-        md: {
-          padding: '1rem 2rem',
-          fontSize: '1rem',
-          lineHeight: '1.5rem',
-          gap: '0.75rem',
-        },
-        lg: {
-          padding: '1.25rem 2.5rem',
-          fontSize: '1.125rem',
-          lineHeight: '1.75rem',
-          gap: '1rem',
-        },
-      },
-
-      variants: {
-        navy: {
-          backgroundColor: '#0D1B2A',
-          borderColor: '#0D1B2A',
-          color: '#FFFFFF',
-        },
-        gold: {
-          backgroundColor: '#F4B400',
-          borderColor: '#F4B400',
-          color: '#0D1B2A',
-        },
-        'outline-navy': {
-          backgroundColor: 'transparent',
-          borderColor: '#0D1B2A',
-          color: '#0D1B2A',
-        },
-        'outline-gold': {
-          backgroundColor: 'transparent',
-          borderColor: '#F4B400',
-          color: '#F4B400',
-        },
-      },
-    },
-
-    card: {
-      sizes: {
-        sm: {
-          padding: '1.25rem',
-          minHeight: '120px',
-        },
-        md: {
-          padding: '1.75rem',
-          minHeight: '160px',
-        },
-        lg: {
-          padding: '2.5rem',
-          minHeight: '200px',
-        },
-        xl: {
-          padding: '3.5rem',
-          minHeight: '280px',
-        },
-      },
-
-      variants: {
-        'navy-primary': {
-          background: 'linear-gradient(135deg, #0D1B2A 0%, #1a2332 100%)',
-          border: '1px solid #0D1B2A',
-          color: '#FFFFFF',
-        },
-        'gold-primary': {
-          background: 'linear-gradient(135deg, #F4B400 0%, #FFD23F 100%)',
-          border: '1px solid #F4B400',
-          color: '#0D1B2A',
-        },
-        'navy-outline': {
-          backgroundColor: 'transparent',
-          border: '2px solid #0D1B2A',
-          color: '#0D1B2A',
-        },
-        'gold-outline': {
-          backgroundColor: 'transparent',
-          border: '2px solid #F4B400',
-          color: '#F4B400',
-        },
-      },
-    },
-  },
-
-  // Animation keyframes
-  animations: {
-    gradientShift: {
-      '0%': { backgroundPosition: '0% 50%' },
-      '50%': { backgroundPosition: '100% 50%' },
-      '100%': { backgroundPosition: '0% 50%' },
-    },
-
-    fadeIn: {
-      '0%': { opacity: '0' },
-      '100%': { opacity: '1' },
-    },
-
-    slideUp: {
-      '0%': { transform: 'translateY(10px)', opacity: '0' },
-      '100%': { transform: 'translateY(0)', opacity: '1' },
-    },
-
-    slideDown: {
-      '0%': { transform: 'translateY(-10px)', opacity: '0' },
-      '100%': { transform: 'translateY(0)', opacity: '1' },
-    },
-
-    scaleIn: {
-      '0%': { transform: 'scale(0.9)', opacity: '0' },
-      '100%': { transform: 'scale(1)', opacity: '1' },
-    },
-
-    pulse: {
-      '0%, 100%': { opacity: '1' },
-      '50%': { opacity: '0.5' },
-    },
-
-    spin: {
-      '0%': { transform: 'rotate(0deg)' },
-      '100%': { transform: 'rotate(360deg)' },
-    },
-
-    bounce: {
-      '0%, 100%': {
-        transform: 'translateY(-25%)',
-        animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)',
-      },
-      '50%': {
-        transform: 'translateY(0)',
-        animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
-      },
-    },
-  },
-} as const;
-
-// Type exports for TypeScript support
 export type Theme = typeof theme;
 export type ThemeColors = typeof theme.colors;
 export type ThemeSpacing = typeof theme.spacing;
 export type ThemeBreakpoints = typeof theme.breakpoints;
-export type ComponentVariant =
-  | keyof typeof theme.components.button.variants
-  | keyof typeof theme.components.card.variants;
-export type ComponentSize =
-  | keyof typeof theme.components.button.sizes
-  | keyof typeof theme.components.card.sizes;
-
-// Default export
-export default theme;

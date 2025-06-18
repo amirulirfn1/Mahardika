@@ -1,134 +1,19 @@
 'use client';
 
 import React from 'react';
-import { colors } from './colors';
+import { theme } from './theme';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'branded' | 'outlined';
+  variant?: 'default' | 'elevated' | 'outlined' | 'glass';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   title?: string;
   subtitle?: string;
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
+  padding?: boolean;
+  hoverable?: boolean;
 }
-
-const getCardStyles = (
-  variant: CardProps['variant'],
-  size: CardProps['size']
-) => {
-  const baseStyles = {
-    borderRadius: '0.5rem', // 0.5rem as specified in requirements
-    transition: 'all 0.2s ease-in-out',
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-  };
-
-  // Size variants
-  const sizeStyles = {
-    sm: {
-      padding: '1rem',
-    },
-    md: {
-      padding: '1.5rem',
-    },
-    lg: {
-      padding: '2rem',
-    },
-  };
-
-  // Variant styles using Mahardika colors
-  const variantStyles = {
-    default: {
-      backgroundColor: colors.white,
-      border: `1px solid ${colors.border.light}`,
-      boxShadow:
-        '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      ':hover': {
-        boxShadow:
-          '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        transform: 'translateY(-1px)',
-      },
-    },
-    branded: {
-      background: `linear-gradient(135deg, ${colors.navy} 0%, ${colors.gray[800]} 100%)`,
-      border: `1px solid ${colors.navy}`,
-      color: colors.white,
-      boxShadow:
-        '0 4px 6px -1px rgba(13, 27, 42, 0.2), 0 2px 4px -1px rgba(13, 27, 42, 0.1)',
-      ':hover': {
-        boxShadow:
-          '0 10px 15px -3px rgba(13, 27, 42, 0.3), 0 4px 6px -2px rgba(13, 27, 42, 0.2)',
-        transform: 'translateY(-2px)',
-      },
-    },
-    outlined: {
-      backgroundColor: 'transparent',
-      border: `2px solid ${colors.navy}`,
-      color: colors.navy,
-      ':hover': {
-        backgroundColor: colors.background.neutral,
-        boxShadow:
-          '0 4px 6px -1px rgba(13, 27, 42, 0.1), 0 2px 4px -1px rgba(13, 27, 42, 0.06)',
-        transform: 'translateY(-1px)',
-      },
-    },
-  };
-
-  return {
-    ...baseStyles,
-    ...sizeStyles[size || 'md'],
-    ...variantStyles[variant || 'default'],
-  };
-};
-
-const getTitleStyles = (variant: CardProps['variant']) => {
-  const baseStyles = {
-    margin: '0 0 0.5rem 0',
-    fontWeight: '600',
-    fontSize: '1.25rem',
-    lineHeight: '1.75rem',
-  };
-
-  const variantStyles = {
-    default: {
-      color: colors.text.primary,
-    },
-    branded: {
-      color: colors.gold,
-    },
-    outlined: {
-      color: colors.navy,
-    },
-  };
-
-  return {
-    ...baseStyles,
-    ...variantStyles[variant || 'default'],
-  };
-};
-
-const getSubtitleStyles = (variant: CardProps['variant']) => {
-  const baseStyles = {
-    margin: '0 0 1rem 0',
-    fontSize: '0.875rem',
-    lineHeight: '1.25rem',
-  };
-
-  const variantStyles = {
-    default: {
-      color: colors.text.secondary,
-    },
-    branded: {
-      color: colors.gray[300],
-    },
-    outlined: {
-      color: colors.text.secondary,
-    },
-  };
-
-  return {
-    ...baseStyles,
-    ...variantStyles[variant || 'default'],
-  };
-};
 
 export const Card: React.FC<CardProps> = ({
   variant = 'default',
@@ -136,17 +21,34 @@ export const Card: React.FC<CardProps> = ({
   children,
   title,
   subtitle,
+  header,
+  footer,
+  padding = true,
+  hoverable = true,
   style,
+  className,
   onMouseEnter,
   onMouseLeave,
   ...props
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
 
-  const cardStyles = getCardStyles(variant, size);
-  const hoverStyles = isHovered ? cardStyles[':hover'] : {};
-  const titleStyles = getTitleStyles(variant);
-  const subtitleStyles = getSubtitleStyles(variant);
+  // Base styles from theme
+  const baseStyles = theme.components.card.base;
+  const sizeStyles = padding ? theme.components.card.sizes[size] : {};
+  const variantStyles = theme.components.card.variants[variant];
+
+  // Interactive states
+  const hoverStyles = isHovered && hoverable ? variantStyles[':hover'] || {} : {};
+
+  // Computed styles
+  const computedStyles = {
+    ...baseStyles,
+    ...variantStyles,
+    ...hoverStyles,
+    padding: padding ? sizeStyles.padding : '0',
+    ...style,
+  };
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsHovered(true);
@@ -158,20 +60,100 @@ export const Card: React.FC<CardProps> = ({
     onMouseLeave?.(e);
   };
 
+  // Title styles based on variant
+  const getTitleStyles = () => {
+    const baseTitle = {
+      margin: '0 0 0.5rem 0',
+      fontFamily: theme.typography.fontFamily.heading,
+      fontWeight: theme.typography.fontWeight.semibold,
+      fontSize: theme.typography.fontSize['xl'],
+      lineHeight: theme.typography.lineHeight.tight,
+    };
+
+    const variantTitleStyles = {
+      default: { color: theme.colors.text.primary },
+      elevated: { color: theme.colors.text.primary },
+      outlined: { color: theme.colors.text.primary },
+      glass: { color: theme.colors.text.primary },
+    };
+
+    return {
+      ...baseTitle,
+      ...variantTitleStyles[variant],
+    };
+  };
+
+  // Subtitle styles based on variant
+  const getSubtitleStyles = () => {
+    const baseSubtitle = {
+      margin: '0 0 1.5rem 0',
+      fontFamily: theme.typography.fontFamily.body,
+      fontWeight: theme.typography.fontWeight.regular,
+      fontSize: theme.typography.fontSize.sm,
+      lineHeight: theme.typography.lineHeight.normal,
+    };
+
+    const variantSubtitleStyles = {
+      default: { color: theme.colors.text.tertiary },
+      elevated: { color: theme.colors.text.tertiary },
+      outlined: { color: theme.colors.text.tertiary },
+      glass: { color: theme.colors.text.secondary },
+    };
+
+    return {
+      ...baseSubtitle,
+      ...variantSubtitleStyles[variant],
+    };
+  };
+
+  // Header styles
+  const headerStyles = {
+    marginBottom: padding ? theme.spacing[4] : '0',
+    paddingBottom: header && padding ? theme.spacing[4] : '0',
+    borderBottom: header && padding ? `1px solid ${theme.colors.border.light}` : 'none',
+  };
+
+  // Footer styles
+  const footerStyles = {
+    marginTop: padding ? theme.spacing[4] : '0',
+    paddingTop: footer && padding ? theme.spacing[4] : '0',
+    borderTop: footer && padding ? `1px solid ${theme.colors.border.light}` : 'none',
+  };
+
   return (
     <div
-      style={{
-        ...cardStyles,
-        ...hoverStyles,
-        ...style,
-      }}
+      style={computedStyles}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      className={className}
       {...props}
     >
-      {title && <h3 style={titleStyles}>{title}</h3>}
-      {subtitle && <p style={subtitleStyles}>{subtitle}</p>}
-      <div>{children}</div>
+      {/* Header Section */}
+      {header && (
+        <div style={headerStyles}>
+          {header}
+        </div>
+      )}
+
+      {/* Title and Subtitle */}
+      {(title || subtitle) && (
+        <div style={{ marginBottom: padding ? theme.spacing[4] : '0' }}>
+          {title && <h3 style={getTitleStyles()}>{title}</h3>}
+          {subtitle && <p style={getSubtitleStyles()}>{subtitle}</p>}
+        </div>
+      )}
+
+      {/* Main Content */}
+      <div style={{ flex: '1' }}>
+        {children}
+      </div>
+
+      {/* Footer Section */}
+      {footer && (
+        <div style={footerStyles}>
+          {footer}
+        </div>
+      )}
     </div>
   );
 };

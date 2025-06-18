@@ -1,22 +1,20 @@
 /**
  * @mahardika/ui - Mahardika UI Component Library
  *
- * A comprehensive UI component library featuring the official Mahardika brand colors
- * (navy #0D1B2A and gold #F4B400) with consistent styling and accessibility.
+ * A comprehensive UI component library featuring modern design system
+ * with Fiverr-inspired marketplace aesthetics and Apple-style typography.
  */
 
 // Export colors and theme
 export { colors } from './colors';
 export type { Colors, ColorKey } from './colors';
 
-export { theme, bootstrapColorOverrides, scssVariables } from './theme';
+export { theme, bootstrapColorOverrides, scssVariables, typography, spacing, borderRadius, components } from './theme';
 export type {
   Theme,
   ThemeColors,
   ThemeSpacing,
   ThemeBreakpoints,
-  ComponentVariant,
-  ComponentSize,
 } from './theme';
 
 // Export components
@@ -32,11 +30,11 @@ export type { AIChatProps } from './AIChat';
 export { SecurityStatus } from './SecurityStatus';
 export type { SecurityStatusProps } from './SecurityStatus';
 
-// Export brand components
-export { BrandButton, BrandButtonTemplates } from './BrandButton';
+// Export brand components (legacy compatibility)
+export { BrandButton } from './BrandButton';
 export type { BrandButtonProps } from './BrandButton';
 
-export { BrandCard, BrandCardTemplates } from './BrandCard';
+export { BrandCard } from './BrandCard';
 export type { BrandCardProps } from './BrandCard';
 
 // Export demo component

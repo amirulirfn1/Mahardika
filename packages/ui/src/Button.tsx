@@ -41,8 +41,8 @@ export const Button: React.FC<ButtonProps> = ({
   const variantStyles = theme.components.button.variants[variant];
 
   // Interactive states
-  const hoverStyles = isHovered && !disabled && !loading ? variantStyles[':hover'] || {} : {};
-  const activeStyles = isFocused && !disabled && !loading ? variantStyles[':active'] || {} : {};
+  const hoverStyles = isHovered && !disabled && !loading ? (variantStyles as any)[':hover'] || {} : {};
+  const activeStyles = isFocused && !disabled && !loading ? (variantStyles as any)[':active'] || {} : {};
 
   // Computed styles
   const computedStyles = {
@@ -102,40 +102,26 @@ export const Button: React.FC<ButtonProps> = ({
           animation: 'spin 1.5s ease-in-out infinite',
         }}
       />
-      <style jsx>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
     </svg>
   );
 
   return (
-    <>
-      <style jsx global>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
-      <button
-        style={computedStyles}
-        disabled={disabled || loading}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        className={className}
-        aria-disabled={disabled || loading}
-        aria-busy={loading}
-        {...props}
-      >
-        {loading && <LoadingSpinner />}
-        {!loading && leftIcon && <span style={{ display: 'flex', alignItems: 'center' }}>{leftIcon}</span>}
-        <span style={{ display: 'flex', alignItems: 'center' }}>{children}</span>
-        {!loading && rightIcon && <span style={{ display: 'flex', alignItems: 'center' }}>{rightIcon}</span>}
-      </button>
-    </>
+    <button
+      style={computedStyles}
+      disabled={disabled || loading}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      className={className}
+      aria-disabled={disabled || loading}
+      aria-busy={loading}
+      {...props}
+    >
+      {loading && <LoadingSpinner />}
+      {!loading && leftIcon && <span style={{ display: 'flex', alignItems: 'center' }}>{leftIcon}</span>}
+      <span style={{ display: 'flex', alignItems: 'center' }}>{children}</span>
+      {!loading && rightIcon && <span style={{ display: 'flex', alignItems: 'center' }}>{rightIcon}</span>}
+    </button>
   );
 };

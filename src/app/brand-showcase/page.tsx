@@ -3,9 +3,7 @@
 import React from 'react';
 import {
   BrandButton,
-  BrandButtonTemplates,
   BrandCard,
-  BrandCardTemplates,
 } from '@mahardika/ui';
 
 export default function BrandShowcasePage() {
@@ -48,9 +46,8 @@ export default function BrandShowcasePage() {
       {/* BrandButton Section */}
       <section style={{ marginBottom: '4rem' }}>
         <BrandCard
-          variant="navy-primary"
+          variant="elevated"
           size="lg"
-          elevation="medium"
           title="BrandButton Components"
           subtitle="Enhanced buttons with Mahardika brand identity"
         >
@@ -75,9 +72,9 @@ export default function BrandShowcasePage() {
               >
                 <BrandButton variant="navy">Navy Primary</BrandButton>
                 <BrandButton variant="gold">Gold Secondary</BrandButton>
-                <BrandButton variant="outline-navy">Navy Outline</BrandButton>
-                <BrandButton variant="outline-gold">Gold Outline</BrandButton>
-                <BrandButton variant="gradient">Gradient Feature</BrandButton>
+                <BrandButton variant="navy-outline">Navy Outline</BrandButton>
+                <BrandButton variant="gold-outline">Gold Outline</BrandButton>
+                <BrandButton variant="navy">Feature Button</BrandButton>
               </div>
             </div>
 
@@ -100,7 +97,7 @@ export default function BrandShowcasePage() {
                 <BrandButton variant="gold" size="md">
                   Medium Button
                 </BrandButton>
-                <BrandButton variant="outline-navy" size="lg">
+                <BrandButton variant="navy-outline" size="lg">
                   Large Button
                 </BrandButton>
               </div>
@@ -118,15 +115,15 @@ export default function BrandShowcasePage() {
                   gap: '1rem',
                 }}
               >
-                <BrandButtonTemplates.NavyPrimary>
+                <BrandButton variant="navy">
                   Primary Action
-                </BrandButtonTemplates.NavyPrimary>
-                <BrandButtonTemplates.GoldSecondary>
+                </BrandButton>
+                <BrandButton variant="gold">
                   Secondary Action
-                </BrandButtonTemplates.GoldSecondary>
-                <BrandButtonTemplates.GradientFeature>
+                </BrandButton>
+                <BrandButton variant="navy">
                   Feature Button
-                </BrandButtonTemplates.GradientFeature>
+                </BrandButton>
               </div>
             </div>
           </div>
@@ -136,9 +133,8 @@ export default function BrandShowcasePage() {
       {/* BrandCard Section */}
       <section style={{ marginBottom: '4rem' }}>
         <BrandCard
-          variant="gold-primary"
+          variant="glass"
           size="lg"
-          elevation="medium"
           title="BrandCard Components"
           subtitle="Professional cards with brand consistency"
         >
@@ -150,9 +146,7 @@ export default function BrandShowcasePage() {
             }}
           >
             <BrandCard
-              variant="navy-primary"
-              elevation="high"
-              pattern="dots"
+              variant="elevated"
               title="Navy Primary"
               subtitle="Primary brand card"
             >
@@ -165,25 +159,22 @@ export default function BrandShowcasePage() {
             </BrandCard>
 
             <BrandCard
-              variant="gold-outline"
-              elevation="low"
+              variant="outlined"
               title="Gold Outline"
               subtitle="Elegant accent card"
             >
               <p style={{ margin: '0 0 1rem 0', color: '#666' }}>
                 Sophisticated gold borders for accent content.
               </p>
-              <BrandButton variant="outline-gold" size="sm">
+              <BrandButton variant="gold-outline" size="sm">
                 View Details
               </BrandButton>
             </BrandCard>
 
             <BrandCard
-              variant="gradient"
-              elevation="high"
-              pattern="diagonal"
-              title="Gradient Showcase"
-              subtitle="Animated brand gradient"
+              variant="glass"
+              title="Modern Showcase"
+              subtitle="Modern glass effect card"
             >
               <p style={{ margin: '0 0 1.5rem 0', opacity: 0.95 }}>
                 Dynamic navy-to-gold gradient with animation effects.

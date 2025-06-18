@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button, Card } from '@mahardika/ui';
-import { theme } from '@mahardika/ui/theme';
+import { theme } from '@mahardika/ui';
 
 // Sample shop data with Fiverr-style categories
 const shopCategories = [

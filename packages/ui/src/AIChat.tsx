@@ -84,7 +84,7 @@ export const AIChat: React.FC<AIChatProps> = ({ apiKey, onMessage }) => {
     <Card
       title="Mahardika AI Assistant"
       subtitle="Powered by DeepSeek AI"
-      variant="branded"
+      variant="elevated"
       size="lg"
       style={{ maxWidth: '800px', margin: '0 auto' }}
     >

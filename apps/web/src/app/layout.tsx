@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { theme } from '@mahardika/ui/theme';
+import { theme } from '@mahardika/ui';
 
 export const metadata: Metadata = {
   title: 'Mahardika Platform',
@@ -24,19 +24,21 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
           rel="stylesheet" 
         />
-        <style jsx global>{`
-          :root {
-            --primary: ${theme.colors.primary};
-            --secondary: ${theme.colors.secondary};
-            --background: ${theme.colors.background.primary};
-            --text-primary: ${theme.colors.text.primary};
-            --text-secondary: ${theme.colors.text.secondary};
-            --border-light: ${theme.colors.border.light};
-            --shadow-sm: ${theme.colors.shadow.sm};
-            --shadow-md: ${theme.colors.shadow.md};
-            --font-family: ${theme.typography.fontFamily.primary};
-          }
-        `}</style>
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            :root {
+              --primary: ${theme.colors.primary};
+              --secondary: ${theme.colors.secondary};
+              --background: ${theme.colors.background.primary};
+              --text-primary: ${theme.colors.text.primary};
+              --text-secondary: ${theme.colors.text.secondary};
+              --border-light: ${theme.colors.border.light};
+              --shadow-sm: ${theme.colors.shadow.sm};
+              --shadow-md: ${theme.colors.shadow.md};
+              --font-family: ${theme.typography.fontFamily.primary};
+            }
+          `
+        }} />
       </head>
       <body
         style={{

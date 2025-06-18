@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Button, ButtonProps } from './Button';
-import { theme } from './theme';
 
 export interface BrandButtonProps extends Omit<ButtonProps, 'variant'> {
   variant?: 'navy' | 'gold' | 'navy-outline' | 'gold-outline';
@@ -13,22 +12,21 @@ export const BrandButton: React.FC<BrandButtonProps> = ({
   style,
   ...props
 }) => {
-  // Map legacy brand variants to new variants
+  // Map legacy brand variants to new modern variants
   const mappedVariant = 
-    variant === 'navy' || variant === 'navy-outline' ? 'primary' :
-    variant === 'gold' || variant === 'gold-outline' ? 'secondary' : 'primary';
+    variant === 'navy' ? 'primary' :
+    variant === 'gold' ? 'secondary' :
+    variant === 'navy-outline' ? 'outline' :
+    variant === 'gold-outline' ? 'ghost' : 'primary';
 
-  const isOutline = variant.includes('outline');
-  const actualVariant = isOutline ? 'outline' : mappedVariant;
-
-  // Additional brand-specific styles
+  // Additional brand-specific styles for backward compatibility
   const brandStyle = {
     ...style,
   };
 
   return (
     <Button
-      variant={actualVariant}
+      variant={mappedVariant}
       style={brandStyle}
       {...props}
     />

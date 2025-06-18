@@ -35,18 +35,18 @@ export const Card: React.FC<CardProps> = ({
 
   // Base styles from theme
   const baseStyles = theme.components.card.base;
-  const sizeStyles = padding ? theme.components.card.sizes[size] : {};
+  const sizeStyles = padding ? theme.components.card.sizes[size] : { padding: '0' };
   const variantStyles = theme.components.card.variants[variant];
 
-  // Interactive states
-  const hoverStyles = isHovered && hoverable ? variantStyles[':hover'] || {} : {};
+  // Interactive states with proper typing
+  const hoverStyles = isHovered && hoverable ? (variantStyles as any)[':hover'] || {} : {};
 
   // Computed styles
   const computedStyles = {
     ...baseStyles,
     ...variantStyles,
     ...hoverStyles,
-    padding: padding ? sizeStyles.padding : '0',
+    padding: sizeStyles.padding || '0',
     ...style,
   };
 

@@ -286,7 +286,7 @@ pnpm run build
 npm i -g vercel
 
 # Deploy with environment variables
-vercel --env DEEPSEEK_API_KEY=sk-689253a0a41044ccaefbf52c9f07b985
+vercel --env DEEPSEEK_API_KEY=your_production_deepseek_api_key
 ```
 
 ## ✅ Verification Checklist

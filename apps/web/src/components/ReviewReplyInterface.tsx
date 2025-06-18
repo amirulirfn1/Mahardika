@@ -270,7 +270,7 @@ export default function ReviewReplyInterface({
 
                 {review.response && (
                   <BrandButton
-                    variant="outline-navy"
+                    variant="navy-outline"
                     size="md"
                     onClick={() => {
                       setIsEditing(false);
@@ -287,7 +287,7 @@ export default function ReviewReplyInterface({
               <>
                 {canEdit && (
                   <BrandButton
-                    variant="outline-gold"
+                    variant=\"gold-outline\"
                     size="sm"
                     onClick={() => setIsEditing(true)}
                   >
@@ -297,7 +297,7 @@ export default function ReviewReplyInterface({
 
                 {canEdit && review.response && (
                   <BrandButton
-                    variant="outline-navy"
+                    variant="navy-outline"
                     size="sm"
                     onClick={() => setShowDeleteConfirm(true)}
                   >
@@ -323,7 +323,7 @@ export default function ReviewReplyInterface({
               </p>
               <div className="d-flex gap-2">
                 <BrandButton
-                  variant="outline-navy"
+                  variant="navy-outline"
                   size="sm"
                   onClick={() => setShowDeleteConfirm(false)}
                 >

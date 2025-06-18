@@ -329,7 +329,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                 <p style={{ color: colors.gray[700] }}>{agency.description}</p>
                 {agency.website_url && (
                   <BrandButton
-                    variant="outline-navy"
+                    variant="navy-outline"
                     size="md"
                     onClick={() => window.open(agency.website_url, '_blank')}
                   >
@@ -417,7 +417,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                   Call Now
                 </BrandButton>
                 <BrandButton
-                  variant="outline-gold"
+                  variant=\"gold-outline\"
                   size="lg"
                   className="px-5"
                   style={{ color: 'white', borderColor: colors.gold }}

@@ -36,7 +36,7 @@ describe('BrandButton', () => {
 
     it('renders outline-navy variant correctly', () => {
       render(
-        <BrandButton variant="outline-navy">Outline Navy Button</BrandButton>
+        <BrandButton variant="navy-outline">Outline Navy Button</BrandButton>
       );
       const button = screen.getByRole('button');
       expect(button).toHaveStyle('background-color: transparent');
@@ -46,7 +46,7 @@ describe('BrandButton', () => {
 
     it('renders outline-gold variant correctly', () => {
       render(
-        <BrandButton variant="outline-gold">Outline Gold Button</BrandButton>
+        <BrandButton variant=\"gold-outline\">Outline Gold Button</BrandButton>
       );
       const button = screen.getByRole('button');
       expect(button).toHaveStyle('background-color: transparent');

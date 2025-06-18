@@ -260,7 +260,7 @@ export default function CheckoutWizard({
       )}
 
       <div className="d-flex justify-content-between">
-        <BrandButton variant="outline-navy" size="md" onClick={onCancel}>
+        <BrandButton variant="navy-outline" size="md" onClick={onCancel}>
           Cancel
         </BrandButton>
         <BrandButton variant="navy" size="md" onClick={handleCustomerNext}>
@@ -345,7 +345,7 @@ export default function CheckoutWizard({
 
           <div className="d-flex justify-content-between">
             <BrandButton
-              variant="outline-navy"
+              variant="navy-outline"
               size="sm"
               onClick={() => setCurrentStep('customer')}
             >
@@ -430,7 +430,7 @@ export default function CheckoutWizard({
 
       <div className="d-flex justify-content-between">
         <BrandButton
-          variant="outline-navy"
+          variant="navy-outline"
           size="md"
           onClick={() => setCurrentStep('review')}
         >

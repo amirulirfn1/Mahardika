@@ -102,7 +102,7 @@ export default function NotFound() {
                   </BrandButton>
                 </Link>
                 <Link href="/shop">
-                  <BrandButton variant="outline-gold" size="lg">
+                  <BrandButton variant="gold-outline" size="lg">
                     Browse Insurance
                   </BrandButton>
                 </Link>

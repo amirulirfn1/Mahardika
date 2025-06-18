@@ -198,7 +198,7 @@ export default function BrandShowcasePage() {
           }}
         >
           <BrandButton
-            variant="outline-navy"
+            variant="navy-outline"
             size="sm"
             onClick={() => window.history.back()}
           >

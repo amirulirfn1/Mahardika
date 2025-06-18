@@ -5,7 +5,7 @@ import { theme } from './theme';
 
 export interface BrandButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'navy' | 'gold' | 'outline-navy' | 'outline-gold' | 'gradient';
+  variant?: 'navy' | 'gold' | 'navy-outline' | 'gold-outline' | 'outline-navy' | 'outline-gold' | 'gradient';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   disabled?: boolean;
@@ -36,6 +36,11 @@ const getBrandButtonStyles = (
 
   // Size variants with enhanced spacing for brand components
   const sizeStyles = theme.components.button.sizes;
+
+  // Map new variant names to legacy names for backward compatibility
+  const mappedVariant = 
+    variant === 'navy-outline' ? 'outline-navy' :
+    variant === 'gold-outline' ? 'outline-gold' : variant;
 
   // Enhanced variant styles with Mahardika brand identity
   const variantStyles = {
@@ -155,7 +160,7 @@ const getBrandButtonStyles = (
   return {
     ...baseStyles,
     ...sizeStyles[size || 'md'],
-    ...variantStyles[variant || 'navy'],
+    ...variantStyles[mappedVariant || 'navy'],
   };
 };
 
@@ -249,14 +254,14 @@ export const BrandButtonTemplates = {
   ),
   NavyOutline: (props: Omit<BrandButtonProps, 'variant'>) => (
     <BrandButton
-      variant="outline-navy"
+      variant="navy-outline"
       prompt="Outlined button with navy border"
       {...props}
     />
   ),
   GoldOutline: (props: Omit<BrandButtonProps, 'variant'>) => (
     <BrandButton
-      variant="outline-gold"
+      variant=\"gold-outline\"
       prompt="Outlined button with gold border"
       {...props}
     />

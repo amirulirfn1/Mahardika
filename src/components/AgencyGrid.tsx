@@ -248,7 +248,7 @@ export default function AgencyGrid({
             Try adjusting your search terms or filters.
           </p>
           <BrandButton
-            variant="outline-navy"
+            variant="navy-outline"
             size="sm"
             onClick={() => {
               setSearchTerm('');
@@ -442,7 +442,7 @@ export default function AgencyGrid({
                           rel="noopener noreferrer"
                           className="flex-shrink-0"
                         >
-                          <BrandButton variant="outline-gold" size="sm">
+                          <BrandButton variant=\"gold-outline\" size="sm">
                             <svg
                               width="16"
                               height="16"

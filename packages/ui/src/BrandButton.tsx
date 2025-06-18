@@ -58,7 +58,7 @@ export const BrandButtonTemplates = {
   ),
   GoldOutline: (props: Omit<BrandButtonProps, 'variant'>) => (
     <BrandButton
-      variant="outline-gold"
+      variant=\"gold-outline\"
       prompt="Outlined button with gold border"
       {...props}
     />

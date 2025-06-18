@@ -415,7 +415,7 @@ const TermsOfServicePage = () => {
                   <BrandButton variant="navy" size="sm">
                     Contact Legal Team
                   </BrandButton>
-                  <BrandButton variant="outline-navy" size="sm">
+                  <BrandButton variant="navy-outline" size="sm">
                     Download PDF
                   </BrandButton>
                 </div>
@@ -538,10 +538,10 @@ const TermsOfServicePage = () => {
                   <BrandButton variant="gold" size="lg">
                     I Accept Terms
                   </BrandButton>
-                  <BrandButton variant="outline-gold" size="lg">
+                  <BrandButton variant=\"gold-outline\" size="lg">
                     Browse Services
                   </BrandButton>
-                  <BrandButton variant="outline-navy" size="lg">
+                  <BrandButton variant="navy-outline" size="lg">
                     Contact Legal
                   </BrandButton>
                 </div>

@@ -512,7 +512,7 @@ export default async function MarketplacePage({
                   Join as Agency
                 </BrandButton>
                 <BrandButton
-                  variant="outline-navy"
+                  variant="navy-outline"
                   size="lg"
                   className="px-5"
                   onClick={() => (window.location.href = '/dashboard')}

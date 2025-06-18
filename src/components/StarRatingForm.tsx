@@ -208,7 +208,7 @@ export default function StarRatingForm({
               <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
                 {onCancel && (
                   <BrandButton
-                    variant="outline-navy"
+                    variant="navy-outline"
                     size="lg"
                     onClick={onCancel}
                     disabled={isSubmitting}

@@ -46,7 +46,7 @@ export default function BrandShowcasePage() {
       {/* BrandButton Section */}
       <section style={{ marginBottom: '4rem' }}>
         <BrandCard
-          variant="elevated"
+          variant="navy-primary"
           size="lg"
           title="BrandButton Components"
           subtitle="Enhanced buttons with Mahardika brand identity"
@@ -133,7 +133,7 @@ export default function BrandShowcasePage() {
       {/* BrandCard Section */}
       <section style={{ marginBottom: '4rem' }}>
         <BrandCard
-          variant="glass"
+          variant="gold-primary"
           size="lg"
           title="BrandCard Components"
           subtitle="Professional cards with brand consistency"
@@ -146,7 +146,7 @@ export default function BrandShowcasePage() {
             }}
           >
             <BrandCard
-              variant="elevated"
+              variant="navy-primary"
               title="Navy Primary"
               subtitle="Primary brand card"
             >
@@ -159,7 +159,7 @@ export default function BrandShowcasePage() {
             </BrandCard>
 
             <BrandCard
-              variant="outlined"
+              variant="gold-outline"
               title="Gold Outline"
               subtitle="Elegant accent card"
             >
@@ -172,9 +172,9 @@ export default function BrandShowcasePage() {
             </BrandCard>
 
             <BrandCard
-              variant="glass"
+              variant="navy-outline"
               title="Modern Showcase"
-              subtitle="Modern glass effect card"
+              subtitle="Modern outline card"
             >
               <p style={{ margin: '0 0 1.5rem 0', opacity: 0.95 }}>
                 Dynamic navy-to-gold gradient with animation effects.

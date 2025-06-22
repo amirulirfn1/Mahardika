@@ -287,7 +287,7 @@ export default function ReviewReplyInterface({
               <>
                 {canEdit && (
                   <BrandButton
-                    variant=\"gold-outline\"
+                    variant="gold-outline"
                     size="sm"
                     onClick={() => setIsEditing(true)}
                   >

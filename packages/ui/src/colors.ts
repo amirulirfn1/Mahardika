@@ -1,93 +1,154 @@
 /**
- * Mahardika Modern Color System
- * Luxury marketplace design inspired by modern platforms like Fiverr
- * Focus: Light, sophisticated, easy on the eyes
+ * Mahardika Color System - Fiverr-Inspired Design
+ * Modern marketplace colors with professional aesthetics
  */
 
 export const colors = {
-  // Primary Brand Colors - Modern & Sophisticated
-  primary: '#1DBF73', // Fiverr-inspired green (trust, growth, success)
-  secondary: '#FF6B35', // Warm orange accent (energy, creativity)
+  // Primary Brand Colors - Fiverr-inspired
+  primary: '#1dbf73',       // Fiverr green
+  secondary: '#404145',     // Dark gray
+  accent: '#62646a',        // Medium gray
   
-  // Legacy aliases (will be phased out)
-  navy: '#1DBF73', // Map to new primary
-  gold: '#FF6B35', // Map to new secondary
-
-  // Neutral Colors - Light & Airy
-  white: '#FFFFFF',
-  black: '#000000',
+  // Extended Brand Palette
+  brand: {
+    50: '#e6f9f0',
+    100: '#b3ecd4',
+    200: '#80dfb8',
+    300: '#4dd29c',
+    400: '#26c281',
+    500: '#1dbf73',   // Primary
+    600: '#19a862',
+    700: '#158f52',
+    800: '#117741',
+    900: '#0d5e31',
+  },
   
-  // Sophisticated Gray Scale
+  // Neutral Colors - Professional grays
   gray: {
-    25: '#FCFCFD',   // Almost white
-    50: '#F9FAFB',   // Very light gray
-    100: '#F2F4F7',  // Light gray
-    200: '#EAECF0',  // Border gray
-    300: '#D0D5DD',  // Subtle gray
-    400: '#98A2B3',  // Medium gray
-    500: '#667085',  // Text gray
-    600: '#475467',  // Dark text gray
-    700: '#344054',  // Heading gray
-    800: '#1D2939',  // Almost black
-    900: '#101828',  // Deep black
+    50: '#fafafa',
+    100: '#f5f5f5',
+    200: '#e4e5e7',
+    300: '#c5c6c9',
+    400: '#95979d',
+    500: '#74767e',
+    600: '#62646a',   // Accent
+    700: '#404145',   // Secondary
+    800: '#222325',
+    900: '#0e0e0f',
   },
-
-  // State Colors - Modern & Accessible
-  success: '#12B76A',   // Modern green
-  warning: '#F79009',   // Modern amber
-  error: '#F04438',     // Modern red
-  info: '#2E90FA',      // Modern blue
-
-  // Background System
+  
+  // Semantic Colors
+  success: '#1dbf73',
+  info: '#446ee7',
+  warning: '#ffb33e',
+  error: '#e4421e',
+  
+  // Background Colors
   background: {
-    primary: '#FFFFFF',     // Pure white
-    secondary: '#F9FAFB',   // Light gray
-    tertiary: '#F2F4F7',   // Subtle gray
-    glass: 'rgba(255, 255, 255, 0.8)', // Glass morphism
-    overlay: 'rgba(0, 0, 0, 0.4)',     // Dark overlay
-    gradient: 'linear-gradient(135deg, #1DBF73 0%, #17A360 100%)', // Primary gradient
+    primary: '#ffffff',
+    secondary: '#f7f7f7',
+    tertiary: '#efeff0',
+    dark: '#404145',
+    overlay: 'rgba(0, 0, 0, 0.5)',
+    glass: 'rgba(255, 255, 255, 0.8)',
+    gradient: 'linear-gradient(135deg, #1dbf73 0%, #19a862 100%)',
   },
-
-  // Text System
+  
+  // Text Colors
   text: {
-    primary: '#101828',     // Almost black
-    secondary: '#344054',   // Dark gray
-    tertiary: '#475467',    // Medium gray
-    placeholder: '#667085', // Light gray
-    inverse: '#FFFFFF',     // White text
-    success: '#027A48',     // Success text
-    warning: '#B54708',     // Warning text
-    error: '#B42318',       // Error text
-    info: '#1570EF',        // Info text
+    primary: '#222325',
+    secondary: '#62646a',
+    tertiary: '#95979d',
+    inverse: '#ffffff',
+    link: '#1dbf73',
+    placeholder: '#b5b6ba',
   },
-
-  // Border System
+  
+  // Border Colors
   border: {
-    light: '#EAECF0',      // Light border
-    medium: '#D0D5DD',     // Medium border
-    dark: '#98A2B3',       // Dark border
-    primary: '#1DBF73',    // Primary border
-    error: '#F04438',      // Error border
+    light: '#e4e5e7',
+    medium: '#dadbdd',
+    dark: '#b5b6ba',
+    focus: '#1dbf73',
   },
-
+  
   // Interactive States
   hover: {
-    primary: '#17A360',     // Darker green
-    secondary: '#E55A2B',   // Darker orange
-    light: '#F9FAFB',       // Light hover
-    overlay: 'rgba(29, 191, 115, 0.1)', // Primary overlay
+    primary: '#19a862',
+    secondary: '#222325',
+    light: '#f7f7f7',
+    overlay: 'rgba(29, 191, 115, 0.1)',
   },
-
-  // Shadows & Effects
+  
+  // Shadow System - Subtle and modern
   shadow: {
-    xs: '0 1px 2px 0 rgba(16, 24, 40, 0.05)',
-    sm: '0 1px 3px 0 rgba(16, 24, 40, 0.1), 0 1px 2px 0 rgba(16, 24, 40, 0.06)',
-    md: '0 4px 8px -2px rgba(16, 24, 40, 0.1), 0 2px 4px -2px rgba(16, 24, 40, 0.06)',
-    lg: '0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03)',
-    xl: '0 20px 24px -4px rgba(16, 24, 40, 0.08), 0 8px 8px -4px rgba(16, 24, 40, 0.03)',
+    xs: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+    sm: '0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+    md: '0 4px 8px 0 rgba(0, 0, 0, 0.08)',
+    lg: '0 8px 16px 0 rgba(0, 0, 0, 0.1)',
+    xl: '0 16px 32px 0 rgba(0, 0, 0, 0.12)',
+    '2xl': '0 24px 48px 0 rgba(0, 0, 0, 0.14)',
     glass: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+    inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+  },
+  
+  // Special Effects
+  effects: {
+    glow: {
+      primary: '0 0 20px rgba(29, 191, 115, 0.4)',
+      secondary: '0 0 20px rgba(64, 65, 69, 0.3)',
+    },
+    gradient: {
+      primary: 'linear-gradient(135deg, #1dbf73 0%, #19a862 100%)',
+      secondary: 'linear-gradient(135deg, #404145 0%, #222325 100%)',
+      subtle: 'linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%)',
+      vibrant: 'linear-gradient(135deg, #1dbf73 0%, #446ee7 100%)',
+    },
+  },
+  
+  // Component-specific colors
+  components: {
+    button: {
+      primary: {
+        bg: '#1dbf73',
+        text: '#ffffff',
+        hover: '#19a862',
+        active: '#158f52',
+      },
+      secondary: {
+        bg: '#ffffff',
+        text: '#404145',
+        hover: '#f7f7f7',
+        active: '#efeff0',
+        border: '#dadbdd',
+      },
+      outline: {
+        bg: 'transparent',
+        text: '#1dbf73',
+        hover: 'rgba(29, 191, 115, 0.1)',
+        border: '#1dbf73',
+      },
+    },
+    card: {
+      bg: '#ffffff',
+      hover: '#fafafa',
+      border: '#e4e5e7',
+      shadow: '0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+    },
+    input: {
+      bg: '#ffffff',
+      border: '#dadbdd',
+      focus: '#1dbf73',
+      error: '#e4421e',
+      placeholder: '#b5b6ba',
+    },
+    badge: {
+      new: '#446ee7',
+      popular: '#ffb33e',
+      pro: '#7a4bff',
+      featured: '#1dbf73',
+    },
   },
 } as const;
 
 export type Colors = typeof colors;
-export type ColorKey = keyof Colors;

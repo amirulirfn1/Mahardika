@@ -442,7 +442,7 @@ export default function AgencyGrid({
                           rel="noopener noreferrer"
                           className="flex-shrink-0"
                         >
-                          <BrandButton variant=\"gold-outline\" size="sm">
+                          <BrandButton variant="gold-outline" size="sm">
                             <svg
                               width="16"
                               height="16"

@@ -60,9 +60,9 @@ export const MahardikaDemo: React.FC = () => {
           <BrandButton variant="navy-outline" size="md">
             Navy Outline
           </BrandButton>
-          <BrandButton variant=\"gold-outline\" size="md">
-            Gold Outline
-          </BrandButton>
+                      <BrandButton variant="gold-outline" size="md">
+              Gold Outline
+            </BrandButton>
           <BrandButton variant="gradient" size="md">
             Gradient
           </BrandButton>
@@ -128,7 +128,7 @@ export const MahardikaDemo: React.FC = () => {
           >
             Dynamic brand gradient animation
           </p>
-          <BrandButton variant=\"gold-outline\" size="sm">
+          <BrandButton variant="gold-outline" size="sm">
             Explore
           </BrandButton>
         </BrandCard>

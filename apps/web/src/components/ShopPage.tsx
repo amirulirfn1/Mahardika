@@ -417,7 +417,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                   Call Now
                 </BrandButton>
                 <BrandButton
-                  variant=\"gold-outline\"
+                  variant="gold-outline"
                   size="lg"
                   className="px-5"
                   style={{ color: 'white', borderColor: colors.gold }}

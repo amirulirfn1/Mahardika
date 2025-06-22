@@ -1,98 +1,142 @@
 /**
- * Environment Variables Configuration - Mahardika Platform
- * Centralized environment variable handling with type safety
+ * Environment Configuration - Mahardika Platform
+ * Centralized environment variable management with type safety
  */
 
-// Mahardika Brand Colors
+// Brand Colors - Fiverr-inspired
 export const MAHARDIKA_COLORS = {
-  navy: process.env.NEXT_PUBLIC_BRAND_NAVY || '#0D1B2A',
-  gold: process.env.NEXT_PUBLIC_BRAND_GOLD || '#F4B400',
+  primary: process.env.NEXT_PUBLIC_BRAND_PRIMARY || '#1dbf73',
+  secondary: process.env.NEXT_PUBLIC_BRAND_SECONDARY || '#404145',
+  accent: process.env.NEXT_PUBLIC_BRAND_ACCENT || '#62646a',
+  success: process.env.NEXT_PUBLIC_BRAND_SUCCESS || '#1dbf73',
+  warning: process.env.NEXT_PUBLIC_BRAND_WARNING || '#ffb33e',
+  error: process.env.NEXT_PUBLIC_BRAND_ERROR || '#e4421e',
+  
+  // Legacy support (will be removed in future)
+  navy: process.env.NEXT_PUBLIC_BRAND_NAVY || '#404145',
+  gold: process.env.NEXT_PUBLIC_BRAND_GOLD || '#1dbf73',
 } as const;
 
-// Application Configuration
+// App Configuration
 export const APP_CONFIG = {
-  name: process.env.NEXT_PUBLIC_APP_NAME || 'Mahardika Platform',
-  version: process.env.NEXT_PUBLIC_APP_VERSION || '1.0.0',
-  environment: process.env.NODE_ENV || 'development',
-} as const;
-
-// API Configuration
-export const API_CONFIG = {
-  deepseek: {
-    apiKey: process.env.DEEPSEEK_API_KEY,
-    enabled: Boolean(process.env.DEEPSEEK_API_KEY),
-  },
+  name: process.env.NEXT_PUBLIC_APP_NAME || 'Mahardika',
+  version: process.env.NEXT_PUBLIC_APP_VERSION || '2.0.0',
+  url: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
 } as const;
 
 // Feature Flags
-export const FEATURE_FLAGS = {
+export const FEATURES = {
   aiChat: process.env.NEXT_PUBLIC_ENABLE_AI_CHAT === 'true',
-  analytics: process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === 'true',
-  securityStatus: process.env.NEXT_PUBLIC_ENABLE_SECURITY_STATUS === 'true',
-  debugMode: process.env.DEBUG_MODE === 'true',
+  marketplace: process.env.NEXT_PUBLIC_ENABLE_MARKETPLACE === 'true',
+  reviews: process.env.NEXT_PUBLIC_ENABLE_REVIEWS === 'true',
 } as const;
 
-// Database Configuration (if available)
+// Database Configuration
 export const DATABASE_CONFIG = {
+  databaseUrl: process.env.DATABASE_URL || '',
   supabase: {
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
-    enabled: Boolean(
-      process.env.NEXT_PUBLIC_SUPABASE_URL &&
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    ),
-  },
-  databaseUrl: process.env.DATABASE_URL,
-} as const;
-
-// Authentication Configuration
-export const AUTH_CONFIG = {
-  nextAuth: {
-    secret: process.env.NEXTAUTH_SECRET,
-    url: process.env.NEXTAUTH_URL || 'http://localhost:3000',
-    enabled: Boolean(process.env.NEXTAUTH_SECRET),
+    enabled: !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
+    serviceKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
   },
 } as const;
 
-// External Services Configuration
-export const EXTERNAL_SERVICES = {
+// AI Configuration
+export const AI_CONFIG = {
+  deepseek: {
+    apiKey: process.env.DEEPSEEK_API_KEY || '',
+    enabled: !!process.env.DEEPSEEK_API_KEY,
+  },
+} as const;
+
+// Security Configuration
+export const SECURITY_CONFIG = {
+  virusScan: process.env.ENABLE_VIRUS_SCAN !== 'false',
+  pdfCompression: process.env.ENABLE_PDF_COMPRESSION !== 'false',
+  clamAvUrl: process.env.CLAMAV_SIGNATURES_URL || '/api/cron/updateClamSig',
+} as const;
+
+// Rate Limiting
+export const RATE_LIMITS = {
+  upload: parseInt(process.env.RATE_LIMIT_UPLOAD || '10', 10),
+  aiMessage: parseInt(process.env.RATE_LIMIT_AI_MESSAGE || '50', 10),
+} as const;
+
+// Email Configuration
+export const EMAIL_CONFIG = {
+  resendApiKey: process.env.RESEND_API_KEY || '',
+  from: process.env.EMAIL_FROM || 'noreply@mahardika.com',
+  enabled: !!process.env.RESEND_API_KEY,
+} as const;
+
+// Payment Configuration
+export const PAYMENT_CONFIG = {
   stripe: {
-    publicKey: process.env.STRIPE_PUBLIC_KEY,
-    secretKey: process.env.STRIPE_SECRET_KEY,
-    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
-    enabled: Boolean(
-      process.env.STRIPE_PUBLIC_KEY && process.env.STRIPE_SECRET_KEY
-    ),
-  },
-  sendgrid: {
-    apiKey: process.env.SENDGRID_API_KEY,
-    fromEmail: process.env.SENDGRID_FROM_EMAIL,
-    enabled: Boolean(process.env.SENDGRID_API_KEY),
+    secretKey: process.env.STRIPE_SECRET_KEY || '',
+    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
+    enabled: !!process.env.STRIPE_SECRET_KEY,
   },
 } as const;
 
 // Analytics Configuration
 export const ANALYTICS_CONFIG = {
-  googleAnalytics: {
-    id: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID,
-    measurementId: process.env.GOOGLE_ANALYTICS_MEASUREMENT_ID,
-    enabled: Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID),
-  },
-  mixpanel: {
-    token: process.env.NEXT_PUBLIC_MIXPANEL_TOKEN,
-    enabled: Boolean(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN),
-  },
-  vercel: {
-    analyticsId: process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID,
-    enabled: Boolean(process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ID),
+  posthog: {
+    key: process.env.NEXT_PUBLIC_POSTHOG_KEY || '',
+    host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
+    enabled: !!process.env.NEXT_PUBLIC_POSTHOG_KEY,
   },
 } as const;
+
+// Helper function to check if we're in production
+export const isProduction = () => process.env.NODE_ENV === 'production';
+
+// Helper function to check if we're in development
+export const isDevelopment = () => process.env.NODE_ENV === 'development';
+
+// Helper function to get Supabase config
+export const getSupabaseConfig = () => {
+  if (!DATABASE_CONFIG.supabase.enabled) {
+    throw new Error('Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY');
+  }
+  
+  return {
+    url: DATABASE_CONFIG.supabase.url,
+    anonKey: DATABASE_CONFIG.supabase.anonKey,
+    serviceKey: DATABASE_CONFIG.supabase.serviceKey,
+  };
+};
+
+// Helper function to validate environment
+export const validateEnvironment = () => {
+  const errors: string[] = [];
+  
+  // Check required variables for production
+  if (isProduction()) {
+    if (!DATABASE_CONFIG.databaseUrl) {
+      errors.push('DATABASE_URL is required in production');
+    }
+    
+    if (!DATABASE_CONFIG.supabase.enabled) {
+      errors.push('Supabase configuration is required in production');
+    }
+    
+    if (!process.env.NEXTAUTH_SECRET) {
+      errors.push('NEXTAUTH_SECRET is required in production');
+    }
+  }
+  
+  if (errors.length > 0) {
+    throw new Error(`Environment validation failed:\n${errors.join('\n')}`);
+  }
+  
+  return true;
+};
 
 // Type definitions for better TypeScript support
 export type MahardikaColors = typeof MAHARDIKA_COLORS;
 export type AppConfig = typeof APP_CONFIG;
-export type FeatureFlags = typeof FEATURE_FLAGS;
+export type Features = typeof FEATURES;
 
 /**
  * ✅ SAFETY IMPROVEMENT: Safe environment variable getter with validation
@@ -114,57 +158,8 @@ export function getRequiredEnvVar(key: string, context?: string): string {
  * ✅ SAFETY IMPROVEMENT: Safe Supabase configuration getter
  * Validates required Supabase environment variables
  */
-export function getSupabaseConfig() {
-  try {
-    return {
-      url: getRequiredEnvVar('NEXT_PUBLIC_SUPABASE_URL', 'Supabase client'),
-      anonKey: getRequiredEnvVar('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'Supabase client'),
-    };
-  } catch (error) {
-    console.error('Supabase configuration error:', error);
-    // Return safe defaults for development
-    if (APP_CONFIG.environment === 'development') {
-      return {
-        url: 'http://localhost:54321',
-        anonKey: 'development-key',
-      };
-    }
-    throw error;
-  }
-}
-
-/**
- * ✅ SAFETY IMPROVEMENT: Safe service role key getter
- * Only for server-side usage
- */
 export function getSupabaseServiceKey(): string {
   return getRequiredEnvVar('SUPABASE_SERVICE_ROLE_KEY', 'Supabase service operations');
-}
-
-/**
- * Validates required environment variables for the application
- * @returns Array of missing required environment variables
- */
-export function validateEnvironment(): string[] {
-  const missing: string[] = [];
-
-  // Check required variables based on environment
-  if (APP_CONFIG.environment === 'production') {
-    if (!API_CONFIG.deepseek.apiKey) {
-      missing.push('DEEPSEEK_API_KEY');
-    }
-    if (!AUTH_CONFIG.nextAuth.secret) {
-      missing.push('NEXTAUTH_SECRET');
-    }
-    if (!DATABASE_CONFIG.supabase.url) {
-      missing.push('NEXT_PUBLIC_SUPABASE_URL');
-    }
-    if (!DATABASE_CONFIG.supabase.anonKey) {
-      missing.push('NEXT_PUBLIC_SUPABASE_ANON_KEY');
-    }
-  }
-
-  return missing;
 }
 
 /**
@@ -179,28 +174,14 @@ export function getEnvVar(key: string, fallback?: string): string | undefined {
 }
 
 /**
- * Checks if application is running in development mode
- */
-export function isDevelopment(): boolean {
-  return APP_CONFIG.environment === 'development';
-}
-
-/**
- * Checks if application is running in production mode
- */
-export function isProduction(): boolean {
-  return APP_CONFIG.environment === 'production';
-}
-
-/**
  * Gets Mahardika brand theme colors
  */
 export function getMahardikaTheme() {
   return {
     colors: MAHARDIKA_COLORS,
     isDark: false, // Default theme setting
-    primary: MAHARDIKA_COLORS.navy,
-    accent: MAHARDIKA_COLORS.gold,
+    primary: MAHARDIKA_COLORS.primary,
+    accent: MAHARDIKA_COLORS.accent,
   };
 }
 
@@ -210,12 +191,12 @@ export function getMahardikaTheme() {
 export function getEnvironmentSummary() {
   return {
     app: APP_CONFIG,
-    features: FEATURE_FLAGS,
+    features: FEATURES,
     services: {
-      deepseek: API_CONFIG.deepseek.enabled,
+      deepseek: AI_CONFIG.deepseek.enabled,
       supabase: DATABASE_CONFIG.supabase.enabled,
-      stripe: EXTERNAL_SERVICES.stripe.enabled,
-      analytics: ANALYTICS_CONFIG.googleAnalytics.enabled,
+      stripe: PAYMENT_CONFIG.stripe.enabled,
+      analytics: ANALYTICS_CONFIG.posthog.enabled,
     },
     branding: MAHARDIKA_COLORS,
   };
@@ -225,11 +206,13 @@ export function getEnvironmentSummary() {
 export default {
   colors: MAHARDIKA_COLORS,
   app: APP_CONFIG,
-  api: API_CONFIG,
-  features: FEATURE_FLAGS,
+  features: FEATURES,
   database: DATABASE_CONFIG,
-  auth: AUTH_CONFIG,
-  external: EXTERNAL_SERVICES,
+  ai: AI_CONFIG,
+  security: SECURITY_CONFIG,
+  rateLimits: RATE_LIMITS,
+  email: EMAIL_CONFIG,
+  payment: PAYMENT_CONFIG,
   analytics: ANALYTICS_CONFIG,
   getRequiredEnvVar,
   getSupabaseConfig,

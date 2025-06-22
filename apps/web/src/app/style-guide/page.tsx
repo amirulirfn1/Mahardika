@@ -315,13 +315,13 @@ const StyleGuidePage = () => {
                   </BrandButton>
                 </div>
                 <div className="d-flex flex-wrap gap-3 mb-4">
-                  <BrandButton variant=\"gold-outline\" size="sm">
+                  <BrandButton variant="gold-outline" size="sm">
                     Small Outline Gold
                   </BrandButton>
-                  <BrandButton variant=\"gold-outline\" size="md">
+                  <BrandButton variant="gold-outline" size="md">
                     Medium Outline Gold
                   </BrandButton>
-                  <BrandButton variant=\"gold-outline\" size="lg">
+                  <BrandButton variant="gold-outline" size="lg">
                     Large Outline Gold
                   </BrandButton>
                 </div>
@@ -506,7 +506,7 @@ const StyleGuidePage = () => {
                   <BrandButton variant="gold" size="md">
                     Submit Form
                   </BrandButton>
-                  <BrandButton variant=\"gold-outline\" size="md">
+                  <BrandButton variant="gold-outline" size="md">
                     Reset
                   </BrandButton>
                 </div>
@@ -556,7 +556,7 @@ const StyleGuidePage = () => {
                   Eye-catching gradient cards for showcase sections and featured
                   content.
                 </p>
-                <BrandButton variant=\"gold-outline\" size="sm">
+                <BrandButton variant="gold-outline" size="sm">
                   Discover
                 </BrandButton>
               </BrandCard>

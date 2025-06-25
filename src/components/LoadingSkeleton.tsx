@@ -106,7 +106,9 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 
 // Specific skeleton components for common use cases
 
-export const CardSkeleton: React.FC<{ className?: string }> = ({ className = '' }) => (
+export const CardSkeleton: React.FC<{ className?: string }> = ({
+  className = '',
+}) => (
   <div
     className={`p-4 ${className}`}
     style={{
@@ -167,7 +169,9 @@ export const ListItemSkeleton: React.FC = () => (
   </div>
 );
 
-export const TableRowSkeleton: React.FC<{ columns?: number }> = ({ columns = 5 }) => (
+export const TableRowSkeleton: React.FC<{ columns?: number }> = ({
+  columns = 5,
+}) => (
   <tr>
     {Array.from({ length: columns }).map((_, index) => (
       <td key={index} className="p-3">
@@ -179,7 +183,12 @@ export const TableRowSkeleton: React.FC<{ columns?: number }> = ({ columns = 5 }
 
 export const ProfileSkeleton: React.FC = () => (
   <div className="text-center p-4">
-    <Skeleton variant="circular" width={120} height={120} className="mx-auto mb-4" />
+    <Skeleton
+      variant="circular"
+      width={120}
+      height={120}
+      className="mx-auto mb-4"
+    />
     <Skeleton variant="text" height={24} width={200} className="mx-auto mb-2" />
     <Skeleton variant="text" height={16} width={150} className="mx-auto mb-4" />
     <div className="d-flex justify-content-center gap-3">
@@ -214,8 +223,18 @@ export const HomeSkeleton: React.FC = () => (
     {/* Services Section Skeleton */}
     <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
       <div className="container">
-        <Skeleton variant="text" height={48} width={300} className="mx-auto mb-4" />
-        <Skeleton variant="text" height={20} width={500} className="mx-auto mb-5" />
+        <Skeleton
+          variant="text"
+          height={48}
+          width={300}
+          className="mx-auto mb-4"
+        />
+        <Skeleton
+          variant="text"
+          height={20}
+          width={500}
+          className="mx-auto mb-5"
+        />
         <div className="row g-4">
           {Array.from({ length: 6 }).map((_, index) => (
             <div key={index} className="col-md-6 col-lg-4">
@@ -248,7 +267,7 @@ export const DashboardSkeleton: React.FC = () => (
         </div>
       ))}
     </div>
-    
+
     <div className="row g-4 mt-4">
       {/* Chart */}
       <div className="col-lg-8">
@@ -264,7 +283,7 @@ export const DashboardSkeleton: React.FC = () => (
           <Skeleton variant="rectangular" height={300} />
         </div>
       </div>
-      
+
       {/* Activity Feed */}
       <div className="col-lg-4">
         <div
@@ -283,4 +302,4 @@ export const DashboardSkeleton: React.FC = () => (
       </div>
     </div>
   </div>
-); 
+);

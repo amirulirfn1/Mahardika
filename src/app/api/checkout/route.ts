@@ -60,7 +60,11 @@ function validateOrderRequest(body: any): CreateOrderRequest {
     if (!item.productId || typeof item.productId !== 'string') {
       throw new Error('Product ID is required for all items');
     }
-    if (!item.quantity || typeof item.quantity !== 'number' || item.quantity <= 0) {
+    if (
+      !item.quantity ||
+      typeof item.quantity !== 'number' ||
+      item.quantity <= 0
+    ) {
       throw new Error('Valid quantity is required for all items');
     }
     if (!item.price || typeof item.price !== 'number' || item.price <= 0) {
@@ -79,18 +83,14 @@ export async function POST(request: NextRequest) {
 
     const cookieStore = cookies();
     const { url, anonKey } = getSupabaseConfig();
-    
-    const supabase = createServerClient(
-      url,
-      anonKey,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value;
-          },
+
+    const supabase = createServerClient(url, anonKey, {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
         },
-      }
-    );
+      },
+    });
 
     // Calculate total amount
     const totalAmount = validatedData.items.reduce(
@@ -156,16 +156,24 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Checkout error:', error);
-    
+
     // ✅ SECURITY IMPROVEMENT: Don't expose internal error details
-    const errorMessage = error instanceof Error ? 
-      (error.message.includes('required') || error.message.includes('Invalid') ? 
-        error.message : 'An internal error occurred') 
-      : 'An internal error occurred';
-    
+    const errorMessage =
+      error instanceof Error
+        ? error.message.includes('required') ||
+          error.message.includes('Invalid')
+          ? error.message
+          : 'An internal error occurred'
+        : 'An internal error occurred';
+
     return NextResponse.json(
       { error: errorMessage },
-      { status: error instanceof Error && error.message.includes('required') ? 400 : 500 }
+      {
+        status:
+          error instanceof Error && error.message.includes('required')
+            ? 400
+            : 500,
+      }
     );
   }
 }
@@ -185,22 +193,19 @@ export async function GET(request: NextRequest) {
 
     const cookieStore = cookies();
     const { url, anonKey } = getSupabaseConfig();
-    
-    const supabase = createServerClient(
-      url,
-      anonKey,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value;
-          },
+
+    const supabase = createServerClient(url, anonKey, {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
         },
-      }
-    );
+      },
+    });
 
     const { data: order, error } = await supabase
       .from('orders')
-      .select(`
+      .select(
+        `
         *,
         order_items (
           *,
@@ -210,15 +215,13 @@ export async function GET(request: NextRequest) {
             image_url
           )
         )
-      `)
+      `
+      )
       .eq('id', orderId)
       .single();
 
     if (error || !order) {
-      return NextResponse.json(
-        { error: 'Order not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
 
     return NextResponse.json({ order });

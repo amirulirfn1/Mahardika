@@ -122,8 +122,9 @@ export class ErrorBoundary extends Component<Props, State> {
                 lineHeight: theme.typography.lineHeight.relaxed,
               }}
             >
-              We're sorry for the inconvenience. An unexpected error has occurred.
-              Please try refreshing the page or contact support if the problem persists.
+              We're sorry for the inconvenience. An unexpected error has
+              occurred. Please try refreshing the page or contact support if the
+              problem persists.
             </p>
 
             {/* Error Details (Development Only) */}
@@ -206,10 +207,10 @@ export class ErrorBoundary extends Component<Props, State> {
                   textDecoration: 'none',
                   fontWeight: theme.typography.fontWeight.medium,
                 }}
-                onMouseEnter={(e) => {
+                onMouseEnter={e => {
                   e.currentTarget.style.textDecoration = 'underline';
                 }}
-                onMouseLeave={(e) => {
+                onMouseLeave={e => {
                   e.currentTarget.style.textDecoration = 'none';
                 }}
               >
@@ -287,18 +288,18 @@ export const ErrorPage: React.FC<{
         >
           {error?.message || 'An unexpected error occurred'}
         </p>
-        <div style={{ display: 'flex', gap: theme.spacing[4], justifyContent: 'center' }}>
-          <Button
-            variant="primary"
-            onClick={() => window.location.reload()}
-          >
+        <div
+          style={{
+            display: 'flex',
+            gap: theme.spacing[4],
+            justifyContent: 'center',
+          }}
+        >
+          <Button variant="primary" onClick={() => window.location.reload()}>
             Try Again
           </Button>
           {reset && (
-            <Button
-              variant="outline"
-              onClick={reset}
-            >
+            <Button variant="outline" onClick={reset}>
               Reset
             </Button>
           )}
@@ -306,4 +307,4 @@ export const ErrorPage: React.FC<{
       </div>
     </div>
   );
-}; 
+};

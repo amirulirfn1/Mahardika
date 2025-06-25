@@ -53,7 +53,7 @@ export function apiErrorHandler(
   console.error('API Error:', error);
 
   const isProduction = process.env.NODE_ENV === 'production';
-  
+
   // Default error response
   let status = 500;
   let errorResponse: ErrorResponse = {
@@ -117,20 +117,20 @@ export function apiErrorHandler(
  * @param handler - The API handler function
  * @returns Wrapped handler with error handling
  */
-export function withErrorHandler<T extends (...args: any[]) => Promise<NextResponse>>(
-  handler: T
-): T {
+export function withErrorHandler<
+  T extends (...args: any[]) => Promise<NextResponse>,
+>(handler: T): T {
   return (async (...args: Parameters<T>) => {
     const requestId = crypto.randomUUID();
-    
+
     try {
       const response = await handler(...args);
-      
+
       // Add request ID to successful responses
       if (response.headers && !response.headers.get('X-Request-ID')) {
         response.headers.set('X-Request-ID', requestId);
       }
-      
+
       return response;
     } catch (error) {
       return apiErrorHandler(error, requestId);
@@ -153,7 +153,7 @@ export function validateRequiredFields(
   }
 
   const missingFields = requiredFields.filter(field => !body[field]);
-  
+
   if (missingFields.length > 0) {
     throw new ValidationError(
       `Missing required fields: ${missingFields.join(', ')}`
@@ -168,7 +168,7 @@ export function validateRequiredFields(
  */
 export function validateEmail(email: string): void {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
+
   if (!emailRegex.test(email)) {
     throw new ValidationError('Invalid email format');
   }
@@ -180,9 +180,10 @@ export function validateEmail(email: string): void {
  * @throws ValidationError if UUID is invalid
  */
 export function validateUUID(uuid: string): void {
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-  
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
   if (!uuidRegex.test(uuid)) {
     throw new ValidationError('Invalid UUID format');
   }
-} 
+}

@@ -60,7 +60,7 @@ export class MahardikaLogger {
     if (!context) return undefined;
 
     const sanitized = { ...context };
-    
+
     // Remove sensitive fields
     const sensitiveFields = [
       'password',
@@ -78,7 +78,7 @@ export class MahardikaLogger {
 
     const sanitizeObject = (obj: any): any => {
       if (obj === null || typeof obj !== 'object') return obj;
-      
+
       if (Array.isArray(obj)) {
         return obj.map(sanitizeObject);
       }
@@ -106,8 +106,8 @@ export class MahardikaLogger {
   private formatForConsole(entry: LogEntry): string {
     const colors = {
       debug: '\x1b[36m', // Cyan
-      info: '\x1b[32m',  // Green
-      warn: '\x1b[33m',  // Yellow
+      info: '\x1b[32m', // Green
+      warn: '\x1b[33m', // Yellow
       error: '\x1b[31m', // Red
       reset: '\x1b[0m',
     };
@@ -115,9 +115,9 @@ export class MahardikaLogger {
     const levelColor = colors[entry.level] || colors.reset;
     const prefix = `${levelColor}[${entry.level.toUpperCase()}]${colors.reset}`;
     const timestamp = entry.timestamp.split('T')[1].split('.')[0];
-    
+
     let output = `${prefix} ${timestamp} ${entry.message}`;
-    
+
     if (entry.context && Object.keys(entry.context).length > 0) {
       output += `\n  Context: ${JSON.stringify(entry.context, null, 2)}`;
     }
@@ -182,7 +182,13 @@ export class MahardikaLogger {
   /**
    * API response logging
    */
-  apiResponse(method: string, path: string, status: number, duration?: number, context?: LogContext): void {
+  apiResponse(
+    method: string,
+    path: string,
+    status: number,
+    duration?: number,
+    context?: LogContext
+  ): void {
     const level = status >= 400 ? 'error' : status >= 300 ? 'warn' : 'info';
     this[level](`API Response: ${method} ${path} - ${status}`, {
       method,
@@ -235,22 +241,33 @@ export class MahardikaLogger {
 export const logger = new MahardikaLogger();
 
 // Create specialized loggers for different services
-export const createLogger = (serviceName: string) => new MahardikaLogger(serviceName);
+export const createLogger = (serviceName: string) =>
+  new MahardikaLogger(serviceName);
 
 // Export convenience functions
 export const log = {
-  debug: (message: string, context?: LogContext) => logger.debug(message, context),
-  info: (message: string, context?: LogContext) => logger.info(message, context),
-  warn: (message: string, context?: LogContext) => logger.warn(message, context),
-  error: (message: string, context?: LogContext) => logger.error(message, context),
-  apiRequest: (method: string, path: string, context?: LogContext) => 
+  debug: (message: string, context?: LogContext) =>
+    logger.debug(message, context),
+  info: (message: string, context?: LogContext) =>
+    logger.info(message, context),
+  warn: (message: string, context?: LogContext) =>
+    logger.warn(message, context),
+  error: (message: string, context?: LogContext) =>
+    logger.error(message, context),
+  apiRequest: (method: string, path: string, context?: LogContext) =>
     logger.apiRequest(method, path, context),
-  apiResponse: (method: string, path: string, status: number, duration?: number, context?: LogContext) => 
-    logger.apiResponse(method, path, status, duration, context),
+  apiResponse: (
+    method: string,
+    path: string,
+    status: number,
+    duration?: number,
+    context?: LogContext
+  ) => logger.apiResponse(method, path, status, duration, context),
   auth: (event: string, context?: LogContext) => logger.auth(event, context),
-  security: (event: string, context?: LogContext) => logger.security(event, context),
-  performance: (operation: string, duration: number, context?: LogContext) => 
+  security: (event: string, context?: LogContext) =>
+    logger.security(event, context),
+  performance: (operation: string, duration: number, context?: LogContext) =>
     logger.performance(operation, duration, context),
 };
 
-export default logger; 
+export default logger;

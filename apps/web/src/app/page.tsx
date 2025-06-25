@@ -23,7 +23,7 @@ export default function HomePage() {
   return (
     <div style={{ backgroundColor: theme.colors.background.primary }}>
       {/* Hero Section - Fiverr Inspired */}
-      <section 
+      <section
         style={{
           padding: `${theme.spacing[16]} ${theme.spacing[4]}`,
           background: `linear-gradient(180deg, ${theme.colors.background.secondary} 0%, ${theme.colors.background.primary} 100%)`,
@@ -32,7 +32,7 @@ export default function HomePage() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <h1 
+              <h1
                 style={{
                   fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
                   fontWeight: theme.typography.fontWeight.bold,
@@ -44,7 +44,7 @@ export default function HomePage() {
                 }}
               >
                 Find the perfect{' '}
-                <span 
+                <span
                   style={{
                     color: theme.colors.primary,
                   }}
@@ -53,8 +53,8 @@ export default function HomePage() {
                 </span>{' '}
                 services for your business
               </h1>
-              
-              <p 
+
+              <p
                 style={{
                   fontSize: theme.typography.fontSize.xl,
                   color: theme.colors.text.secondary,
@@ -63,11 +63,13 @@ export default function HomePage() {
                   fontWeight: theme.typography.fontWeight.regular,
                 }}
               >
-                Work with talented professionals and grow your business. Millions of people use Mahardika to turn their ideas into reality.
+                Work with talented professionals and grow your business.
+                Millions of people use Mahardika to turn their ideas into
+                reality.
               </p>
 
               {/* Search Bar */}
-              <div 
+              <div
                 className="d-flex gap-2 mb-8"
                 style={{
                   backgroundColor: 'white',
@@ -86,7 +88,7 @@ export default function HomePage() {
                     padding: theme.spacing[3],
                   }}
                 />
-                <Button 
+                <Button
                   variant="primary"
                   size="lg"
                   style={{ minWidth: '120px' }}
@@ -97,10 +99,20 @@ export default function HomePage() {
 
               {/* Popular Searches */}
               <div className="d-flex flex-wrap align-items-center gap-2">
-                <span style={{ color: theme.colors.text.tertiary, fontSize: theme.typography.fontSize.sm }}>
+                <span
+                  style={{
+                    color: theme.colors.text.tertiary,
+                    fontSize: theme.typography.fontSize.sm,
+                  }}
+                >
                   Popular:
                 </span>
-                {['Website Design', 'WordPress', 'Logo Design', 'AI Services'].map((term) => (
+                {[
+                  'Website Design',
+                  'WordPress',
+                  'Logo Design',
+                  'AI Services',
+                ].map(term => (
                   <a
                     key={term}
                     href={`/shop?search=${encodeURIComponent(term)}`}
@@ -113,12 +125,13 @@ export default function HomePage() {
                       border: `1px solid ${theme.colors.border.light}`,
                       transition: 'all 0.2s ease',
                     }}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={e => {
                       e.currentTarget.style.borderColor = theme.colors.primary;
                       e.currentTarget.style.color = theme.colors.primary;
                     }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = theme.colors.border.light;
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor =
+                        theme.colors.border.light;
                       e.currentTarget.style.color = theme.colors.text.secondary;
                     }}
                   >
@@ -128,7 +141,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="col-lg-6 mt-8 mt-lg-0">
-              <div 
+              <div
                 style={{
                   position: 'relative',
                   borderRadius: theme.borderRadius['2xl'],
@@ -136,7 +149,7 @@ export default function HomePage() {
                   height: '500px',
                 }}
               >
-                <div 
+                <div
                   style={{
                     position: 'absolute',
                     inset: 0,
@@ -173,10 +186,19 @@ export default function HomePage() {
                       ★
                     </div>
                     <div>
-                      <div style={{ fontWeight: theme.typography.fontWeight.semibold }}>
+                      <div
+                        style={{
+                          fontWeight: theme.typography.fontWeight.semibold,
+                        }}
+                      >
                         Andrea, Fashion Designer
                       </div>
-                      <div style={{ color: theme.colors.text.secondary, fontSize: theme.typography.fontSize.sm }}>
+                      <div
+                        style={{
+                          color: theme.colors.text.secondary,
+                          fontSize: theme.typography.fontSize.sm,
+                        }}
+                      >
                         Completed 50 projects with 5.0 rating
                       </div>
                     </div>
@@ -189,7 +211,7 @@ export default function HomePage() {
       </section>
 
       {/* Trust Bar */}
-      <section 
+      <section
         style={{
           backgroundColor: theme.colors.background.secondary,
           padding: `${theme.spacing[8]} ${theme.spacing[4]}`,
@@ -198,34 +220,78 @@ export default function HomePage() {
         <div className="container">
           <div className="row align-items-center text-center">
             <div className="col-6 col-md-3">
-              <div style={{ fontSize: theme.typography.fontSize['2xl'], fontWeight: theme.typography.fontWeight.bold, color: theme.colors.text.primary }}>
+              <div
+                style={{
+                  fontSize: theme.typography.fontSize['2xl'],
+                  fontWeight: theme.typography.fontWeight.bold,
+                  color: theme.colors.text.primary,
+                }}
+              >
                 5M+
               </div>
-              <div style={{ fontSize: theme.typography.fontSize.sm, color: theme.colors.text.tertiary }}>
+              <div
+                style={{
+                  fontSize: theme.typography.fontSize.sm,
+                  color: theme.colors.text.tertiary,
+                }}
+              >
                 Active Buyers
               </div>
             </div>
             <div className="col-6 col-md-3">
-              <div style={{ fontSize: theme.typography.fontSize['2xl'], fontWeight: theme.typography.fontWeight.bold, color: theme.colors.text.primary }}>
+              <div
+                style={{
+                  fontSize: theme.typography.fontSize['2xl'],
+                  fontWeight: theme.typography.fontWeight.bold,
+                  color: theme.colors.text.primary,
+                }}
+              >
                 2M+
               </div>
-              <div style={{ fontSize: theme.typography.fontSize.sm, color: theme.colors.text.tertiary }}>
+              <div
+                style={{
+                  fontSize: theme.typography.fontSize.sm,
+                  color: theme.colors.text.tertiary,
+                }}
+              >
                 Professional Sellers
               </div>
             </div>
             <div className="col-6 col-md-3 mt-4 mt-md-0">
-              <div style={{ fontSize: theme.typography.fontSize['2xl'], fontWeight: theme.typography.fontWeight.bold, color: theme.colors.text.primary }}>
+              <div
+                style={{
+                  fontSize: theme.typography.fontSize['2xl'],
+                  fontWeight: theme.typography.fontWeight.bold,
+                  color: theme.colors.text.primary,
+                }}
+              >
                 10M+
               </div>
-              <div style={{ fontSize: theme.typography.fontSize.sm, color: theme.colors.text.tertiary }}>
+              <div
+                style={{
+                  fontSize: theme.typography.fontSize.sm,
+                  color: theme.colors.text.tertiary,
+                }}
+              >
                 Completed Projects
               </div>
             </div>
             <div className="col-6 col-md-3 mt-4 mt-md-0">
-              <div style={{ fontSize: theme.typography.fontSize['2xl'], fontWeight: theme.typography.fontWeight.bold, color: theme.colors.text.primary }}>
+              <div
+                style={{
+                  fontSize: theme.typography.fontSize['2xl'],
+                  fontWeight: theme.typography.fontWeight.bold,
+                  color: theme.colors.text.primary,
+                }}
+              >
                 98%
               </div>
-              <div style={{ fontSize: theme.typography.fontSize.sm, color: theme.colors.text.tertiary }}>
+              <div
+                style={{
+                  fontSize: theme.typography.fontSize.sm,
+                  color: theme.colors.text.tertiary,
+                }}
+              >
                 Satisfaction Rate
               </div>
             </div>
@@ -236,7 +302,7 @@ export default function HomePage() {
       {/* Popular Services - Fiverr Style */}
       <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
         <div className="container">
-          <h2 
+          <h2
             style={{
               fontSize: theme.typography.fontSize['3xl'],
               fontWeight: theme.typography.fontWeight.bold,
@@ -252,37 +318,43 @@ export default function HomePage() {
               {
                 title: 'Logo Design',
                 subtitle: 'Build your brand',
-                image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop',
+                image:
+                  'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop',
                 color: '#00732e',
               },
               {
                 title: 'WordPress',
                 subtitle: 'Customize your site',
-                image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
+                image:
+                  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
                 color: '#ff7640',
               },
               {
                 title: 'Voice Over',
                 subtitle: 'Share your message',
-                image: 'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=300&fit=crop',
+                image:
+                  'https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=400&h=300&fit=crop',
                 color: '#003912',
               },
               {
                 title: 'Video Editing',
                 subtitle: 'Engage your audience',
-                image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44b?w=400&h=300&fit=crop',
+                image:
+                  'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44b?w=400&h=300&fit=crop',
                 color: '#4d1727',
               },
               {
                 title: 'Social Media',
                 subtitle: 'Reach more customers',
-                image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop',
+                image:
+                  'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop',
                 color: '#687200',
               },
               {
                 title: 'SEO',
                 subtitle: 'Unlock growth online',
-                image: 'https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=400&h=300&fit=crop',
+                image:
+                  'https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=400&h=300&fit=crop',
                 color: '#421300',
               },
             ].map((service, index) => (
@@ -317,10 +389,10 @@ export default function HomePage() {
                           background: `url('${service.image}') center/cover`,
                           transition: 'transform 0.3s ease',
                         }}
-                        onMouseEnter={(e) => {
+                        onMouseEnter={e => {
                           e.currentTarget.style.transform = 'scale(1.05)';
                         }}
-                        onMouseLeave={(e) => {
+                        onMouseLeave={e => {
                           e.currentTarget.style.transform = 'scale(1)';
                         }}
                       />
@@ -339,10 +411,20 @@ export default function HomePage() {
                           color: 'white',
                         }}
                       >
-                        <div style={{ fontSize: theme.typography.fontSize.xs, opacity: 0.9 }}>
+                        <div
+                          style={{
+                            fontSize: theme.typography.fontSize.xs,
+                            opacity: 0.9,
+                          }}
+                        >
                           {service.subtitle}
                         </div>
-                        <div style={{ fontSize: theme.typography.fontSize.xl, fontWeight: theme.typography.fontWeight.semibold }}>
+                        <div
+                          style={{
+                            fontSize: theme.typography.fontSize.xl,
+                            fontWeight: theme.typography.fontWeight.semibold,
+                          }}
+                        >
                           {service.title}
                         </div>
                       </div>
@@ -356,7 +438,7 @@ export default function HomePage() {
       </section>
 
       {/* Business Solutions */}
-      <section 
+      <section
         style={{
           padding: `${theme.spacing[16]} ${theme.spacing[4]}`,
           backgroundColor: theme.colors.background.secondary,
@@ -365,7 +447,7 @@ export default function HomePage() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <h2 
+              <h2
                 style={{
                   fontSize: theme.typography.fontSize['3xl'],
                   fontWeight: theme.typography.fontWeight.bold,
@@ -380,22 +462,26 @@ export default function HomePage() {
                 {
                   icon: '🏆',
                   title: 'The best for every budget',
-                  description: 'Find high-quality services at every price point. No hourly rates, just project-based pricing.',
+                  description:
+                    'Find high-quality services at every price point. No hourly rates, just project-based pricing.',
                 },
                 {
                   icon: '⚡',
                   title: 'Quality work done quickly',
-                  description: 'Find the right freelancer to begin working on your project within minutes.',
+                  description:
+                    'Find the right freelancer to begin working on your project within minutes.',
                 },
                 {
                   icon: '✅',
                   title: 'Protected payments, every time',
-                  description: "Always know what you'll pay upfront. Your payment isn't released until you approve the work.",
+                  description:
+                    "Always know what you'll pay upfront. Your payment isn't released until you approve the work.",
                 },
                 {
                   icon: '🌟',
                   title: '24/7 support',
-                  description: 'Questions? Our round-the-clock support team is available to help anytime, anywhere.',
+                  description:
+                    'Questions? Our round-the-clock support team is available to help anytime, anywhere.',
                 },
               ].map((feature, index) => (
                 <div key={index} className="d-flex gap-4 mb-5">
@@ -413,7 +499,7 @@ export default function HomePage() {
                     {feature.icon}
                   </div>
                   <div>
-                    <h3 
+                    <h3
                       style={{
                         fontSize: theme.typography.fontSize.lg,
                         fontWeight: theme.typography.fontWeight.semibold,
@@ -423,7 +509,7 @@ export default function HomePage() {
                     >
                       {feature.title}
                     </h3>
-                    <p 
+                    <p
                       style={{
                         fontSize: theme.typography.fontSize.base,
                         color: theme.colors.text.tertiary,
@@ -438,7 +524,7 @@ export default function HomePage() {
               ))}
             </div>
             <div className="col-lg-6 mt-8 mt-lg-0">
-              <div 
+              <div
                 style={{
                   position: 'relative',
                   borderRadius: theme.borderRadius['2xl'],
@@ -474,8 +560,13 @@ export default function HomePage() {
               overflow: 'hidden',
             }}
           >
-            <div style={{ padding: `${theme.spacing[12]} ${theme.spacing[8]}`, color: 'white' }}>
-              <h2 
+            <div
+              style={{
+                padding: `${theme.spacing[12]} ${theme.spacing[8]}`,
+                color: 'white',
+              }}
+            >
+              <h2
                 style={{
                   fontSize: theme.typography.fontSize['3xl'],
                   fontWeight: theme.typography.fontWeight.bold,
@@ -484,7 +575,7 @@ export default function HomePage() {
               >
                 Find the talent needed to get your business growing
               </h2>
-              <p 
+              <p
                 style={{
                   fontSize: theme.typography.fontSize.lg,
                   marginBottom: theme.spacing[8],
@@ -495,11 +586,11 @@ export default function HomePage() {
               >
                 Get matched with perfect talent by a customer success manager
               </p>
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
-                onClick={() => window.location.href = '/auth'}
-                style={{ 
+                onClick={() => (window.location.href = '/auth')}
+                style={{
                   minWidth: '200px',
                   backgroundColor: 'white',
                   color: theme.colors.primary,

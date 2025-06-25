@@ -260,10 +260,10 @@ describe('Prisma Database Client', () => {
       });
 
       it('should create user with agency filter', async () => {
-        const userData = { 
-          name: 'New User', 
+        const userData = {
+          name: 'New User',
           email: 'new@example.com',
-          role: 'member'
+          role: 'member',
         };
         const mockUser = {
           id: mockUserId,
@@ -367,8 +367,8 @@ describe('Prisma Database Client', () => {
           product_name: 'Basic Auto Coverage',
           start_date: new Date('2024-01-01'),
           end_date: new Date('2024-12-31'),
-          premium_amount: 1200.00,
-          coverage_amount: 50000.00
+          premium_amount: 1200.0,
+          coverage_amount: 50000.0,
         };
         const mockPolicy = { id: '2', ...policyData, agency_id: mockAgencyId };
         (prisma.policy.create as jest.Mock).mockResolvedValue(mockPolicy);
@@ -441,7 +441,7 @@ describe('Prisma Database Client', () => {
           metric_type: 'count',
           agency_id: mockAgencyId,
           recorded_at: new Date(),
-          period_type: 'monthly'
+          period_type: 'monthly',
         };
         const mockAnalytics = {
           id: '1',
@@ -481,7 +481,7 @@ describe('Prisma Database Client', () => {
           action: 'UPDATE',
           resource: 'user',
           resource_id: mockUserId,
-          agency_id: mockAgencyId
+          agency_id: mockAgencyId,
         };
         const mockLog = { id: '1', ...logData, agency_id: mockAgencyId };
         (prisma.auditLog.create as jest.Mock).mockResolvedValue(mockLog);
@@ -519,7 +519,7 @@ describe('Prisma Database Client', () => {
           title: 'New Message',
           content: 'You have a new message',
           type: 'info',
-          agency_id: mockAgencyId
+          agency_id: mockAgencyId,
         };
         const mockNotification = {
           id: '1',

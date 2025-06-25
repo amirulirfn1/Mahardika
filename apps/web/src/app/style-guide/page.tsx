@@ -611,11 +611,11 @@ const StyleGuidePage = () => {
                     consistent rounded corners
                   </li>
                   <li className="mb-2">
-                    <strong>Spacing:</strong> Follow Bootstrap's spacing scale
+                    <strong>Spacing:</strong> Follow Bootstrap spacing scale
                     (rem-based)
                   </li>
                   <li className="mb-2">
-                    <strong>Typography:</strong> Use Bootstrap's default font
+                    <strong>Typography:</strong> Use Bootstrap default font
                     stack and sizing
                   </li>
                   <li className="mb-2">

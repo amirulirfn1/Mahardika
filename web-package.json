@@ -62,12 +62,7 @@
     "tsx": "^4.7.0",
     "typescript": "^5.8.3"
   },
-  "keywords": [
-    "mahardika",
-    "web",
-    "nextjs",
-    "showcase"
-  ],
+  "keywords": ["mahardika", "web", "nextjs", "showcase"],
   "author": "Mahardika Team",
   "engines": {
     "node": "20.x"

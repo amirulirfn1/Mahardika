@@ -8,7 +8,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { log } from './logger';
 
 export class ValidationError extends Error {
-  constructor(message: string, public field?: string, public code?: string) {
+  constructor(
+    message: string,
+    public field?: string,
+    public code?: string
+  ) {
     super(message);
     this.name = 'ValidationError';
   }
@@ -58,7 +62,8 @@ export class StringValidator implements Validator<string> {
   }
 
   uuid(): this {
-    this.pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    this.pattern =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     return this;
   }
 
@@ -93,11 +98,15 @@ export class StringValidator implements Validator<string> {
     }
 
     if (this.minLength !== undefined && sanitized.length < this.minLength) {
-      throw new ValidationError(`Value must be at least ${this.minLength} characters`);
+      throw new ValidationError(
+        `Value must be at least ${this.minLength} characters`
+      );
     }
 
     if (this.maxLength !== undefined && sanitized.length > this.maxLength) {
-      throw new ValidationError(`Value must be at most ${this.maxLength} characters`);
+      throw new ValidationError(
+        `Value must be at most ${this.maxLength} characters`
+      );
     }
 
     if (this.pattern && !this.pattern.test(sanitized)) {
@@ -150,7 +159,7 @@ export class NumberValidator implements Validator<number> {
 
   validate(value: any): number {
     const num = Number(value);
-    
+
     if (isNaN(num)) {
       throw new ValidationError('Value must be a number');
     }
@@ -183,13 +192,13 @@ export class BooleanValidator implements Validator<boolean> {
     if (typeof value === 'boolean') {
       return value;
     }
-    
+
     if (typeof value === 'string') {
       const lower = value.toLowerCase();
       if (lower === 'true' || lower === '1') return true;
       if (lower === 'false' || lower === '0') return false;
     }
-    
+
     throw new ValidationError('Value must be a boolean');
   }
 
@@ -226,11 +235,15 @@ export class ArrayValidator<T> implements Validator<T[]> {
     }
 
     if (this.minLength !== undefined && value.length < this.minLength) {
-      throw new ValidationError(`Array must have at least ${this.minLength} items`);
+      throw new ValidationError(
+        `Array must have at least ${this.minLength} items`
+      );
     }
 
     if (this.maxLength !== undefined && value.length > this.maxLength) {
-      throw new ValidationError(`Array must have at most ${this.maxLength} items`);
+      throw new ValidationError(
+        `Array must have at most ${this.maxLength} items`
+      );
     }
 
     if (this.itemValidator) {
@@ -256,7 +269,9 @@ export class ArrayValidator<T> implements Validator<T[]> {
 /**
  * Object validator
  */
-export class ObjectValidator<T extends Record<string, any>> implements Validator<T> {
+export class ObjectValidator<T extends Record<string, any>>
+  implements Validator<T>
+{
   private schema: { [K in keyof T]: Validator<T[K]> };
 
   constructor(schema: { [K in keyof T]: Validator<T[K]> }) {
@@ -275,7 +290,9 @@ export class ObjectValidator<T extends Record<string, any>> implements Validator
       try {
         result[key] = validator.validate(value[key]);
       } catch (error) {
-        errors.push(`${key}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        errors.push(
+          `${key}: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
       }
     }
 
@@ -316,16 +333,21 @@ export const v = {
   string: () => new StringValidator(),
   number: () => new NumberValidator(),
   boolean: () => new BooleanValidator(),
-  array: <T>(itemValidator?: Validator<T>) => new ArrayValidator<T>(itemValidator),
-  object: <T extends Record<string, any>>(schema: { [K in keyof T]: Validator<T[K]> }) => 
-    new ObjectValidator<T>(schema),
+  array: <T>(itemValidator?: Validator<T>) =>
+    new ArrayValidator<T>(itemValidator),
+  object: <T extends Record<string, any>>(schema: {
+    [K in keyof T]: Validator<T[K]>;
+  }) => new ObjectValidator<T>(schema),
 };
 
 /**
  * ✅ MIDDLEWARE: Request validation middleware
  */
 export function validateRequest<T>(validator: Validator<T>) {
-  return async (request: NextRequest, handler: (data: T, request: NextRequest) => Promise<NextResponse>) => {
+  return async (
+    request: NextRequest,
+    handler: (data: T, request: NextRequest) => Promise<NextResponse>
+  ) => {
     const requestId = crypto.randomUUID();
     const startTime = Date.now();
 
@@ -338,7 +360,13 @@ export function validateRequest<T>(validator: Validator<T>) {
       const response = await handler(validatedData, request);
       const duration = Date.now() - startTime;
 
-      log.apiResponse(request.method, request.nextUrl.pathname, response.status, duration, { requestId });
+      log.apiResponse(
+        request.method,
+        request.nextUrl.pathname,
+        response.status,
+        duration,
+        { requestId }
+      );
 
       return response;
     } catch (error) {
@@ -353,11 +381,11 @@ export function validateRequest<T>(validator: Validator<T>) {
         });
 
         return NextResponse.json(
-          { 
+          {
             error: 'Validation failed',
             message: error.message,
             field: error.field,
-            requestId 
+            requestId,
           },
           { status: 400 }
         );
@@ -370,9 +398,9 @@ export function validateRequest<T>(validator: Validator<T>) {
       });
 
       return NextResponse.json(
-        { 
+        {
           error: 'Internal server error',
-          requestId 
+          requestId,
         },
         { status: 500 }
       );
@@ -390,9 +418,10 @@ export function validateRateLimit(
   const requests = new Map<string, { count: number; resetTime: number }>();
 
   return (request: NextRequest): boolean => {
-    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0] || 
-                    request.headers.get('x-real-ip') || 
-                    'unknown';
+    const clientIp =
+      request.headers.get('x-forwarded-for')?.split(',')[0] ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
 
     const now = Date.now();
     const key = `${clientIp}:${request.nextUrl.pathname}`;
@@ -429,8 +458,12 @@ export const validators = {
   description: () => v.string().max(1000),
   price: () => v.number().positive(),
   quantity: () => v.number().integer().min(1),
-  phone: () => v.string().regex(/^\+?[\d\s\-\(\)]+$/).max(20),
+  phone: () =>
+    v
+      .string()
+      .regex(/^\+?[\d\s\-\(\)]+$/)
+      .max(20),
   postalCode: () => v.string().max(20),
 };
 
-export default v; 
+export default v;

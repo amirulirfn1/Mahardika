@@ -26,3 +26,5 @@ export { default as StarRatingForm } from './StarRatingForm';
 export { default as TokenUsageCard } from './TokenUsageCard';
 export { default as AiMessageModal } from './AiMessageModal';
 export { default as HeroImageUploadModal } from './HeroImageUploadModal';
+export { Navigation } from './Navigation';
+export { Footer } from './Footer';

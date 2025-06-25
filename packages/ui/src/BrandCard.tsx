@@ -13,10 +13,14 @@ export const BrandCard: React.FC<BrandCardProps> = ({
   ...props
 }) => {
   // Map legacy brand variants to new variants
-  const mappedVariant = 
-    variant === 'navy-primary' ? 'elevated' :
-    variant === 'gold-primary' ? 'glass' :
-    variant === 'navy-outline' || variant === 'gold-outline' ? 'outlined' : 'default';
+  const mappedVariant =
+    variant === 'navy-primary'
+      ? 'elevated'
+      : variant === 'gold-primary'
+        ? 'glass'
+        : variant === 'navy-outline' || variant === 'gold-outline'
+          ? 'outlined'
+          : 'default';
 
   // Additional brand-specific styles
   const brandStyle = {
@@ -24,43 +28,21 @@ export const BrandCard: React.FC<BrandCardProps> = ({
     ...style,
   };
 
-  return (
-    <Card
-      variant={mappedVariant}
-      style={brandStyle}
-      {...props}
-    />
-  );
+  return <Card variant={mappedVariant} style={brandStyle} {...props} />;
 };
 
 // Template variations for common use cases
 export const BrandCardTemplates = {
   NavyHero: (props: Omit<BrandCardProps, 'variant'>) => (
-    <BrandCard
-      variant="navy-primary"
-      size="lg"
-      {...props}
-    />
+    <BrandCard variant="navy-primary" size="lg" {...props} />
   ),
   GoldFeature: (props: Omit<BrandCardProps, 'variant'>) => (
-    <BrandCard
-      variant="gold-primary"
-      size="lg"
-      {...props}
-    />
+    <BrandCard variant="gold-primary" size="lg" {...props} />
   ),
   NavyOutlineInfo: (props: Omit<BrandCardProps, 'variant'>) => (
-    <BrandCard
-      variant="navy-outline"
-      size="md"
-      {...props}
-    />
+    <BrandCard variant="navy-outline" size="md" {...props} />
   ),
   GoldOutlineAccent: (props: Omit<BrandCardProps, 'variant'>) => (
-    <BrandCard
-      variant="gold-outline"
-      size="md"
-      {...props}
-    />
+    <BrandCard variant="gold-outline" size="md" {...props} />
   ),
 };

@@ -7,9 +7,17 @@
 
 // Export colors and theme
 export { colors } from './colors';
-export type { Colors, ColorKey } from './colors';
+export type { Colors } from './colors';
 
-export { theme, bootstrapColorOverrides, scssVariables, typography, spacing, borderRadius, components } from './theme';
+export {
+  theme,
+  bootstrapColorOverrides,
+  scssVariables,
+  typography,
+  spacing,
+  borderRadius,
+  components,
+} from './theme';
 export type {
   Theme,
   ThemeColors,

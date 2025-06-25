@@ -79,7 +79,8 @@ const featuredServices = [
     sellerLevel: 'Level 2',
     price: 'From $299',
     originalPrice: '$399',
-    description: 'I will develop a complete web application with modern tech stack',
+    description:
+      'I will develop a complete web application with modern tech stack',
     category: 'programming-tech',
     image: '💻',
     rating: 4.8,
@@ -106,9 +107,14 @@ const featuredServices = [
 
 const ShopIndexPage = () => {
   return (
-    <div style={{ backgroundColor: theme.colors.background.primary, minHeight: '100vh' }}>
+    <div
+      style={{
+        backgroundColor: theme.colors.background.primary,
+        minHeight: '100vh',
+      }}
+    >
       {/* Hero Section */}
-      <section 
+      <section
         style={{
           padding: `${theme.spacing[12]} ${theme.spacing[4]} ${theme.spacing[16]}`,
           background: `linear-gradient(135deg, ${theme.colors.background.primary} 0%, ${theme.colors.background.secondary} 100%)`,
@@ -117,7 +123,7 @@ const ShopIndexPage = () => {
       >
         <div className="container">
           <div className="text-center">
-            <h1 
+            <h1
               style={{
                 fontSize: theme.typography.fontSize['5xl'],
                 fontWeight: theme.typography.fontWeight.bold,
@@ -127,7 +133,7 @@ const ShopIndexPage = () => {
               }}
             >
               Find services for your{' '}
-              <span 
+              <span
                 style={{
                   background: theme.colors.background.gradient,
                   WebkitBackgroundClip: 'text',
@@ -138,7 +144,7 @@ const ShopIndexPage = () => {
                 business
               </span>
             </h1>
-            <p 
+            <p
               style={{
                 fontSize: theme.typography.fontSize.xl,
                 color: theme.colors.text.secondary,
@@ -148,11 +154,12 @@ const ShopIndexPage = () => {
                 lineHeight: theme.typography.lineHeight.relaxed,
               }}
             >
-              Browse thousands of services from top-rated professionals around the world
+              Browse thousands of services from top-rated professionals around
+              the world
             </p>
 
             {/* Search Bar */}
-            <div 
+            <div
               className="d-flex flex-column flex-md-row gap-3 justify-content-center align-items-center"
               style={{ maxWidth: '600px', margin: '0 auto' }}
             >
@@ -169,28 +176,24 @@ const ShopIndexPage = () => {
                     outline: 'none',
                     fontFamily: theme.typography.fontFamily.body,
                   }}
-                  onFocus={(e) => {
+                  onFocus={e => {
                     e.target.style.borderColor = theme.colors.primary;
                     e.target.style.boxShadow = `0 0 0 3px ${theme.colors.hover.overlay}`;
                   }}
-                  onBlur={(e) => {
+                  onBlur={e => {
                     e.target.style.borderColor = theme.colors.border.light;
                     e.target.style.boxShadow = 'none';
                   }}
                 />
               </div>
-              <Button 
-                variant="primary"
-                size="lg"
-                style={{ minWidth: '120px' }}
-              >
+              <Button variant="primary" size="lg" style={{ minWidth: '120px' }}>
                 Search
               </Button>
             </div>
 
             {/* Popular Searches */}
             <div className="mt-4">
-              <span 
+              <span
                 style={{
                   fontSize: theme.typography.fontSize.sm,
                   color: theme.colors.text.tertiary,
@@ -199,34 +202,37 @@ const ShopIndexPage = () => {
               >
                 Popular:
               </span>
-              {['Logo Design', 'WordPress', 'SEO', 'Social Media'].map((term, index) => (
-                <span
-                  key={index}
-                  style={{
-                    display: 'inline-block',
-                    padding: `${theme.spacing[1]} ${theme.spacing[3]}`,
-                    marginRight: theme.spacing[2],
-                    marginBottom: theme.spacing[2],
-                    backgroundColor: theme.colors.background.primary,
-                    color: theme.colors.text.secondary,
-                    border: `1px solid ${theme.colors.border.light}`,
-                    borderRadius: theme.borderRadius.full,
-                    fontSize: theme.typography.fontSize.sm,
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = theme.colors.primary;
-                    e.currentTarget.style.color = theme.colors.primary;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = theme.colors.border.light;
-                    e.currentTarget.style.color = theme.colors.text.secondary;
-                  }}
-                >
-                  {term}
-                </span>
-              ))}
+              {['Logo Design', 'WordPress', 'SEO', 'Social Media'].map(
+                (term, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      display: 'inline-block',
+                      padding: `${theme.spacing[1]} ${theme.spacing[3]}`,
+                      marginRight: theme.spacing[2],
+                      marginBottom: theme.spacing[2],
+                      backgroundColor: theme.colors.background.primary,
+                      color: theme.colors.text.secondary,
+                      border: `1px solid ${theme.colors.border.light}`,
+                      borderRadius: theme.borderRadius.full,
+                      fontSize: theme.typography.fontSize.sm,
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.borderColor = theme.colors.primary;
+                      e.currentTarget.style.color = theme.colors.primary;
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor =
+                        theme.colors.border.light;
+                      e.currentTarget.style.color = theme.colors.text.secondary;
+                    }}
+                  >
+                    {term}
+                  </span>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -237,7 +243,7 @@ const ShopIndexPage = () => {
         <div className="container">
           <div className="d-flex align-items-center justify-content-between mb-8">
             <div>
-              <h2 
+              <h2
                 style={{
                   fontSize: theme.typography.fontSize['3xl'],
                   fontWeight: theme.typography.fontWeight.bold,
@@ -247,7 +253,7 @@ const ShopIndexPage = () => {
               >
                 Featured Services
               </h2>
-              <p 
+              <p
                 style={{
                   fontSize: theme.typography.fontSize.base,
                   color: theme.colors.text.secondary,
@@ -275,7 +281,9 @@ const ShopIndexPage = () => {
                     position: 'relative',
                     overflow: 'hidden',
                   }}
-                  onClick={() => window.location.href = `/shop/${service.slug}`}
+                  onClick={() =>
+                    (window.location.href = `/shop/${service.slug}`)
+                  }
                 >
                   {service.badge && (
                     <div
@@ -283,10 +291,12 @@ const ShopIndexPage = () => {
                         position: 'absolute',
                         top: theme.spacing[3],
                         left: theme.spacing[3],
-                        backgroundColor: 
-                          service.badge === 'Best Seller' ? theme.colors.primary :
-                          service.badge === 'Premium' ? theme.colors.secondary :
-                          theme.colors.error,
+                        backgroundColor:
+                          service.badge === 'Best Seller'
+                            ? theme.colors.primary
+                            : service.badge === 'Premium'
+                              ? theme.colors.secondary
+                              : theme.colors.error,
                         color: 'white',
                         padding: `${theme.spacing[1]} ${theme.spacing[2]}`,
                         borderRadius: theme.borderRadius.md,
@@ -301,7 +311,7 @@ const ShopIndexPage = () => {
                   )}
 
                   {/* Service Image */}
-                  <div 
+                  <div
                     style={{
                       height: '160px',
                       backgroundColor: theme.colors.background.secondary,
@@ -317,7 +327,7 @@ const ShopIndexPage = () => {
 
                   {/* Seller Info */}
                   <div className="d-flex align-items-center mb-3">
-                    <div 
+                    <div
                       style={{
                         width: '32px',
                         height: '32px',
@@ -335,7 +345,7 @@ const ShopIndexPage = () => {
                       {service.seller.charAt(0)}
                     </div>
                     <div>
-                      <div 
+                      <div
                         style={{
                           fontSize: theme.typography.fontSize.sm,
                           fontWeight: theme.typography.fontWeight.medium,
@@ -344,7 +354,7 @@ const ShopIndexPage = () => {
                       >
                         {service.seller}
                       </div>
-                      <div 
+                      <div
                         style={{
                           fontSize: theme.typography.fontSize.xs,
                           color: theme.colors.text.tertiary,
@@ -356,7 +366,7 @@ const ShopIndexPage = () => {
                   </div>
 
                   {/* Service Title */}
-                  <h3 
+                  <h3
                     style={{
                       fontSize: theme.typography.fontSize.lg,
                       fontWeight: theme.typography.fontWeight.semibold,
@@ -370,8 +380,15 @@ const ShopIndexPage = () => {
 
                   {/* Rating & Reviews */}
                   <div className="d-flex align-items-center mb-3">
-                    <span style={{ color: '#FFD700', marginRight: theme.spacing[1] }}>★</span>
-                    <span 
+                    <span
+                      style={{
+                        color: '#FFD700',
+                        marginRight: theme.spacing[1],
+                      }}
+                    >
+                      ★
+                    </span>
+                    <span
                       style={{
                         fontSize: theme.typography.fontSize.sm,
                         fontWeight: theme.typography.fontWeight.medium,
@@ -381,7 +398,7 @@ const ShopIndexPage = () => {
                     >
                       {service.rating}
                     </span>
-                    <span 
+                    <span
                       style={{
                         fontSize: theme.typography.fontSize.sm,
                         color: theme.colors.text.tertiary,
@@ -394,7 +411,7 @@ const ShopIndexPage = () => {
                   {/* Footer */}
                   <div className="d-flex align-items-center justify-content-between mt-auto">
                     <div>
-                      <div 
+                      <div
                         style={{
                           fontSize: theme.typography.fontSize.sm,
                           color: theme.colors.text.tertiary,
@@ -403,7 +420,7 @@ const ShopIndexPage = () => {
                       >
                         {service.originalPrice}
                       </div>
-                      <div 
+                      <div
                         style={{
                           fontSize: theme.typography.fontSize.lg,
                           fontWeight: theme.typography.fontWeight.semibold,
@@ -413,7 +430,7 @@ const ShopIndexPage = () => {
                         {service.price}
                       </div>
                     </div>
-                    <div 
+                    <div
                       style={{
                         fontSize: theme.typography.fontSize.sm,
                         color: theme.colors.text.tertiary,
@@ -430,7 +447,7 @@ const ShopIndexPage = () => {
       </section>
 
       {/* Categories Grid */}
-      <section 
+      <section
         style={{
           padding: `${theme.spacing[16]} ${theme.spacing[4]}`,
           backgroundColor: theme.colors.background.secondary,
@@ -438,7 +455,7 @@ const ShopIndexPage = () => {
       >
         <div className="container">
           <div className="text-center mb-12">
-            <h2 
+            <h2
               style={{
                 fontSize: theme.typography.fontSize['3xl'],
                 fontWeight: theme.typography.fontWeight.bold,
@@ -448,7 +465,7 @@ const ShopIndexPage = () => {
             >
               Browse by Category
             </h2>
-            <p 
+            <p
               style={{
                 fontSize: theme.typography.fontSize.lg,
                 color: theme.colors.text.secondary,
@@ -473,7 +490,9 @@ const ShopIndexPage = () => {
                     textAlign: 'center',
                     position: 'relative',
                   }}
-                  onClick={() => window.location.href = `/shop?category=${category.slug}`}
+                  onClick={() =>
+                    (window.location.href = `/shop?category=${category.slug}`)
+                  }
                 >
                   {category.featured && (
                     <div
@@ -488,12 +507,14 @@ const ShopIndexPage = () => {
                       }}
                     />
                   )}
-                  
-                  <div style={{ fontSize: '4rem', marginBottom: theme.spacing[4] }}>
+
+                  <div
+                    style={{ fontSize: '4rem', marginBottom: theme.spacing[4] }}
+                  >
                     {category.icon}
                   </div>
-                  
-                  <h3 
+
+                  <h3
                     style={{
                       fontSize: theme.typography.fontSize.xl,
                       fontWeight: theme.typography.fontWeight.semibold,
@@ -503,8 +524,8 @@ const ShopIndexPage = () => {
                   >
                     {category.name}
                   </h3>
-                  
-                  <p 
+
+                  <p
                     style={{
                       fontSize: theme.typography.fontSize.base,
                       color: theme.colors.text.tertiary,
@@ -514,8 +535,8 @@ const ShopIndexPage = () => {
                   >
                     {category.description}
                   </p>
-                  
-                  <div 
+
+                  <div
                     style={{
                       fontSize: theme.typography.fontSize.sm,
                       color: theme.colors.primary,
@@ -535,7 +556,7 @@ const ShopIndexPage = () => {
       <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
         <div className="container">
           <div className="text-center">
-            <h2 
+            <h2
               style={{
                 fontSize: theme.typography.fontSize['3xl'],
                 fontWeight: theme.typography.fontWeight.bold,
@@ -545,20 +566,29 @@ const ShopIndexPage = () => {
             >
               Trusted by businesses worldwide
             </h2>
-            
+
             <div className="row g-4">
               {[
-                { icon: '🏆', title: '10,000+', subtitle: 'Projects completed' },
+                {
+                  icon: '🏆',
+                  title: '10,000+',
+                  subtitle: 'Projects completed',
+                },
                 { icon: '⭐', title: '4.9/5', subtitle: 'Average rating' },
                 { icon: '🌍', title: '150+', subtitle: 'Countries served' },
                 { icon: '👥', title: '5,000+', subtitle: 'Active sellers' },
               ].map((stat, index) => (
                 <div key={index} className="col-md-6 col-lg-3">
                   <div className="text-center">
-                    <div style={{ fontSize: '3rem', marginBottom: theme.spacing[2] }}>
+                    <div
+                      style={{
+                        fontSize: '3rem',
+                        marginBottom: theme.spacing[2],
+                      }}
+                    >
                       {stat.icon}
                     </div>
-                    <div 
+                    <div
                       style={{
                         fontSize: theme.typography.fontSize['2xl'],
                         fontWeight: theme.typography.fontWeight.bold,
@@ -568,7 +598,7 @@ const ShopIndexPage = () => {
                     >
                       {stat.title}
                     </div>
-                    <div 
+                    <div
                       style={{
                         fontSize: theme.typography.fontSize.base,
                         color: theme.colors.text.secondary,

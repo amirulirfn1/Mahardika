@@ -131,7 +131,7 @@ export default function PrivacyPolicy() {
                 <ul className="mb-3" style={{ color: colors.gray[700] }}>
                   <li>Name, address, phone number, and email address</li>
                   <li>Date of birth and Social Security number</li>
-                  <li>Driver's license information</li>
+                  <li>Driver&apos;s license information</li>
                   <li>Financial information for premium payments</li>
                   <li>Insurance history and claims information</li>
                 </ul>

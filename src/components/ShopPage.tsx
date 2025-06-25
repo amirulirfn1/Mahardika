@@ -237,7 +237,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                         fontStyle: 'italic',
                       }}
                     >
-                      "{reviews[currentReviewIndex].comment}"
+                      &ldquo;{reviews[currentReviewIndex].comment}&rdquo;
                     </blockquote>
                     <footer className="blockquote-footer">
                       <strong style={{ color: colors.navy }}>
@@ -401,7 +401,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
             <div className="col-lg-8">
               <h2 className="display-6 fw-bold mb-3">Ready to Get Started?</h2>
               <p className="lead mb-4">
-                Don't wait – secure your coverage today with {agency.name}
+                Don&apos;t wait – secure your coverage today with {agency.name}
               </p>
               <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
                 <BrandButton

@@ -211,7 +211,7 @@ export function getEnvironmentSummary() {
 }
 
 // Export all configurations for easy access
-export default {
+const envConfig = {
   colors: MAHARDIKA_COLORS,
   app: APP_CONFIG,
   features: FEATURES,
@@ -232,3 +232,5 @@ export default {
   getMahardikaTheme,
   getEnvironmentSummary,
 };
+
+export default envConfig;

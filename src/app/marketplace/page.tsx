@@ -27,15 +27,15 @@ interface Product {
 }
 
 interface MarketplacePageProps {
-  searchParams: {
+  searchParams: Promise<{
     category?: string;
     search?: string;
     sort?: string;
     featured?: string;
-  };
+  }>;
 }
 
-async function getProducts(searchParams: MarketplacePageProps['searchParams']) {
+async function getProducts(searchParams: Awaited<MarketplacePageProps['searchParams']>) {
   const cookieStore = cookies();
   const { url, anonKey } = getSupabaseConfig();
 
@@ -156,7 +156,8 @@ async function getCategories() {
 export default async function MarketplacePage({
   searchParams,
 }: MarketplacePageProps) {
-  const products = await getProducts(searchParams);
+  const resolvedSearchParams = await searchParams;
+  const products = await getProducts(resolvedSearchParams);
   const categories = await getCategories();
 
   const formatPrice = (price: number, currency: string = 'USD') => {
@@ -314,7 +315,7 @@ export default async function MarketplacePage({
                     name="search"
                     className="form-control form-control-lg"
                     placeholder="Search products..."
-                    defaultValue={searchParams.search || ''}
+                    defaultValue={resolvedSearchParams.search || ''}
                     style={{ borderRadius: '0.5rem' }}
                   />
                 </div>
@@ -322,7 +323,7 @@ export default async function MarketplacePage({
                   <select
                     name="category"
                     className="form-select form-select-lg"
-                    defaultValue={searchParams.category || ''}
+                    defaultValue={resolvedSearchParams.category || ''}
                     style={{ borderRadius: '0.5rem' }}
                   >
                     <option value="">All Categories</option>
@@ -362,14 +363,14 @@ export default async function MarketplacePage({
                 </span>
                 <a
                   href="/marketplace"
-                  className={`badge text-decoration-none ${!searchParams.featured ? 'bg-primary' : 'bg-secondary'}`}
+                  className={`badge text-decoration-none ${!resolvedSearchParams.featured ? 'bg-primary' : 'bg-secondary'}`}
                   style={{ fontSize: '0.8rem' }}
                 >
                   All Products
                 </a>
                 <a
                   href="/marketplace?featured=true"
-                  className={`badge text-decoration-none ${searchParams.featured === 'true' ? 'bg-warning text-dark' : 'bg-secondary'}`}
+                  className={`badge text-decoration-none ${resolvedSearchParams.featured === 'true' ? 'bg-warning text-dark' : 'bg-secondary'}`}
                   style={{ fontSize: '0.8rem' }}
                 >
                   Featured Only
@@ -379,25 +380,25 @@ export default async function MarketplacePage({
             <div className="col-md-6">
               <form method="GET" className="d-flex justify-content-md-end">
                 {/* Preserve existing search params */}
-                {searchParams.category && (
+                {resolvedSearchParams.category && (
                   <input
                     type="hidden"
                     name="category"
-                    value={searchParams.category}
+                    value={resolvedSearchParams.category}
                   />
                 )}
-                {searchParams.search && (
+                {resolvedSearchParams.search && (
                   <input
                     type="hidden"
                     name="search"
-                    value={searchParams.search}
+                    value={resolvedSearchParams.search}
                   />
                 )}
-                {searchParams.featured && (
+                {resolvedSearchParams.featured && (
                   <input
                     type="hidden"
                     name="featured"
-                    value={searchParams.featured}
+                    value={resolvedSearchParams.featured}
                   />
                 )}
 
@@ -413,7 +414,7 @@ export default async function MarketplacePage({
                     id="sort"
                     name="sort"
                     className="form-select"
-                    defaultValue={searchParams.sort || ''}
+                    defaultValue={resolvedSearchParams.sort || ''}
                     onChange={e => {
                       const form = e.target.closest('form') as HTMLFormElement;
                       form.submit();
@@ -440,8 +441,8 @@ export default async function MarketplacePage({
         <div className="container">
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h2 className="h4 mb-0" style={{ color: colors.navy }}>
-              {searchParams.search
-                ? `Search Results for "${searchParams.search}"`
+              {resolvedSearchParams.search
+                ? `Search Results for "${resolvedSearchParams.search}"`
                 : 'Available Products'}
             </h2>
             <span style={{ color: colors.gray[600] }}>
@@ -458,7 +459,7 @@ export default async function MarketplacePage({
                 No products found
               </h3>
               <p style={{ color: colors.gray[600] }}>
-                {searchParams.search || searchParams.category
+                {resolvedSearchParams.search || resolvedSearchParams.category
                   ? 'Try adjusting your search criteria or browse all products.'
                   : 'No products are currently available in the marketplace.'}
               </p>

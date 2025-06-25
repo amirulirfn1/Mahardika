@@ -38,18 +38,14 @@ interface MarketplacePageProps {
 async function getProducts(searchParams: MarketplacePageProps['searchParams']) {
   const cookieStore = cookies();
   const { url, anonKey } = getSupabaseConfig();
-  
-  const supabase = createServerClient(
-    url,
-    anonKey,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
+
+  const supabase = createServerClient(url, anonKey, {
+    cookies: {
+      get(name: string) {
+        return cookieStore.get(name)?.value;
       },
-    }
-  );
+    },
+  });
 
   // ✅ PERFORMANCE IMPROVEMENT: Added error handling and better query structure
   try {
@@ -129,18 +125,14 @@ async function getProducts(searchParams: MarketplacePageProps['searchParams']) {
 async function getCategories() {
   const cookieStore = cookies();
   const { url, anonKey } = getSupabaseConfig();
-  
-  const supabase = createServerClient(
-    url,
-    anonKey,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
+
+  const supabase = createServerClient(url, anonKey, {
+    cookies: {
+      get(name: string) {
+        return cookieStore.get(name)?.value;
       },
-    }
-  );
+    },
+  });
 
   try {
     const { data: categories } = await supabase

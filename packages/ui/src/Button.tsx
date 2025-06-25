@@ -41,8 +41,14 @@ export const Button: React.FC<ButtonProps> = ({
   const variantStyles = theme.components.button.variants[variant];
 
   // Interactive states
-  const hoverStyles = isHovered && !disabled && !loading ? (variantStyles as any)[':hover'] || {} : {};
-  const activeStyles = isFocused && !disabled && !loading ? (variantStyles as any)[':active'] || {} : {};
+  const hoverStyles =
+    isHovered && !disabled && !loading
+      ? (variantStyles as any)[':hover'] || {}
+      : {};
+  const activeStyles =
+    isFocused && !disabled && !loading
+      ? (variantStyles as any)[':active'] || {}
+      : {};
 
   // Computed styles
   const computedStyles = {
@@ -119,9 +125,17 @@ export const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {loading && <LoadingSpinner />}
-      {!loading && leftIcon && <span style={{ display: 'flex', alignItems: 'center' }}>{leftIcon}</span>}
+      {!loading && leftIcon && (
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          {leftIcon}
+        </span>
+      )}
       <span style={{ display: 'flex', alignItems: 'center' }}>{children}</span>
-      {!loading && rightIcon && <span style={{ display: 'flex', alignItems: 'center' }}>{rightIcon}</span>}
+      {!loading && rightIcon && (
+        <span style={{ display: 'flex', alignItems: 'center' }}>
+          {rightIcon}
+        </span>
+      )}
     </button>
   );
 };

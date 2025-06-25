@@ -1,10 +1,7 @@
 'use client';
 
 import React from 'react';
-import {
-  BrandButton,
-  BrandCard,
-} from '@mahardika/ui';
+import { BrandButton, BrandCard } from '@mahardika/ui';
 
 export default function BrandShowcasePage() {
   return (
@@ -115,15 +112,9 @@ export default function BrandShowcasePage() {
                   gap: '1rem',
                 }}
               >
-                <BrandButton variant="navy">
-                  Primary Action
-                </BrandButton>
-                <BrandButton variant="gold">
-                  Secondary Action
-                </BrandButton>
-                <BrandButton variant="navy">
-                  Feature Button
-                </BrandButton>
+                <BrandButton variant="navy">Primary Action</BrandButton>
+                <BrandButton variant="gold">Secondary Action</BrandButton>
+                <BrandButton variant="navy">Feature Button</BrandButton>
               </div>
             </div>
           </div>

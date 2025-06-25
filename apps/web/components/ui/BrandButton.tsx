@@ -5,7 +5,14 @@ import { theme } from './theme';
 
 export interface BrandButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'navy' | 'gold' | 'navy-outline' | 'gold-outline' | 'outline-navy' | 'outline-gold' | 'gradient';
+  variant?:
+    | 'navy'
+    | 'gold'
+    | 'navy-outline'
+    | 'gold-outline'
+    | 'outline-navy'
+    | 'outline-gold'
+    | 'gradient';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   disabled?: boolean;
@@ -38,9 +45,12 @@ const getBrandButtonStyles = (
   const sizeStyles = theme.components.button.sizes;
 
   // Map new variant names to legacy names for backward compatibility
-  const mappedVariant = 
-    variant === 'navy-outline' ? 'outline-navy' :
-    variant === 'gold-outline' ? 'outline-gold' : variant;
+  const mappedVariant =
+    variant === 'navy-outline'
+      ? 'outline-navy'
+      : variant === 'gold-outline'
+        ? 'outline-gold'
+        : variant;
 
   // Enhanced variant styles with Mahardika brand identity
   const variantStyles = {

@@ -11,7 +11,7 @@ export const MAHARDIKA_COLORS = {
   success: process.env.NEXT_PUBLIC_BRAND_SUCCESS || '#1dbf73',
   warning: process.env.NEXT_PUBLIC_BRAND_WARNING || '#ffb33e',
   error: process.env.NEXT_PUBLIC_BRAND_ERROR || '#e4421e',
-  
+
   // Legacy support (will be removed in future)
   navy: process.env.NEXT_PUBLIC_BRAND_NAVY || '#404145',
   gold: process.env.NEXT_PUBLIC_BRAND_GOLD || '#1dbf73',
@@ -35,7 +35,10 @@ export const FEATURES = {
 export const DATABASE_CONFIG = {
   databaseUrl: process.env.DATABASE_URL || '',
   supabase: {
-    enabled: !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
+    enabled: !!(
+      process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ),
     url: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
     anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
     serviceKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
@@ -97,9 +100,11 @@ export const isDevelopment = () => process.env.NODE_ENV === 'development';
 // Helper function to get Supabase config
 export const getSupabaseConfig = () => {
   if (!DATABASE_CONFIG.supabase.enabled) {
-    throw new Error('Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY');
+    throw new Error(
+      'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY'
+    );
   }
-  
+
   return {
     url: DATABASE_CONFIG.supabase.url,
     anonKey: DATABASE_CONFIG.supabase.anonKey,
@@ -110,26 +115,26 @@ export const getSupabaseConfig = () => {
 // Helper function to validate environment
 export const validateEnvironment = () => {
   const errors: string[] = [];
-  
+
   // Check required variables for production
   if (isProduction()) {
     if (!DATABASE_CONFIG.databaseUrl) {
       errors.push('DATABASE_URL is required in production');
     }
-    
+
     if (!DATABASE_CONFIG.supabase.enabled) {
       errors.push('Supabase configuration is required in production');
     }
-    
+
     if (!process.env.NEXTAUTH_SECRET) {
       errors.push('NEXTAUTH_SECRET is required in production');
     }
   }
-  
+
   if (errors.length > 0) {
     throw new Error(`Environment validation failed:\n${errors.join('\n')}`);
   }
-  
+
   return true;
 };
 
@@ -159,7 +164,10 @@ export function getRequiredEnvVar(key: string, context?: string): string {
  * Validates required Supabase environment variables
  */
 export function getSupabaseServiceKey(): string {
-  return getRequiredEnvVar('SUPABASE_SERVICE_ROLE_KEY', 'Supabase service operations');
+  return getRequiredEnvVar(
+    'SUPABASE_SERVICE_ROLE_KEY',
+    'Supabase service operations'
+  );
 }
 
 /**

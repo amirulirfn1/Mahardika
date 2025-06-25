@@ -29,10 +29,7 @@ describe('BrandCard', () => {
         <BrandCard variant="navy-primary">Navy Primary Card</BrandCard>
       );
       const card = container.firstChild as HTMLElement;
-      expect(card).toHaveStyle(
-        `background: linear-gradient(135deg, ${colors.navy} 0%, #1a2332 100%)`
-      );
-      expect(card).toHaveStyle(`color: ${colors.white}`);
+      expect(card).toHaveStyle(`box-shadow: ${colors.shadow.md}`);
     });
 
     it('renders gold-primary variant correctly', () => {

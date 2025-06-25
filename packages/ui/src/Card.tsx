@@ -35,11 +35,14 @@ export const Card: React.FC<CardProps> = ({
 
   // Base styles from theme
   const baseStyles = theme.components.card.base;
-  const sizeStyles = padding ? theme.components.card.sizes[size] : { padding: '0' };
+  const sizeStyles = padding
+    ? theme.components.card.sizes[size]
+    : { padding: '0' };
   const variantStyles = theme.components.card.variants[variant];
 
   // Interactive states with proper typing
-  const hoverStyles = isHovered && hoverable ? (variantStyles as any)[':hover'] || {} : {};
+  const hoverStyles =
+    isHovered && hoverable ? (variantStyles as any)[':hover'] || {} : {};
 
   // Computed styles
   const computedStyles = {
@@ -110,14 +113,16 @@ export const Card: React.FC<CardProps> = ({
   const headerStyles = {
     marginBottom: padding ? theme.spacing[4] : '0',
     paddingBottom: header && padding ? theme.spacing[4] : '0',
-    borderBottom: header && padding ? `1px solid ${theme.colors.border.light}` : 'none',
+    borderBottom:
+      header && padding ? `1px solid ${theme.colors.border.light}` : 'none',
   };
 
   // Footer styles
   const footerStyles = {
     marginTop: padding ? theme.spacing[4] : '0',
     paddingTop: footer && padding ? theme.spacing[4] : '0',
-    borderTop: footer && padding ? `1px solid ${theme.colors.border.light}` : 'none',
+    borderTop:
+      footer && padding ? `1px solid ${theme.colors.border.light}` : 'none',
   };
 
   return (
@@ -129,11 +134,7 @@ export const Card: React.FC<CardProps> = ({
       {...props}
     >
       {/* Header Section */}
-      {header && (
-        <div style={headerStyles}>
-          {header}
-        </div>
-      )}
+      {header && <div style={headerStyles}>{header}</div>}
 
       {/* Title and Subtitle */}
       {(title || subtitle) && (
@@ -144,16 +145,10 @@ export const Card: React.FC<CardProps> = ({
       )}
 
       {/* Main Content */}
-      <div style={{ flex: '1' }}>
-        {children}
-      </div>
+      <div style={{ flex: '1' }}>{children}</div>
 
       {/* Footer Section */}
-      {footer && (
-        <div style={footerStyles}>
-          {footer}
-        </div>
-      )}
+      {footer && <div style={footerStyles}>{footer}</div>}
     </div>
   );
 };

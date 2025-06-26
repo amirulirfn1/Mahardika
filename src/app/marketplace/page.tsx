@@ -1,5 +1,7 @@
-import React from 'react';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { BrandButton, BrandCard, colors, theme } from '@mahardika/ui';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getSupabaseConfig } from '../../lib/env';

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { colors } from '@mahardika/ui';
 
 interface TokenUsageStats {
   currentUsage: number;
@@ -16,9 +17,9 @@ interface TokenUsageCardProps {
   className?: string;
 }
 
-const MAHARDIKA_COLORS = {
-  navy: '#0D1B2A',
-  gold: '#F4B400',
+const brandColors = {
+  navy: colors.navy,
+  gold: colors.gold,
 };
 
 const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
@@ -96,7 +97,7 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
         className={`card ${className}`}
         style={{
           borderRadius: '0.5rem',
-          border: `2px solid ${MAHARDIKA_COLORS.gold}`,
+          border: `2px solid ${brandColors.gold}`,
         }}
       >
         <div className="card-body text-center">
@@ -115,7 +116,7 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
         className={`card ${className}`}
         style={{
           borderRadius: '0.5rem',
-          border: `2px solid ${MAHARDIKA_COLORS.gold}`,
+          border: `2px solid ${brandColors.gold}`,
         }}
       >
         <div className="card-body text-center">
@@ -139,7 +140,7 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
       className={`card ${className}`}
       style={{
         borderRadius: '0.5rem',
-        border: `2px solid ${MAHARDIKA_COLORS.gold}`,
+        border: `2px solid ${brandColors.gold}`,
         boxShadow: '0 4px 6px rgba(13, 27, 42, 0.1)',
       }}
     >
@@ -147,7 +148,7 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
       <div
         className="card-header d-flex justify-content-between align-items-center"
         style={{
-          backgroundColor: MAHARDIKA_COLORS.navy,
+          backgroundColor: brandColors.navy,
           color: 'white',
           borderRadius: '0.5rem 0.5rem 0 0',
         }}
@@ -171,7 +172,7 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
           <div className="col-4">
             <div
               className="fw-bold"
-              style={{ color: MAHARDIKA_COLORS.navy, fontSize: '1.2rem' }}
+              style={{ color: brandColors.navy, fontSize: '1.2rem' }}
             >
               {formatNumber(stats.currentUsage)}
             </div>
@@ -180,7 +181,7 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
           <div className="col-4">
             <div
               className="fw-bold"
-              style={{ color: MAHARDIKA_COLORS.gold, fontSize: '1.2rem' }}
+              style={{ color: brandColors.gold, fontSize: '1.2rem' }}
             >
               {formatNumber(stats.limit)}
             </div>
@@ -201,7 +202,7 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
         <div className="mb-3">
           <div className="d-flex justify-content-between align-items-center mb-1">
             <small className="text-muted">Usage Progress</small>
-            <small className="fw-bold" style={{ color: MAHARDIKA_COLORS.navy }}>
+            <small className="fw-bold" style={{ color: brandColors.navy }}>
               {stats.percentage}%
             </small>
           </div>
@@ -268,15 +269,15 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
       <div
         className="card-footer text-center py-2"
         style={{
-          backgroundColor: `${MAHARDIKA_COLORS.gold}10`,
+          backgroundColor: `${brandColors.gold}10`,
           borderRadius: '0 0 0.5rem 0.5rem',
-          borderTop: `1px solid ${MAHARDIKA_COLORS.gold}40`,
+          borderTop: `1px solid ${brandColors.gold}40`,
         }}
       >
         <button
           className="btn btn-sm text-decoration-none fw-bold"
           style={{
-            color: MAHARDIKA_COLORS.navy,
+            color: brandColors.navy,
             backgroundColor: 'transparent',
             border: 'none',
             fontSize: '0.8rem',

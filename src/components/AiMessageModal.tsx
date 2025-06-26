@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { colors } from '@mahardika/ui';
 
 interface AiMessageModalProps {
   isOpen: boolean;
@@ -22,9 +23,9 @@ interface AiResponse {
   };
 }
 
-const MAHARDIKA_COLORS = {
-  navy: '#0D1B2A',
-  gold: '#F4B400',
+const brandColors = {
+  navy: colors.navy,
+  gold: colors.gold,
 };
 
 const AiMessageModal: React.FC<AiMessageModalProps> = ({
@@ -173,7 +174,7 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
           className="modal-content"
           style={{
             borderRadius: '0.5rem',
-            border: `2px solid ${MAHARDIKA_COLORS.gold}`,
+            border: `2px solid ${brandColors.gold}`,
             boxShadow: '0 10px 30px rgba(13, 27, 42, 0.3)',
           }}
         >
@@ -181,7 +182,7 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
           <div
             className="modal-header"
             style={{
-              backgroundColor: MAHARDIKA_COLORS.navy,
+              backgroundColor: brandColors.navy,
               color: 'white',
               borderRadius: '0.5rem 0.5rem 0 0',
             }}
@@ -205,7 +206,7 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
                   onChange={handleLanguageToggle}
                   style={{
                     backgroundColor:
-                      language === 'ms' ? MAHARDIKA_COLORS.gold : '#6c757d',
+                      language === 'ms' ? brandColors.gold : '#6c757d',
                   }}
                 />
                 <label
@@ -231,7 +232,7 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
                 <label
                   htmlFor="aiMessage"
                   className="form-label fw-bold"
-                  style={{ color: MAHARDIKA_COLORS.navy }}
+                  style={{ color: brandColors.navy }}
                 >
                   {language === 'en' ? 'Your Message' : 'Mesej Anda'}
                 </label>
@@ -249,7 +250,7 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
                   rows={3}
                   style={{
                     borderRadius: '0.5rem',
-                    border: `2px solid ${MAHARDIKA_COLORS.gold}40`,
+                    border: `2px solid ${brandColors.gold}40`,
                     resize: 'none',
                     minHeight: '80px',
                   }}
@@ -264,7 +265,7 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
                   className="btn fw-bold"
                   disabled={!message.trim() || loading}
                   style={{
-                    backgroundColor: MAHARDIKA_COLORS.navy,
+                    backgroundColor: brandColors.navy,
                     color: 'white',
                     borderRadius: '0.5rem',
                     border: 'none',
@@ -316,7 +317,7 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <label
                     className="form-label fw-bold mb-0"
-                    style={{ color: MAHARDIKA_COLORS.navy }}
+                    style={{ color: brandColors.navy }}
                   >
                     {language === 'en' ? 'AI Response' : 'Jawapan AI'}
                   </label>
@@ -325,8 +326,8 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
                       <span
                         className="badge"
                         style={{
-                          backgroundColor: MAHARDIKA_COLORS.gold,
-                          color: MAHARDIKA_COLORS.navy,
+                          backgroundColor: brandColors.gold,
+                          color: brandColors.navy,
                         }}
                       >
                         {lastResponse.tokensUsed} tokens
@@ -350,8 +351,8 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
                   readOnly
                   style={{
                     borderRadius: '0.5rem',
-                    border: `2px solid ${MAHARDIKA_COLORS.navy}40`,
-                    backgroundColor: `${MAHARDIKA_COLORS.navy}05`,
+                    border: `2px solid ${brandColors.navy}40`,
+                    backgroundColor: `${brandColors.navy}05`,
                     resize: 'none',
                     minHeight: '100px',
                   }}
@@ -366,9 +367,9 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
                   className="alert alert-info py-2"
                   style={{
                     borderRadius: '0.5rem',
-                    backgroundColor: `${MAHARDIKA_COLORS.gold}10`,
-                    border: `1px solid ${MAHARDIKA_COLORS.gold}40`,
-                    color: MAHARDIKA_COLORS.navy,
+                    backgroundColor: `${brandColors.gold}10`,
+                    border: `1px solid ${brandColors.gold}40`,
+                    color: brandColors.navy,
                   }}
                 >
                   <small>
@@ -386,7 +387,7 @@ const AiMessageModal: React.FC<AiMessageModalProps> = ({
           <div
             className="modal-footer"
             style={{
-              backgroundColor: `${MAHARDIKA_COLORS.gold}10`,
+              backgroundColor: `${brandColors.gold}10`,
               borderRadius: '0 0 0.5rem 0.5rem',
             }}
           >

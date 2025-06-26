@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { updatePassword } from '@/lib/supabase';
 import { MAHARDIKA_COLORS } from '@/lib/env';
+import { BrandButton } from '@mahardika/ui';
 
 export default function ResetPasswordForm() {
   const [password, setPassword] = useState('');
@@ -266,10 +267,12 @@ export default function ResetPasswordForm() {
                     </div>
 
                     <div className="d-grid">
-                      <button
+                      <BrandButton
+                        variant="gold"
+                        size="lg"
                         type="submit"
-                        className="btn btn-primary"
                         disabled={isLoading}
+                        fullWidth
                       >
                         {isLoading ? (
                           <>
@@ -283,7 +286,7 @@ export default function ResetPasswordForm() {
                         ) : (
                           'Reset Password'
                         )}
-                      </button>
+                      </BrandButton>
                     </div>
                   </form>
                 </div>

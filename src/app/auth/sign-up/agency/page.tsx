@@ -47,7 +47,7 @@ export default function AgencySignUpPage() {
 
     try {
       // This would be a real API call to register the agency
-      console.log('Agency sign-up data:', formData);
+      
       
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));

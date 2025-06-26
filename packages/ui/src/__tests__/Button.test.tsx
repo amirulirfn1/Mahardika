@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import { Button } from '../Button';
-import { colors } from '../colors';
+
 
 describe('Button Component', () => {
   it('renders with default props', () => {

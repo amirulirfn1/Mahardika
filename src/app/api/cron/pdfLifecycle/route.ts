@@ -76,7 +76,7 @@ function log(
   const logData = data ? ` | ${JSON.stringify(data)}` : '';
 
   if (CONFIG.logLevel === 'debug' || level !== 'debug') {
-    console[level](`[${timestamp}] [PDF-Lifecycle] ${message}${logData}`);
+    // no-op
   }
 }
 

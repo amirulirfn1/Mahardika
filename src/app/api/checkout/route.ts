@@ -158,13 +158,12 @@ export async function POST(request: NextRequest) {
     console.error('Checkout error:', error);
 
     // ✅ SECURITY IMPROVEMENT: Don't expose internal error details
-    const errorMessage =
-      error instanceof Error
-        ? error.message.includes('required') ||
-          error.message.includes('Invalid')
-          ? error.message
-          : 'An internal error occurred'
-        : 'An internal error occurred';
+    let errorMessage = 'An internal error occurred';
+    if (error instanceof Error) {
+      if (error.message.includes('required') || error.message.includes('Invalid')) {
+        errorMessage = error.message;
+      }
+    }
 
     return NextResponse.json(
       { error: errorMessage },

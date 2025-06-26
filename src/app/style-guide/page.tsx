@@ -151,7 +151,7 @@ const StyleGuidePage = () => {
             <h2 className="h3 mb-4 text-white">🎨 Color Palette</h2>
             <div className="row g-4">
               {brandColors.map((color, index) => (
-                <div key={index} className="col-md-6 col-lg-4">
+                <div key={color.name} className="col-md-6 col-lg-4">
                   <div
                     className="card h-100 shadow-sm"
                     style={{

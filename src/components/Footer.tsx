@@ -348,28 +348,28 @@ export function Footer() {
               aria-label="Facebook"
               style={{ color: theme.colors.text.tertiary }}
             >
-              <i className="bi bi-facebook"></i>
+              <i className="bi bi-facebook" />
             </a>
             <a
               href="#"
               aria-label="Twitter"
               style={{ color: theme.colors.text.tertiary }}
             >
-              <i className="bi bi-twitter"></i>
+              <i className="bi bi-twitter" />
             </a>
             <a
               href="#"
               aria-label="LinkedIn"
               style={{ color: theme.colors.text.tertiary }}
             >
-              <i className="bi bi-linkedin"></i>
+              <i className="bi bi-linkedin" />
             </a>
             <a
               href="#"
               aria-label="Instagram"
               style={{ color: theme.colors.text.tertiary }}
             >
-              <i className="bi bi-instagram"></i>
+              <i className="bi bi-instagram" />
             </a>
           </div>
         </div>

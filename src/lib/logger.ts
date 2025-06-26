@@ -131,10 +131,10 @@ export class MahardikaLogger {
   private output(entry: LogEntry): void {
     if (this.isDevelopment) {
       // Pretty console output in development
-      console.log(this.formatForConsole(entry));
+      
     } else {
       // Structured JSON output in production
-      console.log(JSON.stringify(entry));
+      
     }
   }
 
@@ -189,7 +189,12 @@ export class MahardikaLogger {
     duration?: number,
     context?: LogContext
   ): void {
-    const level = status >= 400 ? 'error' : status >= 300 ? 'warn' : 'info';
+    let level: LogLevel = 'info';
+    if (status >= 400) {
+      level = 'error';
+    } else if (status >= 300) {
+      level = 'warn';
+    }
     this[level](`API Response: ${method} ${path} - ${status}`, {
       method,
       path,

@@ -371,10 +371,6 @@ export function ForgotPasswordExample() {
     try {
       const { resetPassword } = await import('@/lib/supabase');
       await resetPassword(email);
-      console.log('Password reset requested for:', email);
-    } catch (error) {
-      console.error('Password reset error:', error);
-      throw error;
     } finally {
       setIsLoading(false);
     }

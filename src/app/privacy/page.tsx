@@ -351,7 +351,7 @@ export default function PrivacyPolicy() {
                       desc: 'Request transfer of your data',
                     },
                   ].map((right, index) => (
-                    <div key={index} className="col-sm-6">
+                    <div key={right.title} className="col-sm-6">
                       <div
                         className="d-flex align-items-start p-3"
                         style={{

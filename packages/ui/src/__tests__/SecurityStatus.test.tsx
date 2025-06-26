@@ -9,7 +9,14 @@ describe('SecurityStatus Component', () => {
 
     expect(screen.getByText('Secure')).toBeInTheDocument();
     expect(screen.getByText('🔒')).toBeInTheDocument();
-    expect(screen.getByText('production')).toBeInTheDocument();
+    expect(
+      screen.getByText((content, element) => {
+        return (
+          element?.tagName.toLowerCase() === 'div' &&
+          element?.textContent === 'production'
+        );
+      })
+    ).toBeInTheDocument();
     expect(
       screen.getByText(/All secrets properly configured/)
     ).toBeInTheDocument();

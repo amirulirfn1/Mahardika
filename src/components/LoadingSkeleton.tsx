@@ -173,8 +173,8 @@ export const TableRowSkeleton: React.FC<{ columns?: number }> = ({
   columns = 5,
 }) => (
   <tr>
-    {Array.from({ length: columns }).map((_, index) => (
-      <td key={index} className="p-3">
+    {Array.from({ length: columns }, (_, index) => `table-col-${columns}-${Date.now()}-${Math.random()}`).map((key) => (
+      <td key={key} className="p-3">
         <Skeleton variant="text" height={16} />
       </td>
     ))}
@@ -236,8 +236,8 @@ export const HomeSkeleton: React.FC = () => (
           className="mx-auto mb-5"
         />
         <div className="row g-4">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <div key={index} className="col-md-6 col-lg-4">
+          {Array.from({ length: 6 }, (_, index) => `home-card-${Date.now()}-${Math.random()}`).map((key) => (
+            <div key={key} className="col-md-6 col-lg-4">
               <CardSkeleton />
             </div>
           ))}
@@ -251,8 +251,8 @@ export const DashboardSkeleton: React.FC = () => (
   <div className="container-fluid p-4">
     <div className="row g-4">
       {/* Stats Cards */}
-      {Array.from({ length: 4 }).map((_, index) => (
-        <div key={index} className="col-md-6 col-lg-3">
+      {Array.from({ length: 4 }, (_, index) => `dashboard-stat-${Date.now()}-${Math.random()}`).map((key) => (
+        <div key={key} className="col-md-6 col-lg-3">
           <div
             className="p-4"
             style={{
@@ -295,8 +295,8 @@ export const DashboardSkeleton: React.FC = () => (
           }}
         >
           <Skeleton variant="text" height={24} width={150} className="mb-4" />
-          {Array.from({ length: 5 }).map((_, index) => (
-            <ListItemSkeleton key={index} />
+          {Array.from({ length: 5 }, (_, index) => `dashboard-activity-${Date.now()}-${Math.random()}`).map((key) => (
+            <ListItemSkeleton key={key} />
           ))}
         </div>
       </div>

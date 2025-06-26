@@ -570,7 +570,7 @@ export default function UploadDemoPage() {
           ) : (
             uploadResults.map((result, index) => (
               <div
-                key={index}
+                key={result.fileName || `upload-result-${Date.now()}-${Math.random()}`}
                 className={`result-item ${result.success ? 'result-success' : 'result-error'}`}
               >
                 <div className="result-header">

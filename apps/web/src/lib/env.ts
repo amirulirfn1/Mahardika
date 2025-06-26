@@ -35,7 +35,7 @@ export const FEATURES = {
 export const DATABASE_CONFIG = {
   databaseUrl: process.env.DATABASE_URL || '',
   supabase: {
-    enabled: !!(
+    enabled: Boolean(
       process.env.NEXT_PUBLIC_SUPABASE_URL &&
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     ),
@@ -49,7 +49,7 @@ export const DATABASE_CONFIG = {
 export const AI_CONFIG = {
   deepseek: {
     apiKey: process.env.DEEPSEEK_API_KEY || '',
-    enabled: !!process.env.DEEPSEEK_API_KEY,
+    enabled: Boolean(process.env.DEEPSEEK_API_KEY),
   },
 } as const;
 
@@ -70,7 +70,7 @@ export const RATE_LIMITS = {
 export const EMAIL_CONFIG = {
   resendApiKey: process.env.RESEND_API_KEY || '',
   from: process.env.EMAIL_FROM || 'noreply@mahardika.com',
-  enabled: !!process.env.RESEND_API_KEY,
+  enabled: Boolean(process.env.RESEND_API_KEY),
 } as const;
 
 // Payment Configuration
@@ -78,7 +78,7 @@ export const PAYMENT_CONFIG = {
   stripe: {
     secretKey: process.env.STRIPE_SECRET_KEY || '',
     webhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
-    enabled: !!process.env.STRIPE_SECRET_KEY,
+    enabled: Boolean(process.env.STRIPE_SECRET_KEY),
   },
 } as const;
 
@@ -87,7 +87,7 @@ export const ANALYTICS_CONFIG = {
   posthog: {
     key: process.env.NEXT_PUBLIC_POSTHOG_KEY || '',
     host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
-    enabled: !!process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    enabled: Boolean(process.env.NEXT_PUBLIC_POSTHOG_KEY),
   },
 } as const;
 

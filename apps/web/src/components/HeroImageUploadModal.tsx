@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface HeroImageUploadModalProps {
@@ -214,9 +215,11 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                 {/* Image Preview */}
                 {previewUrl && (
                   <div className="mb-3">
-                    <img
+                    <Image
                       src={previewUrl}
                       alt="Hero preview"
+                      width={1200}
+                      height={600}
                       className="img-fluid rounded"
                       style={{
                         maxHeight: '200px',

@@ -93,7 +93,7 @@ function log(
   const logData = data ? ` | ${JSON.stringify(data)}` : '';
 
   if (CONFIG.logLevel === 'debug' || level !== 'debug') {
-    console[level](`[${timestamp}] [ClamAV-Update] ${message}${logData}`);
+    // no-op
   }
 }
 

@@ -441,14 +441,11 @@ export async function createAgency(data: CreateAgencyRequest): Promise<Agency> {
     // Validate data
     validateAgencyData(data);
 
-    // Generate slug if not provided
+    // Generate slug if not provided, or check availability
     if (!data.slug) {
       data.slug = await generateUniqueSlug(data.name);
-    } else {
-      // Check if provided slug is available
-      if (!(await isSlugAvailable(data.slug))) {
-        throw new DuplicateSlugError(data.slug);
-      }
+    } else if (!(await isSlugAvailable(data.slug))) {
+      throw new DuplicateSlugError(data.slug);
     }
 
     const { data: agency, error } = await supabase

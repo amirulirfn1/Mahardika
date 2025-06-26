@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
+
 import { BrandButton, BrandCard, colors } from '@mahardika/ui';
 
 interface Agency {
@@ -50,16 +52,18 @@ export default function AgencyGrid({
       switch (sortBy) {
         case 'name':
           return a.name.localeCompare(b.name);
-        case 'price':
+        case 'price': {
           // Extract numeric value from price string for comparison
           const priceA = parseFloat(a.price.replace(/[^0-9.]/g, ''));
           const priceB = parseFloat(b.price.replace(/[^0-9.]/g, ''));
           return priceA - priceB;
-        case 'speed':
+        }
+        case 'speed': {
           // Assume speed is in format like "24 hours", "2-3 days", etc.
           const speedA = parseFloat(a.speed.replace(/[^0-9]/g, ''));
           const speedB = parseFloat(b.speed.replace(/[^0-9]/g, ''));
           return speedA - speedB;
+        }
         case 'reliability':
           return b.reliability - a.reliability; // Higher reliability first
         default:
@@ -289,13 +293,13 @@ export default function AgencyGrid({
                   <div className="d-flex justify-content-between align-items-start mb-3">
                     <div className="d-flex align-items-center">
                       {agency.logo_url ? (
-                        <img
+                        <Image
                           src={agency.logo_url}
                           alt={`${agency.name} logo`}
+                          width={48}
+                          height={48}
                           className="me-3"
                           style={{
-                            width: '48px',
-                            height: '48px',
                             borderRadius: '0.5rem',
                             objectFit: 'cover',
                           }}
@@ -369,7 +373,7 @@ export default function AgencyGrid({
                         .slice(0, 3)
                         .map((specialty, index) => (
                           <span
-                            key={index}
+                            key={specialty}
                             className="badge"
                             style={{
                               backgroundColor: colors.gray[100],

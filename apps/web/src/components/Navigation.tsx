@@ -185,7 +185,7 @@ export function Navigation() {
             }}
             aria-label="Toggle menu"
           >
-            <i className="bi bi-list"></i>
+            <i className="bi bi-list" />
           </button>
         </div>
       </div>

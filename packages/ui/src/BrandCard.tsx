@@ -12,23 +12,13 @@ export const BrandCard: React.FC<BrandCardProps> = ({
   style,
   ...props
 }) => {
-  // Map legacy brand variants to new variants
-  const mappedVariant =
-    variant === 'navy-primary'
-      ? 'elevated'
-      : variant === 'gold-primary'
-        ? 'glass'
-        : variant === 'navy-outline' || variant === 'gold-outline'
-          ? 'outlined'
-          : 'default';
-
   // Additional brand-specific styles
   const brandStyle = {
     // Add any brand-specific overrides here if needed
     ...style,
   };
 
-  return <Card variant={mappedVariant} style={brandStyle} {...props} />;
+  return <Card variant={variant} style={brandStyle} {...props} />;
 };
 
 // Template variations for common use cases

@@ -8,6 +8,7 @@
 
 import React, { useState } from 'react';
 import { MAHARDIKA_COLORS } from '@/lib/env';
+import { BrandButton } from '@mahardika/ui';
 
 interface ForgotPasswordFormProps {
   onSubmit?: (email: string) => Promise<void>;
@@ -312,10 +313,12 @@ export default function ForgotPasswordForm({
             </div>
 
             <div className="d-grid gap-2 mb-3">
-              <button
+              <BrandButton
+                variant="gold"
+                size="lg"
                 type="submit"
-                className="btn btn-reset"
                 disabled={isLoading || isValidating || !email.trim()}
+                fullWidth
               >
                 {isLoading || isValidating ? (
                   <>
@@ -323,23 +326,26 @@ export default function ForgotPasswordForm({
                     Sending Reset Link...
                   </>
                 ) : (
-                  <>
-                    <i className="bi bi-send me-2" />
-                    Send Reset Link
-                  </>
+                  'Send Reset Link'
                 )}
-              </button>
+              </BrandButton>
             </div>
 
             <div className="text-center">
-              <button
+              <BrandButton
+                variant="outline-navy"
+                size="sm"
                 type="button"
-                className="btn btn-link btn-back-link p-0"
                 onClick={onBackToLogin}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  textDecoration: 'underline',
+                }}
               >
                 <i className="bi bi-arrow-left me-1" />
                 Back to Login
-              </button>
+              </BrandButton>
             </div>
           </form>
         </div>

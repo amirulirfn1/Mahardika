@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BrandButton, BrandCard } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '@mahardika/ui';
 
 const TermsOfServicePage = () => {
   const termsData = {
@@ -113,8 +113,8 @@ const TermsOfServicePage = () => {
       <nav
         className="navbar navbar-expand-lg sticky-top shadow-sm"
         style={{
-          backgroundColor: '#0D1B2A',
-          borderBottom: '3px solid #F4B400',
+          backgroundColor: colors.navy,
+          borderBottom: `3px solid ${colors.gold}`,
         }}
       >
         <div className="container">
@@ -126,7 +126,7 @@ const TermsOfServicePage = () => {
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
-            style={{ borderColor: '#F4B400' }}
+            style={{ borderColor: colors.gold }}
           >
             <span
               className="navbar-toggler-icon"
@@ -164,7 +164,7 @@ const TermsOfServicePage = () => {
                 <a
                   className="nav-link"
                   href="/terms"
-                  style={{ color: '#F4B400', fontWeight: 'bold' }}
+                  style={{ color: colors.gold, fontWeight: 'bold' }}
                 >
                   Terms
                 </a>
@@ -194,12 +194,12 @@ const TermsOfServicePage = () => {
                   style={{
                     backgroundColor: 'rgba(244, 180, 0, 0.2)',
                     borderRadius: '0.5rem',
-                    border: '2px solid #F4B400',
+                    border: `2px solid ${colors.gold}`,
                   }}
                 >
                   <div
                     style={{
-                      color: '#F4B400',
+                      color: colors.gold,
                       fontSize: '2rem',
                       lineHeight: '1',
                     }}
@@ -221,14 +221,14 @@ const TermsOfServicePage = () => {
               <div
                 style={{
                   fontSize: '2rem',
-                  color: '#F4B400',
+                  color: colors.gold,
                   marginRight: '1rem',
                 }}
               >
                 ⚠️
               </div>
               <div className="text-start">
-                <h5 className="mb-2" style={{ color: '#0D1B2A' }}>
+                <h5 className="mb-2" style={{ color: colors.navy }}>
                   Important Legal Notice
                 </h5>
                 <p style={{ color: '#343A40' }} className="mb-3">
@@ -241,9 +241,9 @@ const TermsOfServicePage = () => {
                     className="badge px-3 py-2"
                     style={{
                       backgroundColor: 'rgba(13, 27, 42, 0.1)',
-                      color: '#0D1B2A',
+                      color: colors.navy,
                       borderRadius: '0.5rem',
-                      border: '1px solid #0D1B2A',
+                      border: `1px solid ${colors.navy}`,
                     }}
                   >
                     Effective: {termsData.effectiveDate}
@@ -252,9 +252,9 @@ const TermsOfServicePage = () => {
                     className="badge px-3 py-2"
                     style={{
                       backgroundColor: 'rgba(244, 180, 0, 0.1)',
-                      color: '#F4B400',
+                      color: colors.gold,
                       borderRadius: '0.5rem',
-                      border: '1px solid #F4B400',
+                      border: `1px solid ${colors.gold}`,
                     }}
                   >
                     Legally Binding
@@ -263,9 +263,9 @@ const TermsOfServicePage = () => {
                     className="badge px-3 py-2"
                     style={{
                       backgroundColor: 'rgba(13, 27, 42, 0.1)',
-                      color: '#0D1B2A',
+                      color: colors.navy,
                       borderRadius: '0.5rem',
-                      border: '1px solid #0D1B2A',
+                      border: `1px solid ${colors.navy}`,
                     }}
                   >
                     Financial Services
@@ -278,7 +278,7 @@ const TermsOfServicePage = () => {
 
         {/* Table of Contents */}
         <BrandCard variant="navy-outline" size="lg" className="mb-5">
-          <h2 className="h4 mb-4" style={{ color: '#0D1B2A' }}>
+          <h2 className="h4 mb-4" style={{ color: colors.navy }}>
             📑 Table of Contents
           </h2>
           <div className="row">
@@ -289,7 +289,7 @@ const TermsOfServicePage = () => {
                     <a
                       href={`#section-${index + 1}`}
                       className="text-decoration-none d-flex align-items-center"
-                      style={{ color: '#0D1B2A' }}
+                      style={{ color: colors.navy }}
                     >
                       <span
                         className="me-2"
@@ -297,12 +297,12 @@ const TermsOfServicePage = () => {
                           display: 'inline-block',
                           width: '20px',
                           height: '20px',
-                          backgroundColor: '#F4B400',
+                          backgroundColor: colors.gold,
                           borderRadius: '50%',
                           fontSize: '12px',
                           lineHeight: '20px',
                           textAlign: 'center',
-                          color: '#0D1B2A',
+                          color: colors.navy,
                           fontWeight: 'bold',
                         }}
                       >
@@ -321,7 +321,7 @@ const TermsOfServicePage = () => {
                     <a
                       href={`#section-${index + 6}`}
                       className="text-decoration-none d-flex align-items-center"
-                      style={{ color: '#0D1B2A' }}
+                      style={{ color: colors.navy }}
                     >
                       <span
                         className="me-2"
@@ -329,12 +329,12 @@ const TermsOfServicePage = () => {
                           display: 'inline-block',
                           width: '20px',
                           height: '20px',
-                          backgroundColor: '#F4B400',
+                          backgroundColor: colors.gold,
                           borderRadius: '50%',
                           fontSize: '12px',
                           lineHeight: '20px',
                           textAlign: 'center',
-                          color: '#0D1B2A',
+                          color: colors.navy,
                           fontWeight: 'bold',
                         }}
                       >
@@ -366,9 +366,9 @@ const TermsOfServicePage = () => {
                     style={{
                       width: '40px',
                       height: '40px',
-                      backgroundColor: '#F4B400',
+                      backgroundColor: colors.gold,
                       borderRadius: '0.5rem',
-                      color: '#0D1B2A',
+                      color: colors.navy,
                       fontWeight: 'bold',
                       fontSize: '1.2rem',
                     }}
@@ -376,7 +376,7 @@ const TermsOfServicePage = () => {
                     {index + 1}
                   </div>
                   <div className="flex-grow-1">
-                    <h2 className="h4 mb-3" style={{ color: '#0D1B2A' }}>
+                    <h2 className="h4 mb-3" style={{ color: colors.navy }}>
                       {section.title}
                     </h2>
                   </div>
@@ -404,10 +404,10 @@ const TermsOfServicePage = () => {
             <div className="sticky-top" style={{ top: '100px' }}>
               {/* Quick Contact */}
               <BrandCard variant="gold-primary" size="md" className="mb-4">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: colors.navy }}>
                   📞 Need Legal Help?
                 </h3>
-                <p style={{ color: '#0D1B2A' }} className="mb-3">
+                <p style={{ color: colors.navy }} className="mb-3">
                   Have questions about our Terms of Service? Contact our legal
                   team for assistance.
                 </p>
@@ -423,7 +423,7 @@ const TermsOfServicePage = () => {
 
               {/* Related Documents */}
               <BrandCard variant="navy-outline" size="md" className="mb-4">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: colors.navy }}>
                   📄 Related Documents
                 </h3>
                 <ul className="list-unstyled">
@@ -431,9 +431,9 @@ const TermsOfServicePage = () => {
                     <a
                       href="/privacy"
                       className="text-decoration-none d-flex align-items-center"
-                      style={{ color: '#0D1B2A' }}
+                      style={{ color: colors.navy }}
                     >
-                      <span className="me-2" style={{ color: '#F4B400' }}>
+                      <span className="me-2" style={{ color: colors.gold }}>
                         🔒
                       </span>
                       Privacy Policy
@@ -443,9 +443,9 @@ const TermsOfServicePage = () => {
                     <a
                       href="/cookies"
                       className="text-decoration-none d-flex align-items-center"
-                      style={{ color: '#0D1B2A' }}
+                      style={{ color: colors.navy }}
                     >
-                      <span className="me-2" style={{ color: '#F4B400' }}>
+                      <span className="me-2" style={{ color: colors.gold }}>
                         🍪
                       </span>
                       Cookie Policy
@@ -455,9 +455,9 @@ const TermsOfServicePage = () => {
                     <a
                       href="/compliance"
                       className="text-decoration-none d-flex align-items-center"
-                      style={{ color: '#0D1B2A' }}
+                      style={{ color: colors.navy }}
                     >
-                      <span className="me-2" style={{ color: '#F4B400' }}>
+                      <span className="me-2" style={{ color: colors.gold }}>
                         ✅
                       </span>
                       Compliance Guide
@@ -467,9 +467,9 @@ const TermsOfServicePage = () => {
                     <a
                       href="/security"
                       className="text-decoration-none d-flex align-items-center"
-                      style={{ color: '#0D1B2A' }}
+                      style={{ color: colors.navy }}
                     >
-                      <span className="me-2" style={{ color: '#F4B400' }}>
+                      <span className="me-2" style={{ color: colors.gold }}>
                         🛡️
                       </span>
                       Security Policy
@@ -503,13 +503,13 @@ const TermsOfServicePage = () => {
                   <div
                     style={{
                       fontSize: '2rem',
-                      color: '#F4B400',
+                      color: colors.gold,
                       marginBottom: '0.5rem',
                     }}
                   >
                     ⚖️
                   </div>
-                  <h4 className="h6 mb-2" style={{ color: '#0D1B2A' }}>
+                  <h4 className="h6 mb-2" style={{ color: colors.navy }}>
                     Professional Legal Advice
                   </h4>
                   <p style={{ color: '#6C757D', fontSize: '0.9rem' }}>
@@ -553,12 +553,12 @@ const TermsOfServicePage = () => {
         {/* Legal Footer */}
         <footer
           className="mt-5 pt-4"
-          style={{ borderTop: '2px solid #F4B400' }}
+          style={{ borderTop: `2px solid ${colors.gold}` }}
         >
           <div className="row">
             <div className="col-md-8">
               <p style={{ color: '#6C757D' }} className="mb-2">
-                <strong style={{ color: '#0D1B2A' }}>
+                <strong style={{ color: colors.navy }}>
                   {termsData.companyName}
                 </strong>{' '}
                 • Terms of Service
@@ -575,21 +575,21 @@ const TermsOfServicePage = () => {
                 <a
                   href="/privacy"
                   className="text-decoration-none"
-                  style={{ color: '#0D1B2A' }}
+                  style={{ color: colors.navy }}
                 >
                   Privacy
                 </a>
                 <a
                   href="/cookies"
                   className="text-decoration-none"
-                  style={{ color: '#0D1B2A' }}
+                  style={{ color: colors.navy }}
                 >
                   Cookies
                 </a>
                 <a
                   href="/contact"
                   className="text-decoration-none"
-                  style={{ color: '#F4B400' }}
+                  style={{ color: colors.gold }}
                 >
                   Contact
                 </a>

@@ -214,7 +214,7 @@ export const components = {
     base: {
       fontFamily: typography.fontFamily.body,
       fontSize: typography.fontSize.base,
-      fontWeight: typography.fontWeight.regular,
+      fontWeight: typography.fontWeight.normal,
       lineHeight: typography.lineHeight.normal,
       padding: `${spacing[3]} ${spacing[4]}`,
       borderRadius: borderRadius.lg,

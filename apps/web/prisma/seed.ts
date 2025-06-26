@@ -4,7 +4,7 @@
  * Brand Colors: Navy #0D1B2A, Gold #F4B400
  */
 
-import { PrismaClient, PolicyStatus } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -200,7 +200,7 @@ async function main() {
         occupation: 'Software Engineer',
         loyalty_points: 2500,
         tier: 'gold',
-        status: 'active',
+        status: Prisma.PolicyStatus.ACTIVE,
         notes:
           'Excellent customer, prompt with payments. Interested in family coverage.',
       },
@@ -226,7 +226,7 @@ async function main() {
         occupation: 'Marketing Manager',
         loyalty_points: 1800,
         tier: 'silver',
-        status: 'active',
+        status: Prisma.PolicyStatus.ACTIVE,
         notes: 'Young professional, interested in health and auto insurance.',
       },
     }),
@@ -252,7 +252,7 @@ async function main() {
         occupation: 'Business Owner',
         loyalty_points: 5200,
         tier: 'platinum',
-        status: 'active',
+        status: Prisma.PolicyStatus.ACTIVE,
         notes:
           'High-value customer with multiple policies. Prefers premium coverage.',
       },
@@ -270,7 +270,7 @@ async function main() {
         policy_number: 'MAH-AUTO-001',
         policy_type: 'Auto Insurance',
         product_name: 'Comprehensive Auto Coverage',
-        status: PolicyStatus.ACTIVE,
+        status: Prisma.PolicyStatus.ACTIVE,
         start_date: new Date('2024-01-01'),
         end_date: new Date('2024-12-31'),
         premium_amount: 1200.0,
@@ -299,7 +299,7 @@ async function main() {
         policy_number: 'MAH-HEALTH-001',
         policy_type: 'Health Insurance',
         product_name: 'Individual Health Plan',
-        status: PolicyStatus.ACTIVE,
+        status: Prisma.PolicyStatus.ACTIVE,
         start_date: new Date('2024-02-01'),
         end_date: new Date('2025-01-31'),
         premium_amount: 350.0,
@@ -327,7 +327,7 @@ async function main() {
         policy_number: 'GS-BUSINESS-001',
         policy_type: 'Business Insurance',
         product_name: 'Commercial General Liability',
-        status: PolicyStatus.ACTIVE,
+        status: Prisma.PolicyStatus.ACTIVE,
         start_date: new Date('2024-03-01'),
         end_date: new Date('2025-02-28'),
         premium_amount: 2400.0,

@@ -12,17 +12,17 @@ export const BrandButton: React.FC<BrandButtonProps> = ({
   style,
   ...props
 }) => {
-  // Map legacy brand variants to new modern variants
+  // Map brand variants to Button variants
   const mappedVariant =
     variant === 'navy'
-      ? 'primary'
+      ? 'navy'
       : variant === 'gold'
-        ? 'secondary'
+        ? 'gold'
         : variant === 'navy-outline'
-          ? 'outline'
+          ? 'outline-navy'
           : variant === 'gold-outline'
-            ? 'ghost'
-            : 'primary';
+            ? 'outline-gold'
+            : 'navy';
 
   // Additional brand-specific styles for backward compatibility
   const brandStyle = {

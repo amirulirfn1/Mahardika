@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { theme } from '@mahardika/ui';
+import { theme, BrandButton } from '@mahardika/ui';
 
 export function Navigation() {
   return (
@@ -119,64 +119,31 @@ export function Navigation() {
 
             {/* Authentication */}
             <div className="d-flex align-items-center gap-2">
-              <Link
-                className="btn btn-outline-secondary"
-                href="/auth"
-                style={{
-                  borderColor: theme.colors.border.DEFAULT,
-                  color: theme.colors.text.secondary,
-                  padding: `${theme.spacing[2]} ${theme.spacing[4]}`,
-                  borderRadius: theme.borderRadius.lg,
-                  fontSize: theme.typography.fontSize.sm,
-                  fontWeight: theme.typography.fontWeight.medium,
-                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = theme.colors.primary;
-                  e.currentTarget.style.color = theme.colors.primary;
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor =
-                    theme.colors.border.DEFAULT;
-                  e.currentTarget.style.color = theme.colors.text.secondary;
-                }}
+              <BrandButton
+                variant="outline-navy"
+                size="sm"
+                asChild
               >
-                Sign In
-              </Link>
-              <Link
-                className="btn btn-primary"
-                href="/auth"
-                style={{
-                  backgroundColor: theme.colors.primary,
-                  border: 'none',
-                  color: 'white',
-                  padding: `${theme.spacing[2]} ${theme.spacing[4]}`,
-                  borderRadius: theme.borderRadius.lg,
-                  fontSize: theme.typography.fontSize.sm,
-                  fontWeight: theme.typography.fontWeight.medium,
-                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                  textDecoration: 'none',
-                  display: 'inline-block',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.backgroundColor =
-                    theme.colors.hover.primary;
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.backgroundColor = theme.colors.primary;
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
+                <Link href="/auth">
+                  Sign In
+                </Link>
+              </BrandButton>
+              <BrandButton
+                variant="navy"
+                size="sm"
+                asChild
               >
-                Join
-              </Link>
+                <Link href="/auth">
+                  Join
+                </Link>
+              </BrandButton>
             </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="btn d-lg-none p-2"
+          <BrandButton
+            variant="outline-navy"
+            size="sm"
             style={{
               border: 'none',
               backgroundColor: 'transparent',
@@ -186,7 +153,7 @@ export function Navigation() {
             aria-label="Toggle menu"
           >
             <i className="bi bi-list" />
-          </button>
+          </BrandButton>
         </div>
       </div>
     </nav>

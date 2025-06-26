@@ -84,7 +84,7 @@ export const AIChat: React.FC<AIChatProps> = ({ apiKey, onMessage }) => {
     <Card
       title="Mahardika AI Assistant"
       subtitle="Powered by DeepSeek AI"
-      variant="elevated"
+      variant="navy-outline"
       size="lg"
       style={{ maxWidth: '800px', margin: '0 auto' }}
     >
@@ -208,7 +208,7 @@ export const AIChat: React.FC<AIChatProps> = ({ apiKey, onMessage }) => {
         <Button
           onClick={handleSendMessage}
           disabled={!input.trim() || isLoading}
-          variant="secondary"
+          variant="gold"
           size="lg"
         >
           {isLoading ? 'Sending...' : 'Send'}

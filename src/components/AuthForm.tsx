@@ -165,8 +165,9 @@ export default function AuthForm({
         <div className="mb-4">
           <ul className="nav nav-pills nav-fill" role="tablist">
             <li className="nav-item" role="presentation">
-              <button
-                className={`nav-link ${activeTab === 'login' ? 'active' : ''}`}
+              <BrandButton
+                variant={activeTab === 'login' ? 'navy' : 'outline-navy'}
+                size="sm"
                 type="button"
                 onClick={() => {
                   setActiveTab('login');
@@ -174,19 +175,16 @@ export default function AuthForm({
                 }}
                 style={{
                   borderRadius: '0.5rem 0 0 0.5rem',
-                  backgroundColor:
-                    activeTab === 'login' ? colors.navy : 'transparent',
-                  color: activeTab === 'login' ? 'white' : colors.navy,
-                  border: `1px solid ${colors.navy}`,
-                  fontWeight: '600',
+                  borderRight: 'none',
                 }}
               >
                 Sign In
-              </button>
+              </BrandButton>
             </li>
             <li className="nav-item" role="presentation">
-              <button
-                className={`nav-link ${activeTab === 'register' ? 'active' : ''}`}
+              <BrandButton
+                variant={activeTab === 'register' ? 'navy' : 'outline-navy'}
+                size="sm"
                 type="button"
                 onClick={() => {
                   setActiveTab('register');
@@ -194,16 +192,11 @@ export default function AuthForm({
                 }}
                 style={{
                   borderRadius: '0 0.5rem 0.5rem 0',
-                  backgroundColor:
-                    activeTab === 'register' ? colors.navy : 'transparent',
-                  color: activeTab === 'register' ? 'white' : colors.navy,
-                  border: `1px solid ${colors.navy}`,
                   borderLeft: 'none',
-                  fontWeight: '600',
                 }}
               >
                 Sign Up
-              </button>
+              </BrandButton>
             </li>
           </ul>
         </div>
@@ -456,13 +449,15 @@ export default function AuthForm({
           {/* Social Login Buttons */}
           <div className="row g-2">
             <div className="col-6">
-              <button
+              <BrandButton
+                variant="outline-navy"
+                size="md"
                 type="button"
-                className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center"
+                fullWidth
                 style={{
-                  borderRadius: '0.5rem',
-                  borderColor: colors.gray[300],
-                  color: colors.gray[700],
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <svg
@@ -489,16 +484,18 @@ export default function AuthForm({
                   />
                 </svg>
                 Google
-              </button>
+              </BrandButton>
             </div>
             <div className="col-6">
-              <button
+              <BrandButton
+                variant="outline-navy"
+                size="md"
                 type="button"
-                className="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center"
+                fullWidth
                 style={{
-                  borderRadius: '0.5rem',
-                  borderColor: colors.gray[300],
-                  color: colors.gray[700],
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <svg
@@ -511,7 +508,7 @@ export default function AuthForm({
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
                 Facebook
-              </button>
+              </BrandButton>
             </div>
           </div>
         </form>

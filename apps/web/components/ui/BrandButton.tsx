@@ -172,10 +172,11 @@ const getBrandButtonStyles = (
     },
   };
 
+  const safeVariant = (mappedVariant || 'navy') as keyof typeof variantStyles;
   return {
     ...baseStyles,
     ...sizeStyles[size || 'md'],
-    ...variantStyles[mappedVariant || 'navy'],
+    ...variantStyles[safeVariant],
   };
 };
 

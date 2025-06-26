@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
-import { Button, Card, theme } from '@mahardika/ui';
+import React, { useState, useEffect } from 'react';
+import { BrandButton, BrandCard, colors, theme } from '@mahardika/ui';
 
-// Sample shop data with Fiverr-style categories
+// Enhanced shop data with more details
 const shopCategories = [
   {
     slug: 'design-creative',
@@ -37,22 +37,6 @@ const shopCategories = [
     serviceCount: 92,
     featured: true,
   },
-  {
-    slug: 'writing-translation',
-    name: 'Writing & Translation',
-    description: 'Content writing, copywriting, and translation services',
-    icon: '✍️',
-    serviceCount: 54,
-    featured: false,
-  },
-  {
-    slug: 'video-animation',
-    name: 'Video & Animation',
-    description: 'Video editing, animation, and motion graphics',
-    icon: '🎬',
-    serviceCount: 67,
-    featured: false,
-  },
 ];
 
 const featuredServices = [
@@ -61,388 +45,447 @@ const featuredServices = [
     name: 'Professional Logo Design',
     seller: 'DesignPro',
     sellerLevel: 'Top Rated',
+    sellerAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face',
     price: 'From $99',
     originalPrice: '$149',
     description: 'I will create a modern, professional logo for your business',
-    category: 'design-creative',
-    image: '🎨',
+    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop',
     rating: 4.9,
     reviews: 127,
     deliveryTime: '3 days',
     badge: 'Best Seller',
+    badgeColor: colors.gold,
+    tags: ['Premium', 'Fast Delivery', 'Unlimited Revisions']
   },
   {
     slug: 'full-stack-web-app',
     name: 'Full-Stack Web Application',
     seller: 'CodeMaster',
     sellerLevel: 'Level 2',
+    sellerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face',
     price: 'From $299',
     originalPrice: '$399',
-    description:
-      'I will develop a complete web application with modern tech stack',
-    category: 'programming-tech',
-    image: '💻',
+    description: 'I will develop a complete web application with modern tech stack',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
     rating: 4.8,
     reviews: 89,
     deliveryTime: '7 days',
     badge: 'Premium',
+    badgeColor: colors.navy,
+    tags: ['React', 'Node.js', 'MongoDB']
   },
   {
     slug: 'seo-optimization',
     name: 'Complete SEO Optimization',
     seller: 'SEOExpert',
     sellerLevel: 'Top Rated',
+    sellerAvatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face',
     price: 'From $149',
     originalPrice: '$199',
     description: 'I will optimize your website for top search engine rankings',
-    category: 'digital-marketing',
-    image: '📈',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
     rating: 4.9,
     reviews: 203,
     deliveryTime: '5 days',
     badge: 'Hot',
+    badgeColor: '#FF5722',
+    tags: ['White Hat', 'Guaranteed Results', 'Monthly Reports']
   },
 ];
 
-const ShopIndexPage = () => {
+export default function ShopPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [animatedCards, setAnimatedCards] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setAnimatedCards(true), 500);
+  }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      console.log('Searching for:', searchQuery);
+    }
+  };
+
   return (
-    <div
-      style={{
-        backgroundColor: theme.colors.background.primary,
-        minHeight: '100vh',
-      }}
-    >
+    <div className="shop-page" style={{ backgroundColor: theme.colors.background.primary, minHeight: '100vh' }}>
       {/* Hero Section */}
       <section
         style={{
-          padding: `${theme.spacing[12]} ${theme.spacing[4]} ${theme.spacing[16]}`,
-          background: `linear-gradient(135deg, ${theme.colors.background.primary} 0%, ${theme.colors.background.secondary} 100%)`,
-          borderBottom: `1px solid ${theme.colors.border.light}`,
+          padding: '80px 20px 100px',
+          background: `linear-gradient(135deg, ${colors.navy} 0%, #1e3a8a 100%)`,
+          color: 'white',
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
         <div className="container">
           <div className="text-center">
-            <h1
-              style={{
-                fontSize: theme.typography.fontSize['5xl'],
-                fontWeight: theme.typography.fontWeight.bold,
-                color: theme.colors.text.primary,
-                marginBottom: theme.spacing[4],
-                fontFamily: theme.typography.fontFamily.heading,
-              }}
-            >
+            <div className="mb-4">
+              <span style={{
+                background: `linear-gradient(135deg, ${colors.gold}, #FFD700)`,
+                color: colors.navy,
+                padding: '8px 20px',
+                borderRadius: '20px',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                boxShadow: '0 4px 15px rgba(244,180,0,0.3)'
+              }}>
+                🔥 Over 10,000+ Services Available
+              </span>
+            </div>
+            
+            <h1 style={{
+              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontWeight: 'bold',
+              marginBottom: '1.5rem',
+              background: 'linear-gradient(135deg, white 0%, #f0f9ff 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
               Find services for your{' '}
-              <span
-                style={{
-                  background: theme.colors.background.gradient,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
+              <span style={{
+                background: `linear-gradient(135deg, ${colors.gold} 0%, #FFD700 100%)`,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>
                 business
               </span>
             </h1>
-            <p
-              style={{
-                fontSize: theme.typography.fontSize.xl,
-                color: theme.colors.text.secondary,
-                marginBottom: theme.spacing[8],
-                maxWidth: '600px',
-                margin: `0 auto ${theme.spacing[8]}`,
-                lineHeight: theme.typography.lineHeight.relaxed,
-              }}
-            >
+            
+            <p style={{
+              fontSize: '1.25rem',
+              marginBottom: '3rem',
+              maxWidth: '700px',
+              margin: '0 auto 3rem',
+              opacity: 0.9
+            }}>
               Browse thousands of services from top-rated professionals around
-              the world
+              the world. Get your project done right, on time, and on budget.
             </p>
 
             {/* Search Bar */}
-            <div
-              className="d-flex flex-column flex-md-row gap-3 justify-content-center align-items-center"
-              style={{ maxWidth: '600px', margin: '0 auto' }}
-            >
-              <div style={{ flex: 1, width: '100%' }}>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="What service are you looking for?"
-                  style={{
-                    padding: theme.spacing[4],
-                    fontSize: theme.typography.fontSize.base,
-                    borderRadius: theme.borderRadius.lg,
-                    border: `2px solid ${theme.colors.border.light}`,
-                    outline: 'none',
-                    fontFamily: theme.typography.fontFamily.body,
-                  }}
-                  onFocus={e => {
-                    e.target.style.borderColor = theme.colors.primary;
-                    e.target.style.boxShadow = `0 0 0 3px ${theme.colors.hover.overlay}`;
-                  }}
-                  onBlur={e => {
-                    e.target.style.borderColor = theme.colors.border.light;
-                    e.target.style.boxShadow = 'none';
-                  }}
-                />
-              </div>
-              <Button variant="primary" size="lg" style={{ minWidth: '120px' }}>
-                Search
-              </Button>
-            </div>
-
-            {/* Popular Searches */}
-            <div className="mt-4">
-              <span
-                style={{
-                  fontSize: theme.typography.fontSize.sm,
-                  color: theme.colors.text.tertiary,
-                  marginRight: theme.spacing[2],
-                }}
-              >
-                Popular:
-              </span>
-              {['Logo Design', 'WordPress', 'SEO', 'Social Media'].map(
-                (term, index) => (
-                  <span
-                    key={term}
-                    style={{
-                      display: 'inline-block',
-                      padding: `${theme.spacing[1]} ${theme.spacing[3]}`,
-                      marginRight: theme.spacing[2],
-                      marginBottom: theme.spacing[2],
-                      backgroundColor: theme.colors.background.primary,
-                      color: theme.colors.text.secondary,
-                      border: `1px solid ${theme.colors.border.light}`,
-                      borderRadius: theme.borderRadius.full,
-                      fontSize: theme.typography.fontSize.sm,
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.borderColor = theme.colors.primary;
-                      e.currentTarget.style.color = theme.colors.primary;
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.borderColor =
-                        theme.colors.border.light;
-                      e.currentTarget.style.color = theme.colors.text.secondary;
+            <form onSubmit={handleSearch}>
+              <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+                <div style={{
+                  backgroundColor: 'white',
+                  padding: '12px',
+                  borderRadius: '20px',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+                  border: `3px solid ${isSearchFocused ? colors.gold : 'transparent'}`,
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px'
+                }}>
+                  <div style={{ flex: 1, position: 'relative' }}>
+                    <span style={{ 
+                      position: 'absolute', 
+                      left: '20px', 
+                      top: '50%', 
+                      transform: 'translateY(-50%)',
+                      color: colors.gray[400],
+                      fontSize: '20px'
+                    }}>🔍</span>
+                    <input
+                      type="text"
+                      placeholder="What service are you looking for today?"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onFocus={() => setIsSearchFocused(true)}
+                      onBlur={() => setIsSearchFocused(false)}
+                      style={{
+                        border: 'none',
+                        outline: 'none',
+                        fontSize: '16px',
+                        padding: '16px 20px 16px 55px',
+                        borderRadius: '16px',
+                        width: '100%',
+                        backgroundColor: 'transparent',
+                        color: colors.navy
+                      }}
+                    />
+                  </div>
+                  <BrandButton
+                    variant="navy"
+                    size="lg"
+                    type="submit"
+                    style={{ 
+                      minWidth: '140px',
+                      borderRadius: '16px'
                     }}
                   >
-                    {term}
-                  </span>
-                )
-              )}
+                    Search
+                  </BrandButton>
+                </div>
+              </div>
+            </form>
+
+            {/* Popular Searches */}
+            <div style={{ marginTop: '2rem' }}>
+              <span style={{
+                fontSize: '14px',
+                color: 'rgba(255,255,255,0.8)',
+                marginRight: '12px'
+              }}>
+                🎯 Popular:
+              </span>
+              {['Logo Design', 'Web Development', 'SEO Services', 'Content Writing'].map((term) => (
+                <span
+                  key={term}
+                  onClick={() => setSearchQuery(term)}
+                  style={{
+                    display: 'inline-block',
+                    margin: '4px',
+                    padding: '8px 16px',
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                    color: 'white',
+                    fontSize: '14px',
+                    borderRadius: '20px',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  {term}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Featured Services */}
-      <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
+      <section style={{ padding: '80px 20px' }}>
         <div className="container">
-          <div className="d-flex align-items-center justify-content-between mb-8">
-            <div>
-              <h2
-                style={{
-                  fontSize: theme.typography.fontSize['3xl'],
-                  fontWeight: theme.typography.fontWeight.bold,
-                  color: theme.colors.text.primary,
-                  marginBottom: theme.spacing[2],
-                }}
-              >
-                Featured Services
-              </h2>
-              <p
-                style={{
-                  fontSize: theme.typography.fontSize.base,
-                  color: theme.colors.text.secondary,
-                  margin: 0,
-                }}
-              >
-                Hand-picked by our team
-              </p>
-            </div>
-            <Button variant="outline" size="md">
-              View All
-            </Button>
+          <div className="text-center mb-12">
+            <h2 style={{
+              fontSize: '2.5rem',
+              fontWeight: 'bold',
+              color: theme.colors.text.primary,
+              marginBottom: '1rem',
+            }}>
+              Featured Services
+            </h2>
+            <p style={{
+              fontSize: '1.125rem',
+              color: theme.colors.text.secondary,
+              margin: '0 auto',
+            }}>
+              Hand-picked by our team
+            </p>
           </div>
 
-          <div className="row g-4">
+          <div className="row g-6">
             {featuredServices.map((service, index) => (
-              <div key={service.slug} className="col-md-6 col-lg-4">
-                <Card
-                  variant="default"
-                  size="md"
-                  hoverable={true}
-                  style={{
-                    height: '100%',
-                    cursor: 'pointer',
-                    position: 'relative',
-                    overflow: 'hidden',
-                  }}
-                  onClick={() =>
-                    (window.location.href = `/shop/${service.slug}`)
-                  }
+              <div key={service.slug} className={`col-md-6 col-lg-4 ${animatedCards ? `animate-fade-in-up` : ''}`}>
+                <div style={{
+                  background: 'white',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+                  border: `1px solid ${theme.colors.border.light}`,
+                  height: '100%',
+                  transition: 'all 0.4s ease'
+                }}
+                onClick={() => (window.location.href = `/shop/${service.slug}`)}
                 >
                   {service.badge && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: theme.spacing[3],
-                        left: theme.spacing[3],
-                        backgroundColor: (() => {
-                          switch (service.badge) {
-                            case 'Best Seller':
-                              return theme.colors.primary;
-                            case 'Premium':
-                              return theme.colors.secondary;
-                            default:
-                              return theme.colors.error;
-                          }
-                        })(),
-                        color: 'white',
-                        padding: `${theme.spacing[1]} ${theme.spacing[2]}`,
-                        borderRadius: theme.borderRadius.md,
-                        fontSize: theme.typography.fontSize.xs,
-                        fontWeight: theme.typography.fontWeight.semibold,
-                        textTransform: 'uppercase',
-                        zIndex: 1,
-                      }}
-                    >
+                    <div style={{
+                      position: 'absolute',
+                      top: '16px',
+                      left: '16px',
+                      backgroundColor: service.badgeColor,
+                      color: service.badge === 'Premium' ? 'white' : colors.navy,
+                      padding: '6px 12px',
+                      borderRadius: '12px',
+                      fontSize: '11px',
+                      fontWeight: 'bold',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px',
+                      zIndex: 2,
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                    }}>
                       {service.badge}
                     </div>
                   )}
 
                   {/* Service Image */}
-                  <div
-                    style={{
-                      height: '160px',
-                      backgroundColor: theme.colors.background.secondary,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '4rem',
-                      marginBottom: theme.spacing[4],
-                    }}
-                  >
-                    {service.image}
+                  <div style={{
+                    height: '200px',
+                    backgroundImage: `url(${service.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%)'
+                    }} />
                   </div>
 
-                  {/* Seller Info */}
-                  <div className="d-flex align-items-center mb-3">
-                    <div
-                      style={{
-                        width: '32px',
-                        height: '32px',
+                  <div style={{ padding: '20px' }}>
+                    {/* Seller Info */}
+                    <div className="d-flex align-items-center mb-4">
+                      <div style={{
+                        width: '48px',
+                        height: '48px',
                         borderRadius: '50%',
-                        backgroundColor: theme.colors.primary,
+                        backgroundImage: `url(${service.sellerAvatar})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        marginRight: '12px',
+                        border: `2px solid ${colors.gold}`,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                      }} />
+                      <div>
+                        <div style={{
+                          fontSize: '16px',
+                          fontWeight: 'bold',
+                          color: theme.colors.text.primary,
+                          marginBottom: '2px'
+                        }}>
+                          {service.seller}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{
+                            fontSize: '11px',
+                            background: `linear-gradient(135deg, ${colors.gold}, #FFD700)`,
+                            color: colors.navy,
+                            padding: '2px 8px',
+                            borderRadius: '8px',
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase'
+                          }}>
+                            {service.sellerLevel}
+                          </span>
+                          <span style={{ color: colors.gold, fontSize: '12px' }}>⭐</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Service Title */}
+                    <h3 style={{
+                      fontSize: '1.25rem',
+                      fontWeight: 'bold',
+                      color: theme.colors.text.primary,
+                      marginBottom: '12px',
+                      lineHeight: '1.4',
+                      minHeight: '60px',
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}>
+                      {service.name}
+                    </h3>
+
+                    {/* Service Tags */}
+                    <div className="d-flex flex-wrap gap-2 mb-4">
+                      {service.tags.map((tag, tagIndex) => (
+                        <span
+                          key={tagIndex}
+                          style={{
+                            fontSize: '11px',
+                            background: `${colors.navy}15`,
+                            color: colors.navy,
+                            padding: '4px 8px',
+                            borderRadius: '8px',
+                            fontWeight: 'medium'
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Rating & Reviews */}
+                    <div className="d-flex align-items-center justify-content-between mb-4">
+                      <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center gap-1 me-2">
+                          {[1,2,3,4,5].map(star => (
+                            <span
+                              key={star}
+                              style={{
+                                color: star <= Math.floor(service.rating) ? colors.gold : colors.gray[300],
+                                fontSize: '14px'
+                              }}
+                            >
+                              ⭐
+                            </span>
+                          ))}
+                        </div>
+                        <span style={{
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                          color: theme.colors.text.primary,
+                          marginRight: '8px',
+                        }}>
+                          {service.rating}
+                        </span>
+                        <span style={{
+                          fontSize: '14px',
+                          color: theme.colors.text.tertiary,
+                        }}>
+                          ({service.reviews} reviews)
+                        </span>
+                      </div>
+                      <div style={{
+                        fontSize: '14px',
+                        color: colors.navy,
+                        fontWeight: 'bold',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        fontSize: theme.typography.fontSize.sm,
-                        fontWeight: theme.typography.fontWeight.semibold,
-                        marginRight: theme.spacing[2],
-                      }}
-                    >
-                      {service.seller.charAt(0)}
-                    </div>
-                    <div>
-                      <div
-                        style={{
-                          fontSize: theme.typography.fontSize.sm,
-                          fontWeight: theme.typography.fontWeight.medium,
-                          color: theme.colors.text.primary,
-                        }}
-                      >
-                        {service.seller}
+                        gap: '4px'
+                      }}>
+                        ⚡ {service.deliveryTime}
                       </div>
-                      <div
-                        style={{
-                          fontSize: theme.typography.fontSize.xs,
-                          color: theme.colors.text.tertiary,
-                        }}
-                      >
-                        {service.sellerLevel}
+                    </div>
+
+                    {/* Footer */}
+                    <div style={{ 
+                      marginTop: 'auto', 
+                      paddingTop: '16px', 
+                      borderTop: `1px solid ${theme.colors.border.light}` 
+                    }}>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <div>
+                          <div style={{
+                            fontSize: '14px',
+                            color: theme.colors.text.tertiary,
+                            textDecoration: 'line-through',
+                            marginBottom: '2px'
+                          }}>
+                            {service.originalPrice}
+                          </div>
+                          <div style={{
+                            fontSize: '1.25rem',
+                            fontWeight: 'bold',
+                            color: colors.navy,
+                          }}>
+                            {service.price}
+                          </div>
+                        </div>
+                        <BrandButton
+                          variant="outline-navy"
+                          size="sm"
+                          style={{ 
+                            borderRadius: '12px',
+                            fontWeight: 'bold'
+                          }}
+                        >
+                          Order Now
+                        </BrandButton>
                       </div>
                     </div>
                   </div>
-
-                  {/* Service Title */}
-                  <h3
-                    style={{
-                      fontSize: theme.typography.fontSize.lg,
-                      fontWeight: theme.typography.fontWeight.semibold,
-                      color: theme.colors.text.primary,
-                      marginBottom: theme.spacing[2],
-                      lineHeight: theme.typography.lineHeight.tight,
-                    }}
-                  >
-                    {service.name}
-                  </h3>
-
-                  {/* Rating & Reviews */}
-                  <div className="d-flex align-items-center mb-3">
-                    <span
-                      style={{
-                        color: '#FFD700',
-                        marginRight: theme.spacing[1],
-                      }}
-                    >
-                      ★
-                    </span>
-                    <span
-                      style={{
-                        fontSize: theme.typography.fontSize.sm,
-                        fontWeight: theme.typography.fontWeight.medium,
-                        color: theme.colors.text.primary,
-                        marginRight: theme.spacing[2],
-                      }}
-                    >
-                      {service.rating}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: theme.typography.fontSize.sm,
-                        color: theme.colors.text.tertiary,
-                      }}
-                    >
-                      ({service.reviews})
-                    </span>
-                  </div>
-
-                  {/* Footer */}
-                  <div className="d-flex align-items-center justify-content-between mt-auto">
-                    <div>
-                      <div
-                        style={{
-                          fontSize: theme.typography.fontSize.sm,
-                          color: theme.colors.text.tertiary,
-                          textDecoration: 'line-through',
-                        }}
-                      >
-                        {service.originalPrice}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: theme.typography.fontSize.lg,
-                          fontWeight: theme.typography.fontWeight.semibold,
-                          color: theme.colors.text.primary,
-                        }}
-                      >
-                        {service.price}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        fontSize: theme.typography.fontSize.sm,
-                        color: theme.colors.text.tertiary,
-                      }}
-                    >
-                      ⏱️ {service.deliveryTime}
-                    </div>
-                  </div>
-                </Card>
+                </div>
               </div>
             ))}
           </div>
@@ -450,105 +493,87 @@ const ShopIndexPage = () => {
       </section>
 
       {/* Categories Grid */}
-      <section
-        style={{
-          padding: `${theme.spacing[16]} ${theme.spacing[4]}`,
-          backgroundColor: theme.colors.background.secondary,
-        }}
-      >
+      <section style={{
+        padding: '80px 20px',
+        backgroundColor: theme.colors.background.secondary,
+      }}>
         <div className="container">
           <div className="text-center mb-12">
-            <h2
-              style={{
-                fontSize: theme.typography.fontSize['3xl'],
-                fontWeight: theme.typography.fontWeight.bold,
-                color: theme.colors.text.primary,
-                marginBottom: theme.spacing[4],
-              }}
-            >
+            <h2 style={{
+              fontSize: '2.5rem',
+              fontWeight: 'bold',
+              color: theme.colors.text.primary,
+              marginBottom: '1rem',
+            }}>
               Browse by Category
             </h2>
-            <p
-              style={{
-                fontSize: theme.typography.fontSize.lg,
-                color: theme.colors.text.secondary,
-                maxWidth: '600px',
-                margin: '0 auto',
-              }}
-            >
+            <p style={{
+              fontSize: '1.125rem',
+              color: theme.colors.text.secondary,
+              maxWidth: '600px',
+              margin: '0 auto',
+            }}>
               Explore our wide range of professional services
             </p>
           </div>
 
           <div className="row g-4">
             {shopCategories.map((category, index) => (
-              <div key={category.slug} className="col-md-6 col-lg-4">
-                <Card
-                  variant="default"
+              <div key={category.slug} className="col-md-6 col-lg-3">
+                <BrandCard
+                  variant="navy-outline"
                   size="lg"
-                  hoverable={true}
                   style={{
                     height: '100%',
                     cursor: 'pointer',
                     textAlign: 'center',
                     position: 'relative',
+                    transition: 'all 0.3s ease'
                   }}
-                  onClick={() =>
-                    (window.location.href = `/shop?category=${category.slug}`)
-                  }
+                  onClick={() => (window.location.href = `/shop?category=${category.slug}`)}
                 >
                   {category.featured && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: theme.spacing[4],
-                        right: theme.spacing[4],
-                        width: '12px',
-                        height: '12px',
-                        borderRadius: '50%',
-                        backgroundColor: theme.colors.primary,
-                      }}
-                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: '16px',
+                      right: '16px',
+                      width: '12px',
+                      height: '12px',
+                      borderRadius: '50%',
+                      backgroundColor: theme.colors.primary,
+                    }} />
                   )}
 
-                  <div
-                    style={{ fontSize: '4rem', marginBottom: theme.spacing[4] }}
-                  >
+                  <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>
                     {category.icon}
                   </div>
 
-                  <h3
-                    style={{
-                      fontSize: theme.typography.fontSize.xl,
-                      fontWeight: theme.typography.fontWeight.semibold,
-                      color: theme.colors.text.primary,
-                      marginBottom: theme.spacing[2],
-                    }}
-                  >
+                  <h3 style={{
+                    fontSize: '1.25rem',
+                    fontWeight: 'bold',
+                    color: theme.colors.text.primary,
+                    marginBottom: '0.5rem',
+                  }}>
                     {category.name}
                   </h3>
 
-                  <p
-                    style={{
-                      fontSize: theme.typography.fontSize.base,
-                      color: theme.colors.text.tertiary,
-                      lineHeight: theme.typography.lineHeight.relaxed,
-                      marginBottom: theme.spacing[4],
-                    }}
-                  >
+                  <p style={{
+                    fontSize: '14px',
+                    color: theme.colors.text.tertiary,
+                    lineHeight: '1.5',
+                    marginBottom: '1rem',
+                  }}>
                     {category.description}
                   </p>
 
-                  <div
-                    style={{
-                      fontSize: theme.typography.fontSize.sm,
-                      color: theme.colors.primary,
-                      fontWeight: theme.typography.fontWeight.medium,
-                    }}
-                  >
+                  <div style={{
+                    fontSize: '14px',
+                    color: theme.colors.primary,
+                    fontWeight: 'bold',
+                  }}>
                     {category.serviceCount} services available
                   </div>
-                </Card>
+                </BrandCard>
               </div>
             ))}
           </div>
@@ -556,57 +581,45 @@ const ShopIndexPage = () => {
       </section>
 
       {/* Trust Section */}
-      <section style={{ padding: `${theme.spacing[16]} ${theme.spacing[4]}` }}>
+      <section style={{ padding: '80px 20px' }}>
         <div className="container">
           <div className="text-center">
-            <h2
-              style={{
-                fontSize: theme.typography.fontSize['3xl'],
-                fontWeight: theme.typography.fontWeight.bold,
-                color: theme.colors.text.primary,
-                marginBottom: theme.spacing[8],
-              }}
-            >
+            <h2 style={{
+              fontSize: '2.5rem',
+              fontWeight: 'bold',
+              color: theme.colors.text.primary,
+              marginBottom: '3rem',
+            }}>
               Trusted by businesses worldwide
             </h2>
 
             <div className="row g-4">
               {[
-                {
-                  icon: '🏆',
-                  title: '10,000+',
-                  subtitle: 'Projects completed',
-                },
+                { icon: '🏆', title: '10,000+', subtitle: 'Projects completed' },
                 { icon: '⭐', title: '4.9/5', subtitle: 'Average rating' },
                 { icon: '🌍', title: '150+', subtitle: 'Countries served' },
                 { icon: '👥', title: '5,000+', subtitle: 'Active sellers' },
               ].map((stat, index) => (
                 <div key={stat.title} className="col-md-6 col-lg-3">
                   <div className="text-center">
-                    <div
-                      style={{
-                        fontSize: '3rem',
-                        marginBottom: theme.spacing[2],
-                      }}
-                    >
+                    <div style={{
+                      fontSize: '3rem',
+                      marginBottom: '1rem',
+                    }}>
                       {stat.icon}
                     </div>
-                    <div
-                      style={{
-                        fontSize: theme.typography.fontSize['2xl'],
-                        fontWeight: theme.typography.fontWeight.bold,
-                        color: theme.colors.primary,
-                        marginBottom: theme.spacing[1],
-                      }}
-                    >
+                    <div style={{
+                      fontSize: '2rem',
+                      fontWeight: 'bold',
+                      color: theme.colors.primary,
+                      marginBottom: '0.5rem',
+                    }}>
                       {stat.title}
                     </div>
-                    <div
-                      style={{
-                        fontSize: theme.typography.fontSize.base,
-                        color: theme.colors.text.secondary,
-                      }}
-                    >
+                    <div style={{
+                      fontSize: '1rem',
+                      color: theme.colors.text.secondary,
+                    }}>
                       {stat.subtitle}
                     </div>
                   </div>
@@ -618,6 +631,4 @@ const ShopIndexPage = () => {
       </section>
     </div>
   );
-};
-
-export default ShopIndexPage;
+}

@@ -12,15 +12,15 @@ import {
 import ShopPage from '../../../components/ShopPage';
 
 interface ShopSlugPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // Server component to fetch data
 export default async function ShopSlugPage({ params }: ShopSlugPageProps) {
-  // Use params directly (do not await)
-  const { slug } = params;
+  // Await params to get the slug
+  const { slug } = await params;
 
   let agency: Agency | null = null;
   let reviews: AgencyReview[] = [];

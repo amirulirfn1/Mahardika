@@ -2,11 +2,12 @@
 
 import React from 'react';
 import { theme } from './theme';
+import { colors } from './colors';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  variant?: 'navy' | 'gold' | 'outline-navy' | 'outline-gold';
+  size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   disabled?: boolean;
   loading?: boolean;
@@ -16,7 +17,7 @@ export interface ButtonProps
 }
 
 export const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
+  variant = 'navy',
   size = 'md',
   children,
   disabled = false,
@@ -33,30 +34,48 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const [isHovered, setIsHovered] = React.useState(false);
-  const [isFocused, setIsFocused] = React.useState(false);
 
   // Base styles from theme
   const baseStyles = theme.components.button.base;
   const sizeStyles = theme.components.button.sizes[size];
   const variantStyles = theme.components.button.variants[variant];
 
-  // Interactive states
-  const hoverStyles =
-    isHovered && !disabled && !loading
-      ? variantStyles[':hover'] || {}
-      : {};
-  const activeStyles =
-    isFocused && !disabled && !loading
-      ? variantStyles[':active'] || {}
-      : {};
+  // Hover styles based on variant
+  const getHoverStyles = () => {
+    if (!isHovered || disabled || loading) return {};
+    
+    const hoverEffects = {
+      navy: {
+        backgroundColor: colors.hover.navy,
+        transform: 'translateY(-1px)',
+        boxShadow: '0 4px 12px rgba(13, 27, 42, 0.15)',
+      },
+      gold: {
+        backgroundColor: colors.hover.gold,
+        transform: 'translateY(-1px)',
+        boxShadow: '0 4px 12px rgba(244, 180, 0, 0.15)',
+      },
+      'outline-navy': {
+        backgroundColor: colors.hover.overlay,
+        transform: 'translateY(-1px)',
+        boxShadow: '0 4px 12px rgba(13, 27, 42, 0.1)',
+      },
+      'outline-gold': {
+        backgroundColor: 'rgba(244, 180, 0, 0.1)',
+        transform: 'translateY(-1px)',
+        boxShadow: '0 4px 12px rgba(244, 180, 0, 0.1)',
+      },
+    };
+    
+    return hoverEffects[variant] || {};
+  };
 
   // Computed styles
   const computedStyles = {
     ...baseStyles,
     ...sizeStyles,
     ...variantStyles,
-    ...hoverStyles,
-    ...activeStyles,
+    ...getHoverStyles(),
     width: fullWidth ? '100%' : 'auto',
     opacity: disabled || loading ? 0.6 : 1,
     cursor: disabled || loading ? 'not-allowed' : 'pointer',
@@ -75,12 +94,10 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
-    setIsFocused(true);
     onFocus?.(e);
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLButtonElement>) => {
-    setIsFocused(false);
     onBlur?.(e);
   };
 

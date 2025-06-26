@@ -4,8 +4,8 @@ import React from 'react';
 import { theme } from './theme';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'elevated' | 'outlined' | 'glass';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: 'navy-primary' | 'gold-primary' | 'navy-outline' | 'gold-outline';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   children: React.ReactNode;
   title?: string;
   subtitle?: string;
@@ -16,7 +16,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card: React.FC<CardProps> = ({
-  variant = 'default',
+  variant = 'navy-outline',
   size = 'md',
   children,
   title,
@@ -40,15 +40,42 @@ export const Card: React.FC<CardProps> = ({
     : { padding: '0' };
   const variantStyles = theme.components.card.variants[variant];
 
-  // Interactive states with proper typing
-  const hoverStyles =
-    isHovered && hoverable ? variantStyles[':hover'] || {} : {};
+  // Hover styles based on variant
+  const getHoverStyles = () => {
+    if (!isHovered || !hoverable) return {};
+    
+    const hoverEffects = {
+      'navy-primary': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 8px 25px rgba(13, 27, 42, 0.15)',
+      },
+      'gold-primary': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 8px 25px rgba(244, 180, 0, 0.15)',
+      },
+      'navy-outline': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 8px 25px rgba(13, 27, 42, 0.1)',
+        backgroundColor: 'rgba(13, 27, 42, 0.02)',
+      },
+      'gold-outline': {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 8px 25px rgba(244, 180, 0, 0.1)',
+        backgroundColor: 'rgba(244, 180, 0, 0.02)',
+      },
+    };
+    
+    return hoverEffects[variant] || {
+      transform: 'translateY(-2px)',
+      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
+    };
+  };
 
   // Computed styles
   const computedStyles = {
     ...baseStyles,
     ...variantStyles,
-    ...hoverStyles,
+    ...getHoverStyles(),
     padding: sizeStyles.padding || '0',
     ...style,
   };
@@ -74,10 +101,10 @@ export const Card: React.FC<CardProps> = ({
     };
 
     const variantTitleStyles = {
-      default: { color: theme.colors.text.primary },
-      elevated: { color: theme.colors.text.primary },
-      outlined: { color: theme.colors.text.primary },
-      glass: { color: theme.colors.text.primary },
+      'navy-primary': { color: theme.colors.text.primary },
+      'gold-primary': { color: theme.colors.text.primary },
+      'navy-outline': { color: theme.colors.text.primary },
+      'gold-outline': { color: theme.colors.text.primary },
     };
 
     return {
@@ -91,16 +118,16 @@ export const Card: React.FC<CardProps> = ({
     const baseSubtitle = {
       margin: '0 0 1.5rem 0',
       fontFamily: theme.typography.fontFamily.body,
-      fontWeight: theme.typography.fontWeight.regular,
+      fontWeight: theme.typography.fontWeight.normal,
       fontSize: theme.typography.fontSize.sm,
       lineHeight: theme.typography.lineHeight.normal,
     };
 
     const variantSubtitleStyles = {
-      default: { color: theme.colors.text.tertiary },
-      elevated: { color: theme.colors.text.tertiary },
-      outlined: { color: theme.colors.text.tertiary },
-      glass: { color: theme.colors.text.secondary },
+      'navy-primary': { color: theme.colors.text.tertiary },
+      'gold-primary': { color: theme.colors.text.tertiary },
+      'navy-outline': { color: theme.colors.text.tertiary },
+      'gold-outline': { color: theme.colors.text.secondary },
     };
 
     return {

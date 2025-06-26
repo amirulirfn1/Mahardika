@@ -15,7 +15,7 @@
 'use client';
 
 import React, { useState, useRef, useCallback } from 'react';
-import { MAHARDIKA_COLORS } from '@/lib/env';
+import { colors, BrandButton } from '@mahardika/ui';
 
 interface UploadProgress {
   loaded: number;
@@ -38,6 +38,11 @@ interface BossUploadFormProps {
   onUploadError?: (error: string) => void;
   className?: string;
 }
+
+const brandColors = {
+  navy: colors.navy,
+  gold: colors.gold,
+};
 
 export default function BossUploadForm({
   onUploadComplete,
@@ -129,8 +134,8 @@ export default function BossUploadForm({
     <div className={`boss-upload-form ${className}`}>
       <style jsx>{`
         .boss-upload-form {
-          --mahardika-navy: ${MAHARDIKA_COLORS.navy};
-          --mahardika-gold: ${MAHARDIKA_COLORS.gold};
+          --mahardika-navy: ${brandColors.navy};
+          --mahardika-gold: ${brandColors.gold};
           max-width: 600px;
           margin: 0 auto;
         }
@@ -260,13 +265,15 @@ export default function BossUploadForm({
             </div>
           )}
 
-          <button
-            className="btn btn-primary w-100"
+          <BrandButton
+            variant="navy"
+            size="lg"
+            fullWidth
             onClick={handleUpload}
             disabled={files.length === 0 || uploading}
           >
             {uploading ? 'Uploading...' : 'Upload Files'}
-          </button>
+          </BrandButton>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { colors } from '@mahardika/ui';
 
 interface HeroImageUploadModalProps {
   isOpen: boolean;
@@ -25,9 +26,9 @@ interface UploadData {
   imageFile: File | null;
 }
 
-const MAHARDIKA_COLORS = {
-  navy: '#0D1B2A',
-  gold: '#F4B400',
+const brandColors = {
+  navy: colors.navy,
+  gold: colors.gold,
 };
 
 const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
@@ -171,7 +172,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
           className="modal-content"
           style={{
             borderRadius: '0.5rem',
-            border: `2px solid ${MAHARDIKA_COLORS.gold}`,
+            border: `2px solid ${brandColors.gold}40`,
             boxShadow: '0 10px 30px rgba(13, 27, 42, 0.3)',
           }}
         >
@@ -179,7 +180,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
           <div
             className="modal-header"
             style={{
-              backgroundColor: MAHARDIKA_COLORS.navy,
+              backgroundColor: brandColors.navy,
               color: 'white',
               borderRadius: '0.5rem 0.5rem 0 0',
             }}
@@ -207,7 +208,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
               <div className="mb-4">
                 <label
                   className="form-label fw-bold"
-                  style={{ color: MAHARDIKA_COLORS.navy }}
+                  style={{ color: brandColors.navy }}
                 >
                   Hero Image
                 </label>
@@ -225,7 +226,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                         maxHeight: '200px',
                         width: '100%',
                         objectFit: 'cover',
-                        border: `2px solid ${MAHARDIKA_COLORS.gold}40`,
+                        border: `2px solid ${brandColors.gold}40`,
                       }}
                     />
                   </div>
@@ -240,8 +241,8 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                     borderRadius: '0.5rem',
                     borderStyle: 'dashed',
                     backgroundColor: dragOver
-                      ? `${MAHARDIKA_COLORS.gold}10`
-                      : `${MAHARDIKA_COLORS.navy}05`,
+                      ? `${brandColors.gold}10`
+                      : `${brandColors.navy}05`,
                     minHeight: '120px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -256,11 +257,11 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                 >
                   <i
                     className={`bi ${dragOver ? 'bi-cloud-upload' : 'bi-image'} mb-2`}
-                    style={{ fontSize: '2rem', color: MAHARDIKA_COLORS.gold }}
+                    style={{ fontSize: '2rem', color: brandColors.gold }}
                   />
                   <p
                     className="mb-2 fw-bold"
-                    style={{ color: MAHARDIKA_COLORS.navy }}
+                    style={{ color: brandColors.navy }}
                   >
                     {dragOver
                       ? 'Drop image here'
@@ -285,7 +286,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                 <label
                   htmlFor="tagline"
                   className="form-label fw-bold"
-                  style={{ color: MAHARDIKA_COLORS.navy }}
+                  style={{ color: brandColors.navy }}
                 >
                   Tagline <span className="text-muted">(max 60 chars)</span>
                 </label>
@@ -301,7 +302,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                   maxLength={60}
                   style={{
                     borderRadius: '0.5rem',
-                    border: `2px solid ${MAHARDIKA_COLORS.gold}40`,
+                    border: `2px solid ${brandColors.gold}40`,
                   }}
                   disabled={loading}
                 />
@@ -315,7 +316,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                 <label
                   htmlFor="about"
                   className="form-label fw-bold"
-                  style={{ color: MAHARDIKA_COLORS.navy }}
+                  style={{ color: brandColors.navy }}
                 >
                   About <span className="text-muted">(Markdown supported)</span>
                 </label>
@@ -330,7 +331,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                   rows={4}
                   style={{
                     borderRadius: '0.5rem',
-                    border: `2px solid ${MAHARDIKA_COLORS.gold}40`,
+                    border: `2px solid ${brandColors.gold}40`,
                     resize: 'vertical',
                   }}
                   disabled={loading}
@@ -361,7 +362,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
                   className="btn fw-bold"
                   disabled={loading || !formData.tagline.trim()}
                   style={{
-                    backgroundColor: MAHARDIKA_COLORS.navy,
+                    backgroundColor: brandColors.navy,
                     color: 'white',
                     borderRadius: '0.5rem',
                     border: 'none',
@@ -412,7 +413,7 @@ const HeroImageUploadModal: React.FC<HeroImageUploadModalProps> = ({
           <div
             className="modal-footer"
             style={{
-              backgroundColor: `${MAHARDIKA_COLORS.gold}10`,
+              backgroundColor: `${brandColors.gold}10`,
               borderRadius: '0 0 0.5rem 0.5rem',
             }}
           >

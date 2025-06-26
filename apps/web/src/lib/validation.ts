@@ -461,7 +461,7 @@ export const validators = {
   phone: () =>
     v
       .string()
-      .regex(/^\+?[\d\s\-\(\)]+$/)
+      .regex(/^\+?[\d\s-]+$/)
       .max(20),
   postalCode: () => v.string().max(20),
 };

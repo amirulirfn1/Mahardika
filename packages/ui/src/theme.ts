@@ -10,10 +10,10 @@ import { colors } from './colors';
 export const typography = {
   fontFamily: {
     primary:
-      '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif',
+      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
     heading:
-      '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif',
-    body: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif',
+      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
     mono: '"SF Mono", "Monaco", "Inconsolata", "Roboto Mono", "Consolas", monospace',
   },
 
@@ -34,7 +34,7 @@ export const typography = {
 
   fontWeight: {
     light: '300',
-    regular: '400',
+    normal: '400',
     medium: '500',
     semibold: '600',
     bold: '700',
@@ -123,76 +123,40 @@ export const components = {
       textDecoration: 'none',
     },
     sizes: {
-      xs: {
-        padding: `${spacing[2]} ${spacing[3]}`,
-        fontSize: typography.fontSize.xs,
-        lineHeight: typography.lineHeight.tight,
-      },
       sm: {
-        padding: `${spacing[2]} ${spacing[4]}`,
+        padding: '0.75rem 1.25rem',
         fontSize: typography.fontSize.sm,
-        lineHeight: typography.lineHeight.tight,
+        gap: '0.5rem',
       },
       md: {
-        padding: `${spacing[3]} ${spacing[5]}`,
+        padding: '1rem 2rem',
         fontSize: typography.fontSize.base,
-        lineHeight: typography.lineHeight.normal,
+        gap: '0.75rem',
       },
       lg: {
-        padding: `${spacing[4]} ${spacing[6]}`,
+        padding: '1.25rem 2.5rem',
         fontSize: typography.fontSize.lg,
-        lineHeight: typography.lineHeight.normal,
-      },
-      xl: {
-        padding: `${spacing[5]} ${spacing[8]}`,
-        fontSize: typography.fontSize.xl,
-        lineHeight: typography.lineHeight.normal,
+        gap: '1rem',
       },
     },
     variants: {
-      primary: {
-        backgroundColor: colors.primary,
-        color: colors.text.inverse,
-        borderColor: colors.primary,
-        boxShadow: colors.shadow.sm,
-        ':hover': {
-          backgroundColor: colors.hover.primary,
-          borderColor: colors.hover.primary,
-          boxShadow: colors.shadow.md,
-          transform: 'translateY(-1px)',
-        },
-        ':active': {
-          transform: 'translateY(0)',
-          boxShadow: colors.shadow.sm,
-        },
+      navy: {
+        backgroundColor: colors.navy,
+        color: colors.white,
       },
-      secondary: {
-        backgroundColor: colors.background.primary,
-        color: colors.text.primary,
-        borderColor: colors.border.medium,
-        boxShadow: colors.shadow.sm,
-        ':hover': {
-          backgroundColor: colors.hover.light,
-          borderColor: colors.border.dark,
-          boxShadow: colors.shadow.md,
-        },
+      gold: {
+        backgroundColor: colors.gold,
+        color: colors.navy,
       },
-      outline: {
+      'outline-navy': {
         backgroundColor: 'transparent',
-        color: colors.primary,
-        borderColor: colors.primary,
-        ':hover': {
-          backgroundColor: colors.hover.overlay,
-          borderColor: colors.hover.primary,
-        },
+        borderColor: colors.navy,
+        color: colors.navy,
       },
-      ghost: {
+      'outline-gold': {
         backgroundColor: 'transparent',
-        color: colors.text.primary,
-        borderColor: 'transparent',
-        ':hover': {
-          backgroundColor: colors.hover.light,
-        },
+        borderColor: colors.gold,
+        color: colors.gold,
       },
     },
   },
@@ -208,43 +172,39 @@ export const components = {
     },
     sizes: {
       sm: {
-        padding: spacing[4],
+        padding: '1.25rem',
+        minHeight: '120px',
       },
       md: {
-        padding: spacing[6],
+        padding: '1.75rem',
+        minHeight: '160px',
       },
       lg: {
-        padding: spacing[8],
+        padding: '2.5rem',
+        minHeight: '200px',
+      },
+      xl: {
+        padding: '3.5rem',
       },
     },
     variants: {
-      default: {
-        boxShadow: colors.shadow.sm,
-        ':hover': {
-          boxShadow: colors.shadow.lg,
-          transform: 'translateY(-2px)',
-        },
+      'navy-primary': {
+        background: `linear-gradient(135deg, ${colors.navy} 0%, #1a2332 100%)`,
+        color: colors.white,
       },
-      elevated: {
-        boxShadow: colors.shadow.md,
-        ':hover': {
-          boxShadow: colors.shadow.xl,
-          transform: 'translateY(-4px)',
-        },
+      'gold-primary': {
+        background: `linear-gradient(135deg, ${colors.gold} 0%, #FFD23F 100%)`,
+        color: colors.navy,
       },
-      outlined: {
-        borderColor: colors.border.medium,
-        boxShadow: 'none',
-        ':hover': {
-          borderColor: colors.border.dark,
-          boxShadow: colors.shadow.sm,
-        },
+      'navy-outline': {
+        backgroundColor: 'transparent',
+        border: `2px solid ${colors.navy}`,
+        color: colors.navy,
       },
-      glass: {
-        backgroundColor: colors.background.glass,
-        backdropFilter: 'blur(20px)',
-        borderColor: colors.border.light,
-        boxShadow: colors.shadow.glass,
+      'gold-outline': {
+        backgroundColor: 'transparent',
+        border: `2px solid ${colors.gold}`,
+        color: colors.gold,
       },
     },
   },

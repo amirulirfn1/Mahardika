@@ -122,10 +122,10 @@ export default function ForgotPasswordForm({
               Check Your Email
             </h4>
             <p className="card-text text-muted mb-4">
-              We've sent a password reset link to <strong>{email}</strong>
+              We&apos;ve sent a password reset link to <strong>{email}</strong>
             </p>
             <p className="small text-muted mb-4">
-              Didn't receive the email? Check your spam folder or try again.
+              Didn&apos;t receive the email? Check your spam folder or try again.
             </p>
             <button
               type="button"
@@ -263,14 +263,14 @@ export default function ForgotPasswordForm({
           </div>
           <h3 className="mb-1">Forgot Password?</h3>
           <p className="mb-0 opacity-75">
-            No worries, we'll send you reset instructions
+            No worries, we&apos;ll send you reset instructions
           </p>
         </div>
 
         {/* Form Body */}
         <div className="card-body p-4">
           <p className="form-description text-center mb-4">
-            Enter your email address and we'll send you a link to reset your
+            Enter your email address and we&apos;ll send you a link to reset your
             password.
           </p>
 
@@ -371,10 +371,6 @@ export function ForgotPasswordExample() {
     try {
       const { resetPassword } = await import('@/lib/supabase');
       await resetPassword(email);
-      console.log('Password reset requested for:', email);
-    } catch (error) {
-      console.error('Password reset error:', error);
-      throw error;
     } finally {
       setIsLoading(false);
     }

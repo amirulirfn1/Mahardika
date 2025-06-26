@@ -122,7 +122,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 lineHeight: theme.typography.lineHeight.relaxed,
               }}
             >
-              We're sorry for the inconvenience. An unexpected error has
+              We&apos;re sorry for the inconvenience. An unexpected error has
               occurred. Please try refreshing the page or contact support if the
               problem persists.
             </p>
@@ -231,11 +231,13 @@ export const withErrorBoundary = <P extends object>(
   Component: React.ComponentType<P>,
   fallback?: ReactNode
 ) => {
-  return (props: P) => (
+  const WrappedComponent = (props: P) => (
     <ErrorBoundary fallback={fallback}>
       <Component {...props} />
     </ErrorBoundary>
   );
+  WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name})`;
+  return WrappedComponent;
 };
 
 // Default error page component

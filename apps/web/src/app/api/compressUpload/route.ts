@@ -137,7 +137,7 @@ async function scanFileForViruses(fileBuffer: ArrayBuffer): Promise<{
     };
   } catch (error) {
     // If scanning fails, err on the side of caution
-    console.warn('Virus scanning failed:', error);
+    
     return {
       infected: false,
       threats: [],
@@ -174,9 +174,7 @@ async function compressPDF(fileBuffer: ArrayBuffer): Promise<{
     const compressionRatio =
       ((originalSize - mockCompressedSize) / originalSize) * 100;
 
-    console.log(
-      `[Compression] Simulated compression: ${originalSize} → ${mockCompressedSize} bytes (${compressionRatio.toFixed(1)}% reduction)`
-    );
+    
 
     return {
       compressedBuffer,
@@ -185,7 +183,7 @@ async function compressPDF(fileBuffer: ArrayBuffer): Promise<{
       compressionRatio,
     };
   } catch (error) {
-    console.warn('PDF compression failed, using original file:', error);
+    
     return {
       compressedBuffer: fileBuffer,
       originalSize: fileBuffer.byteLength,
@@ -231,7 +229,7 @@ async function getUserAgencyId(
 
     return userData.agency_id;
   } catch (error) {
-    console.error('Error getting user agency ID:', error);
+    
     return null;
   }
 }
@@ -295,7 +293,7 @@ async function uploadToStorageWithSignedUrl(
         .createSignedUrl(fileName, 3600); // 1 hour expiry
 
     if (signedUrlError) {
-      console.warn('Failed to create signed URL:', signedUrlError);
+      
       // Continue without signed URL - upload was successful
     }
 
@@ -355,15 +353,12 @@ async function logUploadActivity(
         error: error || null,
       };
 
-      // Log detailed metadata (would use a more detailed audit function in production)
-      console.log(`[Audit] Upload activity logged`, {
-        fileName,
-        success,
-        metadata,
-      });
+      // no-op
+      
     }
   } catch (auditError) {
-    console.warn('Failed to log upload activity:', auditError);
+    // In a production environment, you might want to log this to a dedicated monitoring service.
+    console.error('Failed to log upload activity:', auditError);
   }
 }
 
@@ -525,14 +520,7 @@ async function handleCompressUpload(
       scanResults
     );
 
-    console.log(`[CompressUpload] File uploaded successfully - ${requestId}`, {
-      fileName: secureFileName,
-      originalName: file.name,
-      originalSize: compressionData.originalSize,
-      compressedSize: compressionData.compressedSize,
-      compressionRatio: compressionData.compressionRatio,
-      agencyId,
-    });
+    
 
     return NextResponse.json(
       {
@@ -561,7 +549,7 @@ async function handleCompressUpload(
     const errorMessage =
       error instanceof Error ? error.message : 'Upload processing failed';
 
-    console.error(`[CompressUpload] Upload failed - ${requestId}`, error);
+    
 
     return NextResponse.json(
       {

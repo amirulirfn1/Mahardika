@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import { BrandButton, BrandCard, colors } from '@mahardika/ui';
 import { Agency, AgencyReview } from '../lib/supabase';
 
@@ -80,12 +81,13 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
             <div className="col-lg-8">
               <div className="text-white py-5">
                 {agency.logo_url && (
-                  <img
+                  <Image
                     src={agency.logo_url}
                     alt={`${agency.name} logo`}
+                    width={80}
+                    height={80}
                     className="mb-4 rounded"
                     style={{
-                      maxHeight: '80px',
                       border: `2px solid ${colors.gold}`,
                     }}
                   />
@@ -237,7 +239,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                         fontStyle: 'italic',
                       }}
                     >
-                      "{reviews[currentReviewIndex].comment}"
+                      &ldquo;{reviews[currentReviewIndex].comment}&rdquo;
                     </blockquote>
                     <footer className="blockquote-footer">
                       <strong style={{ color: colors.navy }}>
@@ -286,9 +288,9 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                 {/* Review Indicators */}
                 {reviews.length > 1 && (
                   <div className="d-flex justify-content-center mt-3">
-                    {reviews.map((_, index) => (
+                    {reviews.map((review, index) => (
                       <button
-                        key={index}
+                        key={review.id}
                         className="btn p-0 mx-1"
                         style={{
                           width: '12px',
@@ -401,7 +403,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
             <div className="col-lg-8">
               <h2 className="display-6 fw-bold mb-3">Ready to Get Started?</h2>
               <p className="lead mb-4">
-                Don't wait – secure your coverage today with {agency.name}
+                Don&apos;t wait – secure your coverage today with {agency.name}
               </p>
               <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
                 <BrandButton

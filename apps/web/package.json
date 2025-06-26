@@ -4,6 +4,7 @@
   "private": true,
   "description": "Mahardika Web Application - Showcase for UI components",
   "scripts": {
+    "prebuild": "node copy-ui-package.js",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
@@ -12,7 +13,7 @@
     "format:check": "prettier --check .",
     "start": "next start",
     "type-check": "tsc --noEmit",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && node copy-ui-package.js",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",
@@ -23,7 +24,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@mahardika/ui": "workspace:*",
+    "@mahardika/ui": "file:./local-ui",
     "@prisma/client": "^5.19.1",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.50.0",
@@ -71,7 +72,7 @@
   ],
   "author": "Mahardika Team",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.15.0"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

@@ -97,7 +97,7 @@ describe('Environment Configuration', () => {
     it('should handle DeepSeek API key', () => {
       process.env.DEEPSEEK_API_KEY = 'sk-test-key';
       const apiKey = process.env.DEEPSEEK_API_KEY;
-      const isEnabled = !!process.env.DEEPSEEK_API_KEY;
+      const isEnabled = Boolean(process.env.DEEPSEEK_API_KEY);
 
       expect(apiKey).toBe('sk-test-key');
       expect(isEnabled).toBe(true);
@@ -105,7 +105,7 @@ describe('Environment Configuration', () => {
 
     it('should detect missing DeepSeek API key', () => {
       delete process.env.DEEPSEEK_API_KEY;
-      const isEnabled = !!process.env.DEEPSEEK_API_KEY;
+      const isEnabled = Boolean(process.env.DEEPSEEK_API_KEY);
       expect(isEnabled).toBe(false);
     });
   });
@@ -117,7 +117,7 @@ describe('Environment Configuration', () => {
 
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
       const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-      const isEnabled = !!(supabaseUrl && supabaseKey);
+      const isEnabled = Boolean(supabaseUrl && supabaseKey);
 
       expect(supabaseUrl).toBe('https://test.supabase.co');
       expect(supabaseKey).toBe('test-anon-key');
@@ -130,7 +130,7 @@ describe('Environment Configuration', () => {
 
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
       const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-      const isEnabled = !!(supabaseUrl && supabaseKey);
+      const isEnabled = Boolean(supabaseUrl && supabaseKey);
 
       expect(isEnabled).toBe(false);
     });
@@ -143,7 +143,7 @@ describe('Environment Configuration', () => {
 
       const secret = process.env.NEXTAUTH_SECRET;
       const url = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-      const isEnabled = !!process.env.NEXTAUTH_SECRET;
+      const isEnabled = Boolean(process.env.NEXTAUTH_SECRET);
 
       expect(secret).toBe('test-secret-key-min-32-chars-long');
       expect(url).toBe('http://localhost:3000');
@@ -164,7 +164,7 @@ describe('Environment Configuration', () => {
 
       const publicKey = process.env.STRIPE_PUBLIC_KEY;
       const secretKey = process.env.STRIPE_SECRET_KEY;
-      const isEnabled = !!(publicKey && secretKey);
+      const isEnabled = Boolean(publicKey && secretKey);
 
       expect(publicKey).toBe('pk_test_12345');
       expect(secretKey).toBe('sk_test_67890');
@@ -177,7 +177,7 @@ describe('Environment Configuration', () => {
 
       const apiKey = process.env.SENDGRID_API_KEY;
       const fromEmail = process.env.SENDGRID_FROM_EMAIL;
-      const isEnabled = !!process.env.SENDGRID_API_KEY;
+      const isEnabled = Boolean(process.env.SENDGRID_API_KEY);
 
       expect(apiKey).toBe('SG.test-key');
       expect(fromEmail).toBe('noreply@mahardika.com');
@@ -192,7 +192,7 @@ describe('Environment Configuration', () => {
 
       const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
       const measurementId = process.env.GOOGLE_ANALYTICS_MEASUREMENT_ID;
-      const isEnabled = !!process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+      const isEnabled = Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
 
       expect(gaId).toBe('GA-123456789');
       expect(measurementId).toBe('G-ABCDEFGHIJ');
@@ -203,7 +203,7 @@ describe('Environment Configuration', () => {
       process.env.NEXT_PUBLIC_MIXPANEL_TOKEN = 'test-mixpanel-token';
 
       const token = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
-      const isEnabled = !!process.env.NEXT_PUBLIC_MIXPANEL_TOKEN;
+      const isEnabled = Boolean(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN);
 
       expect(token).toBe('test-mixpanel-token');
       expect(isEnabled).toBe(true);

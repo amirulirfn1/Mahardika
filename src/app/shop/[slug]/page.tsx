@@ -32,12 +32,10 @@ export default async function ShopSlugPage({ params }: ShopSlugPageProps) {
       if (agency) {
         reviews = await agencyService.getReviews(agency.id);
       }
-    } else {
+    } else if (slug === mockAgencyData.slug) {
       // Use mock data for development
-      if (slug === mockAgencyData.slug) {
-        agency = mockAgencyData;
-        reviews = mockReviewsData;
-      }
+      agency = mockAgencyData;
+      reviews = mockReviewsData;
     }
   } catch (error) {
     console.error('Error fetching agency data:', error);

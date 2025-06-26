@@ -358,7 +358,7 @@ export default function HomePage() {
                 color: '#421300',
               },
             ].map((service, index) => (
-              <div key={index} className="col-md-6 col-lg-4">
+              <div key={service.title} className="col-md-6 col-lg-4">
                 <a
                   href={`/shop?category=${service.title.toLowerCase().replace(' ', '-')}`}
                   className="text-decoration-none"
@@ -484,7 +484,7 @@ export default function HomePage() {
                     'Questions? Our round-the-clock support team is available to help anytime, anywhere.',
                 },
               ].map((feature, index) => (
-                <div key={index} className="d-flex gap-4 mb-5">
+                <div key={feature.title} className="d-flex gap-4 mb-5">
                   <div
                     style={{
                       fontSize: '2rem',

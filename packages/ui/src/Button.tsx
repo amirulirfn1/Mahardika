@@ -43,11 +43,11 @@ export const Button: React.FC<ButtonProps> = ({
   // Interactive states
   const hoverStyles =
     isHovered && !disabled && !loading
-      ? (variantStyles as any)[':hover'] || {}
+      ? variantStyles[':hover'] || {}
       : {};
   const activeStyles =
     isFocused && !disabled && !loading
-      ? (variantStyles as any)[':active'] || {}
+      ? variantStyles[':active'] || {}
       : {};
 
   // Computed styles

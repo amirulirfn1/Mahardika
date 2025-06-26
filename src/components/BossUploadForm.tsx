@@ -238,7 +238,7 @@ export default function BossUploadForm({
             <div className="mb-3">
               <h6>Selected Files:</h6>
               {files.map((file, index) => (
-                <div key={index} className="alert alert-info">
+                <div key={file.name} className="alert alert-info">
                   {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
                 </div>
               ))}

@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button, Card } from '@mahardika/ui';
-import { theme } from '@mahardika/ui';
+import { Button, Card, theme } from '@mahardika/ui';
 
 // Sample shop data with Fiverr-style categories
 const shopCategories = [
@@ -205,7 +204,7 @@ const ShopIndexPage = () => {
               {['Logo Design', 'WordPress', 'SEO', 'Social Media'].map(
                 (term, index) => (
                   <span
-                    key={index}
+                    key={term}
                     style={{
                       display: 'inline-block',
                       padding: `${theme.spacing[1]} ${theme.spacing[3]}`,
@@ -270,7 +269,7 @@ const ShopIndexPage = () => {
 
           <div className="row g-4">
             {featuredServices.map((service, index) => (
-              <div key={index} className="col-md-6 col-lg-4">
+              <div key={service.slug} className="col-md-6 col-lg-4">
                 <Card
                   variant="default"
                   size="md"
@@ -291,12 +290,16 @@ const ShopIndexPage = () => {
                         position: 'absolute',
                         top: theme.spacing[3],
                         left: theme.spacing[3],
-                        backgroundColor:
-                          service.badge === 'Best Seller'
-                            ? theme.colors.primary
-                            : service.badge === 'Premium'
-                              ? theme.colors.secondary
-                              : theme.colors.error,
+                        backgroundColor: (() => {
+                          switch (service.badge) {
+                            case 'Best Seller':
+                              return theme.colors.primary;
+                            case 'Premium':
+                              return theme.colors.secondary;
+                            default:
+                              return theme.colors.error;
+                          }
+                        })(),
                         color: 'white',
                         padding: `${theme.spacing[1]} ${theme.spacing[2]}`,
                         borderRadius: theme.borderRadius.md,
@@ -479,7 +482,7 @@ const ShopIndexPage = () => {
 
           <div className="row g-4">
             {shopCategories.map((category, index) => (
-              <div key={index} className="col-md-6 col-lg-4">
+              <div key={category.slug} className="col-md-6 col-lg-4">
                 <Card
                   variant="default"
                   size="lg"
@@ -578,7 +581,7 @@ const ShopIndexPage = () => {
                 { icon: '🌍', title: '150+', subtitle: 'Countries served' },
                 { icon: '👥', title: '5,000+', subtitle: 'Active sellers' },
               ].map((stat, index) => (
-                <div key={index} className="col-md-6 col-lg-3">
+                <div key={stat.title} className="col-md-6 col-lg-3">
                   <div className="text-center">
                     <div
                       style={{

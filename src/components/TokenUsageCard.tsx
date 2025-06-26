@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface TokenUsageStats {
@@ -29,11 +29,7 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchTokenUsage();
-  }, [agencyId]);
-
-  const fetchTokenUsage = async () => {
+  const fetchTokenUsage = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -62,7 +58,11 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [agencyId]);
+
+  useEffect(() => {
+    fetchTokenUsage();
+  }, [fetchTokenUsage]);
 
   const getProgressBarColor = (percentage: number): string => {
     if (percentage >= 90) return 'danger';
@@ -225,32 +225,42 @@ const TokenUsageCard: React.FC<TokenUsageCardProps> = ({
 
         {/* Status Message */}
         <div className="text-center">
-          {stats.percentage >= 90 ? (
-            <div
-              className="alert alert-danger py-1 px-2 mb-0"
-              style={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-            >
-              <i className="bi bi-exclamation-triangle-fill me-1" />
-              <strong>Limit almost reached!</strong> Consider upgrading.
-            </div>
-          ) : stats.percentage >= 75 ? (
-            <div
-              className="alert alert-warning py-1 px-2 mb-0"
-              style={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-            >
-              <i className="bi bi-info-circle-fill me-1" />
-              <strong>High usage detected.</strong> Monitor carefully.
-            </div>
-          ) : (
-            <div
-              className="alert alert-success py-1 px-2 mb-0"
-              style={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
-            >
-              <i className="bi bi-check-circle-fill me-1" />
-              <strong>Usage healthy.</strong> {formatNumber(stats.remaining)}{' '}
-              tokens remaining.
-            </div>
-          )}
+          {
+            (() => {
+              if (stats.percentage >= 90) {
+                return (
+                  <div
+                    className="alert alert-danger py-1 px-2 mb-0"
+                    style={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
+                  >
+                    <i className="bi bi-exclamation-triangle-fill me-1" />
+                    <strong>Limit almost reached!</strong> Consider upgrading.
+                  </div>
+                );
+              }
+              if (stats.percentage >= 75) {
+                return (
+                  <div
+                    className="alert alert-warning py-1 px-2 mb-0"
+                    style={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
+                  >
+                    <i className="bi bi-info-circle-fill me-1" />
+                    <strong>High usage detected.</strong> Monitor carefully.
+                  </div>
+                );
+              }
+              return (
+                <div
+                  className="alert alert-success py-1 px-2 mb-0"
+                  style={{ borderRadius: '0.5rem', fontSize: '0.8rem' }}
+                >
+                  <i className="bi bi-check-circle-fill me-1" />
+                  <strong>Usage healthy.</strong> {formatNumber(stats.remaining)}{' '}
+                  tokens remaining.
+                </div>
+              );
+            })()
+          }
         </div>
       </div>
 

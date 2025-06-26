@@ -115,7 +115,7 @@ async function getUserAgencyId(
 
     return userData.agency_id;
   } catch (error) {
-    console.error('Error getting user agency ID:', error);
+    
     return null;
   }
 }
@@ -184,13 +184,13 @@ async function getSignedFileUrl(
       .createSignedUrl(fileName, 3600); // 1 hour expiry
 
     if (error) {
-      console.warn('Failed to create signed URL:', error);
+      
       return null;
     }
 
     return data.signedUrl;
   } catch (error) {
-    console.error('Error creating signed URL:', error);
+    
     return null;
   }
 }
@@ -214,7 +214,7 @@ async function logUploadActivity(
       agency_id_param: agencyId,
     });
   } catch (auditError) {
-    console.warn('Failed to log upload activity:', auditError);
+    // no-op
   }
 }
 
@@ -322,12 +322,7 @@ async function handleUpload(request: NextRequest): Promise<NextResponse> {
       supabase
     );
 
-    console.log(`[Upload] File uploaded successfully - ${requestId}`, {
-      fileName: secureFileName,
-      originalName: file.name,
-      size: file.size,
-      agencyId,
-    });
+    
 
     return NextResponse.json(
       {
@@ -351,7 +346,7 @@ async function handleUpload(request: NextRequest): Promise<NextResponse> {
     const errorMessage =
       error instanceof Error ? error.message : 'Upload processing failed';
 
-    console.error(`[Upload] Upload failed - ${requestId}`, error);
+    
 
     return NextResponse.json(
       {

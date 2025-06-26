@@ -46,8 +46,8 @@ export default function NotFound() {
                   Page Not Found
                 </h2>
                 <p className="lead mb-0" style={{ color: colors.gray[600] }}>
-                  The page you're looking for doesn't exist or has been moved.
-                  Don't worry, you can find what you need from our homepage.
+                  The page you&apos;re looking for doesn&apos;t exist or has been moved.
+                  Don&apos;t worry, you can find what you need from our homepage.
                 </p>
               </div>
 

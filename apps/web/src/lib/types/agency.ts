@@ -172,7 +172,7 @@ export type AgencyId = string;
 export const AGENCY_CONSTANTS = {
   SLUG_PATTERN: /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
   EMAIL_PATTERN: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  PHONE_PATTERN: /^\+?[\d\s\-\(\)]+$/,
+  PHONE_PATTERN: /^\+?[\d\s-]+$/,
   URL_PATTERN: /^https?:\/\/.+/,
   MAX_NAME_LENGTH: 100,
   MAX_SLUG_LENGTH: 100,

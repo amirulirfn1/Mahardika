@@ -45,12 +45,17 @@ const getBrandButtonStyles = (
   const sizeStyles = theme.components.button.sizes;
 
   // Map new variant names to legacy names for backward compatibility
-  const mappedVariant =
-    variant === 'navy-outline'
-      ? 'outline-navy'
-      : variant === 'gold-outline'
-        ? 'outline-gold'
-        : variant;
+  let mappedVariant;
+  switch (variant) {
+    case 'navy-outline':
+      mappedVariant = 'outline-navy';
+      break;
+    case 'gold-outline':
+      mappedVariant = 'outline-gold';
+      break;
+    default:
+      mappedVariant = variant;
+  }
 
   // Enhanced variant styles with Mahardika brand identity
   const variantStyles = {

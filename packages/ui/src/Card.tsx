@@ -42,7 +42,7 @@ export const Card: React.FC<CardProps> = ({
 
   // Interactive states with proper typing
   const hoverStyles =
-    isHovered && hoverable ? (variantStyles as any)[':hover'] || {} : {};
+    isHovered && hoverable ? variantStyles[':hover'] || {} : {};
 
   // Computed styles
   const computedStyles = {

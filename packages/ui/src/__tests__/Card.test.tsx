@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import { Card } from '../Card';
-import { colors } from '../colors';
+
 
 describe('Card Component', () => {
   it('renders with default props', () => {

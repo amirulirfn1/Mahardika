@@ -38,10 +38,10 @@ if (process.env.NODE_ENV === 'development') {
 export async function connectToDatabase() {
   try {
     await prisma.$connect();
-    console.log('✅ Connected to database successfully');
+    
     return true;
   } catch (error) {
-    console.error('❌ Failed to connect to database:', error);
+    
     return false;
   }
 }
@@ -49,10 +49,10 @@ export async function connectToDatabase() {
 export async function disconnectFromDatabase() {
   try {
     await prisma.$disconnect();
-    console.log('✅ Disconnected from database successfully');
+    
     return true;
   } catch (error) {
-    console.error('❌ Failed to disconnect from database:', error);
+    
     return false;
   }
 }
@@ -269,7 +269,7 @@ export async function logDatabaseAction(
       },
     });
   } catch (error) {
-    console.error('Failed to log database action:', error);
+    // no-op
   }
 }
 

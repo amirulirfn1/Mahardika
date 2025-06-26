@@ -252,20 +252,22 @@ export default function ReviewReplyInterface({
                   onClick={handleSubmitReply}
                   disabled={isSubmitting || !replyText.trim()}
                 >
-                  {isSubmitting ? (
-                    <>
+                  <>
+                    {isSubmitting && (
                       <span
                         className="spinner-border spinner-border-sm me-2"
                         role="status"
                         aria-hidden="true"
                       />
-                      {review.response ? 'Updating...' : 'Posting...'}
-                    </>
-                  ) : review.response ? (
-                    'Update Reply'
-                  ) : (
-                    'Post Reply'
-                  )}
+                    )}
+                    {(() => {
+                      if (isSubmitting) {
+                        return review.response ? 'Updating...' : 'Posting...';
+                      } else {
+                        return review.response ? 'Update Reply' : 'Post Reply';
+                      }
+                    })()}
+                  </>
                 </BrandButton>
 
                 {review.response && (

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { BrandButton, BrandCard, colors } from '@mahardika/ui';
 
 interface AuthFormProps {
@@ -419,10 +419,8 @@ export default function AuthForm({
                     ? 'Signing In...'
                     : 'Creating Account...'}
                 </>
-              ) : activeTab === 'login' ? (
-                'Sign In'
               ) : (
-                'Create Account'
+                <>{activeTab === 'login' ? 'Sign In' : 'Create Account'}</>
               )}
             </BrandButton>
           </div>

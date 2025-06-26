@@ -285,7 +285,7 @@ const TermsOfServicePage = () => {
             <div className="col-md-6">
               <ul className="list-unstyled">
                 {sections.slice(0, 5).map((section, index) => (
-                  <li key={index} className="mb-2">
+                  <li key={section.title} className="mb-2">
                     <a
                       href={`#section-${index + 1}`}
                       className="text-decoration-none d-flex align-items-center"
@@ -317,7 +317,7 @@ const TermsOfServicePage = () => {
             <div className="col-md-6">
               <ul className="list-unstyled">
                 {sections.slice(5).map((section, index) => (
-                  <li key={index + 5} className="mb-2">
+                  <li key={section.title} className="mb-2">
                     <a
                       href={`#section-${index + 6}`}
                       className="text-decoration-none d-flex align-items-center"
@@ -354,7 +354,7 @@ const TermsOfServicePage = () => {
           <div className="col-lg-8">
             {sections.map((section, index) => (
               <BrandCard
-                key={index}
+                key={section.title}
                 variant="navy-outline"
                 size="lg"
                 className="mb-4"
@@ -384,7 +384,7 @@ const TermsOfServicePage = () => {
                 <div className="ms-5">
                   {section.content.map((paragraph, pIndex) => (
                     <p
-                      key={pIndex}
+                      key={paragraph}
                       style={{
                         color: '#343A40',
                         lineHeight: '1.7',
@@ -564,8 +564,7 @@ const TermsOfServicePage = () => {
                 • Terms of Service
               </p>
               <p style={{ color: '#6C757D' }} className="mb-2 small">
-                Last updated: {termsData.lastUpdated} • Effective date:{' '}
-                {termsData.effectiveDate}
+                Last updated: {termsData.lastUpdated} • Effective date: {termsData.effectiveDate}
               </p>
               <p style={{ color: '#6C757D' }} className="mb-0 small">
                 Built with Mahardika brand colors: Navy #0D1B2A and Gold #F4B400

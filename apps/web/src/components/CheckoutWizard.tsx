@@ -280,7 +280,7 @@ export default function CheckoutWizard({
 
           {items.map((item, index) => (
             <div
-              key={index}
+              key={item.product_id}
               className="d-flex justify-content-between align-items-center py-3 border-bottom"
             >
               <div className="flex-grow-1">

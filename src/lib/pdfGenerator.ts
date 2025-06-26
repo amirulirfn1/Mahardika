@@ -28,7 +28,7 @@ const MAHARDIKA_COLORS = {
 };
 
 export class KpiPdfGenerator {
-  private doc: PDFKit.PDFDocument;
+  private doc: PDFDocument;
   private pageWidth: number;
   private pageHeight: number;
   private margin: number;

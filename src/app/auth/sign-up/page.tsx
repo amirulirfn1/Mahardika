@@ -4,30 +4,41 @@ import { useRouter } from 'next/navigation';
 import AuthForm from '@/components/AuthForm';
 import { supabase } from '@/lib/supabase';
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async (email: string, password: string) => {
+  const handleRegister = async (
+    email: string,
+    password: string,
+    _confirmPassword: string,
+    firstName: string,
+    lastName: string
+  ) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            full_name: `${firstName} ${lastName}`.trim(),
+          },
+        },
       });
 
       if (error) {
         setError(error.message);
         alert(error.message);
       } else {
-        alert('Signed in successfully');
-        router.push('/dashboard');
+        alert('Check your inbox to confirm your email!');
+        router.push('/auth/check-email');
       }
     } catch (err) {
-      console.error('Sign in error:', err);
+      console.error('Sign up error:', err);
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);
@@ -37,11 +48,11 @@ export default function SignInPage() {
   return (
     <div className="container py-5">
       <AuthForm
-        onLogin={handleLogin}
+        onRegister={handleRegister}
         className="mx-auto"
         isLoading={isLoading}
         error={error}
       />
     </div>
   );
-}
+} 

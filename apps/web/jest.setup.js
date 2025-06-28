@@ -63,22 +63,6 @@ process.env.NODE_ENV = 'test';
 process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321';
 process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test_anon_key';
 
-// Mock Supabase client
-jest.mock('@supabase/supabase-js', () => {
-  const authMock = {
-    signInWithPassword: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
-    signUp: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
-    signOut: jest.fn().mockResolvedValue({ error: null }),
-    getUser: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
-    resetPasswordForEmail: jest.fn().mockResolvedValue({ data: {}, error: null }),
-    updateUser: jest.fn().mockResolvedValue({ data: {}, error: null }),
-  };
-
-  return {
-    createClient: jest.fn(() => ({ auth: authMock })),
-  };
-});
-
 // Mock console methods in tests to reduce noise
 const originalError = console.error;
 const originalWarn = console.warn;
@@ -210,3 +194,60 @@ afterEach(() => {
   sessionStorageMock.removeItem.mockClear();
   sessionStorageMock.clear.mockClear();
 });
+
+// -----------------------------------------------------------------------------
+// Enhanced Supabase mock (shared instance) for tests that rely on Supabase
+// -----------------------------------------------------------------------------
+const sharedAuthMock = {
+  signInWithPassword: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
+  signUp: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
+  signOut: jest.fn().mockResolvedValue({ error: null }),
+  getUser: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
+  getSession: jest.fn().mockResolvedValue({ data: { session: null }, error: null }),
+  resetPasswordForEmail: jest.fn().mockResolvedValue({ data: {}, error: null }),
+  updateUser: jest.fn().mockResolvedValue({ data: {}, error: null }),
+};
+const sharedFromMock = () => ({
+  select: jest.fn(() => ({
+    eq: jest.fn(() => ({
+      single: jest.fn().mockResolvedValue({ data: null, error: { code: 'PGRST116' } }),
+    })),
+  })),
+  upsert: jest.fn(() => ({
+    select: jest.fn(() => ({
+      single: jest.fn().mockResolvedValue({ data: null, error: null }),
+    })),
+  })),
+});
+
+jest.mock('@supabase/supabase-js', () => {
+  const createClient = jest.fn(() => ({
+    auth: sharedAuthMock,
+    from: sharedFromMock,
+  }));
+  return { createClient };
+});
+
+// -----------------------------------------------------------------------------
+// Polyfill Request / Response for API route tests
+// -----------------------------------------------------------------------------
+if (typeof global.Request === 'undefined') {
+  global.Request = class Request {
+    constructor() {}
+  };
+}
+if (typeof global.Response === 'undefined') {
+  global.Response = class Response {
+    constructor() {}
+  };
+}
+
+// -----------------------------------------------------------------------------
+// Vitest compatibility shim (tests importing vitest in Jest env)
+// -----------------------------------------------------------------------------
+if (typeof global.vi === 'undefined') {
+  global.vi = {
+    fn: jest.fn,
+    mock: jest.fn,
+  };
+}

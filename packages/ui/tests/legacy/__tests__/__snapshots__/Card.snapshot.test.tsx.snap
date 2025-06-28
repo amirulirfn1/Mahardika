@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Card Snapshot > matches default rendering 1`] = `
+<DocumentFragment>
+  <div
+    style="background-color: transparent; border-radius: 0.75rem; border: 2px solid rgb(13, 27, 42); overflow: hidden; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); color: rgb(13, 27, 42); padding: 1.75rem;"
+  >
+    <div
+      style="flex: 1 1 0%;"
+    >
+      <p>
+        Content
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

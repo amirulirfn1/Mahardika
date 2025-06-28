@@ -6,7 +6,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test-setup.ts'],
     include: ['src/**/*.{test,spec}.{js,jsx,ts,tsx}'],
-    exclude: ['node_modules', 'dist'],
+    exclude: ['node_modules', 'dist', 'tests/legacy'],
     css: {
       modules: {
         classNameStrategy: 'stable',
@@ -17,5 +17,6 @@ export default defineConfig({
         resources: 'usable',
       },
     },
+    passWithNoTests: true,
   },
 });

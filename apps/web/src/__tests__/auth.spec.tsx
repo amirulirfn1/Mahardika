@@ -1,19 +1,19 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SignInPage from '@/app/auth/sign-in/page';
 
-// Mock alert
-beforeAll(() => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  global.alert = jest.fn();
-});
+// Mock global alert as Jest mock
+globalThis.alert = jest.fn() as unknown as typeof alert;
 
 afterEach(() => {
-  (global.alert as jest.Mock).mockClear();
+  (globalThis.alert as jest.Mock).mockClear();
 });
 
 describe('Authentication Flows', () => {
   it('renders SignIn page and submits login', async () => {
+    // Mock Supabase auth call to succeed
+    const supabase = require('@/lib/supabase').supabase;
+    jest.spyOn(supabase.auth, 'signInWithPassword').mockResolvedValue({ error: null });
+
     render(<SignInPage />);
 
     // Fill inputs
@@ -25,10 +25,10 @@ describe('Authentication Flows', () => {
     });
 
     // Click Sign In button
-    fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
+    fireEvent.click(screen.getAllByRole('button', { name: /sign in/i })[1]);
 
     await waitFor(() => {
-      expect(global.alert).toHaveBeenCalledWith('Signed in successfully');
+      expect(globalThis.alert).toHaveBeenCalledWith('Signed in successfully');
     });
   });
 }); 

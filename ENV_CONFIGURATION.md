@@ -37,9 +37,9 @@ DATABASE_PASSWORD=xxxxx
 SUPABASE_DB_PASSWORD=xxxxx
 
 # Third-party Service Keys
-SENDGRID_API_KEY=SG.xxxxx
-AWS_SECRET_ACCESS_KEY=xxxxx
-CLOUDINARY_API_SECRET=xxxxx
+RESEND_API_KEY=SG.xxxxx
+CLAM_UPDATE_AUTH_TOKEN=xxxxx
+PDF_LIFECYCLE_AUTH_TOKEN=xxxxx
 ```
 
 ### 🌐 **PUBLIC (Can be committed)**
@@ -76,7 +76,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
 # External Services
 STRIPE_SECRET_KEY=sk_live_your-live-key
-SENDGRID_API_KEY=SG.your-production-key
+RESEND_API_KEY=your-production-key
 ```
 
 ### Preview Environment
@@ -100,27 +100,40 @@ cp .env.local.example .env.local
 
 ### Step 2: Fill in Development Values
 
-Edit `.env.local` with your development values:
+Edit `.env.local` with your development values. The `.env.local.example` file contains:
+
+- **All required environment variables** with placeholders
+- **Clear categorization** by functionality
+- **Security notes** for sensitive variables
+- **Generation commands** for secure secrets
+- **Validation instructions**
+
+Key sections in `.env.local.example`:
 
 ```bash
-# Development Environment
+# Core Application Configuration
 NODE_ENV=development
-NEXTAUTH_SECRET=dev-secret-min-32-characters-long
+NEXTAUTH_SECRET=your-32-character-secret-key-here
 NEXTAUTH_URL=http://localhost:3000
 
-# Development API Keys
-DEEPSEEK_API_KEY=sk-your-dev-key-here
-
-# Supabase Development
-SUPABASE_URL=https://your-dev-project.supabase.co
-SUPABASE_ANON_KEY=your-dev-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-dev-service-key
-
-# Public Development Config
-NEXT_PUBLIC_SUPABASE_URL=https://your-dev-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-dev-anon-key
+# Brand & UI Configuration (Public)
 NEXT_PUBLIC_BRAND_NAVY=#0D1B2A
 NEXT_PUBLIC_BRAND_GOLD=#F4B400
+NEXT_PUBLIC_APP_NAME=Mahardika
+
+# Database Configuration
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key-here
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key-here
+
+# AI & Security
+DEEPSEEK_API_KEY=sk-your-deepseek-api-key-here
+ENABLE_VIRUS_SCAN=true
+ENABLE_PDF_COMPRESSION=true
+
+# Payment & Email
+STRIPE_SECRET_KEY=sk_test_your-stripe-secret-key
+RESEND_API_KEY=your-resend-api-key-here
 ```
 
 ## 🛡️ Security Best Practices
@@ -172,7 +185,7 @@ Ensure `.env.local` is in `.gitignore`:
 ### Quarterly Rotation (Medium Security)
 
 - `DEEPSEEK_API_KEY`
-- `SENDGRID_API_KEY`
+- `RESEND_API_KEY`
 
 ### Steps for Secret Rotation:
 
@@ -198,9 +211,37 @@ pnpm run env:test
 ```typescript
 // Test in your application
 import env from '@/lib/env';
-
-console.log('Environment Summary:', env.getEnvironmentSummary());
 ```
+
+## 📋 Complete Environment Variables Reference
+
+For a complete list of all environment variables with descriptions and examples, see:
+
+- **`.env.local.example`** - Comprehensive template with all variables
+- **`src/lib/env.ts`** - Type-safe environment configuration
+- **`scripts/env-test.js`** - Environment validation script
+
+### Quick Reference Categories
+
+1. **Core Application**: `NODE_ENV`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`
+2. **Brand & UI**: All `NEXT_PUBLIC_BRAND_*` variables
+3. **Database**: `DATABASE_URL`, `SUPABASE_*` variables
+4. **AI & ML**: `DEEPSEEK_API_KEY`
+5. **Security**: `ENABLE_VIRUS_SCAN`, `ENABLE_PDF_COMPRESSION`
+6. **Rate Limiting**: `RATE_LIMIT_*` variables
+7. **Email**: `RESEND_API_KEY`, `EMAIL_FROM`
+8. **Payments**: `STRIPE_*` variables
+9. **Analytics**: `NEXT_PUBLIC_POSTHOG_*` variables
+10. **Development**: `DEBUG_MODE`
+
+## 🚨 Important Notes
+
+- **Always use `.env.local.example` as your starting point**
+- **Never commit `.env.local` to version control**
+- **Use `NEXT_PUBLIC_` prefix for client-side variables**
+- **Validate environment before deployment**
+- **Rotate secrets regularly**
+- **Use secure secret generation methods**
 
 ## 📊 Environment Variable Checklist
 

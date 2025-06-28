@@ -13,15 +13,19 @@ interface AuthFormProps {
     lastName: string
   ) => Promise<void>;
   className?: string;
+  isLoading?: boolean;
+  error?: string | null;
 }
 
 export default function AuthForm({
   onLogin,
   onRegister,
   className = '',
+  isLoading: externalLoading = false,
+  error: externalError = null,
 }: AuthFormProps) {
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
-  const [isLoading, setIsLoading] = useState(false);
+  const [internalLoading, setInternalLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -31,11 +35,20 @@ export default function AuthForm({
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
+  // Use external loading state if provided, otherwise use internal
+  const isLoading = externalLoading || internalLoading;
+  // Use external error if provided, otherwise use internal
+  const error = externalError || errors.general;
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
+    }
+    if (externalError) {
+      // Clear external error when user starts typing
+      setErrors(prev => ({ ...prev, general: '' }));
     }
   };
 
@@ -80,7 +93,11 @@ export default function AuthForm({
 
     if (!validateForm()) return;
 
-    setIsLoading(true);
+    // Only use internal loading if external loading is not provided
+    if (!externalLoading) {
+      setInternalLoading(true);
+    }
+    
     try {
       if (activeTab === 'login' && onLogin) {
         await onLogin(formData.email, formData.password);
@@ -97,7 +114,9 @@ export default function AuthForm({
       console.error('Authentication error:', error);
       setErrors({ general: 'An error occurred. Please try again.' });
     } finally {
-      setIsLoading(false);
+      if (!externalLoading) {
+        setInternalLoading(false);
+      }
     }
   };
 
@@ -202,7 +221,7 @@ export default function AuthForm({
         </div>
 
         {/* General Error */}
-        {errors.general && (
+        {error && (
           <div
             className="alert alert-danger"
             style={{
@@ -212,7 +231,7 @@ export default function AuthForm({
               color: colors.error,
             }}
           >
-            {errors.general}
+            {error}
           </div>
         )}
 
@@ -241,6 +260,7 @@ export default function AuthForm({
                     }
                     style={inputStyle}
                     required
+                    disabled={isLoading}
                   />
                   {errors.firstName && (
                     <div className="invalid-feedback">{errors.firstName}</div>
@@ -265,6 +285,7 @@ export default function AuthForm({
                     }
                     style={inputStyle}
                     required
+                    disabled={isLoading}
                   />
                   {errors.lastName && (
                     <div className="invalid-feedback">{errors.lastName}</div>
@@ -292,6 +313,7 @@ export default function AuthForm({
               onChange={e => handleInputChange('email', e.target.value)}
               style={inputStyle}
               required
+              disabled={isLoading}
             />
             {errors.email && (
               <div className="invalid-feedback">{errors.email}</div>
@@ -316,6 +338,7 @@ export default function AuthForm({
               onChange={e => handleInputChange('password', e.target.value)}
               style={inputStyle}
               required
+              disabled={isLoading}
             />
             {errors.password && (
               <div className="invalid-feedback">{errors.password}</div>
@@ -348,6 +371,7 @@ export default function AuthForm({
                 }
                 style={inputStyle}
                 required
+                disabled={isLoading}
               />
               {errors.confirmPassword && (
                 <div className="invalid-feedback">{errors.confirmPassword}</div>
@@ -365,6 +389,7 @@ export default function AuthForm({
                   id="terms"
                   required
                   style={{ borderColor: colors.navy }}
+                  disabled={isLoading}
                 />
                 <label
                   className="form-check-label small"
@@ -531,6 +556,7 @@ export default function AuthForm({
                 textDecoration: 'underline',
                 cursor: 'pointer',
               }}
+              disabled={isLoading}
             >
               {activeTab === 'login' ? 'Sign up here' : 'Sign in here'}
             </button>

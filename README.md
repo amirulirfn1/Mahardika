@@ -19,40 +19,31 @@ This monorepo contains:
 
 ## 🚀 Quick Start
 
-### Prerequisites
-
-- Node.js 18+
-- pnpm 8+
-
-### Installation
-
 ```bash
-# Clone the repository
+# 1. Clone the repository
 git clone https://github.com/amirulirfn1/Mahardika.git
 cd Mahardika
 
-# Install dependencies
+# 2. Install dependencies with pnpm
 pnpm install
+
+# 3. Copy env template and add your local secrets
+cp .env.local.example .env.local
+#   ➜ Fill database credentials, Supabase keys, etc. in .env.local
+
+# 4. Start everything in dev-mode (runs DB migrations + seeds)
+pnpm -F "@mahardika/web" dev
 ```
 
-### Development
+---
 
-```bash
-# Start the web app in development mode
-pnpm dev
+## ✨ Demo
 
-# Run tests
-pnpm run test
+Below is a short recording of the local **customer sign-up** flow (running against the dev database):
 
-# Build all applications
-pnpm run build
+![Signup flow](docs/assets/signup-flow.gif)
 
-# Lint all code
-pnpm run lint
-
-# Clean build artifacts
-pnpm run clean
-```
+---
 
 ## 📦 Packages
 
@@ -203,3 +194,19 @@ ISC License
 
 Mahardika is a startup project focused on building innovative solutions with modern web
 technologies.
+
+## 🏷️ Release workflow
+
+We manage versions with [standard-version](https://github.com/conventional-changelog/standard-version).
+
+```bash
+# bump version, generate CHANGELOG and git tag
+pnpm release
+
+# push tags to GitHub
+git push --follow-tags
+```
+
+The command analyses Conventional Commits across the workspace and updates `package.json`, the root CHANGELOG, and creates a git tag (e.g. `v1.2.0`).  CI/CD can then publish artifacts or trigger deployments based on the tag.
+
+---

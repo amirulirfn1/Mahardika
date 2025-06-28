@@ -270,7 +270,7 @@ export default function HomePage() {
                       color: theme.colors.text.secondary,
                       lineHeight: theme.typography.lineHeight.relaxed,
                       marginBottom: theme.spacing[10],
-                      fontWeight: theme.typography.fontWeight.regular,
+                      fontWeight: theme.typography.fontWeight.normal,
                       maxWidth: '90%'
                     }}
                   >
@@ -456,8 +456,7 @@ export default function HomePage() {
                               marginBottom: '8px'
                             }}
                           >
-                            "                            {/* eslint-disable-next-line react/no-unescaped-entities */}
-                            "Increased sales by 300% using Mahardika services!""
+                            &ldquo;Increased sales by 300% using Mahardika services!&rdquo;
                           </div>
                           <div className="d-flex align-items-center gap-1">
                             {[1,2,3,4,5].map(star => (
@@ -859,7 +858,7 @@ export default function HomePage() {
                       Start Your Project
                     </BrandButton>
                     <BrandButton
-                      variant="outline-navy"
+                      variant="navy-outline"
                       size="lg"
                       style={{ 
                         minWidth: '200px',

@@ -7,6 +7,8 @@
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Button, theme } from '@mahardika/ui';
+// Sentry is only enabled in production builds via the SDK configuration files
+import * as Sentry from '@sentry/nextjs';
 
 interface Props {
   children: ReactNode;
@@ -32,14 +34,10 @@ export class ErrorBoundary extends Component<Props, State> {
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Error caught by boundary:', error, errorInfo);
-    this.setState({
-      error,
-      errorInfo,
-    });
+    this.setState({ error, errorInfo });
 
-    // Log to error reporting service in production
     if (process.env.NODE_ENV === 'production') {
-      // TODO: Send to Sentry or similar service
+      Sentry.captureException(error, { extra: errorInfo });
     }
   }
 

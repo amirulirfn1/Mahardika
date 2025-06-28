@@ -60,6 +60,24 @@ process.env.NEXT_PUBLIC_BRAND_NAVY = '#0D1B2A';
 process.env.NEXT_PUBLIC_BRAND_GOLD = '#F4B400';
 process.env.NEXT_PUBLIC_APP_NAME = 'Mahardika Platform';
 process.env.NODE_ENV = 'test';
+process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321';
+process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'test_anon_key';
+
+// Mock Supabase client
+jest.mock('@supabase/supabase-js', () => {
+  const authMock = {
+    signInWithPassword: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
+    signUp: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
+    signOut: jest.fn().mockResolvedValue({ error: null }),
+    getUser: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
+    resetPasswordForEmail: jest.fn().mockResolvedValue({ data: {}, error: null }),
+    updateUser: jest.fn().mockResolvedValue({ data: {}, error: null }),
+  };
+
+  return {
+    createClient: jest.fn(() => ({ auth: authMock })),
+  };
+});
 
 // Mock console methods in tests to reduce noise
 const originalError = console.error;

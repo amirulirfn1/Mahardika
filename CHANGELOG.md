@@ -11,4 +11,4 @@ All notable changes to this project will be documented in this file. The format 
 - Sentry error monitoring setup
 - GitHub Actions CI (Node 18/20 with pnpm cache)
 - Husky pre-push hooks, ESLint, Prettier, Vitest
-- License (ISC) and contributing guidelines 
+- License (MIT) and contributing guidelines

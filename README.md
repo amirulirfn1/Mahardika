@@ -188,7 +188,7 @@ When creating new components, follow these guidelines:
 
 ## 📄 License
 
-ISC License
+MIT License
 
 ## 🏢 About Mahardika
 

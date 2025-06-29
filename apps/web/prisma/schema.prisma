@@ -56,6 +56,7 @@ model Agency {
   products   Product[]
   vehicles   Vehicle[]
   quotations Quotation[]
+  points_redemptions PointsRedemption[]
   ai_usage               AiUsage[]
   referral_wallet        ReferralWallet?
   referral_transactions  ReferralTransaction[]
@@ -96,6 +97,7 @@ model User {
   
   // Relations
   agency Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  points_redemptions PointsRedemption[]
   
   @@map("users")
   @@index([agency_id])
@@ -144,6 +146,7 @@ model Customer {
   orders   Order[]
   vehicles Vehicle[]
   quotations Quotation[]
+  points_redemptions PointsRedemption[]
   
   @@map("customers")
   @@index([agency_id])
@@ -796,8 +799,4 @@ model Quotation {
   // Relations
   agency   Agency   @relation(fields: [agency_id], references: [id], onDelete: Cascade)
   customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
-
-  @@map("quotations")
-  @@index([agency_id])
-  @@index([customer_id])
 } 

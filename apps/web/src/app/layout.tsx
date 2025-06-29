@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'Mahardika - Professional Services Marketplace',
@@ -107,14 +108,16 @@ export default function RootLayout({
           lineHeight: theme.typography.lineHeight.normal,
         }}
       >
-        <ErrorBoundary>
-          <Navigation />
+        <Providers>
+          <ErrorBoundary>
+            <Navigation />
 
-          {/* Main Content */}
-          <main style={{ minHeight: 'calc(100vh - 144px)' }}>{children}</main>
+            {/* Main Content */}
+            <main style={{ minHeight: 'calc(100vh - 144px)' }}>{children}</main>
 
-          <Footer />
-        </ErrorBoundary>
+            <Footer />
+          </ErrorBoundary>
+        </Providers>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" async/>
       </body>

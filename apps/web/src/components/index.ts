@@ -29,3 +29,15 @@ export { default as AiMessageModal } from './AiMessageModal';
 export { default as HeroImageUploadModal } from './HeroImageUploadModal';
 export { Navigation } from './Navigation';
 export { Footer } from './Footer';
+
+// Policy related
+export { default as PolicyForm } from './PolicyForm';
+export { default as PolicyWizard } from './PolicyWizard';
+
+// Loyalty components
+export { default as TierBadge } from './TierBadge';
+export { default as CustomerLoyaltyCard } from './CustomerLoyaltyCard';
+export { default as PointsRedeemDialog } from './PointsRedeemDialog';
+
+// Settings Menu
+export { default as SettingsMenu } from './SettingsMenu';

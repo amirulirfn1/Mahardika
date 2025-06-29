@@ -68,3 +68,5 @@ export type {
   AgencySlug,
   AgencyId,
 } from './types/agency';
+
+export * from './whatsapp';

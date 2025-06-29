@@ -189,35 +189,47 @@ function generateEmailTemplate(
   return { subject, html, text };
 }
 
+const WA_TOKEN = Deno.env.get('WA_TOKEN');
+const WA_NUMBER = Deno.env.get('WA_NUMBER');
+
 /**
  * Send WhatsApp message (for Starter plan)
  */
-async function sendWhatsAppMessage(
-  policy: Policy,
-  language: 'en' | 'ms' = 'en'
-): Promise<boolean> {
-  try {
-    if (!policy.customer_phone) {
-      console.log(`No phone number for customer ${policy.customer_name}`);
-      return false;
+async function sendWhatsAppMessage(policy: Policy): Promise<boolean> {
+  if (!WA_TOKEN || !WA_NUMBER) return false;
+  if (!policy.customer_phone) return false;
+
+  const res = await fetch(`https://graph.facebook.com/v18.0/${WA_NUMBER}/messages`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${WA_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      messaging_product: 'whatsapp',
+      to: policy.customer_phone,
+      type: 'text',
+      text: { body: `Hi ${policy.customer_name}, your policy ${policy.policy_number} is expiring on ${new Date(policy.end_date).toLocaleDateString()}. Please renew in time.` },
+    }),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    // log to notification_errors
+    if (policy.agency_id) {
+      try {
+        const supabaseAdmin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+        await supabaseAdmin.from('notification_errors').insert({
+          agency_id: policy.agency_id,
+          channel: 'whatsapp',
+          payload: { to: policy.customer_phone },
+          error: errorData,
+        });
+      } catch (_) {}
     }
-
-    const isEnglish = language === 'en';
-    const message = isEnglish
-      ? `🔔 MAHARDIKA INSURANCE REMINDER\n\nDear ${policy.customer_name},\n\nYour policy ${policy.policy_number} (${policy.policy_type}) expires on ${new Date(policy.end_date).toLocaleDateString()}.\n\n⚠️ Only 60 days left! Please contact ${policy.agency_name} to renew.\n\nPowered by Mahardika Platform`
-      : `🔔 PERINGATAN INSURANS MAHARDIKA\n\nYang dihormati ${policy.customer_name},\n\nPolisi anda ${policy.policy_number} (${policy.policy_type}) tamat pada ${new Date(policy.end_date).toLocaleDateString()}.\n\n⚠️ Hanya 60 hari lagi! Sila hubungi ${policy.agency_name} untuk pembaharuan.\n\nDikuasakan oleh Platform Mahardika`;
-
-    // In a real implementation, you would integrate with WhatsApp Business API
-    // For now, we'll simulate success
-    console.log(
-      `WhatsApp message sent to ${policy.customer_phone}: ${message.substring(0, 50)}...`
-    );
-
-    return true;
-  } catch (error) {
-    console.error('Error sending WhatsApp message:', error);
     return false;
   }
+  return true;
 }
 
 /**

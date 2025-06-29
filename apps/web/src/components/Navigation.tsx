@@ -4,9 +4,12 @@
 import { colors, BrandButton, theme } from '@mahardika/ui';
 import React from 'react';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
+import SettingsMenu from './SettingsMenu';
 
 
 export function Navigation() {
+  const { t } = useTranslation();
   return (
     <nav
       style={{
@@ -74,7 +77,7 @@ export function Navigation() {
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
-              Explore
+              {t('navbar.explore')}
             </Link>
             <Link
               className="nav-link text-decoration-none px-3 py-2 rounded-lg"
@@ -95,7 +98,7 @@ export function Navigation() {
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
-              Services
+              {t('navbar.services')}
             </Link>
             <Link
               className="nav-link text-decoration-none px-3 py-2 rounded-lg"
@@ -116,7 +119,7 @@ export function Navigation() {
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
-              Dashboard
+              {t('navbar.dashboard')}
             </Link>
 
             {/* Authentication */}
@@ -127,7 +130,7 @@ export function Navigation() {
                 asChild
               >
                 <Link href="/auth">
-                  Sign In
+                  {t('navbar.signin')}
                 </Link>
               </BrandButton>
               <BrandButton
@@ -136,10 +139,13 @@ export function Navigation() {
                 asChild
               >
                 <Link href="/auth">
-                  Join
+                  {t('navbar.join')}
                 </Link>
               </BrandButton>
             </div>
+
+            {/* Settings Menu */}
+            <SettingsMenu />
           </div>
 
           {/* Mobile Menu Button */}

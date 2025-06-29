@@ -54,6 +54,8 @@ model Agency {
   reviews    Review[]
   orders     Order[]
   products   Product[]
+  vehicles   Vehicle[]
+  quotations Quotation[]
   ai_usage               AiUsage[]
   referral_wallet        ReferralWallet?
   referral_transactions  ReferralTransaction[]
@@ -140,6 +142,8 @@ model Customer {
   policies Policy[]
   reviews  Review[]
   orders   Order[]
+  vehicles Vehicle[]
+  quotations Quotation[]
   
   @@map("customers")
   @@index([agency_id])
@@ -178,10 +182,17 @@ model Policy {
   coverage_amount   Decimal @db.Decimal(15, 2)
   deductible_amount Decimal @default(0) @db.Decimal(10, 2)
   
+  // Vehicle linkage (optional)
+  vehicle_id String? @db.Uuid
+  vehicle    Vehicle? @relation(fields: [vehicle_id], references: [id])
+  
   // Policy Terms
   terms_conditions String? @db.Text
   benefits         Json?
   exclusions       Json?
+  
+  // Document
+  pdf_url    String?  @db.VarChar(500)
   
   // Timestamps
   created_at DateTime @default(now()) @db.Timestamptz(6)
@@ -196,6 +207,7 @@ model Policy {
   @@index([customer_id])
   @@index([policy_number])
   @@index([status])
+  @@index([vehicle_id])
 }
 
 // =============================================================================
@@ -395,6 +407,9 @@ model Order {
   payment_method   String? @db.VarChar(50)
   payment_status   String? @db.VarChar(50)
   payment_intent_id String? @db.VarChar(255)
+  
+  // Proof of payment image
+  proof_url String? @db.VarChar(500)
   
   // Review System
   review_token     String? @unique @db.Uuid
@@ -703,4 +718,86 @@ model Email {
   @@index([status])
   @@index([email_type])
   @@index([sent_at])
+}
+
+model PointsRedemption {
+  id           String   @id @default(uuid()) @db.Uuid
+  customer_id  String   @db.Uuid
+  agency_id    String   @db.Uuid
+  staff_id     String?  @db.Uuid
+
+  // Redemption details
+  points_deducted Int @db.Integer
+  value_rm        Decimal @db.Decimal(10, 2)
+  description     String? @db.Text
+
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  // Relations
+  customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  agency   Agency   @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  staff    User?    @relation(fields: [staff_id], references: [id])
+
+  @@map("points_redemptions")
+  @@index([customer_id])
+  @@index([agency_id])
+}
+
+// =============================================================================
+// VEHICLE MANAGEMENT
+// =============================================================================
+
+model Vehicle {
+  id          String   @id @default(uuid()) @db.Uuid
+  plate_no    String   @unique @db.VarChar(50)
+  brand       String?  @db.VarChar(100)
+  model       String?  @db.VarChar(100)
+  year        Int?
+  color       String?  @db.VarChar(50)
+  customer_id String   @db.Uuid
+  agency_id   String   @db.Uuid
+
+  // Metadata
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  // Relations
+  customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  agency   Agency   @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  policies Policy[]
+
+  @@map("vehicles")
+  @@index([agency_id])
+  @@index([customer_id])
+}
+
+// =============================================================================
+// NOTIFICATION ERROR LOGS
+// =============================================================================
+
+model NotificationError {
+  id         String   @id @default(uuid()) @db.Uuid
+  source     String   @db.VarChar(100) // 'whatsapp', 'email', etc.
+  error_data Json?
+
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("notification_errors")
+  @@index([source])
+}
+
+model Quotation {
+  id          String   @id @default(uuid()) @db.Uuid
+  agency_id   String   @db.Uuid
+  customer_id String   @db.Uuid
+  file_url    String   @db.VarChar(500)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+
+  // Relations
+  agency   Agency   @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+
+  @@map("quotations")
+  @@index([agency_id])
+  @@index([customer_id])
 } 

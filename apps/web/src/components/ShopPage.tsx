@@ -139,9 +139,19 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                       <span className="me-2">📞</span>
                       <a
                         href={`tel:${agency.contact_phone}`}
-                        className="text-white text-decoration-none"
+                        className="text-white text-decoration-none me-3"
                       >
                         {agency.contact_phone}
+                      </a>
+                      {/* WhatsApp chat link */}
+                      <a
+                        href={`https://wa.me/${agency.contact_phone.replace(/[^0-9]/g, '')}?text=Hi%20${encodeURIComponent(agency.name)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white text-decoration-none"
+                        title="Chat on WhatsApp"
+                      >
+                        💬
                       </a>
                     </div>
                   )}

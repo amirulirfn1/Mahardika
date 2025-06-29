@@ -190,6 +190,35 @@ export function createAgencyClient(agencyId: string) {
         }),
     },
 
+    // ADDED: Vehicles within agency
+    vehicles: {
+      findMany: (args?: Parameters<typeof prisma.vehicle.findMany>[0]) =>
+        prisma.vehicle.findMany({
+          ...args,
+          where: { ...args?.where, agency_id: agencyId },
+        }),
+      findUnique: (args: Parameters<typeof prisma.vehicle.findUnique>[0]) =>
+        prisma.vehicle.findUnique({
+          ...args,
+          where: { ...args.where, agency_id: agencyId },
+        }),
+      create: (args: Parameters<typeof prisma.vehicle.create>[0]) =>
+        prisma.vehicle.create({
+          ...args,
+          data: context.withAgencyFilter(args.data),
+        }),
+      update: (args: Parameters<typeof prisma.vehicle.update>[0]) =>
+        prisma.vehicle.update({
+          ...args,
+          where: { ...args.where, agency_id: agencyId },
+        }),
+      delete: (args: Parameters<typeof prisma.vehicle.delete>[0]) =>
+        prisma.vehicle.delete({
+          ...args,
+          where: { ...args.where, agency_id: agencyId },
+        }),
+    },
+
     // Analytics within agency
     analytics: {
       findMany: (args?: Parameters<typeof prisma.analytics.findMany>[0]) =>
@@ -286,6 +315,7 @@ export type {
   AuditLog,
   SystemConfig,
   Notification,
+  Vehicle,
 } from '@prisma/client';
 
 // Cleanup on process exit

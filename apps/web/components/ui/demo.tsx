@@ -1,6 +1,5 @@
+import { colors, BrandButton, BrandCard } from "@mahardika/ui";
 import React from 'react';
-import { BrandButton } from './BrandButton';
-import { BrandCard } from './BrandCard';
 import { theme } from './theme';
 
 export const MahardikaDemo: React.FC = () => {

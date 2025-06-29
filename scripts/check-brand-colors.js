@@ -14,6 +14,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const globby = require('globby');
 
 // Mahardika brand colors
 const BRAND_COLORS = {
@@ -64,6 +65,9 @@ const EXCLUDE_PATTERNS = [
 
 // File extensions to check
 const INCLUDE_EXTENSIONS = ['.tsx', '.ts', '.jsx', '.js', '.css', '.scss'];
+
+// Ignore demo, legacy, and storybook files
+const IGNORES = ['**/demo/**', '**/legacy/**', '**/__stories__/**'];
 
 class BrandComplianceChecker {
   constructor() {

@@ -84,7 +84,7 @@
   ],
   "author": "Mahardika Team",
   "engines": {
-    "node": ">=22.15.0"
+    "node": ">=20.0.0"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

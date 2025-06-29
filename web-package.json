@@ -65,7 +65,7 @@
   "keywords": ["mahardika", "web", "nextjs", "showcase"],
   "author": "Mahardika Team",
   "engines": {
-    "node": "20.x"
+    "node": ">=20.0.0"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

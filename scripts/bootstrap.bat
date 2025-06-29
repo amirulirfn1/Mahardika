@@ -55,7 +55,7 @@ REM Check Node.js version
 node --version >nul 2>&1
 if errorlevel 1 (
     echo [91m❌ Node.js not found[0m
-    echo [90m   Please install Node.js ≥18.0.0: https://nodejs.org/[0m
+    echo [90m   Please install Node.js ≥20.0.0: https://nodejs.org/[0m
     set has_errors=1
 ) else (
     for /f "tokens=*" %%i in ('node --version') do set node_version=%%i
@@ -310,7 +310,7 @@ echo [94m🎉 Bootstrap Complete![0m
 echo [93mMahardika Platform is ready for development[0m
 echo.
 echo [94m✅ Setup Summary:[0m
-echo [92m   • Dependencies verified (Node.js ≥18, pnpm, Supabase CLI)[0m
+echo [92m   • Dependencies verified (Node.js ≥20, pnpm, Supabase CLI)[0m
 echo [92m   • Node.js packages installed[0m
 echo [92m   • Supabase initialized and configured[0m
 echo [92m   • Prisma migrations completed[0m

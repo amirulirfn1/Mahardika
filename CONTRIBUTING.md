@@ -19,7 +19,7 @@ This project follows a few simple rules so that everyone can move fast **without
 
 ## Prerequisites
 
-* Node.js **≥18**
+* Node.js **≥20**
 * **pnpm** – install via `corepack enable && corepack prepare pnpm@latest --activate`.
 * A GitHub fork of the repo and a feature branch (see below).
 

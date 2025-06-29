@@ -27,7 +27,7 @@ The bootstrap script performs a complete development environment setup:
 
 ### 1. **Dependency Verification**
 
-- ✅ **Node.js ≥18.0.0** - Required for all JavaScript/TypeScript operations
+ - ✅ **Node.js ≥20.0.0** - Required for all JavaScript/TypeScript operations
 - ✅ **pnpm** - Package manager for monorepo workspace management
 - ✅ **Supabase CLI** - Database and backend services (auto-installs if missing)
 - ✅ **Git** - Version control (recommended but not required)
@@ -158,7 +158,7 @@ cp .env.local.example .env.local
 #### **Node.js Version Error**
 
 ```
-❌ Node.js 16.x.x found, but ≥18.0.0 required
+❌ Node.js 18.x.x found, but ≥20.0.0 required
 ```
 
 **Solution:** Update Node.js from [nodejs.org](https://nodejs.org/)
@@ -267,7 +267,7 @@ After bootstrap completion, verify setup:
 
 ```bash
 # Check all dependencies
-node --version    # Should be ≥18.0.0
+node --version    # Should be ≥20.0.0
 pnpm --version    # Should be installed
 supabase --version # Should be installed
 

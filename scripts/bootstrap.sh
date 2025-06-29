@@ -99,16 +99,16 @@ check_dependencies() {
     if command_exists node; then
         local node_version
         node_version=$(get_version "node")
-        if version_gte "$node_version" "18.0.0"; then
-            print_success "Node.js $node_version (≥18.0.0 required)"
+        if version_gte "$node_version" "20.0.0"; then
+            print_success "Node.js $node_version (≥20.0.0 required)"
         else
-            print_error "Node.js $node_version found, but ≥18.0.0 required"
+            print_error "Node.js $node_version found, but ≥20.0.0 required"
             print_info "Please update Node.js: https://nodejs.org/"
             has_errors=true
         fi
     else
         print_error "Node.js not found"
-        print_info "Please install Node.js ≥18.0.0: https://nodejs.org/"
+        print_info "Please install Node.js ≥20.0.0: https://nodejs.org/"
         has_errors=true
     fi
     
@@ -380,7 +380,7 @@ print_success_summary() {
     print_header "🎉 Bootstrap Complete!" "Mahardika Platform is ready for development"
     
     echo -e "${NAVY}${BOLD}✅ Setup Summary:${RESET}"
-    echo -e "${GREEN}   • Dependencies verified (Node.js ≥18, pnpm, Supabase CLI)${RESET}"
+    echo -e "${GREEN}   • Dependencies verified (Node.js ≥20, pnpm, Supabase CLI)${RESET}"
     echo -e "${GREEN}   • Node.js packages installed${RESET}"
     echo -e "${GREEN}   • Supabase initialized and configured${RESET}"
     echo -e "${GREEN}   • Prisma migrations completed${RESET}"

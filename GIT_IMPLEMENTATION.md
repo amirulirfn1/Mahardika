@@ -10,7 +10,7 @@ monorepo to GitHub with navy #0D1B2A and gold #F4B400 branding.
 - Git installed and configured
 - GitHub account and repository created
 - pnpm package manager
-- Node.js 18+
+- Node.js 20+
 
 ## 🎯 Complete Git Implementation Steps
 
@@ -185,7 +185,7 @@ Mahardika/
     "typescript": "^5.8.3"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=20.0.0",
     "pnpm": ">=8.0.0"
   }
 }

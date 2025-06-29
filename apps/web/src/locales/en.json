@@ -1,0 +1,14 @@
+{
+  "navbar": {
+    "explore": "Explore",
+    "services": "Services",
+    "dashboard": "Dashboard",
+    "signin": "Sign In",
+    "join": "Join",
+    "settings": "Settings"
+  },
+  "settings": {
+    "language": "Language",
+    "dark_mode": "Dark Mode"
+  }
+} 

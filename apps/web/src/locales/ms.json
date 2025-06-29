@@ -1,0 +1,14 @@
+{
+  "navbar": {
+    "explore": "Teroka",
+    "services": "Perkhidmatan",
+    "dashboard": "Papan Pemuka",
+    "signin": "Log Masuk",
+    "join": "Daftar",
+    "settings": "Tetapan"
+  },
+  "settings": {
+    "language": "Bahasa",
+    "dark_mode": "Mod Gelap"
+  }
+} 

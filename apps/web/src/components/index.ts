@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * Component Exports - Mahardika Platform
  * Centralized exports for all components
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  */
 
 // Authentication Components

@@ -11,7 +11,7 @@ export interface SecurityStatusProps {
 /**
  * SecurityStatus Component
  * Displays the security status of environment variables and secrets
- * Uses Mahardika brand colors: navy #0D1B2A and gold #F4B400
+ * Uses Mahardika brand colors: navy colors.navy and gold colors.gold
  */
 export const SecurityStatus: React.FC<SecurityStatusProps> = ({
   isSecure,
@@ -198,7 +198,7 @@ export const SecurityStatus: React.FC<SecurityStatusProps> = ({
             fontFamily: 'monospace',
           }}
         >
-          Navy #0D1B2A • Gold #F4B400
+          Navy colors.navy • Gold colors.gold
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import {
@@ -32,14 +33,14 @@ const PROMPT_TEMPLATES = {
   en: {
     system: `You are a helpful AI assistant for the Mahardika Insurance Platform. 
     You specialize in insurance, policy management, and customer service.
-    Always be professional, helpful, and use the Mahardika brand colors navy #0D1B2A and gold #F4B400 in your responses when appropriate.
+    Always be professional, helpful, and use the Mahardika brand colors navy colors.navy and gold colors.gold in your responses when appropriate.
     Provide concise and accurate information about insurance policies, claims, and general assistance.`,
     userPrefix: 'User question: ',
   },
   ms: {
     system: `Anda adalah pembantu AI yang berguna untuk Platform Insurans Mahardika.
     Anda pakar dalam insurans, pengurusan polisi, dan perkhidmatan pelanggan.
-    Sentiasa bersikap profesional, membantu, dan gunakan warna jenama Mahardika navy #0D1B2A dan emas #F4B400 dalam respons anda bila sesuai.
+    Sentiasa bersikap profesional, membantu, dan gunakan warna jenama Mahardika navy colors.navy dan emas colors.gold dalam respons anda bila sesuai.
     Berikan maklumat yang ringkas dan tepat tentang polisi insurans, tuntutan, dan bantuan umum.`,
     userPrefix: 'Soalan pengguna: ',
   },
@@ -194,8 +195,8 @@ export async function GET(): Promise<NextResponse> {
     version: '1.0.0',
     supportedLanguages: ['en', 'ms'],
     brandColors: {
-      navy: '#0D1B2A',
-      gold: '#F4B400',
+      navy: 'colors.navy',
+      gold: 'colors.gold',
     },
   });
 }

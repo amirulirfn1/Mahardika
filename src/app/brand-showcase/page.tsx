@@ -1,7 +1,9 @@
 'use client';
 
+
+import { colors, BrandButton, BrandCard } from '@mahardika/ui';
 import React from 'react';
-import { BrandButton, BrandCard } from '@mahardika/ui';
+
 
 export default function BrandShowcasePage() {
   return (
@@ -20,7 +22,7 @@ export default function BrandShowcasePage() {
           style={{
             fontSize: '3rem',
             fontWeight: '700',
-            color: '#0D1B2A',
+            color: 'colors.navy',
             marginBottom: '1rem',
           }}
         >
@@ -34,8 +36,8 @@ export default function BrandShowcasePage() {
             margin: '0 auto',
           }}
         >
-          Comprehensive brand component library featuring navy (#0D1B2A) and
-          gold (#F4B400) Mahardika colors with prompt template functionality for
+          Comprehensive brand component library featuring navy (colors.navy) and
+          gold (colors.gold) Mahardika colors with prompt template functionality for
           consistent UI development.
         </p>
       </header>
@@ -57,7 +59,7 @@ export default function BrandShowcasePage() {
           >
             {/* Basic Variants */}
             <div>
-              <h4 style={{ color: '#F4B400', marginBottom: '1rem' }}>
+              <h4 style={{ color: 'colors.gold', marginBottom: '1rem' }}>
                 Basic Variants
               </h4>
               <div
@@ -77,7 +79,7 @@ export default function BrandShowcasePage() {
 
             {/* Sizes */}
             <div>
-              <h4 style={{ color: '#F4B400', marginBottom: '1rem' }}>
+              <h4 style={{ color: 'colors.gold', marginBottom: '1rem' }}>
                 Size Variations
               </h4>
               <div
@@ -102,7 +104,7 @@ export default function BrandShowcasePage() {
 
             {/* Templates */}
             <div>
-              <h4 style={{ color: '#F4B400', marginBottom: '1rem' }}>
+              <h4 style={{ color: 'colors.gold', marginBottom: '1rem' }}>
                 Template Components
               </h4>
               <div

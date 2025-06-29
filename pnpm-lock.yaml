@@ -60,6 +60,9 @@ importers:
       eslint-plugin-unused-imports:
         specifier: ^4.1.4
         version: 4.1.4(@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)
+      globby:
+        specifier: 11.1.0
+        version: 11.1.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -270,7 +273,7 @@ importers:
         version: 5.8.3
       vitest:
         specifier: ^1.6.1
-        version: 1.6.1(@edge-runtime/vm@4.0.4)(@types/node@20.19.1)(jsdom@23.2.0)
+        version: 1.6.1(@edge-runtime/vm@4.0.4)(@types/node@20.19.1)(jsdom@23.2.0)(terser@5.43.1)
 
 packages:
 
@@ -11371,13 +11374,13 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  vite-node@1.6.1(@types/node@20.19.1):
+  vite-node@1.6.1(@types/node@20.19.1)(terser@5.43.1):
     dependencies:
       cac: 6.7.14
       debug: 4.4.1
       pathe: 1.1.2
       picocolors: 1.1.1
-      vite: 5.4.19(@types/node@20.19.1)
+      vite: 5.4.19(@types/node@20.19.1)(terser@5.43.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -11389,7 +11392,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.19(@types/node@20.19.1):
+  vite@5.4.19(@types/node@20.19.1)(terser@5.43.1):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
@@ -11397,8 +11400,9 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.19.1
       fsevents: 2.3.3
+      terser: 5.43.1
 
-  vitest@1.6.1(@edge-runtime/vm@4.0.4)(@types/node@20.19.1)(jsdom@23.2.0):
+  vitest@1.6.1(@edge-runtime/vm@4.0.4)(@types/node@20.19.1)(jsdom@23.2.0)(terser@5.43.1):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
@@ -11417,8 +11421,8 @@ snapshots:
       strip-literal: 2.1.1
       tinybench: 2.9.0
       tinypool: 0.8.4
-      vite: 5.4.19(@types/node@20.19.1)
-      vite-node: 1.6.1(@types/node@20.19.1)
+      vite: 5.4.19(@types/node@20.19.1)(terser@5.43.1)
+      vite-node: 1.6.1(@types/node@20.19.1)(terser@5.43.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@edge-runtime/vm': 4.0.4

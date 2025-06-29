@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 
@@ -10,8 +11,8 @@ const corsHeaders = {
 
 // Mahardika Brand Colors
 const MAHARDIKA_COLORS = {
-  navy: '#0D1B2A',
-  gold: '#F4B400',
+  navy: 'colors.navy',
+  gold: 'colors.gold',
 };
 
 interface AgencyKpiData {

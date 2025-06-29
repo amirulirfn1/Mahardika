@@ -1,4 +1,5 @@
 'use client';
+import { colors } from "@mahardika/ui";
 
 import React from 'react';
 import { theme } from './theme';

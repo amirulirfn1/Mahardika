@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * =============================================================================
  * Rate Limiting Utility - Mahardika Platform
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  * =============================================================================
  */
 
@@ -197,8 +198,8 @@ export class RateLimiter {
         // Mahardika branding
         service: 'Mahardika Platform',
         colors: {
-          navy: '#0D1B2A',
-          gold: '#F4B400',
+          navy: 'colors.navy',
+          gold: 'colors.gold',
         },
       },
       {

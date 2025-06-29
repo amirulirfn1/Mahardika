@@ -11,7 +11,7 @@ afterEach(() => {
 describe('Authentication Flows', () => {
   it('renders SignIn page and submits login', async () => {
     // Mock Supabase auth call to succeed
-    const supabase = require('@/lib/supabase').supabase;
+    const {supabase} = require('@/lib/supabase');
     jest.spyOn(supabase.auth, 'signInWithPassword').mockResolvedValue({ error: null });
 
     render(<SignInPage />);

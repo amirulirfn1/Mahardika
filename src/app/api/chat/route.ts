@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import { NextRequest, NextResponse } from 'next/server';
 import { withRateLimit, aiMessageRateLimit } from '@/lib/rateLimit';
 
@@ -49,7 +50,7 @@ async function handleChat(request: NextRequest): Promise<NextResponse> {
             {
               role: 'system',
               content:
-                'You are a helpful AI assistant for the Mahardika platform. Provide concise and helpful responses about UI components, design systems, and development with navy #0D1B2A and gold #F4B400 brand colors.',
+                'You are a helpful AI assistant for the Mahardika platform. Provide concise and helpful responses about UI components, design systems, and development with navy colors.navy and gold colors.gold brand colors.',
             },
             {
               role: 'user',
@@ -81,8 +82,8 @@ async function handleChat(request: NextRequest): Promise<NextResponse> {
         timestamp: new Date().toISOString(),
         service: 'Mahardika AI Chat',
         colors: {
-          navy: '#0D1B2A',
-          gold: '#F4B400',
+          navy: 'colors.navy',
+          gold: 'colors.gold',
         },
       },
       {

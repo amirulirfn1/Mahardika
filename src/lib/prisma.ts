@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * Prisma Database Client - Mahardika Platform
  * Multi-tenant SaaS database connection with proper connection handling
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  */
 
 import { PrismaClient } from '@prisma/client';

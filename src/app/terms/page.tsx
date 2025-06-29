@@ -65,7 +65,7 @@ const TermsOfServicePage = () => {
       content: [
         'All content, trademarks, service marks, logos, and intellectual property on our platform are owned by or licensed to Mahardika.',
         'You may not reproduce, distribute, modify, or create derivative works without our written permission.',
-        'The Mahardika brand colors (Navy #0D1B2A and Gold #F4B400) and design elements are proprietary to Mahardika.',
+        'The Mahardika brand colors (Navy colors.navy and Gold colors.gold) and design elements are proprietary to Mahardika.',
         'Any feedback or suggestions you provide may be used by us without compensation or attribution.',
       ],
     },
@@ -567,7 +567,7 @@ const TermsOfServicePage = () => {
                 Last updated: {termsData.lastUpdated} • Effective date: {termsData.effectiveDate}
               </p>
               <p style={{ color: '#6C757D' }} className="mb-0 small">
-                Built with Mahardika brand colors: Navy #0D1B2A and Gold #F4B400
+                Built with Mahardika brand colors: Navy colors.navy and Gold colors.gold
               </p>
             </div>
             <div className="col-md-4 text-md-end">

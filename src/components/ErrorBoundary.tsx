@@ -1,12 +1,14 @@
+'use client';
+
+import { colors, Button, theme } from '@mahardika/ui';
 /**
  * Error Boundary Component - Mahardika Platform
  * Graceful error handling with Fiverr-inspired design
  */
 
-'use client';
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Button, theme } from '@mahardika/ui';
+
 // Sentry is only enabled in production builds via the SDK configuration files
 import * as Sentry from '@sentry/nextjs';
 

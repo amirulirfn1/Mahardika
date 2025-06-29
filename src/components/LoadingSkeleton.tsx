@@ -1,10 +1,12 @@
+import { colors, theme } from '@mahardika/ui';
+
 /**
  * Loading Skeleton Component - Mahardika Platform
  * Modern loading states with Fiverr-inspired design
  */
 
 import React from 'react';
-import { theme } from '@mahardika/ui';
+
 
 interface SkeletonProps {
   width?: string | number;

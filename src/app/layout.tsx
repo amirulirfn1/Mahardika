@@ -1,7 +1,9 @@
+import { colors, theme } from '@mahardika/ui';
+
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { theme } from '@mahardika/ui';
+
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';

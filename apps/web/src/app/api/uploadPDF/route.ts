@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { withRateLimit, uploadRateLimit } from '@/lib/rateLimit';
@@ -8,7 +9,7 @@ export const runtime = 'edge';
 /**
  * =============================================================================
  * PDF Upload Edge Function - Mahardika Platform
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  * =============================================================================
  *
  * This function handles secure PDF uploads to the policy-pdfs bucket with:
@@ -376,8 +377,8 @@ export const GET = withRateLimit(
           rateLimit: '20 requests per minute',
         },
         colors: {
-          navy: '#0D1B2A',
-          gold: '#F4B400',
+          navy: 'colors.navy',
+          gold: 'colors.gold',
         },
         timestamp: new Date().toISOString(),
       },

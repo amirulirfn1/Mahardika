@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * =============================================================================
  * Mahardika Platform - Supabase Client for Web App
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  * =============================================================================
  */
 
@@ -383,7 +384,7 @@ export const authUtils = {
    */
   async isAuthenticated(): Promise<boolean> {
     const { user } = await authService.getCurrentUser();
-    return !!user;
+    return Boolean(user);
   },
 
   /**

@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * Reset Password Page - Mahardika Platform
  * Handles password reset after email verification
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  */
 
 import React, { Suspense } from 'react';

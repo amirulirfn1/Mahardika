@@ -3,14 +3,16 @@
  * Official brand palette for consistent styling across all components
  */
 
+import { colors as brandColors } from "@mahardika/ui";
+
 export const colors = {
   // Primary Mahardika Brand Colors
-  navy: '#0D1B2A', // Main brand navy
-  gold: '#F4B400', // Main brand gold
+  navy: brandColors.navy,
+  gold: brandColors.gold,
 
   // Extended Palette
-  primary: '#0D1B2A', // Alias for navy
-  secondary: '#F4B400', // Alias for gold
+  primary: brandColors.navy,
+  secondary: brandColors.gold,
 
   // Neutral Colors
   white: '#FFFFFF',
@@ -36,14 +38,14 @@ export const colors = {
 
   // Component Variants
   background: {
-    primary: '#0D1B2A',
-    secondary: '#F4B400',
+    primary: brandColors.navy,
+    secondary: brandColors.gold,
     neutral: '#F9FAFB',
     dark: '#111827',
   },
 
   text: {
-    primary: '#0D1B2A',
+    primary: brandColors.navy,
     secondary: '#6B7280',
     light: '#FFFFFF',
     muted: '#9CA3AF',
@@ -53,7 +55,7 @@ export const colors = {
     light: '#E5E7EB',
     medium: '#D1D5DB',
     dark: '#374151',
-    brand: '#0D1B2A',
+    brand: brandColors.navy,
   },
 } as const;
 

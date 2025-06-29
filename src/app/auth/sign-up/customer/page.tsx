@@ -332,7 +332,7 @@ export default function CustomerSignUpPage() {
 
                 {/* Submit Button */}
                 <div className="d-grid mb-3">
-                  <button
+                  <BrandButton variant="navy-primary"
                     type="submit"
                     className="btn btn-primary btn-lg"
                     disabled={isLoading}
@@ -355,7 +355,7 @@ export default function CustomerSignUpPage() {
                     ) : (
                       'Create Account'
                     )}
-                  </button>
+                  </BrandButton>
                 </div>
 
                 {/* Back to Sign In */}

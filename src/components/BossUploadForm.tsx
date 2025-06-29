@@ -1,7 +1,8 @@
+'use client';
 /**
  * =============================================================================
  * Boss Upload Form Component - Mahardika Platform
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  * =============================================================================
  *
  * Advanced file upload form with:
@@ -12,7 +13,6 @@
  * - Mahardika brand styling
  */
 
-'use client';
 
 import React, { useState, useRef, useCallback } from 'react';
 import { colors, BrandButton } from '@mahardika/ui';

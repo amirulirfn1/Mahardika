@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * Database Seed Script - Mahardika Platform
  * Populates database with initial data for development and testing
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  */
 
 import { PrismaClient, Prisma } from '@prisma/client';
@@ -11,7 +12,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('🌱 Starting database seed...');
-  console.log('Brand Colors: Navy #0D1B2A, Gold #F4B400');
+  console.log('Brand Colors: Navy colors.navy, Gold colors.gold');
 
   // Create sample agencies
   const agencies = await Promise.all([
@@ -33,8 +34,8 @@ async function main() {
         country: 'USA',
         postal_code: '10001',
         timezone: 'America/New_York',
-        brand_color_primary: '#0D1B2A',
-        brand_color_secondary: '#F4B400',
+        brand_color_primary: 'colors.navy',
+        brand_color_secondary: 'colors.gold',
         plan_type: 'premium',
         billing_email: 'billing@mahardika-insurance.com',
         settings: {
@@ -78,8 +79,8 @@ async function main() {
         country: 'USA',
         postal_code: '90210',
         timezone: 'America/Los_Angeles',
-        brand_color_primary: '#0D1B2A',
-        brand_color_secondary: '#F4B400',
+        brand_color_primary: 'colors.navy',
+        brand_color_secondary: 'colors.gold',
         plan_type: 'professional',
         billing_email: 'accounts@golden-shield.com',
         settings: {
@@ -460,8 +461,8 @@ async function main() {
       create: {
         key: 'brand_colors',
         value: {
-          primary: '#0D1B2A',
-          secondary: '#F4B400',
+          primary: 'colors.navy',
+          secondary: 'colors.gold',
           success: '#28a745',
           warning: '#ffc107',
           danger: '#dc3545',
@@ -551,8 +552,8 @@ async function main() {
 - ${notifications.length} notifications created
 
 🎨 Brand Colors Applied:
-- Navy Primary: #0D1B2A
-- Gold Accent: #F4B400
+- Navy Primary: colors.navy
+- Gold Accent: colors.gold
 
 🔐 Default Login Credentials:
 - admin@mahardika-insurance.com / password123

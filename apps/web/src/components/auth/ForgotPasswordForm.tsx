@@ -1,14 +1,16 @@
+'use client';
+
+import { colors, BrandButton } from '@mahardika/ui';
 /**
  * Forgot Password Form Component - Mahardika Platform
  * Bootstrap 5 styled form with Mahardika brand colors
- * Brand Colors: Navy #0D1B2A (Primary), Gold #F4B400 (Accent)
+ * Brand Colors: Navy colors.navy (Primary), Gold colors.gold (Accent)
  */
 
-'use client';
 
 import React, { useState } from 'react';
 import { MAHARDIKA_COLORS } from '@/lib/env';
-import { BrandButton } from '@mahardika/ui';
+
 
 interface ForgotPasswordFormProps {
   onSubmit?: (email: string) => Promise<void>;
@@ -128,14 +130,14 @@ export default function ForgotPasswordForm({
             <p className="small text-muted mb-4">
               Didn&apos;t receive the email? Check your spam folder or try again.
             </p>
-            <button
+            <BrandButton variant="navy-primary"
               type="button"
               className="btn btn-primary btn-back w-100"
               onClick={onBackToLogin}
             >
               <i className="bi bi-arrow-left me-2" />
               Back to Login
-            </button>
+            </BrandButton>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * =============================================================================
  * Mahardika Platform - Agency Utility Functions
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  * =============================================================================
  */
 

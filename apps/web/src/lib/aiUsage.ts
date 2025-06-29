@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -225,8 +226,8 @@ function estimateTokens(text: string): number {
  */
 export function getUpgradeMessage(planType: string): string {
   const mahardikaColors = {
-    navy: '#0D1B2A',
-    gold: '#F4B400',
+    navy: 'colors.navy',
+    gold: 'colors.gold',
   };
 
   switch (planType) {

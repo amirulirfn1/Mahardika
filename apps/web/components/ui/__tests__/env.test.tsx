@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 /**
  * Environment Configuration Tests - Mahardika Platform
  * Tests for environment variable handling and configuration
@@ -20,21 +21,21 @@ describe('Environment Configuration', () => {
 
   describe('Mahardika Brand Colors', () => {
     it('should have default navy color', () => {
-      const navyColor = process.env.NEXT_PUBLIC_BRAND_NAVY || '#0D1B2A';
-      expect(navyColor).toBe('#0D1B2A');
+      const navyColor = process.env.NEXT_PUBLIC_BRAND_NAVY || 'colors.navy';
+      expect(navyColor).toBe('colors.navy');
     });
 
     it('should have default gold color', () => {
-      const goldColor = process.env.NEXT_PUBLIC_BRAND_GOLD || '#F4B400';
-      expect(goldColor).toBe('#F4B400');
+      const goldColor = process.env.NEXT_PUBLIC_BRAND_GOLD || 'colors.gold';
+      expect(goldColor).toBe('colors.gold');
     });
 
     it('should use custom brand colors when provided', () => {
       process.env.NEXT_PUBLIC_BRAND_NAVY = '#123456';
       process.env.NEXT_PUBLIC_BRAND_GOLD = '#789ABC';
 
-      const navyColor = process.env.NEXT_PUBLIC_BRAND_NAVY || '#0D1B2A';
-      const goldColor = process.env.NEXT_PUBLIC_BRAND_GOLD || '#F4B400';
+      const navyColor = process.env.NEXT_PUBLIC_BRAND_NAVY || 'colors.navy';
+      const goldColor = process.env.NEXT_PUBLIC_BRAND_GOLD || 'colors.gold';
 
       expect(navyColor).toBe('#123456');
       expect(goldColor).toBe('#789ABC');
@@ -254,23 +255,23 @@ describe('Environment Configuration', () => {
 
   describe('Mahardika Theme Configuration', () => {
     it('should provide Mahardika theme with brand colors', () => {
-      process.env.NEXT_PUBLIC_BRAND_NAVY = '#0D1B2A';
-      process.env.NEXT_PUBLIC_BRAND_GOLD = '#F4B400';
+      process.env.NEXT_PUBLIC_BRAND_NAVY = 'colors.navy';
+      process.env.NEXT_PUBLIC_BRAND_GOLD = 'colors.gold';
 
       const theme = {
         colors: {
-          navy: process.env.NEXT_PUBLIC_BRAND_NAVY || '#0D1B2A',
-          gold: process.env.NEXT_PUBLIC_BRAND_GOLD || '#F4B400',
+          navy: process.env.NEXT_PUBLIC_BRAND_NAVY || 'colors.navy',
+          gold: process.env.NEXT_PUBLIC_BRAND_GOLD || 'colors.gold',
         },
         isDark: false,
-        primary: process.env.NEXT_PUBLIC_BRAND_NAVY || '#0D1B2A',
-        accent: process.env.NEXT_PUBLIC_BRAND_GOLD || '#F4B400',
+        primary: process.env.NEXT_PUBLIC_BRAND_NAVY || 'colors.navy',
+        accent: process.env.NEXT_PUBLIC_BRAND_GOLD || 'colors.gold',
       };
 
-      expect(theme.colors.navy).toBe('#0D1B2A');
-      expect(theme.colors.gold).toBe('#F4B400');
-      expect(theme.primary).toBe('#0D1B2A');
-      expect(theme.accent).toBe('#F4B400');
+      expect(theme.colors.navy).toBe('colors.navy');
+      expect(theme.colors.gold).toBe('colors.gold');
+      expect(theme.primary).toBe('colors.navy');
+      expect(theme.accent).toBe('colors.gold');
       expect(theme.isDark).toBe(false);
     });
   });

@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 /**
  * Mahardika Brand Theme System
  * Comprehensive design system for consistent styling across all components
@@ -5,11 +6,11 @@
 
 // Bootstrap 5 Color Override Map
 export const bootstrapColorOverrides = {
-  primary: '#0D1B2A', // Mahardika Navy
+  primary: 'colors.navy', // Mahardika Navy
   secondary: '#6B7280', // Neutral gray
   success: '#10B981',
   info: '#3B82F6',
-  warning: '#F4B400', // Mahardika Gold
+  warning: 'colors.gold', // Mahardika Gold
   danger: '#EF4444',
   light: '#F9FAFB',
   dark: '#111827',
@@ -18,18 +19,18 @@ export const bootstrapColorOverrides = {
 // SCSS Variables for Bootstrap integration
 export const scssVariables = `
 // Mahardika Brand Colors for Bootstrap
-$primary: #0D1B2A;
+$primary: colors.navy;
 $secondary: #6B7280;
 $success: #10B981;
 $info: #3B82F6;
-$warning: #F4B400;
+$warning: colors.gold;
 $danger: #EF4444;
 $light: #F9FAFB;
 $dark: #111827;
 
 // Mahardika specific variables
-$mahardika-navy: #0D1B2A;
-$mahardika-gold: #F4B400;
+$mahardika-navy: colors.navy;
+$mahardika-gold: colors.gold;
 $mahardika-border-radius: 0.5rem;
 
 // Bootstrap overrides
@@ -56,12 +57,12 @@ export const theme = {
   // Brand Colors - Official Mahardika palette
   colors: {
     // Primary brand colors
-    navy: '#0D1B2A',
-    gold: '#F4B400',
+    navy: 'colors.navy',
+    gold: 'colors.gold',
 
     // Extended brand palette
-    primary: '#0D1B2A', // Navy alias
-    secondary: '#F4B400', // Gold alias
+    primary: 'colors.navy', // Navy alias
+    secondary: 'colors.gold', // Gold alias
 
     // Neutral colors
     white: '#FFFFFF',
@@ -90,8 +91,8 @@ export const theme = {
 
     // Component-specific colors
     background: {
-      primary: '#0D1B2A',
-      secondary: '#F4B400',
+      primary: 'colors.navy',
+      secondary: 'colors.gold',
       neutral: '#F9FAFB',
       dark: '#111827',
       light: '#FFFFFF',
@@ -102,7 +103,7 @@ export const theme = {
     },
 
     text: {
-      primary: '#0D1B2A',
+      primary: 'colors.navy',
       secondary: '#6B7280',
       light: '#FFFFFF',
       muted: '#9CA3AF',
@@ -113,8 +114,8 @@ export const theme = {
       light: '#E5E7EB',
       medium: '#D1D5DB',
       dark: '#374151',
-      navy: '#0D1B2A',
-      gold: '#F4B400',
+      navy: 'colors.navy',
+      gold: 'colors.gold',
     },
 
     // Hover and active states
@@ -132,12 +133,12 @@ export const theme = {
 
     // Gradient variations
     gradients: {
-      primary: 'linear-gradient(135deg, #0D1B2A 0%, #1a2332 100%)',
-      secondary: 'linear-gradient(135deg, #F4B400 0%, #FFD23F 100%)',
-      brand: 'linear-gradient(135deg, #0D1B2A 0%, #F4B400 100%)',
-      brandReverse: 'linear-gradient(135deg, #F4B400 0%, #0D1B2A 100%)',
+      primary: 'linear-gradient(135deg, colors.navy 0%, #1a2332 100%)',
+      secondary: 'linear-gradient(135deg, colors.gold 0%, #FFD23F 100%)',
+      brand: 'linear-gradient(135deg, colors.navy 0%, colors.gold 100%)',
+      brandReverse: 'linear-gradient(135deg, colors.gold 0%, colors.navy 100%)',
       animated:
-        'linear-gradient(135deg, #0D1B2A 0%, #F4B400 50%, #0D1B2A 100%)',
+        'linear-gradient(135deg, colors.navy 0%, colors.gold 50%, colors.navy 100%)',
     },
   },
 
@@ -338,24 +339,24 @@ export const theme = {
 
       variants: {
         navy: {
-          backgroundColor: '#0D1B2A',
-          borderColor: '#0D1B2A',
+          backgroundColor: 'colors.navy',
+          borderColor: 'colors.navy',
           color: '#FFFFFF',
         },
         gold: {
-          backgroundColor: '#F4B400',
-          borderColor: '#F4B400',
-          color: '#0D1B2A',
+          backgroundColor: 'colors.gold',
+          borderColor: 'colors.gold',
+          color: 'colors.navy',
         },
         'outline-navy': {
           backgroundColor: 'transparent',
-          borderColor: '#0D1B2A',
-          color: '#0D1B2A',
+          borderColor: 'colors.navy',
+          color: 'colors.navy',
         },
         'outline-gold': {
           backgroundColor: 'transparent',
-          borderColor: '#F4B400',
-          color: '#F4B400',
+          borderColor: 'colors.gold',
+          color: 'colors.gold',
         },
       },
     },
@@ -382,24 +383,24 @@ export const theme = {
 
       variants: {
         'navy-primary': {
-          background: 'linear-gradient(135deg, #0D1B2A 0%, #1a2332 100%)',
-          border: '1px solid #0D1B2A',
+          background: 'linear-gradient(135deg, colors.navy 0%, #1a2332 100%)',
+          border: '1px solid colors.navy',
           color: '#FFFFFF',
         },
         'gold-primary': {
-          background: 'linear-gradient(135deg, #F4B400 0%, #FFD23F 100%)',
-          border: '1px solid #F4B400',
-          color: '#0D1B2A',
+          background: 'linear-gradient(135deg, colors.gold 0%, #FFD23F 100%)',
+          border: '1px solid colors.gold',
+          color: 'colors.navy',
         },
         'navy-outline': {
           backgroundColor: 'transparent',
-          border: '2px solid #0D1B2A',
-          color: '#0D1B2A',
+          border: '2px solid colors.navy',
+          color: 'colors.navy',
         },
         'gold-outline': {
           backgroundColor: 'transparent',
-          border: '2px solid #F4B400',
-          color: '#F4B400',
+          border: '2px solid colors.gold',
+          color: 'colors.gold',
         },
       },
     },

@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
@@ -7,7 +8,7 @@ export const runtime = 'edge';
 /**
  * =============================================================================
  * PDF Lifecycle Management Edge Function - Mahardika Platform
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  * =============================================================================
  *
  * This function runs daily via cron to automatically delete policy PDF files

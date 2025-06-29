@@ -1,3 +1,4 @@
+'use server';
 /**
  * =============================================================================
  * Mahardika Platform - Sign In Actions
@@ -5,7 +6,6 @@
  * =============================================================================
  */
 
-'use server';
 
 import { authService, authUtils, AuthError } from '@/lib/supabaseClient';
 import { redirect } from 'next/navigation';

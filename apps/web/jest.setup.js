@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * Jest Setup - Mahardika Platform
  * Global test configuration and utilities
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  */
 
 import '@testing-library/jest-dom';
@@ -56,8 +57,8 @@ jest.mock('next/navigation', () => ({
 }));
 
 // Mock environment variables
-process.env.NEXT_PUBLIC_BRAND_NAVY = '#0D1B2A';
-process.env.NEXT_PUBLIC_BRAND_GOLD = '#F4B400';
+process.env.NEXT_PUBLIC_BRAND_NAVY = 'colors.navy';
+process.env.NEXT_PUBLIC_BRAND_GOLD = 'colors.gold';
 process.env.NEXT_PUBLIC_APP_NAME = 'Mahardika Platform';
 process.env.NODE_ENV = 'test';
 process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321';
@@ -99,8 +100,8 @@ afterAll(() => {
 global.testUtils = {
   // Mock Mahardika colors for consistent testing
   colors: {
-    navy: '#0D1B2A',
-    gold: '#F4B400',
+    navy: 'colors.navy',
+    gold: 'colors.gold',
   },
 
   // Helper to create mock functions with common patterns

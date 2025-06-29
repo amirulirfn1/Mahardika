@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import {
@@ -136,7 +137,7 @@ serve(async req => {
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            color: #0D1B2A;
+            color: colors.navy;
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
@@ -150,7 +151,7 @@ serve(async req => {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .header {
-            background: linear-gradient(135deg, #0D1B2A 0%, rgba(13, 27, 42, 0.9) 100%);
+            background: linear-gradient(135deg, colors.navy 0%, rgba(13, 27, 42, 0.9) 100%);
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -165,15 +166,15 @@ serve(async req => {
         }
         .order-info {
             background-color: rgba(244, 180, 0, 0.1);
-            border-left: 4px solid #F4B400;
+            border-left: 4px solid colors.gold;
             padding: 20px;
             margin: 20px 0;
             border-radius: 4px;
         }
         .btn {
             display: inline-block;
-            background-color: #F4B400;
-            color: #0D1B2A !important;
+            background-color: colors.gold;
+            color: colors.navy !important;
             padding: 15px 30px;
             text-decoration: none;
             border-radius: 8px;
@@ -188,7 +189,7 @@ serve(async req => {
         }
         .stars {
             font-size: 24px;
-            color: #F4B400;
+            color: colors.gold;
             text-align: center;
             margin: 20px 0;
         }
@@ -222,7 +223,7 @@ serve(async req => {
         </div>
         
         <div class="content">
-            <h2 style="color: #0D1B2A; margin-top: 0;">How was your experience?</h2>
+            <h2 style="color: colors.navy; margin-top: 0;">How was your experience?</h2>
             
             <p>Dear ${emailData.customer_name},</p>
             
@@ -411,6 +412,6 @@ Environment Variables Required:
 - EMAIL_API_KEY (optional)
 
 Brand Colors Used:
-- Navy: #0D1B2A (Primary)
-- Gold: #F4B400 (Accent)
+- Navy: colors.navy (Primary)
+- Gold: colors.gold (Accent)
 */

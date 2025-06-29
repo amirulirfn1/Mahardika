@@ -1,12 +1,13 @@
+import { colors } from "@mahardika/ui";
 import { theme } from '../theme';
 
 describe('Mahardika Theme System', () => {
   describe('Brand Colors', () => {
     it('should have correct Mahardika brand colors', () => {
-      expect(theme.colors.navy).toBe('#0D1B2A');
-      expect(theme.colors.gold).toBe('#F4B400');
-      expect(theme.colors.primary).toBe('#0D1B2A');
-      expect(theme.colors.secondary).toBe('#F4B400');
+      expect(theme.colors.navy).toBe('colors.navy');
+      expect(theme.colors.gold).toBe('colors.gold');
+      expect(theme.colors.primary).toBe('colors.navy');
+      expect(theme.colors.secondary).toBe('colors.gold');
     });
 
     it('should have complete neutral color palette', () => {
@@ -32,10 +33,10 @@ describe('Mahardika Theme System', () => {
     });
 
     it('should have gradient variations', () => {
-      expect(theme.colors.gradients.primary).toContain('#0D1B2A');
-      expect(theme.colors.gradients.secondary).toContain('#F4B400');
-      expect(theme.colors.gradients.brand).toContain('#0D1B2A');
-      expect(theme.colors.gradients.brand).toContain('#F4B400');
+      expect(theme.colors.gradients.primary).toContain('colors.navy');
+      expect(theme.colors.gradients.secondary).toContain('colors.gold');
+      expect(theme.colors.gradients.brand).toContain('colors.navy');
+      expect(theme.colors.gradients.brand).toContain('colors.gold');
     });
   });
 
@@ -73,15 +74,15 @@ describe('Mahardika Theme System', () => {
 
       it('should have button variants', () => {
         expect(theme.components.button.variants.navy.backgroundColor).toBe(
-          '#0D1B2A'
+          'colors.navy'
         );
-        expect(theme.components.button.variants.gold.color).toBe('#0D1B2A');
+        expect(theme.components.button.variants.gold.color).toBe('colors.navy');
         expect(
           theme.components.button.variants['outline-navy'].backgroundColor
         ).toBe('transparent');
         expect(
           theme.components.button.variants['outline-gold'].borderColor
-        ).toBe('#F4B400');
+        ).toBe('colors.gold');
       });
     });
 
@@ -95,15 +96,15 @@ describe('Mahardika Theme System', () => {
       it('should have card variants', () => {
         expect(
           theme.components.card.variants['navy-primary'].background
-        ).toContain('#0D1B2A');
+        ).toContain('colors.navy');
         expect(theme.components.card.variants['gold-primary'].color).toBe(
-          '#0D1B2A'
+          'colors.navy'
         );
         expect(
           theme.components.card.variants['navy-outline'].backgroundColor
         ).toBe('transparent');
         expect(theme.components.card.variants['gold-outline'].border).toContain(
-          '#F4B400'
+          'colors.gold'
         );
       });
     });

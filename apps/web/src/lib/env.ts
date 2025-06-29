@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 /**
  * Environment Configuration - Mahardika Platform
  * Centralized environment variable management with type safety

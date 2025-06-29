@@ -1,7 +1,8 @@
+import { colors } from "@mahardika/ui";
 /**
  * ✅ SECURITY & MONITORING IMPROVEMENT: Structured Logging Utility
  * Replaces console.* calls with proper logging that doesn't expose sensitive data
- * Brand Colors: Navy #0D1B2A, Gold #F4B400
+ * Brand Colors: Navy colors.navy, Gold colors.gold
  */
 
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error';

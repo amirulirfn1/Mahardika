@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import PDFDocument from 'pdfkit';
 import { Readable } from 'stream';
 
@@ -21,8 +22,8 @@ interface ChartData {
 }
 
 const MAHARDIKA_COLORS = {
-  navy: '#0D1B2A',
-  gold: '#F4B400',
+  navy: 'colors.navy',
+  gold: 'colors.gold',
   lightGray: '#F8F9FA',
   darkGray: '#6C757D',
 };

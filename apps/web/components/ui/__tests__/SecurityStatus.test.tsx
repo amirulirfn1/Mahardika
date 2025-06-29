@@ -1,3 +1,4 @@
+import { colors } from "@mahardika/ui";
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
@@ -69,7 +70,7 @@ describe('SecurityStatus Component', () => {
     render(<SecurityStatus isSecure={true} environment="production" />);
 
     expect(screen.getByText('Mahardika Security')).toBeInTheDocument();
-    expect(screen.getByText('Navy #0D1B2A • Gold #F4B400')).toBeInTheDocument();
+    expect(screen.getByText('Navy colors.navy • Gold colors.gold')).toBeInTheDocument();
   });
 
   it('applies custom className', () => {
@@ -109,8 +110,8 @@ describe('SecurityStatus Component', () => {
     const securityComponent = container.firstChild as HTMLElement;
     const styles = window.getComputedStyle(securityComponent);
 
-    expect(styles.backgroundColor).toBe('rgb(13, 27, 42)'); // Navy #0D1B2A
-    expect(styles.borderColor).toBe('rgb(244, 180, 0)'); // Gold #F4B400
+    expect(styles.backgroundColor).toBe('rgb(13, 27, 42)'); // Navy colors.navy
+    expect(styles.borderColor).toBe('rgb(244, 180, 0)'); // Gold colors.gold
   });
 
   it('applies correct styling for insecure status', () => {
@@ -218,11 +219,11 @@ describe('SecurityStatus Component', () => {
       <SecurityStatus isSecure={true} environment="production" />
     );
 
-    expect(screen.getByText('Navy #0D1B2A • Gold #F4B400')).toBeInTheDocument();
+    expect(screen.getByText('Navy colors.navy • Gold colors.gold')).toBeInTheDocument();
 
     // Test insecure state colors
     rerender(<SecurityStatus isSecure={false} environment="development" />);
 
-    expect(screen.getByText('Navy #0D1B2A • Gold #F4B400')).toBeInTheDocument();
+    expect(screen.getByText('Navy colors.navy • Gold colors.gold')).toBeInTheDocument();
   });
 });

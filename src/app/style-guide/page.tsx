@@ -1,7 +1,9 @@
 'use client';
 
+
+import { colors, BrandButton, BrandCard } from '@mahardika/ui';
 import React, { useState } from 'react';
-import { BrandButton, BrandCard } from '@mahardika/ui';
+
 
 const StyleGuidePage = () => {
   const [formData, setFormData] = useState({
@@ -29,13 +31,13 @@ const StyleGuidePage = () => {
   const brandColors = [
     {
       name: 'Navy Primary',
-      hex: '#0D1B2A',
+      hex: 'colors.navy',
       rgb: 'rgb(13, 27, 42)',
       usage: 'Primary brand color, headers, navigation',
     },
     {
       name: 'Gold Accent',
-      hex: '#F4B400',
+      hex: 'colors.gold',
       rgb: 'rgb(244, 180, 0)',
       usage: 'Accent color, buttons, highlights',
     },
@@ -71,8 +73,8 @@ const StyleGuidePage = () => {
       <nav
         className="navbar navbar-expand-lg sticky-top shadow-sm"
         style={{
-          backgroundColor: '#0D1B2A',
-          borderBottom: '3px solid #F4B400',
+          backgroundColor: 'colors.navy',
+          borderBottom: '3px solid colors.gold',
         }}
       >
         <div className="container">
@@ -84,7 +86,7 @@ const StyleGuidePage = () => {
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
-            style={{ borderColor: '#F4B400' }}
+            style={{ borderColor: 'colors.gold' }}
           >
             <span
               className="navbar-toggler-icon"
@@ -112,7 +114,7 @@ const StyleGuidePage = () => {
                 <a
                   className="nav-link"
                   href="/style-guide"
-                  style={{ color: '#F4B400', fontWeight: 'bold' }}
+                  style={{ color: 'colors.gold', fontWeight: 'bold' }}
                 >
                   Style Guide
                 </a>
@@ -125,7 +127,7 @@ const StyleGuidePage = () => {
       <div className="container my-5">
         {/* Header */}
         <div className="text-center mb-5">
-          <h1 className="display-4 fw-bold" style={{ color: '#0D1B2A' }}>
+          <h1 className="display-4 fw-bold" style={{ color: 'colors.navy' }}>
             Mahardika Design System
           </h1>
           <p className="lead" style={{ color: '#6C757D' }}>
@@ -136,11 +138,11 @@ const StyleGuidePage = () => {
             className="d-inline-block px-4 py-2 rounded-pill"
             style={{
               backgroundColor: 'rgba(244, 180, 0, 0.1)',
-              border: '1px solid #F4B400',
+              border: '1px solid colors.gold',
             }}
           >
-            <span style={{ color: '#0D1B2A', fontWeight: 'bold' }}>
-              Navy #0D1B2A • Gold #F4B400 • 0.5rem radius
+            <span style={{ color: 'colors.navy', fontWeight: 'bold' }}>
+              Navy colors.navy • Gold colors.gold • 0.5rem radius
             </span>
           </div>
         </div>
@@ -171,7 +173,7 @@ const StyleGuidePage = () => {
                       <div className="p-3">
                         <h5
                           className="card-title mb-2"
-                          style={{ color: '#0D1B2A', fontSize: '1rem' }}
+                          style={{ color: 'colors.navy', fontSize: '1rem' }}
                         >
                           {color.name}
                         </h5>
@@ -203,31 +205,31 @@ const StyleGuidePage = () => {
         {/* Typography */}
         <section className="mb-5">
           <BrandCard variant="gold-primary" size="lg" className="mb-4">
-            <h2 className="h3 mb-4" style={{ color: '#0D1B2A' }}>
+            <h2 className="h3 mb-4" style={{ color: 'colors.navy' }}>
               ✍️ Typography
             </h2>
             <div className="row">
               <div className="col-lg-6">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: 'colors.navy' }}>
                   Headings
                 </h3>
                 <div className="mb-4">
-                  <h1 className="display-1" style={{ color: '#0D1B2A' }}>
+                  <h1 className="display-1" style={{ color: 'colors.navy' }}>
                     Display 1
                   </h1>
-                  <h1 className="display-4" style={{ color: '#0D1B2A' }}>
+                  <h1 className="display-4" style={{ color: 'colors.navy' }}>
                     Display 4
                   </h1>
-                  <h1 style={{ color: '#0D1B2A' }}>Heading 1</h1>
-                  <h2 style={{ color: '#0D1B2A' }}>Heading 2</h2>
-                  <h3 style={{ color: '#0D1B2A' }}>Heading 3</h3>
-                  <h4 style={{ color: '#0D1B2A' }}>Heading 4</h4>
-                  <h5 style={{ color: '#0D1B2A' }}>Heading 5</h5>
-                  <h6 style={{ color: '#0D1B2A' }}>Heading 6</h6>
+                  <h1 style={{ color: 'colors.navy' }}>Heading 1</h1>
+                  <h2 style={{ color: 'colors.navy' }}>Heading 2</h2>
+                  <h3 style={{ color: 'colors.navy' }}>Heading 3</h3>
+                  <h4 style={{ color: 'colors.navy' }}>Heading 4</h4>
+                  <h5 style={{ color: 'colors.navy' }}>Heading 5</h5>
+                  <h6 style={{ color: 'colors.navy' }}>Heading 6</h6>
                 </div>
               </div>
               <div className="col-lg-6">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: 'colors.navy' }}>
                   Body Text
                 </h3>
                 <div className="mb-4">
@@ -244,14 +246,14 @@ const StyleGuidePage = () => {
                     exercitation.
                   </p>
                   <p>
-                    <strong style={{ color: '#0D1B2A' }}>Bold text</strong> and{' '}
+                    <strong style={{ color: 'colors.navy' }}>Bold text</strong> and{' '}
                     <em style={{ color: '#6C757D' }}>italic text</em> examples.
                   </p>
                   <p>
                     <mark
                       style={{
                         backgroundColor: 'rgba(244, 180, 0, 0.3)',
-                        color: '#0D1B2A',
+                        color: 'colors.navy',
                       }}
                     >
                       Highlighted text
@@ -266,13 +268,13 @@ const StyleGuidePage = () => {
         {/* Buttons */}
         <section className="mb-5">
           <BrandCard variant="navy-outline" size="lg" className="mb-4">
-            <h2 className="h3 mb-4" style={{ color: '#0D1B2A' }}>
+            <h2 className="h3 mb-4" style={{ color: 'colors.navy' }}>
               🔘 Buttons
             </h2>
 
             <div className="row">
               <div className="col-lg-6">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: 'colors.navy' }}>
                   Primary Buttons
                 </h3>
                 <div className="d-flex flex-wrap gap-3 mb-4">
@@ -300,7 +302,7 @@ const StyleGuidePage = () => {
               </div>
 
               <div className="col-lg-6">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: 'colors.navy' }}>
                   Outline Buttons
                 </h3>
                 <div className="d-flex flex-wrap gap-3 mb-4">
@@ -330,7 +332,7 @@ const StyleGuidePage = () => {
 
             <div className="row">
               <div className="col-12">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: 'colors.navy' }}>
                   Gradient Buttons
                 </h3>
                 <div className="d-flex flex-wrap gap-3 mb-4">
@@ -375,7 +377,7 @@ const StyleGuidePage = () => {
                       placeholder="Enter your full name"
                       style={{
                         borderRadius: '0.5rem',
-                        borderColor: '#F4B400',
+                        borderColor: 'colors.gold',
                         backgroundColor: 'rgba(255, 255, 255, 0.9)',
                       }}
                     />
@@ -398,7 +400,7 @@ const StyleGuidePage = () => {
                       placeholder="Enter your email"
                       style={{
                         borderRadius: '0.5rem',
-                        borderColor: '#F4B400',
+                        borderColor: 'colors.gold',
                         backgroundColor: 'rgba(255, 255, 255, 0.9)',
                       }}
                     />
@@ -419,7 +421,7 @@ const StyleGuidePage = () => {
                       onChange={handleInputChange}
                       style={{
                         borderRadius: '0.5rem',
-                        borderColor: '#F4B400',
+                        borderColor: 'colors.gold',
                         backgroundColor: 'rgba(255, 255, 255, 0.9)',
                       }}
                     >
@@ -439,7 +441,7 @@ const StyleGuidePage = () => {
                       name="newsletter"
                       checked={formData.newsletter}
                       onChange={handleInputChange}
-                      style={{ accentColor: '#F4B400' }}
+                      style={{ accentColor: 'colors.gold' }}
                     />
                     <label
                       className="form-check-label text-white"
@@ -470,7 +472,7 @@ const StyleGuidePage = () => {
                     placeholder="Enter your message here..."
                     style={{
                       borderRadius: '0.5rem',
-                      borderColor: '#F4B400',
+                      borderColor: 'colors.gold',
                       backgroundColor: 'rgba(255, 255, 255, 0.9)',
                       resize: 'vertical',
                     }}
@@ -489,7 +491,7 @@ const StyleGuidePage = () => {
                           type="radio"
                           name="priority"
                           id={`priority${priority}`}
-                          style={{ accentColor: '#F4B400' }}
+                          style={{ accentColor: 'colors.gold' }}
                         />
                         <label
                           className="form-check-label text-white"
@@ -517,7 +519,7 @@ const StyleGuidePage = () => {
 
         {/* Cards & Components */}
         <section className="mb-5">
-          <h2 className="h3 mb-4" style={{ color: '#0D1B2A' }}>
+          <h2 className="h3 mb-4" style={{ color: 'colors.navy' }}>
             🎴 Card Components
           </h2>
           <div className="row g-4">
@@ -536,10 +538,10 @@ const StyleGuidePage = () => {
 
             <div className="col-md-6 col-lg-4">
               <BrandCard variant="gold-primary" size="md">
-                <h5 style={{ color: '#0D1B2A' }} className="mb-3">
+                <h5 style={{ color: 'colors.navy' }} className="mb-3">
                   Gold Primary Card
                 </h5>
-                <p style={{ color: '#0D1B2A' }} className="mb-3">
+                <p style={{ color: 'colors.navy' }} className="mb-3">
                   Ideal for highlighting features, special offers, and important
                   announcements.
                 </p>
@@ -567,25 +569,25 @@ const StyleGuidePage = () => {
         {/* Usage Guidelines */}
         <section className="mb-5">
           <BrandCard variant="navy-outline" size="lg">
-            <h2 className="h3 mb-4" style={{ color: '#0D1B2A' }}>
+            <h2 className="h3 mb-4" style={{ color: 'colors.navy' }}>
               📋 Usage Guidelines
             </h2>
 
             <div className="row">
               <div className="col-lg-6">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: 'colors.navy' }}>
                   Color Usage
                 </h3>
                 <ul style={{ color: '#343A40' }}>
                   <li className="mb-2">
-                    <strong style={{ color: '#0D1B2A' }}>
-                      Navy (#0D1B2A):
+                    <strong style={{ color: 'colors.navy' }}>
+                      Navy (colors.navy):
                     </strong>{' '}
                     Primary brand color for headers, navigation, and main CTAs
                   </li>
                   <li className="mb-2">
-                    <strong style={{ color: '#F4B400' }}>
-                      Gold (#F4B400):
+                    <strong style={{ color: 'colors.gold' }}>
+                      Gold (colors.gold):
                     </strong>{' '}
                     Accent color for highlights, secondary buttons, and active
                     states
@@ -602,7 +604,7 @@ const StyleGuidePage = () => {
               </div>
 
               <div className="col-lg-6">
-                <h3 className="h5 mb-3" style={{ color: '#0D1B2A' }}>
+                <h3 className="h5 mb-3" style={{ color: 'colors.navy' }}>
                   Component Guidelines
                 </h3>
                 <ul style={{ color: '#343A40' }}>
@@ -631,13 +633,13 @@ const StyleGuidePage = () => {
         {/* Footer */}
         <footer
           className="text-center py-4"
-          style={{ borderTop: '2px solid #F4B400' }}
+          style={{ borderTop: '2px solid colors.gold' }}
         >
           <p style={{ color: '#6C757D' }} className="mb-0">
             Mahardika Design System • Bootstrap 5 • React Components
           </p>
           <p style={{ color: '#6C757D' }} className="mb-0 small">
-            Built with ❤️ using Navy #0D1B2A and Gold #F4B400
+            Built with ❤️ using Navy colors.navy and Gold colors.gold
           </p>
         </footer>
       </div>

@@ -99,7 +99,7 @@ function UploadProofModal({ order, onClose }: { order: Order; onClose: () => voi
         <div className="modal-content">
           <div className="modal-header" style={{ backgroundColor: colors.navy, color: 'white' }}>
             <h5 className="modal-title">Upload Payment Proof – {order.order_number}</h5>
-            <button className="btn-close" onClick={onClose}></button>
+            <button className="btn-close" onClick={onClose} />
           </div>
           <div className="modal-body">
             {error && <div className="alert alert-danger">{error}</div>}

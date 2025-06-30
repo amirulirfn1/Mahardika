@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
         agency_id: customer.agency_id,
         staff_id,
         points_deducted: pointsNeeded,
-        value_rm: value_rm,
+        value_rm,
       },
     }) as any,
   ]);

@@ -578,9 +578,9 @@ export default function AgenciesPage() {
                         Specialties:
                       </div>
                       <div className="d-flex flex-wrap gap-2">
-                        {agency.specialties.slice(0, 3).map((specialty, index) => (
+                        {agency.specialties.slice(0, 3).map((specialty) => (
                           <span
-                            key={index}
+                            key={specialty}
                             style={{
                               background: `${colors.navy}10`,
                               color: colors.navy,

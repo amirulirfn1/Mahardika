@@ -18,20 +18,21 @@ export default function AuthCallbackPage() {
           session = exchanged.session;
         }
         if (!session?.user) {
-          console.error('No session');
+          // No session found
           return;
         }
         // upsert profile
-        const { id, email, user_metadata } = session.user;
+        const { id, email = '', user_metadata } = session.user;
+        const name = user_metadata?.name ?? '';
         await prisma.user.upsert({
           where: { id },
-          create: { id, email: email ?? '', name: user_metadata?.name ?? '', agency_id: '' },
+          create: { id, email, name, agency_id: '' },
           update: { email },
         }).catch(() => {});
 
         router.replace('/dashboard');
       } catch (e) {
-        console.error(e);
+        // Handle error (could log to monitoring service)
       }
     }
     handleAuth();

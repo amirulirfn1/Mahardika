@@ -146,7 +146,7 @@ export default function AuthForm({
       name: 'Google',
       provider: 'google' as const,
       icon: (
-        <svg className="w-5 h-5" viewBox="0 0 24 24">
+        <svg className="w-4 h-4" viewBox="0 0 24 24">
           <path
             fill="#4285f4"
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -165,37 +165,57 @@ export default function AuthForm({
           />
         </svg>
       ),
-      style: { background: 'white', border: '1px solid #dadce0', color: '#3c4043' }
+      style: { 
+        background: 'white', 
+        border: '2px solid #e5e7eb', 
+        color: '#374151',
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+      }
     },
     {
       name: 'GitHub',
       provider: 'github' as const,
       icon: (
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
         </svg>
       ),
-      style: { background: '#24292e', color: 'white' }
+      style: { 
+        background: '#24292e', 
+        color: 'white',
+        border: '2px solid #24292e',
+        boxShadow: '0 1px 3px rgba(36, 41, 46, 0.3)'
+      }
     },
     {
       name: 'Discord',
       provider: 'discord' as const,
       icon: (
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.246.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.067-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.313-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.067-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.313-.946 2.38-2.157 2.38z"/>
         </svg>
       ),
-      style: { background: '#5865f2', color: 'white' }
+      style: { 
+        background: '#5865f2', 
+        color: 'white',
+        border: '2px solid #5865f2',
+        boxShadow: '0 1px 3px rgba(88, 101, 242, 0.3)'
+      }
     },
     {
       name: 'Spotify',
       provider: 'spotify' as const,
       icon: (
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/>
         </svg>
       ),
-      style: { background: '#1db954', color: 'white' }
+      style: { 
+        background: '#1db954', 
+        color: 'white',
+        border: '2px solid #1db954',
+        boxShadow: '0 1px 3px rgba(29, 185, 84, 0.3)'
+      }
     },
   ];
 
@@ -237,12 +257,14 @@ export default function AuthForm({
         }
         
         .oauth-btn {
-          transition: all 0.3s ease;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           border: none !important;
           font-weight: 500;
-          padding: 0.75rem 1.5rem;
+          padding: 0.875rem 1rem;
           position: relative;
           overflow: hidden;
+          font-size: 0.875rem;
+          min-height: 44px;
         }
         
         .oauth-btn::before {
@@ -252,8 +274,8 @@ export default function AuthForm({
           left: -100%;
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-          transition: left 0.5s;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.6s ease;
         }
         
         .oauth-btn:hover::before {
@@ -262,7 +284,11 @@ export default function AuthForm({
         
         .oauth-btn:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .oauth-btn:active {
+          transform: translateY(0);
         }
         
         .tab-button {
@@ -338,9 +364,17 @@ export default function AuthForm({
         .password-toggle:hover {
           color: ${colors.navy};
         }
+        
+        .w-4 {
+          width: 1rem;
+        }
+        
+        .h-4 {
+          height: 1rem;
+        }
       `}</style>
       
-      <div className="auth-container position-fixed top-0 start-0 w-100 h-100" style={{ zIndex: -1 }}></div>
+      <div className="auth-container position-fixed top-0 start-0 w-100 h-100" style={{ zIndex: -1 }} />
       
       <div className="container">
         <div className="row justify-content-center">
@@ -402,13 +436,12 @@ export default function AuthForm({
                         style={{
                           ...provider.style,
                           borderRadius: '0.75rem',
-                          fontSize: '0.875rem',
                         }}
                         onClick={() => handleOAuthSignIn(provider.provider)}
                         disabled={isLoading}
                       >
                         {provider.icon}
-                        <span className="d-none d-sm-inline">{provider.name}</span>
+                        <span className="d-none d-sm-inline fw-medium">{provider.name}</span>
                       </button>
                     </div>
                   ))}

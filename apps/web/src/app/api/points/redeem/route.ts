@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         points_deducted: pointsNeeded,
         value_rm,
       },
-    }) as any,
+    }),
   ]);
   return NextResponse.json({ success: true, newBalance });
 } 

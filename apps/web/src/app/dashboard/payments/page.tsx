@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { BrandButton, colors } from '@mahardika/ui';
+import { colors } from '@mahardika/ui';
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { z } from 'zod';
 
@@ -38,9 +38,19 @@ export default function PaymentAdminPage() {
     { accessorKey: 'order_number', header: 'Order #' },
     { accessorKey: 'total_amount', header: 'Amount', cell: ({ getValue }) => `$${getValue<number>().toFixed(2)}` },
     { accessorKey: 'state', header: 'State' },
-    { id: 'actions', header: '', cell: ({ row }) => (
-      <button className="btn btn-sm btn-primary" onClick={() => setSelected(row.original)}>Upload Proof</button>
-    ) }
+    { 
+      id: 'actions', 
+      header: '', 
+      cell: ({ row }) => (
+        <button 
+          className="btn btn-sm" 
+          style={{ backgroundColor: colors.navy, color: 'white', border: 'none' }}
+          onClick={() => setSelected(row.original)}
+        >
+          Upload Proof
+        </button>
+      )
+    }
   ], []);
 
   const table = useReactTable({ data: orders, columns, getCoreRowModel: getCoreRowModel() });
@@ -49,19 +59,37 @@ export default function PaymentAdminPage() {
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 style={{ color: colors.navy }}>Pending Payments</h2>
-        <BrandButton onClick={fetchOrders}>Refresh</BrandButton>
+        <button 
+          className="btn" 
+          style={{ backgroundColor: colors.navy, color: 'white', border: 'none' }}
+          onClick={fetchOrders}
+        >
+          Refresh
+        </button>
       </div>
 
       {loading ? 'Loading…' : (
         <table className="table table-striped">
           <thead>
             {table.getHeaderGroups().map(hg => (
-              <tr key={hg.id}>{hg.headers.map(h => <th key={h.id}>{flexRender(h.column.columnDef.header, h.getContext())}</th>)}</tr>
+              <tr key={hg.id}>
+                {hg.headers.map(h => (
+                  <th key={h.id}>
+                    {flexRender(h.column.columnDef.header, h.getContext())}
+                  </th>
+                ))}
+              </tr>
             ))}
           </thead>
           <tbody>
             {table.getRowModel().rows.map(r => (
-              <tr key={r.id}>{r.getVisibleCells().map(c => <td key={c.id}>{flexRender(c.column.columnDef.cell ?? c.column.columnDef.header, c.getContext())}</td>)}</tr>
+              <tr key={r.id}>
+                {r.getVisibleCells().map(c => (
+                  <td key={c.id}>
+                    {flexRender(c.column.columnDef.cell, c.getContext())}
+                  </td>
+                ))}
+              </tr>
             ))}
           </tbody>
         </table>
@@ -99,15 +127,34 @@ function UploadProofModal({ order, onClose }: { order: Order; onClose: () => voi
         <div className="modal-content">
           <div className="modal-header" style={{ backgroundColor: colors.navy, color: 'white' }}>
             <h5 className="modal-title">Upload Payment Proof – {order.order_number}</h5>
-            <button className="btn-close" onClick={onClose} />
+            <button 
+              className="btn btn-sm" 
+              style={{ backgroundColor: 'transparent', color: 'white', border: '1px solid white' }}
+              onClick={onClose}
+            >
+              ×
+            </button>
           </div>
           <div className="modal-body">
             {error && <div className="alert alert-danger">{error}</div>}
             <input type="file" accept="image/*" className="form-control" onChange={e => setFile(e.target.files?.[0] || null)} />
           </div>
           <div className="modal-footer">
-            <BrandButton variant="secondary" onClick={onClose}>Cancel</BrandButton>
-            <BrandButton onClick={submit} disabled={uploading || !file}>{uploading ? 'Uploading…' : 'Submit'}</BrandButton>
+            <button 
+              className="btn" 
+              style={{ backgroundColor: '#6c757d', color: 'white', border: 'none' }}
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+            <button 
+              className="btn" 
+              style={{ backgroundColor: colors.navy, color: 'white', border: 'none' }}
+              onClick={submit} 
+              disabled={uploading || !file}
+            >
+              {uploading ? 'Uploading…' : 'Submit'}
+            </button>
           </div>
         </div>
       </div>

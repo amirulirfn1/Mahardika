@@ -3,11 +3,13 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["public", "auth"]
 }
 
 // =============================================================================
@@ -64,6 +66,7 @@ model Agency {
   emails                Email[]
   
   @@map("agencies")
+  @@schema("public")
 }
 
 // =============================================================================
@@ -102,6 +105,7 @@ model User {
   @@map("users")
   @@index([agency_id])
   @@index([email])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -153,6 +157,7 @@ model Customer {
   @@index([email])
   @@index([loyalty_points])
   @@index([tier])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -163,6 +168,7 @@ enum PolicyStatus {
   DRAFT
   ACTIVE
   EXPIRED
+  @@schema("public")
 }
 
 model Policy {
@@ -211,6 +217,7 @@ model Policy {
   @@index([policy_number])
   @@index([status])
   @@index([vehicle_id])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -256,6 +263,7 @@ model Review {
   @@index([order_id])
   @@index([is_featured])
   @@index([review_token])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -285,6 +293,7 @@ model Analytics {
   @@index([agency_id])
   @@index([metric_name])
   @@index([recorded_at])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -321,6 +330,7 @@ model AuditLog {
   @@index([resource, resource_id])
   @@index([user_id])
   @@index([created_at])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -341,6 +351,7 @@ model SystemConfig {
   updated_at DateTime @updatedAt @db.Timestamptz(6)
   
   @@map("system_config")
+  @@schema("public")
 }
 
 // =============================================================================
@@ -377,6 +388,7 @@ model Notification {
   @@index([agency_id])
   @@index([user_id])
   @@index([is_read])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -389,6 +401,7 @@ enum OrderStatus {
   CLEARED
   CANCELLED
   REFUNDED
+  @@schema("public")
 }
 
 model Order {
@@ -438,6 +451,7 @@ model Order {
   @@index([order_number])
   @@index([state])
   @@index([review_token])
+  @@schema("public")
 }
 
 model OrderItem {
@@ -466,6 +480,7 @@ model OrderItem {
   
   @@map("order_items")
   @@index([order_id])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -525,6 +540,7 @@ model Product {
   @@index([is_active])
   @@index([is_featured])
   @@unique([agency_id, slug])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -561,6 +577,7 @@ model AiUsage {
   @@index([user_id])
   @@index([created_at])
   @@index([agency_id, created_at]) // For monthly usage queries
+  @@schema("public")
 }
 
 // =============================================================================
@@ -591,6 +608,7 @@ model ReferralWallet {
   @@map("referral_wallets")
   @@unique([agency_id])
   @@index([agency_id])
+  @@schema("public")
 }
 
 model ReferralTransaction {
@@ -622,6 +640,7 @@ model ReferralTransaction {
   @@index([wallet_id])
   @@index([agency_id])
   @@index([created_at])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -665,6 +684,7 @@ model KpiReport {
   @@index([agency_id])
   @@index([period_start])
   @@index([status])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -721,6 +741,7 @@ model Email {
   @@index([status])
   @@index([email_type])
   @@index([sent_at])
+  @@schema("public")
 }
 
 model PointsRedemption {
@@ -744,6 +765,7 @@ model PointsRedemption {
   @@map("points_redemptions")
   @@index([customer_id])
   @@index([agency_id])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -772,6 +794,7 @@ model Vehicle {
   @@map("vehicles")
   @@index([agency_id])
   @@index([customer_id])
+  @@schema("public")
 }
 
 // =============================================================================
@@ -787,6 +810,7 @@ model NotificationError {
 
   @@map("notification_errors")
   @@index([source])
+  @@schema("public")
 }
 
 model Quotation {
@@ -799,4 +823,5 @@ model Quotation {
   // Relations
   agency   Agency   @relation(fields: [agency_id], references: [id], onDelete: Cascade)
   customer Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  @@schema("public")
 } 

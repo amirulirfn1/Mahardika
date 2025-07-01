@@ -138,7 +138,7 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
         <div className="modal-content">
           <div className="modal-header" style={{ backgroundColor: colors.navy, color: 'white' }}>
             <h5 className="modal-title">Add Vehicle</h5>
-            <button type="button" className="btn-close" onClick={onClose}></button>
+            <button type="button" className="btn-close" onClick={onClose} />
           </div>
           <div className="modal-body">
             {error && <div className="alert alert-danger">{error}</div>}

@@ -124,24 +124,22 @@ export function Navigation() {
 
             {/* Authentication */}
             <div className="d-flex align-items-center gap-2">
-              <BrandButton
-                variant="outline-navy"
-                size="sm"
-                asChild
-              >
-                <Link href="/auth">
+              <Link href="/auth" style={{ textDecoration: 'none' }}>
+                <BrandButton
+                  variant="outline-navy"
+                  size="sm"
+                >
                   {t('navbar.signin')}
-                </Link>
-              </BrandButton>
-              <BrandButton
-                variant="navy"
-                size="sm"
-                asChild
-              >
-                <Link href="/auth">
+                </BrandButton>
+              </Link>
+              <Link href="/auth" style={{ textDecoration: 'none' }}>
+                <BrandButton
+                  variant="navy"
+                  size="sm"
+                >
                   {t('navbar.join')}
-                </Link>
-              </BrandButton>
+                </BrandButton>
+              </Link>
             </div>
 
             {/* Settings Menu */}

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env.local') });
 /*
  * Mahardika – Local database bootstrap for development.
  * 1) Runs `prisma migrate dev` to apply the latest schema.

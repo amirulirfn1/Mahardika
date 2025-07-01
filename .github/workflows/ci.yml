@@ -8,6 +8,12 @@ on:
 jobs:
   build-test:
     runs-on: ubuntu-latest
+    env:
+      # Public environment variables for build process (safe to expose)
+      NEXT_PUBLIC_SUPABASE_URL: https://kpcapeyyxjuwbhmsezqg.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtwY2FwZXl5eGp1d2JobXNlenFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkzMDQwNDksImV4cCI6MjA2NDg4MDA0OX0.mAO5mEXi-ttsXMQgZs0iW457EQdN3HJgYnowbbPRxBo
+      NEXT_PUBLIC_APP_NAME: Mahardika
+      NEXT_PUBLIC_APP_VERSION: 2.0.0
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

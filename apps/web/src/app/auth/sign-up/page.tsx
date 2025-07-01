@@ -26,16 +26,17 @@ export default function SignUpPage() {
         options: {
           data: {
             full_name: `${firstName} ${lastName}`.trim(),
+            first_name: firstName,
+            last_name: lastName,
           },
         },
       });
 
       if (error) {
         setError(error.message);
-        alert(error.message);
       } else {
-        alert('Check your inbox to confirm your email!');
-        router.push('/auth/check-email');
+        // Success - redirect to check email page or dashboard
+        router.push('/auth/callback');
       }
     } catch (err) {
       console.error('Sign up error:', err);
@@ -46,13 +47,10 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="container py-5">
-      <AuthForm
-        onRegister={handleRegister}
-        className="mx-auto"
-        isLoading={isLoading}
-        error={error}
-      />
-    </div>
+    <AuthForm
+      onRegister={handleRegister}
+      isLoading={isLoading}
+      error={error}
+    />
   );
 } 

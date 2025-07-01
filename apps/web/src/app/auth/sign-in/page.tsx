@@ -21,9 +21,8 @@ export default function SignInPage() {
 
       if (error) {
         setError(error.message);
-        alert(error.message);
       } else {
-        alert('Signed in successfully');
+        // Success - redirect to dashboard
         router.push('/dashboard');
       }
     } catch (err) {
@@ -35,13 +34,10 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="container py-5">
-      <AuthForm
-        onLogin={handleLogin}
-        className="mx-auto"
-        isLoading={isLoading}
-        error={error}
-      />
-    </div>
+    <AuthForm
+      onLogin={handleLogin}
+      isLoading={isLoading}
+      error={error}
+    />
   );
 }

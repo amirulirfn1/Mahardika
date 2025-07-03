@@ -1,53 +1,86 @@
 /**
  * =============================================================================
- * Mahardika Platform - CSRF React Hook
- * Client-side hook for CSRF token management
+ * Mahardika Platform - CSRF Hook
+ * React hook for managing CSRF tokens in client-side components
  * =============================================================================
  */
 
-import { useCallback, useEffect, useState } from 'react';
-import { getCSRFTokenForClient, addCSRFToken } from '../csrf';
+import { useState, useEffect, useCallback } from 'react';
+import { getCSRFTokenForClient, CSRF_HEADER_NAME } from '../csrf';
 
-interface CSRFHook {
+interface CSRFRequestOptions {
+  headers?: Record<string, string>;
+  body?: string | FormData;
+  method?: string;
+  [key: string]: any;
+}
+
+interface UseCSRFReturn {
   token: string | null;
-  isLoading: boolean;
-  addToFetchOptions: (options?: RequestInit) => RequestInit;
-  refreshToken: () => void;
+  loading: boolean;
+  error: string | null;
+  addCSRFToken: (options?: CSRFRequestOptions) => CSRFRequestOptions;
+  refetchToken: () => void;
 }
 
 /**
- * React hook for CSRF token management
+ * Custom hook for CSRF token management
+ * Automatically fetches CSRF token and provides utilities for API calls
  */
-export function useCSRF(): CSRFHook {
+export function useCSRF(): UseCSRFReturn {
   const [token, setToken] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const refreshToken = useCallback(() => {
-    const newToken = getCSRFTokenForClient();
-    setToken(newToken);
-    setIsLoading(false);
+  const fetchToken = useCallback(() => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const csrfToken = getCSRFTokenForClient();
+      
+      if (!csrfToken) {
+        setError('CSRF token not found. Please refresh the page.');
+        setToken(null);
+      } else {
+        setToken(csrfToken);
+      }
+    } catch (err) {
+      setError('Failed to retrieve CSRF token');
+      setToken(null);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
-    refreshToken();
-    
-    // Listen for token changes (e.g., after page navigation)
-    const handleFocus = () => refreshToken();
-    window.addEventListener('focus', handleFocus);
-    
-    return () => {
-      window.removeEventListener('focus', handleFocus);
-    };
-  }, [refreshToken]);
+    fetchToken();
+  }, [fetchToken]);
 
-  const addToFetchOptions = useCallback((options: RequestInit = {}): RequestInit => {
-    return addCSRFToken(options);
-  }, []);
+  const addCSRFToken = useCallback((options: CSRFRequestOptions = {}): CSRFRequestOptions => {
+    if (!token) {
+      console.warn('CSRF token not available. Request may be blocked.');
+      return options;
+    }
+
+    return {
+      ...options,
+      headers: {
+        ...options.headers,
+        [CSRF_HEADER_NAME]: token,
+      },
+    };
+  }, [token]);
+
+  const refetchToken = useCallback(() => {
+    fetchToken();
+  }, [fetchToken]);
 
   return {
     token,
-    isLoading,
-    addToFetchOptions,
-    refreshToken,
+    loading,
+    error,
+    addCSRFToken,
+    refetchToken,
   };
 } 

@@ -114,8 +114,8 @@ function requiresCSRFProtection(method: string): boolean {
  */
 export function csrfProtection(handler: Function) {
   return async (request: NextRequest, ...args: any[]) => {
-    const pathname = request.nextUrl.pathname;
-    const method = request.method;
+    const { pathname } = request.nextUrl;
+    const { method } = request;
 
     // Skip CSRF protection for exempt paths or safe methods
     if (isCSRFExempt(pathname) || !requiresCSRFProtection(method)) {
@@ -169,7 +169,7 @@ export function csrfProtection(handler: Function) {
  * Middleware function to generate and set CSRF tokens for pages
  */
 export function handleCSRFForPages(request: NextRequest, response: NextResponse): NextResponse {
-  const pathname = request.nextUrl.pathname;
+  const { pathname } = request.nextUrl;
 
   // Only set CSRF tokens for HTML pages (not API routes)
   if (!pathname.startsWith('/api/') && !isCSRFExempt(pathname)) {
@@ -198,13 +198,14 @@ export function getCSRFTokenForClient(): string | null {
   
   if (!csrfCookie) return null;
   
-  return csrfCookie.split('=')[1];
+  const [, tokenValue] = csrfCookie.split('=');
+  return tokenValue;
 }
 
 /**
  * Utility to add CSRF token to fetch requests
  */
-export function addCSRFToken(options: RequestInit = {}): RequestInit {
+export function addCSRFToken(options: Record<string, any> = {}): Record<string, any> {
   const token = getCSRFTokenForClient();
   
   if (!token) {

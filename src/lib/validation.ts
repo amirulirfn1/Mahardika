@@ -417,8 +417,22 @@ export function validateRateLimit(
   windowMs: number = 15 * 60 * 1000 // 15 minutes
 ) {
   const requests = new Map<string, { count: number; resetTime: number }>();
+  
+  // Clean up expired entries periodically to prevent memory leak
+  const cleanupInterval = setInterval(() => {
+    const now = Date.now();
+    const expiredKeys: string[] = [];
+    
+    for (const [key, value] of requests.entries()) {
+      if (now > value.resetTime) {
+        expiredKeys.push(key);
+      }
+    }
+    
+    expiredKeys.forEach(key => requests.delete(key));
+  }, windowMs);
 
-  return (request: NextRequest): boolean => {
+  const rateLimitCheck = (request: NextRequest): boolean => {
     const clientIp =
       request.headers.get('x-forwarded-for')?.split(',')[0] ||
       request.headers.get('x-real-ip') ||
@@ -428,24 +442,38 @@ export function validateRateLimit(
     const key = `${clientIp}:${request.nextUrl.pathname}`;
     const current = requests.get(key);
 
-    if (!current || now > current.resetTime) {
+    // Clean up expired entry immediately if found
+    if (current && now > current.resetTime) {
+      requests.delete(key);
+    }
+
+    const currentEntry = requests.get(key);
+    if (!currentEntry) {
       requests.set(key, { count: 1, resetTime: now + windowMs });
       return true;
     }
 
-    if (current.count >= maxRequests) {
+    if (currentEntry.count >= maxRequests) {
       log.security('Rate limit exceeded', {
         clientIp,
         path: request.nextUrl.pathname,
-        count: current.count,
+        count: currentEntry.count,
         maxRequests,
       });
       return false;
     }
 
-    current.count++;
+    currentEntry.count++;
     return true;
   };
+
+  // Add cleanup method to the returned function
+  (rateLimitCheck as any).destroy = () => {
+    clearInterval(cleanupInterval);
+    requests.clear();
+  };
+
+  return rateLimitCheck;
 }
 
 // Export commonly used validators

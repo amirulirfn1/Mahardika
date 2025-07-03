@@ -109,6 +109,7 @@ export interface RateLimitResult {
 export class RateLimiter {
   private store: RateLimitStore;
   private config: RateLimitConfig;
+  private cleanupInterval?: ReturnType<typeof setInterval>;
 
   constructor(config: RateLimitConfig) {
     this.config = {
@@ -122,9 +123,17 @@ export class RateLimiter {
 
     // Set up cleanup interval for memory store
     if (this.store instanceof MemoryStore) {
-      setInterval(() => {
+      this.cleanupInterval = setInterval(() => {
         (this.store as MemoryStore).cleanup();
       }, this.config.windowMs);
+    }
+  }
+
+  // Method to clean up resources
+  destroy(): void {
+    if (this.cleanupInterval) {
+      clearInterval(this.cleanupInterval);
+      this.cleanupInterval = undefined;
     }
   }
 

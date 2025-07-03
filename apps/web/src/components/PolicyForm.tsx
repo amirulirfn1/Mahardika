@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrandButton, colors } from '@mahardika/ui';
 import { z } from 'zod';
+import { useCSRF } from '@/lib/hooks/useCSRF';
 
 const vehicleSchema = z.object({
   id: z.string().uuid(),
@@ -108,18 +109,23 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const { addToFetchOptions, isLoading: csrfLoading } = useCSRF();
 
   const save = async () => {
     try {
       const parsed = addVehicleSchema.parse(data);
       setSaving(true);
-      const res = await fetch('/api/vehicles', {
+      const res = await fetch('/api/vehicles', addToFetchOptions({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...parsed, year: parsed.year ? Number(parsed.year) : undefined }),
-      });
+      }));
       if (!res.ok) {
         const j = await res.json();
+        // Handle CSRF-specific errors
+        if (j.code === 'CSRF_TOKEN_MISSING' || j.code === 'CSRF_TOKEN_INVALID' || j.code === 'CSRF_TOKEN_MISMATCH') {
+          throw new Error('Security verification failed. Please refresh the page and try again.');
+        }
         throw new Error(j.error || 'Failed');
       }
       const vehicle: Vehicle = await res.json();
@@ -132,6 +138,8 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
     }
   };
 
+  const isSaveDisabled = saving || csrfLoading;
+
   return (
     <div className="modal d-block" tabIndex={-1} style={{ background: '#00000080' }}>
       <div className="modal-dialog">
@@ -142,6 +150,7 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
           </div>
           <div className="modal-body">
             {error && <div className="alert alert-danger">{error}</div>}
+            {csrfLoading && <div className="alert alert-info">Initializing security verification...</div>}
             <div className="mb-2">
               <label className="form-label">Plate No *</label>
               <input className="form-control" value={data.plate_no} onChange={e => setData({ ...data, plate_no: e.target.value })} />
@@ -173,7 +182,9 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
           </div>
           <div className="modal-footer">
             <BrandButton variant="secondary" onClick={onClose}>Cancel</BrandButton>
-            <BrandButton onClick={save} disabled={saving}>{saving ? 'Saving...' : 'Save'}</BrandButton>
+            <BrandButton onClick={save} disabled={isSaveDisabled}>
+              {saving ? 'Saving...' : 'Save'}
+            </BrandButton>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
+import { csrfProtection } from '@/lib/csrf';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,6 +21,7 @@ function getIdParam(url: string) {
   return searchParams.get('id');
 }
 
+// GET method doesn't need CSRF protection (safe method)
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -48,7 +50,8 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+// POST handler with CSRF protection
+async function handleVehicleCreate(request: NextRequest) {
   try {
     const body = await request.json();
     const data = vehicleSchema.parse(body);
@@ -64,7 +67,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function PUT(request: NextRequest) {
+// PUT handler with CSRF protection
+async function handleVehicleUpdate(request: NextRequest) {
   try {
     const id = getIdParam(request.url);
     if (!id) {
@@ -84,7 +88,8 @@ export async function PUT(request: NextRequest) {
   }
 }
 
-export async function DELETE(request: NextRequest) {
+// DELETE handler with CSRF protection
+async function handleVehicleDelete(request: NextRequest) {
   try {
     const id = getIdParam(request.url);
     if (!id) {
@@ -96,4 +101,9 @@ export async function DELETE(request: NextRequest) {
     console.error('Vehicles DELETE error', error);
     return NextResponse.json({ error: 'Internal error' }, { status: 500 });
   }
-} 
+}
+
+// Apply CSRF protection to state-changing methods
+export const POST = csrfProtection(handleVehicleCreate);
+export const PUT = csrfProtection(handleVehicleUpdate);
+export const DELETE = csrfProtection(handleVehicleDelete); 

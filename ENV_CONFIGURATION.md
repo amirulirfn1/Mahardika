@@ -32,6 +32,9 @@ NEXTAUTH_SECRET=xxxxx
 SUPABASE_SERVICE_ROLE_KEY=xxxxx
 STRIPE_SECRET_KEY=sk_xxxxx
 
+# Security & Protection
+CSRF_SECRET_KEY=xxxxx-32-char-minimum
+
 # Database Credentials
 DATABASE_PASSWORD=xxxxx
 SUPABASE_DB_PASSWORD=xxxxx
@@ -67,6 +70,7 @@ NEXT_PUBLIC_BRAND_GOLD=#F4B400
 # Required for Production
 NODE_ENV=production
 NEXTAUTH_SECRET=generate-32-char-secret
+CSRF_SECRET_KEY=generate-32-char-csrf-secret
 DEEPSEEK_API_KEY=sk-your-production-key
 
 # Database
@@ -115,6 +119,9 @@ Key sections in `.env.local.example`:
 NODE_ENV=development
 NEXTAUTH_SECRET=your-32-character-secret-key-here
 NEXTAUTH_URL=http://localhost:3000
+
+# Security & CSRF Protection
+CSRF_SECRET_KEY=your-32-character-csrf-secret-key-here
 
 # Brand & UI Configuration (Public)
 NEXT_PUBLIC_BRAND_NAVY=#0D1B2A
@@ -179,6 +186,7 @@ Ensure `.env.local` is in `.gitignore`:
 ### Monthly Rotation (High Security)
 
 - `NEXTAUTH_SECRET`
+- `CSRF_SECRET_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `STRIPE_SECRET_KEY`
 
@@ -224,10 +232,10 @@ For a complete list of all environment variables with descriptions and examples,
 ### Quick Reference Categories
 
 1. **Core Application**: `NODE_ENV`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`
-2. **Brand & UI**: All `NEXT_PUBLIC_BRAND_*` variables
-3. **Database**: `DATABASE_URL`, `SUPABASE_*` variables
-4. **AI & ML**: `DEEPSEEK_API_KEY`
-5. **Security**: `ENABLE_VIRUS_SCAN`, `ENABLE_PDF_COMPRESSION`
+2. **Security & CSRF**: `CSRF_SECRET_KEY`, `ENABLE_VIRUS_SCAN`, `ENABLE_PDF_COMPRESSION`
+3. **Brand & UI**: All `NEXT_PUBLIC_BRAND_*` variables
+4. **Database**: `DATABASE_URL`, `SUPABASE_*` variables
+5. **AI & ML**: `DEEPSEEK_API_KEY`
 6. **Rate Limiting**: `RATE_LIMIT_*` variables
 7. **Email**: `RESEND_API_KEY`, `EMAIL_FROM`
 8. **Payments**: `STRIPE_*` variables

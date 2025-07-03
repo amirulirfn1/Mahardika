@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { csrfProtection } from '@/lib/csrf';
 
-export async function POST(request: NextRequest) {
+async function handlePointsRedeem(request: NextRequest) {
   const { customer_id, value_rm, staff_id } = await request.json();
   if (!customer_id || !value_rm) {
     return NextResponse.json({ error: 'customer_id & value_rm required' }, { status: 400 });
@@ -32,4 +33,7 @@ export async function POST(request: NextRequest) {
     }),
   ]);
   return NextResponse.json({ success: true, newBalance });
-} 
+}
+
+// Apply CSRF protection to the POST handler
+export const POST = csrfProtection(handlePointsRedeem); 

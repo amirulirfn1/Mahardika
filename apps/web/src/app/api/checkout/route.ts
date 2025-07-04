@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getSupabaseConfig } from '../../../lib/env';
+import { csrfProtection } from '@/lib/csrf';
 
 export const dynamic = 'force-dynamic';
 
@@ -75,7 +76,7 @@ function validateOrderRequest(body: any): CreateOrderRequest {
   return body as CreateOrderRequest;
 }
 
-export async function POST(request: NextRequest) {
+async function handleCheckout(request: NextRequest) {
   try {
     // ✅ INPUT VALIDATION: Validate request body
     const body = await request.json();
@@ -232,3 +233,6 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+// Export CSRF protected handler
+export const POST = csrfProtection(handleCheckout);

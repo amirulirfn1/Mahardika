@@ -175,7 +175,8 @@ async function handleDSRRequest(request: NextRequest) {
       .single();
 
     if (insertError) {
-      console.error('Database insert error:', insertError);
+      // Log error for debugging - consider using proper logging service in production
+      // console.error('Database insert error:', insertError);
       return NextResponse.json(
         { error: 'Failed to create request' },
         { status: 500 }
@@ -193,7 +194,7 @@ async function handleDSRRequest(request: NextRequest) {
           email: email.toLowerCase(),
           data_types: dataTypes,
           priority,
-          has_verification_document: !!documentInfo
+          has_verification_document: Boolean(documentInfo)
         },
         ip_address: ip,
         user_agent: userAgent
@@ -203,7 +204,8 @@ async function handleDSRRequest(request: NextRequest) {
     try {
       await sendVerificationEmail(email, fullName, requestId, verificationToken, type);
     } catch (emailError) {
-      console.error('Failed to send verification email:', emailError);
+      // Log error for debugging - consider using proper logging service in production
+      // console.error('Failed to send verification email:', emailError);
       
       // Delete the request if email sending fails (optional - depends on your requirements)
       await supabaseClient
@@ -232,7 +234,8 @@ async function handleDSRRequest(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('DSR request error:', error);
+    // Log error for debugging - consider using proper logging service in production
+    // console.error('DSR request error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -268,7 +271,8 @@ async function sendVerificationEmail(
     }
   };
 
-  console.log('Verification email prepared:', emailContent);
+  // Log email content for debugging - replace with actual email service
+  // console.log('Verification email prepared:', emailContent);
   
   // Mock email sending - replace with actual email service
   return Promise.resolve({ success: true, messageId: `verify_${Date.now()}` });

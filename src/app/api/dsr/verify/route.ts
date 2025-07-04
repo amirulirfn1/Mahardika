@@ -53,7 +53,8 @@ export async function POST(request: NextRequest) {
         );
       }
       
-      console.error('Database error:', queryError);
+      // Log error for debugging - consider using proper logging service in production
+      // console.error('Database error:', queryError);
       return NextResponse.json(
         { error: 'Failed to verify request' },
         { status: 500 }
@@ -106,7 +107,8 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (updateError) {
-      console.error('Update error:', updateError);
+      // Log error for debugging - consider using proper logging service in production
+      // console.error('Update error:', updateError);
       return NextResponse.json(
         { error: 'Failed to update verification status' },
         { status: 500 }
@@ -130,7 +132,8 @@ export async function POST(request: NextRequest) {
         });
     } catch (auditError) {
       // Don't fail the verification if audit logging fails
-      console.error('Audit log error:', auditError);
+      // Log error for debugging - consider using proper logging service in production
+      // console.error('Audit log error:', auditError);
     }
 
     // Trigger automated processing via Edge Function
@@ -151,13 +154,16 @@ export async function POST(request: NextRequest) {
       });
 
       if (!edgeResponse.ok) {
-        console.error('Edge function error:', await edgeResponse.text());
+        // Log error for debugging - consider using proper logging service in production
+        // console.error('Edge function error:', await edgeResponse.text());
         // Don't fail verification if edge function fails - the job can be processed later
       } else {
-        console.log('DSR processing job queued successfully');
+        // Log success for debugging - consider using proper logging service in production
+        // console.log('DSR processing job queued successfully');
       }
     } catch (edgeError) {
-      console.error('Edge function invocation error:', edgeError);
+      // Log error for debugging - consider using proper logging service in production
+      // console.error('Edge function invocation error:', edgeError);
       // Continue - the request is verified and can be processed manually if needed
     }
 
@@ -165,7 +171,8 @@ export async function POST(request: NextRequest) {
     try {
       await sendVerificationConfirmationEmail(dsrRequest.email, dsrRequest.full_name, dsrRequest.id, dsrRequest.type);
     } catch (emailError) {
-      console.error('Failed to send confirmation email:', emailError);
+      // Log error for debugging - consider using proper logging service in production
+      // console.error('Failed to send confirmation email:', emailError);
       // Don't fail verification if email fails
     }
 
@@ -187,7 +194,8 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('DSR verification error:', error);
+    // Log error for debugging - consider using proper logging service in production
+    // console.error('DSR verification error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -204,7 +212,8 @@ async function sendVerificationConfirmationEmail(
   requestId: string, 
   requestType: string
 ) {
-  console.log(`Sending verification confirmation email to ${email}`);
+  // Log email sending for debugging - consider using proper logging service in production
+  // console.log(`Sending verification confirmation email to ${email}`);
   
   try {
     // In a real implementation, this would use your email service
@@ -222,13 +231,15 @@ async function sendVerificationConfirmationEmail(
       }
     };
 
-    console.log('Verification confirmation email prepared:', emailContent);
+    // Log email content for debugging - consider using proper logging service in production
+    // console.log('Verification confirmation email prepared:', emailContent);
     
     // Mock email sending
     return { success: true, messageId: `confirm_${Date.now()}` };
     
   } catch (error) {
-    console.error('Email sending error:', error);
+    // Log error for debugging - consider using proper logging service in production
+    // console.error('Email sending error:', error);
     throw error;
   }
 }

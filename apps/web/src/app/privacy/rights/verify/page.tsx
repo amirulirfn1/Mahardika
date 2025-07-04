@@ -220,7 +220,7 @@ function DSRVerificationContent() {
 
           <div style={{
             padding: '1.5rem',
-            backgroundColor: colors.gold + '10',
+            backgroundColor: `${colors.gold}10`,
             border: `1px solid ${colors.gold}`,
             borderRadius: '0.5rem',
             marginBottom: '2rem',
@@ -245,12 +245,12 @@ function DSRVerificationContent() {
                 Our data processing team will review your request within 1-3 business days
               </li>
               <li style={{ marginBottom: '0.5rem' }}>
-                {requestInfo.type === 'export' && "We'll prepare your data export and send you a secure download link"}
-                {requestInfo.type === 'delete' && "We'll process your data deletion request and confirm completion"}
-                {requestInfo.type === 'rectify' && "We'll review your rectification request and make necessary updates"}
+                {requestInfo.type === 'export' && "We&apos;ll prepare your data export and send you a secure download link"}
+                {requestInfo.type === 'delete' && "We&apos;ll process your data deletion request and confirm completion"}
+                {requestInfo.type === 'rectify' && "We&apos;ll review your rectification request and make necessary updates"}
               </li>
               <li style={{ marginBottom: '0.5rem' }}>
-                You'll receive email updates on the progress of your request
+                You&apos;ll receive email updates on the progress of your request
               </li>
               <li>
                 You can track your request status anytime using your Request ID
@@ -279,7 +279,7 @@ function DSRVerificationContent() {
                 transition: 'all 0.2s ease',
               }}
               onClick={() => window.location.href = '/privacy/rights/track'}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = colors.navy + 'dd'}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = `${colors.navy}dd`}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = colors.navy}
             >
               Track Request Status
@@ -375,7 +375,7 @@ function DSRVerificationContent() {
                 transition: 'all 0.2s ease',
               }}
               onClick={() => window.location.href = '/privacy/rights'}
-              onMouseOver={(e) => e.currentTarget.style.backgroundColor = colors.navy + 'dd'}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = `${colors.navy}dd`}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = colors.navy}
             >
               Submit New Request

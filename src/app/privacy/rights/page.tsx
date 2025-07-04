@@ -283,7 +283,7 @@ export default function DataSubjectRightsPage() {
           <div style={{
             display: 'inline-flex',
             padding: '0.5rem 1rem',
-            backgroundColor: colors.gold + '20',
+            backgroundColor: `${colors.gold}20`,
             borderRadius: '0.5rem',
             fontSize: '0.875rem',
             color: colors.navy,
@@ -307,7 +307,7 @@ export default function DataSubjectRightsPage() {
               Request Submitted Successfully!
             </h3>
             <p style={{ margin: 0 }}>
-              We've sent a confirmation email to verify your identity. Please check your inbox and follow the instructions to complete your request.
+              We&apos;ve sent a confirmation email to verify your identity. Please check your inbox and follow the instructions to complete your request.
             </p>
           </div>
         )}
@@ -365,7 +365,7 @@ export default function DataSubjectRightsPage() {
                   <div style={{ 
                     marginTop: '0.75rem', 
                     padding: '0.25rem 0.5rem',
-                    backgroundColor: colors.gold + '20',
+                    backgroundColor: `${colors.gold}20`,
                     borderRadius: '0.25rem',
                     fontSize: '0.75rem',
                     color: colors.navy,
@@ -533,7 +533,7 @@ export default function DataSubjectRightsPage() {
               }}
               placeholder={
                 formData.type === 'export' 
-                  ? 'Optional: Specify any particular data or time period you\'re interested in...'
+                  ? 'Optional: Specify any particular data or time period you&apos;re interested in...'
                   : formData.type === 'delete'
                   ? 'Required: Please explain why you want your data deleted...'
                   : 'Required: Please describe what information needs to be corrected and provide the correct information...'

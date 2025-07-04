@@ -486,7 +486,7 @@ export default function DSRTrackingPage() {
                       key={index}
                       style={{
                         padding: '0.375rem 0.75rem',
-                        backgroundColor: colors.gold + '20',
+                        backgroundColor: `${colors.gold}20`,
                         color: colors.navy,
                         borderRadius: '0.375rem',
                         fontSize: '0.75rem',
@@ -581,7 +581,7 @@ export default function DSRTrackingPage() {
             {/* Next Steps */}
             <div style={{
               padding: '1.5rem',
-              backgroundColor: colors.gold + '10',
+              backgroundColor: `${colors.gold}10`,
               border: `1px solid ${colors.gold}`,
               borderRadius: '0.5rem',
             }}>
@@ -603,7 +603,7 @@ export default function DSRTrackingPage() {
                   'We will review your request and begin processing within 72 hours. You will receive an email update when we start working on your request.'
                 }
                 {dsrRequest.status === 'in_progress' && 
-                  'We are currently processing your request. We will contact you via email once it\'s completed or if we need any additional information.'
+                  'We are currently processing your request. We will contact you via email once it&apos;s completed or if we need any additional information.'
                 }
                 {dsrRequest.status === 'completed' && 
                   'Your request has been completed! If this was a data export request, you should have received a download link via email. The link will be valid for 7 days.'

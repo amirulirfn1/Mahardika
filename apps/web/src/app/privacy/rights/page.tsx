@@ -550,7 +550,7 @@ export default function DataSubjectRightsPage() {
               Identity Verification Document (Optional)
             </label>
             <p style={{ fontSize: '0.875rem', color: colors.gray[600], marginBottom: '0.75rem' }}>
-              Upload a document to verify your identity (driver's license, passport, etc.). This helps us process your request faster.
+              Upload a document to verify your identity (driver&apos;s license, passport, etc.). This helps us process your request faster.
             </p>
             
             <div style={{

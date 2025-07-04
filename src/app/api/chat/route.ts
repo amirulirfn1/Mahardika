@@ -1,6 +1,7 @@
 import { colors } from "@mahardika/ui";
 import { NextRequest, NextResponse } from 'next/server';
 import { withRateLimit, aiMessageRateLimit } from '@/lib/rateLimit';
+import { csrfProtection } from '@/lib/csrf';
 
 interface ChatRequest {
   message: string;
@@ -105,5 +106,5 @@ async function handleChat(request: NextRequest): Promise<NextResponse> {
   }
 }
 
-// Export rate-limited handler
-export const POST = withRateLimit(aiMessageRateLimit, handleChat);
+// Export rate-limited and CSRF protected handler
+export const POST = csrfProtection(withRateLimit(aiMessageRateLimit, handleChat));

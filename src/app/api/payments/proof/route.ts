@@ -3,10 +3,11 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getSupabaseConfig } from '@/lib/env';
 import { prisma } from '@/lib/prisma';
+import { csrfProtection } from '@/lib/csrf';
 
 export const dynamic = 'force-dynamic';
 
-export async function POST(request: NextRequest) {
+async function handlePaymentProof(request: NextRequest) {
   const formData = await request.formData();
   const file = formData.get('file') as File | null;
   const orderId = formData.get('orderId') as string | null;
@@ -59,4 +60,7 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json(updated);
-} 
+}
+
+// Wrap POST handler with CSRF protection
+export const POST = csrfProtection(handlePaymentProof); 

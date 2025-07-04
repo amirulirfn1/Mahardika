@@ -7,17 +7,19 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { authService, userService, SignUpData } from '@/lib/supabaseClient';
+import { csrfProtection } from '@/lib/csrf';
+import { validateStrongPassword, StrongPasswordSchema } from '@/lib/passwordSecurity';
 import { z } from 'zod';
 
 // Validation schema for sign-up data
 const SignUpSchema = z.object({
   email: z.string().email('Valid email required'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  password: StrongPasswordSchema,
   name: z.string().min(2, 'Name must be at least 2 characters'),
   user_type: z.enum(['customer', 'agency']).default('customer'),
 });
 
-export async function POST(request: NextRequest) {
+async function handleSignUp(request: NextRequest) {
   try {
     // Parse and validate request body
     const body = await request.json();
@@ -35,6 +37,20 @@ export async function POST(request: NextRequest) {
     }
 
     const { email, password, name, user_type } = validationResult.data;
+
+    // Additional password security validation
+    const passwordValidation = await validateStrongPassword(password);
+    if (!passwordValidation.isValid) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Password does not meet security requirements',
+          details: passwordValidation.errors,
+          warnings: passwordValidation.warnings,
+        },
+        { status: 400 }
+      );
+    }
 
     // Check if user already exists
     const { user: existingUser } = await authService.getCurrentUser();
@@ -146,4 +162,7 @@ export async function DELETE() {
     { error: 'Method not allowed' },
     { status: 405 }
   );
-} 
+}
+
+// Wrap POST handler with CSRF protection
+export const POST = csrfProtection(handleSignUp); 

@@ -215,33 +215,26 @@ async function sendVerificationConfirmationEmail(
   // Log email sending for debugging - consider using proper logging service in production
   // console.log(`Sending verification confirmation email to ${email}`);
   
-  try {
-    // In a real implementation, this would use your email service
-    const emailContent = {
-      to: email,
-      subject: `Verification Complete - Your ${getRequestTypeLabel(requestType)} Request is Being Processed`,
-      template: 'dsr_verification_confirmation',
-      data: {
-        fullName,
-        requestId,
-        requestType: getRequestTypeLabel(requestType),
-        trackingUrl: `${process.env.NEXT_PUBLIC_APP_URL}/privacy/rights/track?id=${requestId}`,
-        supportEmail: 'privacy@mahardika.com',
-        estimatedCompletion: getEstimatedCompletion(requestType),
-      }
-    };
+  // In a real implementation, this would use your email service
+  const emailContent = {
+    to: email,
+    subject: `Verification Complete - Your ${getRequestTypeLabel(requestType)} Request is Being Processed`,
+    template: 'dsr_verification_confirmation',
+    data: {
+      fullName,
+      requestId,
+      requestType: getRequestTypeLabel(requestType),
+      trackingUrl: `${process.env.NEXT_PUBLIC_APP_URL}/privacy/rights/track?id=${requestId}`,
+      supportEmail: 'privacy@mahardika.com',
+      estimatedCompletion: getEstimatedCompletion(requestType),
+    }
+  };
 
-    // Log email content for debugging - consider using proper logging service in production
-    // console.log('Verification confirmation email prepared:', emailContent);
-    
-    // Mock email sending
-    return { success: true, messageId: `confirm_${Date.now()}` };
-    
-  } catch (error) {
-    // Log error for debugging - consider using proper logging service in production
-    // console.error('Email sending error:', error);
-    throw error;
-  }
+  // Log email content for debugging - consider using proper logging service in production
+  // console.log('Verification confirmation email prepared:', emailContent);
+  
+  // Mock email sending
+  return { success: true, messageId: `confirm_${Date.now()}` };
 }
 
 /**

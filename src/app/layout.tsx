@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ConsentBanner } from '@/components/ConsentBanner';
 import Providers from './providers';
 
 export const metadata: Metadata = {
@@ -116,6 +117,9 @@ export default function RootLayout({
             <main style={{ minHeight: 'calc(100vh - 144px)' }}>{children}</main>
 
             <Footer />
+
+            {/* Consent Banner */}
+            <ConsentBanner showDetailedOptions={true} />
           </ErrorBoundary>
         </Providers>
 

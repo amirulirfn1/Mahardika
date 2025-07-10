@@ -1,0 +1,4 @@
+
+> @mahardika/ui@1.0.0 lint C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\packages\ui
+> eslint src --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0
+

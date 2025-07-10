@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getSupabaseConfig } from '../../../lib/env';
-import { csrfProtection } from '@/lib/csrf';
+import { csrfProtection } from '@mah/core/security/csrf';
 
 export const dynamic = 'force-dynamic';
 

@@ -15,7 +15,7 @@ import {
   aiMessageRateLimit,
   withRateLimit,
   checkRateLimit,
-} from '@/lib/rateLimit';
+} from '@mah/core/security/rateLimit';
 
 // Mock NextRequest
 const createMockRequest = (

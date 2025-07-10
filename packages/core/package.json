@@ -1,0 +1,41 @@
+{
+  "name": "@mah/core",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "types": "index.ts",
+  "description": "Mahardika Core - Shared utilities, security helpers, and Supabase integration",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "test": "echo 'No tests defined for core package'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.50.0",
+    "@supabase/ssr": "^0.6.1",
+    "zod": "^3.22.0",
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "typescript": "^5.0.0",
+    "eslint": "^8.57.1",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0"
+  },
+  "peerDependencies": {
+    "next": ">=14.0.0"
+  },
+  "keywords": [
+    "mahardika",
+    "core",
+    "security",
+    "supabase",
+    "utilities"
+  ],
+  "author": "Mahardika Team",
+  "license": "MIT"
+} 

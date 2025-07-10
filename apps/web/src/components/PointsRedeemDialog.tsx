@@ -1,6 +1,30 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useCSRF } from '@/lib/hooks/useCSRF';
+
+// Simple CSRF hook replacement
+function useSimpleCSRF() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const addToFetchOptions = (options: any = {}) => {
+    // Get CSRF token from cookie if available
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('csrf-token='))
+      ?.split('=')[1];
+
+    return {
+      ...options,
+      headers: {
+        ...options.headers,
+        ...(token && { 'X-CSRF-Token': token }),
+      },
+    };
+  };
+
+  return { addToFetchOptions, isLoading };
+}
 
 interface DialogProps {
   customerId: string;
@@ -13,7 +37,7 @@ const PointsRedeemDialog: React.FC<DialogProps> = ({ customerId, show, onClose, 
   const [rmValue, setRmValue] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { addToFetchOptions, isLoading: csrfLoading } = useCSRF();
+  const { addToFetchOptions, isLoading: csrfLoading } = useSimpleCSRF();
 
   const handleRedeem = async () => {
     if (rmValue <= 0) return;

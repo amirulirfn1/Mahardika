@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { colors } from '@mahardika/ui';
 
 interface TokenUsageStats {

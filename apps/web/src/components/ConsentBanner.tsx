@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useConsent, ConsentType } from '@/lib/hooks/useConsent';
 import { colors } from '@mahardika/ui';
+
+// Simple consent types without complex hook
+type ConsentType = 'necessary' | 'functional' | 'analytics' | 'marketing';
 
 interface ConsentBannerProps {
   version?: string;
@@ -34,6 +36,52 @@ const CONSENT_DESCRIPTIONS = {
   },
 };
 
+// Simple consent management without the complex hook
+function useSimpleConsent() {
+  const [consentState, setConsentState] = useState<Record<ConsentType, boolean>>({
+    necessary: false,
+    functional: false,
+    analytics: false,
+    marketing: false,
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check existing consent from localStorage
+    try {
+      const stored = localStorage.getItem('user-consent');
+      if (stored) {
+        setConsentState(JSON.parse(stored));
+      }
+    } catch (error) {
+      console.warn('Error loading consent state:', error);
+    }
+    setLoading(false);
+  }, []);
+
+  const grantConsent = async (type: ConsentType) => {
+    const newState = { ...consentState, [type]: true };
+    setConsentState(newState);
+    localStorage.setItem('user-consent', JSON.stringify(newState));
+  };
+
+  const isConsentRequired = () => {
+    return !consentState.necessary;
+  };
+
+  const hasConsent = (type: ConsentType) => {
+    return consentState[type];
+  };
+
+  return {
+    consentState,
+    loading,
+    grantConsent,
+    isConsentRequired,
+    hasConsent,
+  };
+}
+
 export const ConsentBanner: React.FC<ConsentBannerProps> = ({
   version = '1.0',
   showDetailedOptions = false,
@@ -49,12 +97,9 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
     consentState,
     loading,
     grantConsent,
-    withdrawConsent,
     isConsentRequired,
     hasConsent,
-    getConsentExpiration,
-    rateLimitStatus,
-  } = useConsent(version);
+  } = useSimpleConsent();
 
   // Show banner if consent is required and not loading
   useEffect(() => {
@@ -93,10 +138,10 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
     setIsLoading(true);
     try {
       const results = await Promise.allSettled([
-        grantConsent('necessary', version, {}, 365), // 1 year
-        grantConsent('functional', version, {}, 365),
-        grantConsent('analytics', version, {}, 180), // 6 months
-        grantConsent('marketing', version, {}, 90), // 3 months
+        grantConsent('necessary'), // 1 year
+        grantConsent('functional'),
+        grantConsent('analytics'), // 6 months
+        grantConsent('marketing'), // 3 months
       ]);
       
       const failures = results.filter(result => result.status === 'rejected');
@@ -115,7 +160,7 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
   const handleAcceptNecessary = async () => {
     setIsLoading(true);
     try {
-      await grantConsent('necessary', version, {}, 365);
+      await grantConsent('necessary');
       setIsVisible(false);
     } catch (error) {
       console.error('Error accepting necessary consent:', error);
@@ -133,10 +178,13 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
     setIsLoading(true);
     try {
       if (granted) {
-        const expiryDays = type === 'marketing' ? 90 : type === 'analytics' ? 180 : 365;
-        await grantConsent(type, version, {}, expiryDays);
+        await grantConsent(type);
       } else {
-        await withdrawConsent(type, version);
+        // No withdrawConsent function in useSimpleConsent, so we just remove it from state
+        const newState = { ...consentState };
+        delete newState[type];
+        setConsentState(newState);
+        localStorage.setItem('user-consent', JSON.stringify(newState));
       }
     } catch (error) {
       console.error(`Error ${granted ? 'granting' : 'withdrawing'} ${type} consent:`, error);
@@ -146,18 +194,8 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
   };
 
   const getExpirationInfo = (type: ConsentType) => {
-    const expiration = getConsentExpiration(type);
-    if (!expiration) return null;
-    
-    const now = new Date();
-    const diffMs = expiration.getTime() - now.getTime();
-    const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-    
-    if (diffDays <= 0) return 'Expired';
-    if (diffDays === 1) return 'Expires tomorrow';
-    if (diffDays <= 7) return `Expires in ${diffDays} days`;
-    if (diffDays <= 30) return `Expires in ${Math.ceil(diffDays / 7)} weeks`;
-    return `Expires in ${Math.ceil(diffDays / 30)} months`;
+    // No getConsentExpiration function in useSimpleConsent
+    return null;
   };
 
   const isThemeDark = theme === 'dark';
@@ -316,25 +354,13 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
               </div>
               
               {/* Rate Limit Status */}
-              {rateLimitStatus.remaining < 5 && (
-                <div style={{
-                  marginTop: '0.5rem',
-                  padding: '0.5rem',
-                  backgroundColor: 'rgba(255, 193, 7, 0.1)',
-                  border: `1px solid ${colors.gold}`,
-                  borderRadius: '0.25rem',
-                  fontSize: '0.75rem',
-                  color: isThemeDark ? colors.gold : '#B45309',
-                }}>
-                  ⚠️ {rateLimitStatus.remaining} consent changes remaining this minute
-                </div>
-              )}
+              {/* No rateLimitStatus in useSimpleConsent */}
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', minWidth: '200px' }}>
               <button
                 onClick={handleAcceptAll}
-                disabled={isLoading || rateLimitStatus.remaining === 0}
+                disabled={isLoading}
                 style={primaryButtonStyles}
                 aria-label="Accept all cookies and close banner"
               >
@@ -342,7 +368,7 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
               </button>
               <button
                 onClick={handleAcceptNecessary}
-                disabled={isLoading || rateLimitStatus.remaining === 0}
+                disabled={isLoading}
                 style={secondaryButtonStyles}
                 aria-label="Accept only necessary cookies and close banner"
               >

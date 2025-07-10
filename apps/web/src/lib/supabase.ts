@@ -1,59 +1,58 @@
-import { colors } from "@mahardika/ui";
 /**
  * =============================================================================
- * Mahardika Platform - Supabase Client Configuration
- * Brand Colors: Navy colors.navy, Gold colors.gold
+ * Mahardika Platform - Supabase Client Instance for Web App
  * =============================================================================
  */
 
-import { createClient } from '@supabase/supabase-js';
-import { DATABASE_CONFIG } from './env';
+import { createMahardikaSupabaseClient } from '@mah/core';
 
-// Database types
-export interface Agency {
-  id: string;
-  slug: string;
-  name: string;
-  tagline: string;
-  description: string;
-  banner_image_url?: string;
-  logo_url?: string;
-  website_url?: string;
-  contact_email?: string;
-  contact_phone?: string;
-  rating?: number;
-  review_count?: number;
-  status: 'active' | 'inactive' | 'pending';
-  created_at: string;
-  updated_at: string;
-}
-
-export interface AgencyReview {
-  id: string;
-  agency_id: string;
-  reviewer_name: string;
-  reviewer_email?: string;
-  rating: number;
-  comment: string;
-  status: 'approved' | 'pending' | 'rejected';
-  created_at: string;
-}
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+// Validate environment variables
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+  throw new Error(
+    'Missing Supabase environment variables. Please check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY'
+  );
 }
 
-// Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
+// Create and export the Supabase client instance
+export const supabase = createMahardikaSupabaseClient({
+  url: supabaseUrl,
+  anonKey: supabaseAnonKey,
+  options: {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      detectSessionInUrl: true,
+      flowType: 'pkce',
+    },
+    realtime: {
+      params: {
+        eventsPerSecond: 10,
+      },
+    },
   },
 });
+
+// Export types for convenience
+export type {
+  SupabaseConfig,
+  AuthUser,
+  AuthError,
+  AuthSession,
+  SignUpData,
+  SignInData,
+  // Database types
+  Agency,
+  Customer,
+  Policy,
+  Vehicle,
+  Order,
+  Product,
+  DatabaseResponse,
+  PaginatedResponse,
+} from '@mah/core';
 
 // Helper functions for common operations
 export const agencyService = {
@@ -166,7 +165,7 @@ export const mockReviewsData: AgencyReview[] = [
 
 // Development helper to check if Supabase is available
 export function isSupabaseConfigured(): boolean {
-  return DATABASE_CONFIG.supabase.enabled;
+  return true; // Always true as we are using the core package directly
 }
 
 /**

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { MAHARDIKA_COLORS } from '../lib/env';
 
 interface Policy {

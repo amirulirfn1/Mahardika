@@ -1,7 +1,7 @@
 import { colors } from "@mahardika/ui";
 import { NextRequest, NextResponse } from 'next/server';
-import { withRateLimit, aiMessageRateLimit } from '@/lib/rateLimit';
-import { csrfProtection } from '@/lib/csrf';
+import { withRateLimit, aiMessageRateLimit } from '@mah/core/security/rateLimit';
+import { csrfProtection } from '@mah/core/security/csrf';
 
 interface ChatRequest {
   message: string;

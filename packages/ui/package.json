@@ -24,7 +24,8 @@
     "format": "prettier --write src",
     "format:check": "prettier --check src",
     "clean": "rimraf dist",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",

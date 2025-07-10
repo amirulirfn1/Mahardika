@@ -1,0 +1,143 @@
+
+> @mahardika/web@1.0.0 typecheck C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web
+> tsc --noEmit
+
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/agencies/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/agency/dashboard/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/auth/signup/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/chat/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/checkout/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/compressUpload/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/consent/grant/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/consent/withdraw/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/cron/pdfLifecycle/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/dsr/request/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/dsr/track/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/dsr/verify/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/policies/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/api/uploadPDF/route.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/callback/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/forgot-password/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/reset-password/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/sign-in/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/sign-up/agency/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/sign-up/customer/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/sign-up/layout.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/auth/sign-up/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/brand-showcase/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/customer/policies/layout.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/customer/policies/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/customer/quotations/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/dashboard/customers/[id]/loyalty/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/dashboard/payments/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/dashboard/policies/new/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/dashboard/policies/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/dashboard/vehicles/[id]/edit/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/dashboard/vehicles/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/marketplace/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/privacy/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/privacy/rights/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/privacy/rights/track/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/privacy/rights/verify/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/shop/[slug]/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/shop/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/staff/dashboard/layout.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/staff/dashboard/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/style-guide/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/app/terms/page.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+error TS6053: File 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/.next/types/cache-life.d.ts' not found.
+  The file is in the program because:
+    Matched by include pattern '.next/types/**/*.ts' in 'C:/Users/amiru/OneDrive/Documents/GitHub/Mahardika/apps/web/tsconfig.json'
+ ELIFECYCLE  Command failed with exit code 2.

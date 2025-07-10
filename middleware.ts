@@ -1,6 +1,6 @@
 import { createMiddlewareSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
-import { handleCSRFForPages } from './src/lib/csrf';
+import { handleCSRFForPages } from '@mah/core/security/csrf';
 
 const maps = {
   admin: ['/admin'],

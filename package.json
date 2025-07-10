@@ -4,12 +4,13 @@
   "private": true,
   "description": "Mahardika Platform - Complete monorepo with UI library and applications",
   "scripts": {
-    "build": "pnpm --filter @mahardika/ui... build && pnpm --filter @mahardika/web... build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "build": "turbo run build",
+    "test": "turbo run test",
     "release": "standard-version",
-    "test": "pnpm --filter @mahardika/ui... test && npm run test:scripts",
     "test:scripts": "cd scripts && jest --config jest.config.js",
-    "dev": "pnpm --filter @mahardika/web... dev",
-    "lint": "pnpm --filter @mahardika/ui... lint && pnpm --filter @mahardika/web... lint",
     "lint:fix": "pnpm --filter @mahardika/ui... lint:fix && pnpm --filter @mahardika/web... lint:fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -52,12 +53,14 @@
     "prettier": "^3.4.2",
     "standard-version": "^9.5.0",
     "tsup": "^8.5.0",
+    "turbo": "^2.3.4",
     "typescript": "^5.8.3"
   },
   "workspaces": [
     "packages/*",
     "apps/*"
   ],
+  "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=22.15.0",
     "npm": ">=8.0.0"

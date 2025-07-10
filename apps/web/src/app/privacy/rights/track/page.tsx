@@ -2,7 +2,29 @@
 
 import React, { useState } from 'react';
 import { colors } from '@mahardika/ui';
-import { useCSRF } from '@/lib/hooks/useCSRF';
+
+// Simple CSRF hook replacement
+function useSimpleCSRF() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const addToFetchOptions = (options: any = {}) => {
+    // Get CSRF token from cookie if available
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('csrf-token='))
+      ?.split('=')[1];
+
+    return {
+      ...options,
+      headers: {
+        ...options.headers,
+        ...(token && { 'X-CSRF-Token': token }),
+      },
+    };
+  };
+
+  return { addToFetchOptions, isLoading };
+}
 
 interface DSRRequest {
   id: string;
@@ -72,7 +94,7 @@ export default function DSRTrackingPage() {
   const [error, setError] = useState('');
   const [showRequestForm, setShowRequestForm] = useState(true);
 
-  const { addCSRFToken } = useCSRF();
+  const { addToFetchOptions } = useSimpleCSRF();
 
   const handleTrackRequest = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,7 +109,7 @@ export default function DSRTrackingPage() {
     setDsrRequest(null);
 
     try {
-      const requestOptions = addCSRFToken({
+      const requestOptions = addToFetchOptions({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -591,7 +613,7 @@ export default function DSRTrackingPage() {
                 color: colors.navy,
                 marginBottom: '0.75rem',
               }}>
-                What&apos;s Next?
+                What's Next?
               </h4>
               <p style={{
                 fontSize: '0.875rem',

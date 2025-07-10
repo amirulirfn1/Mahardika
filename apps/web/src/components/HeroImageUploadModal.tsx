@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { colors } from '@mahardika/ui';
 
 interface HeroImageUploadModalProps {

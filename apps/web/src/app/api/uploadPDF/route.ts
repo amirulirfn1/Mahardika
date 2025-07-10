@@ -1,7 +1,7 @@
 import { colors } from "@mahardika/ui";
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { withRateLimit, uploadRateLimit } from '@/lib/rateLimit';
+import { withRateLimit, uploadRateLimit } from '@mah/core/security/rateLimit';
 
 // Edge Runtime configuration for Vercel
 export const runtime = 'edge';

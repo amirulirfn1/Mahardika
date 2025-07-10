@@ -1,8 +1,7 @@
-import { colors } from "@mahardika/ui";
 /**
  * Jest Configuration - Mahardika Platform Web App
  * Testing setup for React components and TypeScript
- * Brand Colors: Navy colors.navy, Gold colors.gold
+ * Brand Colors: Navy and Gold
  */
 
 const nextJest = require('next/jest');

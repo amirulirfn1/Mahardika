@@ -1,0 +1,327 @@
+/* =============================================================================
+ * Mahardika Platform - Global Styles
+ * Tailwind CSS + Custom Brand Styles
+ * ============================================================================= */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Inter Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Fira Code Font for monospace */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+/* =============================================================================
+ * BASE STYLES
+ * ============================================================================= */
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background-primary text-text-primary;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background-secondary;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+
+  /* Focus styles */
+  *:focus {
+    @apply outline-none ring-2 ring-border-focus ring-offset-2;
+  }
+
+  /* Selection styles */
+  ::selection {
+    @apply bg-gold-200 text-navy-900;
+  }
+
+  ::-moz-selection {
+    @apply bg-gold-200 text-navy-900;
+  }
+}
+
+/* =============================================================================
+ * COMPONENT STYLES
+ * ============================================================================= */
+
+@layer components {
+  /* Brand Button Styles */
+  .btn-brand-navy {
+    @apply bg-navy-900 text-white hover:bg-navy-800 focus:bg-navy-800 active:bg-navy-950;
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply shadow-brand hover:shadow-brand-md focus:shadow-brand-lg;
+    @apply border-2 border-navy-900 hover:border-navy-800;
+  }
+
+  .btn-brand-gold {
+    @apply bg-gold-500 text-navy-900 hover:bg-gold-400 focus:bg-gold-400 active:bg-gold-600;
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply shadow-brand hover:shadow-brand-md focus:shadow-brand-lg;
+    @apply border-2 border-gold-500 hover:border-gold-400;
+  }
+
+  .btn-brand-navy-outline {
+    @apply bg-transparent text-navy-900 hover:bg-navy-900 hover:text-white;
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply border-2 border-navy-900 hover:border-navy-900;
+    @apply shadow-brand-sm hover:shadow-brand-md;
+  }
+
+  .btn-brand-gold-outline {
+    @apply bg-transparent text-gold-600 hover:bg-gold-500 hover:text-navy-900;
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply border-2 border-gold-500 hover:border-gold-500;
+    @apply shadow-brand-sm hover:shadow-brand-md;
+  }
+
+  .btn-brand-gradient {
+    @apply bg-gradient-brand text-white hover:scale-105 focus:scale-105;
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply shadow-brand-md hover:shadow-brand-lg;
+    @apply border-2 border-transparent;
+  }
+
+  /* Brand Card Styles */
+  .card-brand-navy {
+    @apply bg-navy-900 text-white border-2 border-navy-800;
+    @apply rounded-xl p-6 shadow-brand-lg hover:shadow-brand-xl;
+    @apply transition-all duration-300;
+  }
+
+  .card-brand-gold {
+    @apply bg-gold-500 text-navy-900 border-2 border-gold-400;
+    @apply rounded-xl p-6 shadow-brand-lg hover:shadow-brand-xl;
+    @apply transition-all duration-300;
+  }
+
+  .card-brand-outline {
+    @apply bg-background-primary text-text-primary border-2 border-border-primary;
+    @apply rounded-xl p-6 shadow-brand hover:shadow-brand-md;
+    @apply transition-all duration-300 hover:border-gold-500;
+  }
+
+  .card-brand-gradient {
+    @apply bg-gradient-brand text-white border-2 border-transparent;
+    @apply rounded-xl p-6 shadow-brand-lg hover:shadow-brand-xl;
+    @apply transition-all duration-300 hover:scale-105;
+  }
+
+  /* Form Input Styles */
+  .input-brand {
+    @apply w-full px-4 py-3 rounded-lg border-2 border-border-primary;
+    @apply bg-background-primary text-text-primary placeholder-text-tertiary;
+    @apply focus:border-border-focus focus:ring-0;
+    @apply transition-all duration-200;
+  }
+
+  .input-brand-error {
+    @apply border-error-500 focus:border-error-500;
+  }
+
+  /* Utility Classes */
+  .text-gradient {
+    @apply bg-gradient-brand bg-clip-text text-transparent;
+  }
+
+  .heading-hero {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+    @apply text-navy-900 mb-6;
+  }
+
+  .heading-section {
+    @apply text-3xl md:text-4xl font-bold leading-tight;
+    @apply text-navy-900 mb-4;
+  }
+
+  .text-body {
+    @apply text-lg text-text-secondary leading-relaxed;
+  }
+
+  /* Loading and Animation States */
+  .loading-shimmer {
+    @apply relative overflow-hidden bg-gray-200;
+  }
+
+  .loading-shimmer::after {
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent;
+    @apply animate-shimmer opacity-60;
+    content: '';
+  }
+
+  /* Accessibility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Print styles */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
+}
+
+/* =============================================================================
+ * UTILITY STYLES
+ * ============================================================================= */
+
+@layer utilities {
+  /* Brand spacing utilities */
+  .space-brand-sm {
+    @apply space-y-4;
+  }
+
+  .space-brand-md {
+    @apply space-y-6;
+  }
+
+  .space-brand-lg {
+    @apply space-y-8;
+  }
+
+  .space-brand-xl {
+    @apply space-y-12;
+  }
+
+  /* Brand container sizes */
+  .container-brand {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-brand-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Brand text sizes */
+  .text-brand-xs {
+    @apply text-xs leading-4;
+  }
+
+  .text-brand-sm {
+    @apply text-sm leading-5;
+  }
+
+  .text-brand-base {
+    @apply text-base leading-6;
+  }
+
+  .text-brand-lg {
+    @apply text-lg leading-7;
+  }
+
+  .text-brand-xl {
+    @apply text-xl leading-8;
+  }
+
+  /* Brand aspect ratios */
+  .aspect-brand-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspect-brand-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .aspect-brand-card {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Brand grid layouts */
+  .grid-brand-auto {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+  }
+
+  .grid-brand-cards {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8;
+  }
+
+  .grid-brand-features {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-12;
+  }
+
+  /* Brand flexbox layouts */
+  .flex-brand-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-brand-between {
+    @apply flex items-center justify-between;
+  }
+
+  .flex-brand-start {
+    @apply flex items-start justify-start;
+  }
+
+  /* Brand responsive utilities */
+  .hide-mobile {
+    @apply hidden md:block;
+  }
+
+  .show-mobile {
+    @apply block md:hidden;
+  }
+
+  /* Brand hover effects */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300;
+  }
+
+  .hover-glow:hover {
+    @apply shadow-gold-glow;
+  }
+
+  /* Brand focus states */
+  .focus-brand {
+    @apply focus:outline-none focus:ring-2 focus:ring-border-focus focus:ring-offset-2;
+  }
+
+  /* Brand disabled states */
+  .disabled-brand {
+    @apply opacity-50 cursor-not-allowed pointer-events-none;
+  }
+}

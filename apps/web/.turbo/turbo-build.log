@@ -1,0 +1,13 @@
+
+> @mahardika/web@1.0.0 prebuild C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web
+> node copy-ui-package.js
+
+✅ UI package files copied to web app for deployment
+
+> @mahardika/web@1.0.0 build C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web
+> next build
+
+   ▲ Next.js 15.3.4
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...

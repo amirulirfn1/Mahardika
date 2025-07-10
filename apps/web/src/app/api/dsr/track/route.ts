@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseClient } from '@/lib/supabaseClient';
-import { csrfProtection } from '@/lib/csrf';
+import { csrfProtection } from '@mah/core/security/csrf';
 
 async function handleTrackDSR(request: NextRequest) {
   try {

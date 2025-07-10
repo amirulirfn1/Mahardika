@@ -7,8 +7,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { authService, userService, SignUpData } from '@/lib/supabaseClient';
-import { csrfProtection } from '@/lib/csrf';
-import { validateStrongPassword, StrongPasswordSchema } from '@/lib/passwordSecurity';
+import { csrfProtection } from '@mah/core/security/csrf';
+import { validateStrongPassword, StrongPasswordSchema } from '@mah/core/security/passwordSecurity';
 import { z } from 'zod';
 
 // Validation schema for sign-up data

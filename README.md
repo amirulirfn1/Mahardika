@@ -1,6 +1,24 @@
 # Mahardika
 
-A modern startup project built with React, Next.js, and TypeScript in a monorepo architecture.
+Minimal-futuristic InsurTech platform for Malaysian agencies.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/amirulirfn1/Mahardika&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY&project-name=mahardika&repository-name=mahardika)
+
+## Quick Start
+
+```bash
+pnpm i
+cp .env.local.example .env.local  # fill Supabase keys
+pnpm dev
+```
+
+## Monorepo layout
+
+- **apps/web** – Next.js frontend
+- **packages/ui** – design system
+- **packages/core** – Supabase client, security utils
+
+---
 
 ## 🎨 Brand Colors
 
@@ -16,6 +34,7 @@ This monorepo contains:
   - `@mahardika/web` - Main web application
 - **Packages**: Shared libraries
   - `@mahardika/ui` - UI component library with Mahardika branding
+  - `@mah/core` - Security utilities and Supabase integration
 
 ## 🚀 Quick Start
 

@@ -1,9 +1,31 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { BrandButton, colors } from '@mahardika/ui';
+import { colors } from '@mahardika/ui';
 import { z } from 'zod';
-import { useCSRF } from '@/lib/hooks/useCSRF';
+
+// Simple CSRF hook replacement
+function useSimpleCSRF() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const addToFetchOptions = (options: any = {}) => {
+    // Get CSRF token from cookie if available
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('csrf-token='))
+      ?.split('=')[1];
+
+    return {
+      ...options,
+      headers: {
+        ...options.headers,
+        ...(token && { 'X-CSRF-Token': token }),
+      },
+    };
+  };
+
+  return { addToFetchOptions, isLoading };
+}
 
 const vehicleSchema = z.object({
   id: z.string().uuid(),
@@ -58,15 +80,25 @@ export default function PolicyForm({ onSubmit, defaultValues = {} }: PolicyFormP
               </option>
             ))}
           </select>
-          <BrandButton variant="navy-outline" size="sm" onClick={() => setShowModal(true)}>
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={() => setShowModal(true)}
+          >
             + Add vehicle
-          </BrandButton>
+          </button>
         </div>
       </div>
 
       {/* other policy fields can be inserted here */}
 
-      <BrandButton onClick={() => onSubmit(formData)}>Save Policy</BrandButton>
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() => onSubmit(formData)}
+      >
+        Save Policy
+      </button>
 
       {showModal && (
         <AddVehicleModal
@@ -109,7 +141,7 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const { addToFetchOptions, isLoading: csrfLoading } = useCSRF();
+  const { addToFetchOptions, isLoading: csrfLoading } = useSimpleCSRF();
 
   const save = async () => {
     try {
@@ -181,10 +213,21 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
             </div>
           </div>
           <div className="modal-footer">
-            <BrandButton variant="secondary" onClick={onClose}>Cancel</BrandButton>
-            <BrandButton onClick={save} disabled={isSaveDisabled}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={save}
+              disabled={isSaveDisabled}
+            >
               {saving ? 'Saving...' : 'Save'}
-            </BrandButton>
+            </button>
           </div>
         </div>
       </div>

@@ -5,45 +5,27 @@
  * with Fiverr-inspired marketplace aesthetics and Apple-style typography.
  */
 
-// Export colors and theme
-export { colors } from './colors';
-export type { Colors } from './colors';
-
-export {
-  theme,
-  bootstrapColorOverrides,
-  scssVariables,
-  typography,
-  spacing,
-  borderRadius,
-  components,
-} from './theme';
-export type {
-  Theme,
-  ThemeColors,
-  ThemeSpacing,
-  ThemeBreakpoints,
-} from './theme';
-
-// Export components
+// Export all components and utilities
 export { Button } from './Button';
-export type { ButtonProps } from './Button';
-
 export { Card } from './Card';
-export type { CardProps } from './Card';
-
-export { AIChat } from './AIChat';
-export type { AIChatProps } from './AIChat';
-
-export { SecurityStatus } from './SecurityStatus';
-export type { SecurityStatusProps } from './SecurityStatus';
-
-// Export brand components (legacy compatibility)
-export { BrandButton } from './BrandButton';
-export type { BrandButtonProps } from './BrandButton';
-
 export { BrandCard } from './BrandCard';
-export type { BrandCardProps } from './BrandCard';
+export { BrandButton } from './BrandButton';
+export { AIChat } from './AIChat';
+export { SecurityStatus } from './SecurityStatus';
+export { AppShell } from './AppShell';
 
-// Export demo component
-export { MahardikaDemo } from './demo';
+// Export theme and colors
+export { theme } from './theme';
+export { colors } from './colors';
+
+// Re-export common React types for convenience
+export type { ReactNode, ComponentProps } from 'react';
+
+// Export component prop types
+export type { ButtonProps } from './Button';
+export type { CardProps } from './Card';
+export type { BrandCardProps } from './BrandCard';
+export type { BrandButtonProps } from './BrandButton';
+export type { AIChatProps } from './AIChat';
+export type { SecurityStatusProps } from './SecurityStatus';
+export type { AppShellProps } from './AppShell';

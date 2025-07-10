@@ -2,7 +2,29 @@
 
 import React, { useState, useCallback } from 'react';
 import { colors } from '@mahardika/ui';
-import { useCSRF } from '@/lib/hooks/useCSRF';
+
+// Simple CSRF hook replacement
+function useSimpleCSRF() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const addToFetchOptions = (options: any = {}) => {
+    // Get CSRF token from cookie if available
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('csrf-token='))
+      ?.split('=')[1];
+
+    return {
+      ...options,
+      headers: {
+        ...options.headers,
+        ...(token && { 'X-CSRF-Token': token }),
+      },
+    };
+  };
+
+  return { addToFetchOptions, isLoading };
+}
 
 type RequestType = 'export' | 'delete' | 'rectify';
 
@@ -85,7 +107,7 @@ export default function DataSubjectRightsPage() {
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
   const [showEmailVerification, setShowEmailVerification] = useState(false);
   
-  const { addCSRFToken } = useCSRF();
+  const { addToFetchOptions } = useSimpleCSRF();
 
   const validateForm = useCallback((): boolean => {
     const errors: ValidationErrors = {};
@@ -180,7 +202,7 @@ export default function DataSubjectRightsPage() {
         formDataToSend.append('verificationDocument', formData.verificationDocument);
       }
 
-      const requestOptions = addCSRFToken({
+      const requestOptions = addToFetchOptions({
         method: 'POST',
         body: formDataToSend,
       });
@@ -550,7 +572,7 @@ export default function DataSubjectRightsPage() {
               Identity Verification Document (Optional)
             </label>
             <p style={{ fontSize: '0.875rem', color: colors.gray[600], marginBottom: '0.75rem' }}>
-              Upload a document to verify your identity (driver&apos;s license, passport, etc.). This helps us process your request faster.
+              Upload a document to verify your identity (driver's license, passport, etc.). This helps us process your request faster.
             </p>
             
             <div style={{

@@ -2,6 +2,7 @@
 const nextConfig = {
   transpilePackages: ['@mahardika/ui'],
   experimental: {
+    appDir: false,
     optimizePackageImports: ['@mahardika/ui'],
   },
   eslint: {

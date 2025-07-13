@@ -5,7 +5,7 @@
   "description": "Mahardika Web Application - Showcase for UI components",
   "scripts": {
     "prebuild": "node copy-ui-package.js",
-    "predev": "node setup-database.js",
+    "predev": "node ../../scripts/setup-complete-database.js",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",

@@ -69,60 +69,6 @@ const StyleGuidePage = () => {
 
   return (
     <div className="min-vh-100" style={{ backgroundColor: '#f8f9fa' }}>
-      {/* Navigation */}
-      <nav
-        className="navbar navbar-expand-lg sticky-top shadow-sm"
-        style={{
-          backgroundColor: 'colors.navy',
-          borderBottom: '3px solid colors.gold',
-        }}
-      >
-        <div className="container">
-          <a className="navbar-brand fw-bold text-white" href="/">
-            Mahardika Style Guide
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            style={{ borderColor: 'colors.gold' }}
-          >
-            <span
-              className="navbar-toggler-icon"
-              style={{ filter: 'invert(1)' }}
-            />
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <a className="nav-link text-white" href="/">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-white" href="/dashboard">
-                  Dashboard
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-white" href="/brand-showcase">
-                  Brand Showcase
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  href="/style-guide"
-                  style={{ color: 'colors.gold', fontWeight: 'bold' }}
-                >
-                  Style Guide
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
 
       <div className="container my-5">
         {/* Header */}

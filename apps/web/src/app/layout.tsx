@@ -1,10 +1,11 @@
 import './globals.css';
-import { AppShell } from '@mahardika/ui';
 import React from 'react';
 import type { Metadata } from 'next';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { ConsentBanner } from '@/components/ConsentBanner';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import Providers from './providers';
 
 export const metadata: Metadata = {
@@ -41,7 +42,11 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <Providers>
           <ErrorBoundary>
-            <AppShell>{children}</AppShell>
+            <div className="min-h-screen bg-gray-50 text-gray-900 flex flex-col">
+              <Navigation />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
             <ConsentBanner showDetailedOptions={true} />
           </ErrorBoundary>
         </Providers>

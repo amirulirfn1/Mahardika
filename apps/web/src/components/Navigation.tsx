@@ -2,7 +2,7 @@
 
 
 import { colors, BrandButton, theme } from '@mahardika/ui';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import SettingsMenu from './SettingsMenu';
@@ -10,6 +10,12 @@ import SettingsMenu from './SettingsMenu';
 
 export function Navigation() {
   const { t } = useTranslation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <nav
       style={{
@@ -150,6 +156,7 @@ export function Navigation() {
           <BrandButton
             variant="outline-navy"
             size="sm"
+            onClick={toggleMobileMenu}
             style={{
               border: 'none',
               backgroundColor: 'transparent',
@@ -157,10 +164,88 @@ export function Navigation() {
               fontSize: '1.25rem',
             }}
             aria-label="Toggle menu"
+            className="d-lg-none"
           >
-            <i className="bi bi-list" />
+            <i className={`bi ${isMobileMenuOpen ? 'bi-x' : 'bi-list'}`} />
           </BrandButton>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="d-lg-none">
+            <div
+              className="py-3"
+              style={{
+                borderTop: `1px solid ${theme.colors.border.light}`,
+                backgroundColor: theme.colors.background.primary,
+              }}
+            >
+              <div className="d-flex flex-column gap-3">
+                <Link
+                  className="nav-link text-decoration-none px-3 py-2 rounded-lg"
+                  href="/agencies"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  style={{
+                    color: theme.colors.text.secondary,
+                    fontSize: theme.typography.fontSize.base,
+                    fontWeight: theme.typography.fontWeight.medium,
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  }}
+                >
+                  {t('navbar.explore')}
+                </Link>
+                <Link
+                  className="nav-link text-decoration-none px-3 py-2 rounded-lg"
+                  href="/shop"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  style={{
+                    color: theme.colors.text.secondary,
+                    fontSize: theme.typography.fontSize.base,
+                    fontWeight: theme.typography.fontWeight.medium,
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  }}
+                >
+                  {t('navbar.services')}
+                </Link>
+                <Link
+                  className="nav-link text-decoration-none px-3 py-2 rounded-lg"
+                  href="/dashboard"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  style={{
+                    color: theme.colors.text.secondary,
+                    fontSize: theme.typography.fontSize.base,
+                    fontWeight: theme.typography.fontWeight.medium,
+                    transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  }}
+                >
+                  {t('navbar.dashboard')}
+                </Link>
+                
+                {/* Mobile Authentication */}
+                <div className="d-flex gap-2 px-3 pt-2">
+                  <Link href="/auth" style={{ textDecoration: 'none' }}>
+                    <BrandButton
+                      variant="outline-navy"
+                      size="sm"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {t('navbar.signin')}
+                    </BrandButton>
+                  </Link>
+                  <Link href="/auth" style={{ textDecoration: 'none' }}>
+                    <BrandButton
+                      variant="navy"
+                      size="sm"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {t('navbar.join')}
+                    </BrandButton>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

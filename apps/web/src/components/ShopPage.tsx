@@ -39,31 +39,6 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
 
   return (
     <div className="min-vh-100" style={{ backgroundColor: colors.gray[50] }}>
-      {/* Navigation */}
-      <nav
-        className="navbar navbar-expand-lg shadow-sm sticky-top"
-        style={{
-          backgroundColor: colors.navy,
-          borderBottom: `3px solid ${colors.gold}`,
-        }}
-      >
-        <div className="container">
-          <a className="navbar-brand fw-bold text-white" href="/shop">
-            Mahardika Shop
-          </a>
-          <div className="navbar-nav ms-auto">
-            <a
-              className="nav-link text-white d-flex align-items-center"
-              href="/shop"
-              style={{ textDecoration: 'none' }}
-            >
-              <span className="me-2">←</span>
-              Back to Shop
-            </a>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Banner Section */}
       <section
         className="position-relative"

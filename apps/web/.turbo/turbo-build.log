@@ -7,11 +7,11 @@
 > @mahardika/web@1.0.0 build C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web
 > next build
 
-   ▲ Next.js 15.3.4
-   - Environments: .env.local, .env
+  ▲ Next.js 14.2.30
+  - Environments: .env.local, .env
 
    Creating an optimized production build ...
- ⚠ Compiled with warnings in 18.0s
+ ⚠ Compiled with warnings
 
 ../../node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
 Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
@@ -24,99 +24,42 @@ Import trace for requested module:
 ../../node_modules/.pnpm/@opentelemetry+instrumentation@0.57.2_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/index.js
 ../../node_modules/.pnpm/@sentry+node@9.32.0/node_modules/@sentry/node/build/cjs/otel/instrument.js
 ../../node_modules/.pnpm/@sentry+node@9.32.0/node_modules/@sentry/node/build/cjs/index.js
-../../node_modules/.pnpm/@sentry+nextjs@9.32.0_@opentelemetry+context-async-hooks@1.30.1_@opentelemetry+api@1.9.0__@op_ttyjzlxaabssfejqb75n2wubxq/node_modules/@sentry/nextjs/build/cjs/index.server.js
+../../node_modules/.pnpm/@sentry+nextjs@9.32.0_@opentelemetry+context-async-hooks@1.30.1_@opentelemetry+api@1.9.0__@op_tvwowaz3d7alq7btu7ocvq5xmu/node_modules/@sentry/nextjs/build/cjs/index.server.js
 ./src/components/ErrorBoundary.tsx
 
 Failed to compile.
 
-./src/app/globals.css.webpack[javascript/auto]!=!../../node_modules/.pnpm/next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!../../node_modules/.pnpm/next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/app/globals.css
-Error: Cannot find module 'tailwindcss'
+./src/app/globals.css.webpack[javascript/auto]!=!../../node_modules/.pnpm/next@14.2.30_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!../../node_modules/.pnpm/next@14.2.30_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/app/globals.css
+Error: Cannot find module '@tailwindcss/forms'
 Require stack:
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\index.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\index.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack-config.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack-build\impl.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\jest-worker\processChild.js
+- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web\tailwind.config.js
     at Function.<anonymous> (node:internal/modules/cjs/loader:1225:15)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\server\require-hook.js:55:36
+    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.30_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\server\require-hook.js:55:36
     at Function.resolve (node:internal/modules/helpers:146:19)
-    at loadPlugin (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:53:32)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:185:56
-    at Array.map (<anonymous>)
-    at getPostCssPlugins (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:185:47)
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\index.js:125:36
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js:52:40
-    at async Span.traceAsyncFn (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\trace\trace.js:157:20)
+    at _resolve (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\jiti@1.21.7\node_modules\jiti\dist\jiti.js:1:246378)
+    at jiti (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\jiti@1.21.7\node_modules\jiti\dist\jiti.js:1:249092)
+    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web\tailwind.config.js:218:5
+    at evalModule (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\jiti@1.21.7\node_modules\jiti\dist\jiti.js:1:251913)
+    at jiti (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\jiti@1.21.7\node_modules\jiti\dist\jiti.js:1:249841)
+    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\tailwindcss@3.4.17\node_modules\tailwindcss\lib\lib\load-config.js:52:26
+    at loadConfig (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\tailwindcss@3.4.17\node_modules\tailwindcss\lib\lib\load-config.js:62:6)
 
 Import trace for requested module:
-./src/app/globals.css.webpack[javascript/auto]!=!../../node_modules/.pnpm/next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!../../node_modules/.pnpm/next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./src/app/globals.css
+./src/app/globals.css.webpack[javascript/auto]!=!../../node_modules/.pnpm/next@14.2.30_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!../../node_modules/.pnpm/next@14.2.30_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./src/app/globals.css
 ./src/app/globals.css
 
 ./src/app/globals.css
-Error: Cannot find module 'tailwindcss'
-Require stack:
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\index.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\index.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack-config.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack-build\impl.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\jest-worker\processChild.js
-    at Function.<anonymous> (node:internal/modules/cjs/loader:1225:15)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\server\require-hook.js:55:36
-    at Function.resolve (node:internal/modules/helpers:146:19)
-    at loadPlugin (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:53:32)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:185:56
-    at Array.map (<anonymous>)
-    at getPostCssPlugins (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:185:47)
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\index.js:125:36
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js:52:40
-    at async Span.traceAsyncFn (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\trace\trace.js:157:20)
-    at tryRunOrWebpackError (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:316142)
-    at __webpack_require_module__ (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:131548)
-    at __nested_webpack_require_161494__ (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:130983)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:131840
-    at symbolIterator (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\neo-async\async.js:1:14444)
-    at done (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\neo-async\async.js:1:14824)
-    at Hook.eval [as callAsync] (eval at create (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:14:9224), <anonymous>:15:1)
-    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:14:6378)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:130703
-    at symbolIterator (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\neo-async\async.js:1:14402)
--- inner error --
-Error: Cannot find module 'tailwindcss'
-Require stack:
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\index.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\index.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack-config.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack-build\impl.js
-- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\jest-worker\processChild.js
-    at Function.<anonymous> (node:internal/modules/cjs/loader:1225:15)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\server\require-hook.js:55:36
-    at Function.resolve (node:internal/modules/helpers:146:19)
-    at loadPlugin (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:53:32)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:185:56
-    at Array.map (<anonymous>)
-    at getPostCssPlugins (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\plugins.js:185:47)
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\config\blocks\css\index.js:125:36
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js:52:40
-    at async Span.traceAsyncFn (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\trace\trace.js:157:20)
-    at Object.<anonymous> (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[10].use[2]!C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[10].use[3]!C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web\src\app\globals.css:1:7)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:962742
-    at Hook.eval [as call] (eval at create (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:14:9002), <anonymous>:7:1)
-    at Hook.CALL_DELEGATE [as _call] (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:14:6272)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:131581
-    at tryRunOrWebpackError (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:316096)
-    at __webpack_require_module__ (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:131548)
-    at __nested_webpack_require_161494__ (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:130983)
-    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\webpack\bundle5.js:29:131840
-    at symbolIterator (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\compiled\neo-async\async.js:1:14444)
-
-Generated code for C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\css-loader\src\index.js??ruleSet[1].rules[13].oneOf[10].use[2]!C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@15.3.4_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\webpack\loaders\postcss-loader\src\index.js??ruleSet[1].rules[13].oneOf[10].use[3]!C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web\src\app\globals.css
-
-Import trace for requested module:
-./src/app/globals.css
-
-
-> Build failed because of webpack errors
  ELIFECYCLE  Command failed with exit code 1.
+Error: Cannot find module '@tailwindcss/forms'
+Require stack:
+- C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web\tailwind.config.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1225:15)
+    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.30_@babel+core@7.27.4_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\server\require-hook.js:55:36
+    at Function.resolve (node:internal/modules/helpers:146:19)
+    at _resolve (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\jiti@1.21.7\node_modules\jiti\dist\jiti.js:1:246378)
+    at jiti (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\jiti@1.21.7\node_modules\jiti\dist\jiti.js:1:249092)
+    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\web\tailwind.config.js:218:5
+    at evalModule (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\jiti@1.21.7\node_modules\jiti\dist\jiti.js:1:251913)
+    at jiti (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\jiti@1.21.7\node_modules\jiti\dist\jiti.js:1:249841)
+    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\tailwindcss@3.4.17\node_modules\tailwindcss\lib\lib\load-config.js:52:26
+    at loadConfig (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\tailwindcss@3.4.17\node_modules\tailwindcss\lib\lib\load-config.js:62:6)

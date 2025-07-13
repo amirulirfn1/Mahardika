@@ -332,29 +332,14 @@ export default function CustomerSignUpPage() {
 
                 {/* Submit Button */}
                 <div className="d-grid mb-3">
-                  <BrandButton variant="navy-primary"
+                  <BrandButton
                     type="submit"
-                    className="btn btn-primary btn-lg"
-                    disabled={isLoading}
-                    style={{
-                      backgroundColor: colors.navy,
-                      borderColor: colors.navy,
-                      borderRadius: '0.5rem',
-                      padding: '0.75rem 1.5rem',
-                    }}
+                    variant="navy"
+                    size="lg"
+                    fullWidth
+                    disabled={isLoading || Boolean(success)}
                   >
-                    {isLoading ? (
-                      <>
-                        <span
-                          className="spinner-border spinner-border-sm me-2"
-                          role="status"
-                          aria-hidden="true"
-                        />
-                        Creating Account...
-                      </>
-                    ) : (
-                      'Create Account'
-                    )}
+                    {isLoading ? 'Creating Account...' : 'Create Account'}
                   </BrandButton>
                 </div>
 

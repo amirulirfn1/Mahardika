@@ -554,11 +554,11 @@ export default function DataSubjectRightsPage() {
                 ...(validationErrors.description ? { borderColor: '#EF4444' } : {}),
               }}
               placeholder={
-                formData.type === 'export' 
-                  ? 'Optional: Specify any particular data or time period you&apos;re interested in...'
-                  : formData.type === 'delete'
-                  ? 'Required: Please explain why you want your data deleted...'
-                  : 'Required: Please describe what information needs to be corrected and provide the correct information...'
+                {
+                  export: 'Optional: Specify any particular data or time period you&apos;re interested in...',
+                  delete: 'Required: Please explain why you want your data deleted...',
+                  rectify: 'Required: Please describe what information needs to be corrected and provide the correct information...'
+                }[formData.type]
               }
             />
             {validationErrors.description && (
@@ -572,7 +572,7 @@ export default function DataSubjectRightsPage() {
               Identity Verification Document (Optional)
             </label>
             <p style={{ fontSize: '0.875rem', color: colors.gray[600], marginBottom: '0.75rem' }}>
-              Upload a document to verify your identity (driver's license, passport, etc.). This helps us process your request faster.
+              Upload a document to verify your identity (driver&apos;s license, passport, etc.). This helps us process your request faster.
             </p>
             
             <div style={{

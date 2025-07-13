@@ -54,7 +54,7 @@ const mockProducts = [
     image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop',
     tags: ['Auto', 'Comprehensive', 'Roadside'],
     badge: 'Value',
-    badgeColor: '#10B981'
+    badgeColor: colors.success
   },
   {
     id: '4',
@@ -71,7 +71,7 @@ const mockProducts = [
     image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&h=300&fit=crop',
     tags: ['Home', 'Property', 'Natural Disaster'],
     badge: 'Premium',
-    badgeColor: '#8B5CF6'
+    badgeColor: colors.primary
   },
   {
     id: '5',
@@ -88,7 +88,7 @@ const mockProducts = [
     image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop',
     tags: ['Professional', 'Liability', 'Legal'],
     badge: 'Specialist',
-    badgeColor: '#F59E0B'
+    badgeColor: colors.secondary
   },
   {
     id: '6',
@@ -105,7 +105,7 @@ const mockProducts = [
     image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop',
     tags: ['Travel', 'Medical', 'Emergency'],
     badge: 'Adventure',
-    badgeColor: '#06B6D4'
+    badgeColor: colors.info
   },
 ];
 
@@ -496,9 +496,9 @@ export default function MarketplacePage() {
 
                     {/* Tags */}
                     <div className="d-flex flex-wrap gap-2 mb-4">
-                      {product.tags.map((tag, tagIndex) => (
+                      {product.tags.map((tag) => (
                         <span
-                          key={tagIndex}
+                          key={tag}
                           style={{
                             background: `${colors.navy}10`,
                             color: colors.navy,

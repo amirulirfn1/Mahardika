@@ -31,14 +31,14 @@ const StyleGuidePage = () => {
   const brandColors = [
     {
       name: 'Navy Primary',
-      hex: 'colors.navy',
-      rgb: 'rgb(13, 27, 42)',
+      hex: colors.navy,
+      rgb: `rgb(${parseInt(colors.navy.slice(1, 3), 16)}, ${parseInt(colors.navy.slice(3, 5), 16)}, ${parseInt(colors.navy.slice(5, 7), 16)})`,
       usage: 'Primary brand color, headers, navigation',
     },
     {
       name: 'Gold Accent',
-      hex: 'colors.gold',
-      rgb: 'rgb(244, 180, 0)',
+      hex: colors.gold,
+      rgb: `rgb(${parseInt(colors.gold.slice(1, 3), 16)}, ${parseInt(colors.gold.slice(3, 5), 16)}, ${parseInt(colors.gold.slice(5, 7), 16)})`,
       usage: 'Accent color, buttons, highlights',
     },
     {

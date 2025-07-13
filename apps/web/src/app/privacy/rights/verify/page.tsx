@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { colors } from '@mahardika/ui';
+import { colors, BrandButton } from '@mahardika/ui';
 
 // Separate component that uses useSearchParams
 function DSRVerificationContent() {
@@ -14,17 +14,7 @@ function DSRVerificationContent() {
   const token = searchParams?.get('token');
   const requestId = searchParams?.get('id');
 
-  useEffect(() => {
-    if (!token || !requestId) {
-      setVerificationStatus('error');
-      setErrorMessage('Invalid verification link. Missing token or request ID.');
-      return;
-    }
-
-    verifyRequest();
-  }, [token, requestId]);
-
-  const verifyRequest = async () => {
+  const verifyRequest = useCallback(async () => {
     try {
       const response = await fetch('/api/dsr/verify', {
         method: 'POST',
@@ -54,7 +44,17 @@ function DSRVerificationContent() {
       setVerificationStatus('error');
       setErrorMessage('Network error. Please try again later.');
     }
-  };
+  }, [token, requestId]);
+
+  useEffect(() => {
+    if (!token || !requestId) {
+      setVerificationStatus('error');
+      setErrorMessage('Invalid verification link. Missing token or request ID.');
+      return;
+    }
+
+    verifyRequest();
+  }, [token, requestId, verifyRequest]);
 
   const getRequestTypeLabel = (type: string) => {
     switch (type) {
@@ -91,6 +91,12 @@ function DSRVerificationContent() {
       case 'expired': return '#FEF3C7';
       default: return colors.gray[100];
     }
+  };
+
+  const priorityStyles = {
+    high: { bg: '#FEE2E2', color: '#DC2626' },
+    normal: { bg: '#DBEAFE', color: '#2563EB' },
+    low: { bg: '#F3F4F6', color: '#6B7280' },
   };
 
   return (
@@ -193,8 +199,8 @@ function DSRVerificationContent() {
                 <span style={{
                   display: 'inline-block',
                   padding: '0.25rem 0.75rem',
-                  backgroundColor: requestInfo.priority === 'high' ? '#FEE2E2' : requestInfo.priority === 'normal' ? '#DBEAFE' : '#F3F4F6',
-                  color: requestInfo.priority === 'high' ? '#DC2626' : requestInfo.priority === 'normal' ? '#2563EB' : '#6B7280',
+                  backgroundColor: priorityStyles[requestInfo.priority].bg,
+                  color: priorityStyles[requestInfo.priority].color,
                   borderRadius: '0.375rem',
                   fontSize: '0.75rem',
                   fontWeight: '600',
@@ -264,7 +270,9 @@ function DSRVerificationContent() {
             justifyContent: 'center',
             flexWrap: 'wrap',
           }}>
-            <button
+            <BrandButton
+              variant="primary"
+              onClick={() => window.location.href = '/privacy/rights/track'}
               style={{
                 padding: '0.75rem 1.5rem',
                 backgroundColor: colors.navy,
@@ -278,14 +286,15 @@ function DSRVerificationContent() {
                 display: 'inline-block',
                 transition: 'all 0.2s ease',
               }}
-              onClick={() => window.location.href = '/privacy/rights/track'}
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = `${colors.navy}dd`}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = colors.navy}
             >
-              Track Request Status
-            </button>
+              Track Your Request
+            </BrandButton>
 
-            <button
+            <BrandButton
+              variant="secondary"
+              onClick={() => window.location.href = '/privacy/rights'}
               style={{
                 padding: '0.75rem 1.5rem',
                 backgroundColor: 'transparent',
@@ -299,7 +308,6 @@ function DSRVerificationContent() {
                 display: 'inline-block',
                 transition: 'all 0.2s ease',
               }}
-              onClick={() => window.location.href = '/privacy/rights'}
               onMouseOver={(e) => {
                 e.currentTarget.style.backgroundColor = colors.navy;
                 e.currentTarget.style.color = colors.white;
@@ -309,8 +317,8 @@ function DSRVerificationContent() {
                 e.currentTarget.style.color = colors.navy;
               }}
             >
-              Submit Another Request
-            </button>
+              Submit New Request
+            </BrandButton>
           </div>
         </div>
       )}
@@ -360,7 +368,9 @@ function DSRVerificationContent() {
             justifyContent: 'center',
             flexWrap: 'wrap',
           }}>
-            <button
+            <BrandButton
+              variant="primary"
+              onClick={() => window.location.href = '/privacy/rights'}
               style={{
                 padding: '0.75rem 1.5rem',
                 backgroundColor: colors.navy,
@@ -374,19 +384,20 @@ function DSRVerificationContent() {
                 display: 'inline-block',
                 transition: 'all 0.2s ease',
               }}
-              onClick={() => window.location.href = '/privacy/rights'}
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = `${colors.navy}dd`}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = colors.navy}
             >
               Submit New Request
-            </button>
+            </BrandButton>
 
-            <button
+            <BrandButton
+              variant="secondary"
+              onClick={() => window.location.href = '/privacy/rights/track'}
               style={{
                 padding: '0.75rem 1.5rem',
-                backgroundColor: 'transparent',
-                color: colors.navy,
-                border: `2px solid ${colors.navy}`,
+                backgroundColor: colors.navy,
+                color: colors.white,
+                border: 'none',
                 borderRadius: '0.5rem',
                 fontSize: '1rem',
                 fontWeight: '600',
@@ -395,7 +406,6 @@ function DSRVerificationContent() {
                 display: 'inline-block',
                 transition: 'all 0.2s ease',
               }}
-              onClick={() => window.location.href = '/privacy/rights/track'}
               onMouseOver={(e) => {
                 e.currentTarget.style.backgroundColor = colors.navy;
                 e.currentTarget.style.color = colors.white;
@@ -405,8 +415,8 @@ function DSRVerificationContent() {
                 e.currentTarget.style.color = colors.navy;
               }}
             >
-              Track Existing Requests
-            </button>
+              Submit New Request
+            </BrandButton>
           </div>
         </div>
       )}

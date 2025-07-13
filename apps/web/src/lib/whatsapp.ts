@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const WA_TOKEN = process.env.WA_TOKEN;
-const WA_NUMBER = process.env.WA_NUMBER;
+const { WA_TOKEN, WA_NUMBER } = process.env;
 
 if (!WA_TOKEN || !WA_NUMBER) {
   console.warn('WhatsApp API credentials not set (WA_TOKEN, WA_NUMBER)');

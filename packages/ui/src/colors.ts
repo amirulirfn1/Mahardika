@@ -39,9 +39,11 @@ export const colors = {
 
   // Semantic Colors
   success: '#10B981',
+  successDark: '#059669',
   info: '#3B82F6',
   warning: '#F59E0B',
   error: '#EF4444',
+  errorDark: '#dc2626',
 
   // Background Colors
   background: {

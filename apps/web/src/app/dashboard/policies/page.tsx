@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { BrandButton, colors } from '@mahardika/ui';
 import { useReactTable, getCoreRowModel, flexRender, ColumnDef } from '@tanstack/react-table';
 import { z } from 'zod';
@@ -22,42 +22,47 @@ export default function PoliciesPage() {
   const [loading, setLoading] = useState(true);
   const [archived, setArchived] = useState(false);
 
-  const fetchPolicies = async () => {
+  const fetchPolicies = useCallback(async () => {
     setLoading(true);
     const res = await fetch(`/api/policies?archived=${archived}`);
     const data = await res.json();
     setPolicies(z.array(policySchema).parse(data));
     setLoading(false);
-  };
+  }, [archived]);
 
   useEffect(() => {
     fetchPolicies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [archived]);
+  }, [archived, fetchPolicies]);
 
-  const archivePolicy = async (id: string) => {
+  const archivePolicy = useCallback(async (id: string) => {
     await fetch(`/api/policies?id=${id}`, { method: 'DELETE' });
     fetchPolicies();
-  };
+  }, [fetchPolicies]);
 
   const columns = useMemo<ColumnDef<Policy>[]>(() => [
     { accessorKey: 'policy_number', header: 'Policy #' },
     { accessorKey: 'status', header: 'Status', cell: ({ getValue }) => {
         const v = getValue<string>();
-        const cls = v === 'EXPIRED' ? 'secondary' : v === 'ACTIVE' ? 'success' : 'warning';
+        const statusColors = {
+          EXPIRED: 'secondary',
+          ACTIVE: 'success',
+          DRAFT: 'warning'
+        };
+        const cls = statusColors[v as keyof typeof statusColors] || 'warning';
         return <span className={`badge bg-${cls}`}>{v}</span>;
       } },
     { accessorKey: 'start_date', header: 'Start' },
     { accessorKey: 'end_date', header: 'End' },
     { id: 'actions', header: '', cell: ({ row }) => (
       <div className="d-flex gap-1">
-        <a href={`/dashboard/policies/${row.original.id}/edit`} className="btn btn-sm btn-link">Edit</a>
+        <BrandButton as="a" href={`/dashboard/policies/${row.original.id}/edit`} variant="link" size="sm">Edit</BrandButton>
         {row.original.status !== 'EXPIRED' && (
-          <button className="btn btn-sm btn-outline-danger" onClick={() => archivePolicy(row.original.id)}>Archive</button>
+          <BrandButton variant="outline-danger" size="sm" onClick={() => archivePolicy(row.original.id)}>Archive</BrandButton>
         )}
       </div>
     ) }
-  ], []);
+  ], [archivePolicy]);
 
   const table = useReactTable({ data: policies, columns, getCoreRowModel: getCoreRowModel() });
 
@@ -65,9 +70,13 @@ export default function PoliciesPage() {
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 style={{ color: colors.navy }}>Policies</h2>
-        <div>
-          <a href="/dashboard/policies/new" className="btn btn-primary me-2">New Policy</a>
-          <BrandButton onClick={fetchPolicies}>Refresh</BrandButton>
+        <div className="d-flex mb-3">
+          <BrandButton as="a" href="/dashboard/policies/new" variant="primary" className="me-2">New Policy</BrandButton>
+          {archived ? (
+            <BrandButton variant="secondary" onClick={() => setArchived(false)}>Back to Active</BrandButton>
+          ) : (
+            <BrandButton variant="secondary" onClick={() => setArchived(true)}>View Archived</BrandButton>
+          )}
         </div>
       </div>
 

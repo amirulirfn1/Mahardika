@@ -16,7 +16,7 @@ export default function AuthCallbackPage() {
         setMessage('Processing authentication...');
 
         const { data, error } = await supabaseClient.auth.getSession();
-        let session = data.session;
+        const { session } = data;
 
         // If no session, try to exchange code for session
         if (!session) {
@@ -28,7 +28,7 @@ export default function AuthCallbackPage() {
             setTimeout(() => router.push('/auth/sign-in'), 3000);
             return;
           }
-          session = exchanged.session;
+          const { session } = exchanged;
         }
 
         if (!session?.user) {
@@ -123,7 +123,7 @@ export default function AuthCallbackPage() {
               style={{
                 width: '60px',
                 height: '60px',
-                background: `linear-gradient(135deg, #10b981 0%, #059669 100%)`,
+                background: `linear-gradient(135deg, ${colors.success} 0%, ${colors.successDark} 100%)`,
                 borderRadius: '50%',
                 margin: '0 auto',
               }}
@@ -132,7 +132,7 @@ export default function AuthCallbackPage() {
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
             </div>
-            <h3 className="h5 fw-bold mb-2" style={{ color: '#059669' }}>
+            <h3 className="h5 fw-bold mb-2" style={{ color: colors.successDark }}>
               Success!
             </h3>
             <p className="text-muted mb-0">{message}</p>
@@ -146,7 +146,7 @@ export default function AuthCallbackPage() {
               style={{
                 width: '60px',
                 height: '60px',
-                background: `linear-gradient(135deg, #ef4444 0%, #dc2626 100%)`,
+                background: `linear-gradient(135deg, ${colors.error} 0%, ${colors.errorDark} 100%)`,
                 borderRadius: '50%',
                 margin: '0 auto',
               }}
@@ -155,7 +155,7 @@ export default function AuthCallbackPage() {
                 <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
               </svg>
             </div>
-            <h3 className="h5 fw-bold mb-2" style={{ color: '#dc2626' }}>
+            <h3 className="h5 fw-bold mb-2" style={{ color: colors.errorDark }}>
               Authentication Failed
             </h3>
             <p className="text-muted mb-0">{message}</p>

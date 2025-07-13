@@ -10,9 +10,6 @@ module.exports = {
     node: true,
   },
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
     'prettier', // Must be last to override conflicting rules
   ],
   parser: '@typescript-eslint/parser',
@@ -23,11 +20,8 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['react', 'react-hooks'],
+  plugins: [],
   settings: {
-    react: {
-      version: 'detect',
-    },
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
@@ -49,31 +43,6 @@ module.exports = {
     'no-unused-vars': 'off', // Handled by @typescript-eslint
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-debugger': 'error',
-
-    // TypeScript Rules (handled by Next.js)
-
-    // React Rules
-    'react/react-in-jsx-scope': 'off', // Not needed in Next.js/modern React
-    'react/prop-types': 'off', // Using TypeScript for prop validation
-    'react/display-name': 'warn',
-    'react/no-unescaped-entities': 'error',
-    'react/jsx-key': 'error',
-    'react/jsx-no-duplicate-props': 'error',
-    'react/jsx-no-undef': 'error',
-    'react/jsx-uses-react': 'off', // Not needed in modern React
-    'react/jsx-uses-vars': 'error',
-    'react/no-array-index-key': 'warn',
-    'react/self-closing-comp': 'error',
-    'react/jsx-curly-brace-presence': [
-      'error',
-      { props: 'never', children: 'never' },
-    ],
-
-    // React Hooks Rules
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
-
-    // Plugin-specific rules are handled by Next.js config
 
     // Code Quality Rules
     'prefer-template': 'error',
@@ -98,6 +67,41 @@ module.exports = {
     ],
   },
   overrides: [
+    // New override for React packages
+    {
+      files: ['apps/web/**/*.{ts,tsx}', 'packages/ui/**/*.{ts,tsx}'],
+      extends: [
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+        'next/core-web-vitals'  // If needed, adjust for web
+      ],
+      plugins: ['react', 'react-hooks'],
+      settings: {
+        react: {
+          version: 'detect',
+        },
+      },
+      rules: {
+        // React-specific rules here
+        'react/react-in-jsx-scope': 'off',
+        'react/prop-types': 'off',
+        'react/display-name': 'warn',
+        'react/no-unescaped-entities': 'error',
+        'react/jsx-key': 'error',
+        'react/jsx-no-duplicate-props': 'error',
+        'react/jsx-no-undef': 'error',
+        'react/jsx-uses-react': 'off',
+        'react/jsx-uses-vars': 'error',
+        'react/no-array-index-key': 'warn',
+        'react/self-closing-comp': 'error',
+        'react/jsx-curly-brace-presence': [
+          'error',
+          { props: 'never', children: 'never' },
+        ],
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
+      },
+    },
     // Next.js specific configuration
     {
       files: ['apps/web/**/*.{ts,tsx}'],

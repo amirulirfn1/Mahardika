@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { colors } from '@mahardika/ui';
+import { colors, BrandButton } from '@mahardika/ui';
 import { z } from 'zod';
 
 // Simple CSRF hook replacement
@@ -80,25 +80,23 @@ export default function PolicyForm({ onSubmit, defaultValues = {} }: PolicyFormP
               </option>
             ))}
           </select>
-          <button
-            type="button"
-            className="btn btn-outline-primary"
+          <BrandButton
+            variant="navy-outline"
             onClick={() => setShowModal(true)}
           >
             + Add vehicle
-          </button>
+          </BrandButton>
         </div>
       </div>
 
       {/* other policy fields can be inserted here */}
 
-      <button
-        type="button"
-        className="btn btn-primary"
+      <BrandButton
+        variant="navy"
         onClick={() => onSubmit(formData)}
       >
         Save Policy
-      </button>
+      </BrandButton>
 
       {showModal && (
         <AddVehicleModal
@@ -213,21 +211,19 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
             </div>
           </div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
+            <BrandButton
+              variant="default"
               onClick={onClose}
             >
               Cancel
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
+            </BrandButton>
+            <BrandButton
+              variant="navy"
               onClick={save}
               disabled={isSaveDisabled}
             >
               {saving ? 'Saving...' : 'Save'}
-            </button>
+            </BrandButton>
           </div>
         </div>
       </div>

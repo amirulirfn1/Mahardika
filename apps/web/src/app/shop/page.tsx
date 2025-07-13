@@ -105,7 +105,7 @@ export default function ShopPage() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      console.log('Searching for:', searchQuery);
+      // Search logic here
     }
   };
 
@@ -388,9 +388,9 @@ export default function ShopPage() {
 
                     {/* Service Tags */}
                     <div className="d-flex flex-wrap gap-2 mb-4">
-                      {service.tags.map((tag, tagIndex) => (
+                      {service.tags.map((tag) => (
                         <span
-                          key={tagIndex}
+                          key={tag}
                           style={{
                             fontSize: '11px',
                             background: `${colors.navy}15`,

@@ -130,9 +130,9 @@ export default function ForgotPasswordForm({
             <p className="small text-muted mb-4">
               Didn&apos;t receive the email? Check your spam folder or try again.
             </p>
-            <BrandButton variant="navy-primary"
-              type="button"
-              className="btn btn-primary btn-back w-100"
+            <BrandButton 
+              variant="navy"
+              fullWidth
               onClick={onBackToLogin}
             >
               <i className="bi bi-arrow-left me-2" />

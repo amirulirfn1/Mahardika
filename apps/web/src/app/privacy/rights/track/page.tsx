@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { colors } from '@mahardika/ui';
+import { colors, BrandButton } from '@mahardika/ui';
 
 // Simple CSRF hook replacement
 function useSimpleCSRF() {
@@ -84,6 +84,12 @@ const REQUEST_TYPE_INFO = {
   export: { icon: '📦', label: 'Data Export' },
   delete: { icon: '🗑️', label: 'Data Deletion' },
   rectify: { icon: '✏️', label: 'Data Rectification' },
+};
+
+const priorityStyles = {
+  high: { bg: '#FEE2E2', color: '#DC2626' },
+  normal: { bg: '#DBEAFE', color: '#2563EB' },
+  low: { bg: '#F3F4F6', color: '#6B7280' },
 };
 
 export default function DSRTrackingPage() {
@@ -261,8 +267,9 @@ export default function DSRTrackingPage() {
                 </div>
               )}
 
-              <button
+              <BrandButton
                 type="submit"
+                variant="primary"
                 disabled={isLoading}
                 style={{
                   padding: '0.75rem 1.5rem',
@@ -276,8 +283,8 @@ export default function DSRTrackingPage() {
                   transition: 'background-color 0.2s',
                 }}
               >
-                {isLoading ? '🔄 Searching...' : '🔍 Track Request'}
-              </button>
+                {isLoading ? 'Tracking...' : 'Track Request'}
+              </BrandButton>
             </form>
           </div>
         )}
@@ -300,7 +307,8 @@ export default function DSRTrackingPage() {
               }}>
                 Request Details
               </h2>
-              <button
+              <BrandButton
+                variant="secondary"
                 onClick={() => {
                   setShowRequestForm(true);
                   setDsrRequest(null);
@@ -319,8 +327,8 @@ export default function DSRTrackingPage() {
                   cursor: 'pointer',
                 }}
               >
-                ← Track Another Request
-              </button>
+                Track Another Request
+              </BrandButton>
             </div>
 
             {/* Status Banner */}
@@ -431,8 +439,8 @@ export default function DSRTrackingPage() {
                 <span style={{
                   display: 'inline-block',
                   padding: '0.25rem 0.75rem',
-                  backgroundColor: dsrRequest.priority === 'high' ? '#FEE2E2' : dsrRequest.priority === 'normal' ? '#DBEAFE' : '#F3F4F6',
-                  color: dsrRequest.priority === 'high' ? '#DC2626' : dsrRequest.priority === 'normal' ? '#2563EB' : '#6B7280',
+                  backgroundColor: priorityStyles[dsrRequest.priority].bg,
+                  color: priorityStyles[dsrRequest.priority].color,
                   borderRadius: '0.375rem',
                   fontSize: '0.75rem',
                   fontWeight: '600',
@@ -503,9 +511,9 @@ export default function DSRTrackingPage() {
                   flexWrap: 'wrap',
                   gap: '0.5rem',
                 }}>
-                  {dsrRequest.data_types.map((type, index) => (
+                  {dsrRequest.data_types.map((type) => (
                     <span
-                      key={index}
+                      key={type}
                       style={{
                         padding: '0.375rem 0.75rem',
                         backgroundColor: `${colors.gold}20`,
@@ -613,7 +621,7 @@ export default function DSRTrackingPage() {
                 color: colors.navy,
                 marginBottom: '0.75rem',
               }}>
-                What's Next?
+                What&apos;s Next?
               </h4>
               <p style={{
                 fontSize: '0.875rem',

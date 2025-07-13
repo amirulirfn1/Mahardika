@@ -314,9 +314,9 @@ export default function CSRFTestComponent() {
         <div className="p-4 bg-gray-50 rounded-lg">
           <h3 className="text-lg font-semibold mb-3">Test Results</h3>
           <div className="space-y-3">
-            {testResults.map((result, index) => (
+            {testResults.map((result) => (
               <div
-                key={`test-result-${index}`}
+                key={result.test}
                 className="p-3 bg-white rounded border-l-4 border-l-gray-300"
               >
                 <div className="flex items-center justify-between mb-2">

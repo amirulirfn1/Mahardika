@@ -1,38 +1,34 @@
 'use client';
 
-import React from 'react';
-import { Card, CardProps } from './Card';
+import { ReactNode, HTMLAttributes } from 'react';
+import { colors } from './colors';
 
-export interface BrandCardProps extends Omit<CardProps, 'variant'> {
-  variant?: 'navy-primary' | 'gold-primary' | 'navy-outline' | 'gold-outline';
-}
+export type BrandCardProps = HTMLAttributes<HTMLDivElement> & {
+  children: ReactNode;
+  variant?: 'default' | 'navy' | 'gold';
+};
 
-export const BrandCard: React.FC<BrandCardProps> = ({
-  variant = 'navy-primary',
-  style,
-  ...props
-}) => {
-  // Additional brand-specific styles
-  const brandStyle = {
-    // Add any brand-specific overrides here if needed
-    ...style,
-  };
-
-  return <Card variant={variant} style={brandStyle} {...props} />;
+export const BrandCard = ({ children, variant = 'default', className = '', style, ...props }: BrandCardProps) => {
+  const brandStyle = variant === 'navy' ? { backgroundColor: colors.navy, color: 'white' } : variant === 'gold' ? { backgroundColor: colors.gold, color: colors.navy } : {};
+  return (
+    <div className={`card brand-card ${className}`} style={{ ...brandStyle, ...style }} {...props}>
+      {children}
+    </div>
+  );
 };
 
 // Template variations for common use cases
 export const BrandCardTemplates = {
   NavyHero: (props: Omit<BrandCardProps, 'variant'>) => (
-    <BrandCard variant="navy-primary" size="lg" {...props} />
+    <BrandCard variant="navy" {...props} />
   ),
   GoldFeature: (props: Omit<BrandCardProps, 'variant'>) => (
-    <BrandCard variant="gold-primary" size="lg" {...props} />
+    <BrandCard variant="gold" {...props} />
   ),
   NavyOutlineInfo: (props: Omit<BrandCardProps, 'variant'>) => (
-    <BrandCard variant="navy-outline" size="md" {...props} />
+    <BrandCard variant="navy" {...props} />
   ),
   GoldOutlineAccent: (props: Omit<BrandCardProps, 'variant'>) => (
-    <BrandCard variant="gold-outline" size="md" {...props} />
+    <BrandCard variant="gold" {...props} />
   ),
 };

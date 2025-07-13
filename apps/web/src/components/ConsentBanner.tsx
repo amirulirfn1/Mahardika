@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { colors } from '@mahardika/ui';
+import { colors, BrandButton } from '@mahardika/ui';
 
 // Simple consent types without complex hook
 type ConsentType = 'necessary' | 'functional' | 'analytics' | 'marketing';
@@ -113,20 +113,22 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
   // Keyboard navigation support
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!isVisible) return;
-
-      if (event.key === 'Escape') {
-        // Allow escape if user has already provided necessary consent
-        if (hasConsent('necessary')) {
-          setIsVisible(false);
+      if (isVisible) {
+        if (event.key === 'Escape') {
+          // Allow escape if user has already provided necessary consent
+          if (hasConsent('necessary')) {
+            setIsVisible(false);
+          }
         }
       }
     };
 
     if (focusTrapEnabled) {
       document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
     }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isVisible, focusTrapEnabled, hasConsent]);
 
   // Hide banner if not visible
@@ -300,6 +302,20 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
     transform: 'translateX(20px)',
   };
 
+  const toggleButtonStyles: React.CSSProperties = {
+    ...buttonStyles,
+    padding: '0.5rem 1rem',
+    fontSize: '0.75rem',
+    borderRadius: '0.375rem',
+    border: '1px solid',
+    borderColor: textColor,
+    color: textColor,
+    backgroundColor: 'transparent',
+    cursor: isLoading ? 'not-allowed' : 'pointer',
+    transition: 'all 0.2s ease-in-out',
+    opacity: isLoading ? 0.6 : 1,
+  };
+
   return (
     <div style={bannerStyles} role="dialog" aria-labelledby="consent-banner-title" aria-describedby="consent-banner-description">
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -358,30 +374,31 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
             </div>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', minWidth: '200px' }}>
-              <button
+              <BrandButton
+                variant="navy"
                 onClick={handleAcceptAll}
                 disabled={isLoading}
                 style={primaryButtonStyles}
-                aria-label="Accept all cookies and close banner"
               >
-                {isLoading ? 'Processing...' : 'Accept All'}
-              </button>
-              <button
+                Accept All
+              </BrandButton>
+
+              <BrandButton
+                variant="gold"
                 onClick={handleAcceptNecessary}
                 disabled={isLoading}
                 style={secondaryButtonStyles}
-                aria-label="Accept only necessary cookies and close banner"
               >
-                Necessary Only
-              </button>
-              <button
+                Accept Necessary
+              </BrandButton>
+
+              <BrandButton
+                variant="outline-navy"
                 onClick={() => setShowDetails(!showDetails)}
                 style={outlineButtonStyles}
-                aria-label={showDetails ? 'Hide detailed cookie options' : 'Show detailed cookie options'}
-                aria-expanded={showDetails}
               >
-                {showDetails ? 'Hide Details' : 'Customize'}
-              </button>
+                {showDetails ? 'Hide' : 'Manage Preferences'}
+              </BrandButton>
             </div>
           </div>
 
@@ -462,16 +479,14 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
                       </p>
                     </div>
                     
-                    <button
-                      onClick={() => !isNecessary && handleConsentToggle(type, !isGranted)}
-                      disabled={isNecessary || isLoading}
-                      style={isGranted ? switchActiveStyles : switchStyles}
-                      aria-label={`${isGranted ? 'Disable' : 'Enable'} ${consent.title}`}
-                      aria-checked={isGranted}
-                      role="switch"
+                    <BrandButton
+                      variant="outline-gold"
+                      onClick={() => handleConsentToggle(type, !hasConsent(type))}
+                      disabled={type === 'necessary'}
+                      style={toggleButtonStyles}
                     >
-                      <div style={isGranted ? switchThumbActiveStyles : switchThumbStyles} />
-                    </button>
+                      {hasConsent(type) ? 'Disable' : 'Enable'}
+                    </BrandButton>
                   </div>
                 );
               })}

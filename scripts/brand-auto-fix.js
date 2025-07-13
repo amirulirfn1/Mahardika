@@ -68,6 +68,7 @@ function ensureImport(content, _import, identifier) {
 }
 
 function processFile(file) {
+  if (fs.lstatSync(file).isDirectory()) return;
   const original = fs.readFileSync(file, 'utf8');
   let updated = original;
 

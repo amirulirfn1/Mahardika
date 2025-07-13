@@ -1,35 +1,30 @@
 'use client';
 
 import React from 'react';
-import { Button, ButtonProps } from './Button';
+import { colors } from './colors';
 
-export interface BrandButtonProps extends Omit<ButtonProps, 'variant'> {
-  variant?: 'navy' | 'gold' | 'navy-outline' | 'gold-outline';
-}
+export type BrandButtonProps = {
+  variant?: 'navy' | string;
+  as?: 'button' | 'a';
+  href?: string;
+  size?: 'sm' | 'md' | 'lg';
+  fullWidth?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
+  disabled?: boolean;
+};
 
-export const BrandButton: React.FC<BrandButtonProps> = ({
-  variant = 'navy',
-  style,
-  ...props
-}) => {
-  // Map brand variants to Button variants
-  const mappedVariant =
-    variant === 'navy'
-      ? 'navy'
-      : variant === 'gold'
-        ? 'gold'
-        : variant === 'navy-outline'
-          ? 'outline-navy'
-          : variant === 'gold-outline'
-            ? 'outline-gold'
-            : 'navy';
-
-  // Additional brand-specific styles for backward compatibility
-  const brandStyle = {
-    ...style,
-  };
-
-  return <Button variant={mappedVariant} style={brandStyle} {...props} />;
+export const BrandButton = ({ variant = 'navy', as = 'button', size = 'md', fullWidth = false, style, className = '', ...props }: BrandButtonProps) => {
+  const mappedVariant = variant === 'navy' ? 'primary' : variant; // adjust as needed
+  const brandStyle = { backgroundColor: colors.navy, color: 'white', ...style }; // adjust
+  let classes = `btn btn-${mappedVariant} btn-${size} ${className}`;
+  if (fullWidth) classes += ' w-100';
+  const Component = as;
+  return (
+    <Component className={classes} style={brandStyle} {...props} />
+  );
 };
 
 // Template variations for common use cases

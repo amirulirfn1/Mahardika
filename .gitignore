@@ -160,3 +160,9 @@ temp/
 # OS generated files
 Thumbs.db 
 .vercel
+
+# Turbo cache and build artifacts
+.turbo/
+**/.turbo/
+tsconfig.tsbuildinfo
+**/tsconfig.tsbuildinfo

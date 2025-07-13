@@ -3,7 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import { Button } from '../Button';
 
-
 describe('Button Component', () => {
   it('renders with default props', () => {
     render(<Button>Click me</Button>);

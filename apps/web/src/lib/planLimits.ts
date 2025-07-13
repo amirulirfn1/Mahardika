@@ -4,4 +4,4 @@ export const PLAN_LIMITS = {
   scale: { staff: Infinity, quotes: true },
 } as const;
 
-export type PlanType = keyof typeof PLAN_LIMITS; 
+export type PlanType = keyof typeof PLAN_LIMITS;

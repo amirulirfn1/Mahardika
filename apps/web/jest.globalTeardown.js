@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Jest Global Teardown - Mahardika Platform
  * Global test environment cleanup

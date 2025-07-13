@@ -16,7 +16,11 @@ async function handleGrantConsent(request: NextRequest) {
     }
 
     // Validate consent type
-    if (!['marketing', 'analytics', 'functional', 'necessary'].includes(consent_type)) {
+    if (
+      !['marketing', 'analytics', 'functional', 'necessary'].includes(
+        consent_type
+      )
+    ) {
       return NextResponse.json(
         { error: 'Invalid consent_type' },
         { status: 400 }
@@ -24,8 +28,9 @@ async function handleGrantConsent(request: NextRequest) {
     }
 
     // Get current user
-    const { data: userData, error: authError } = await supabaseClient.auth.getUser();
-    
+    const { data: userData, error: authError } =
+      await supabaseClient.auth.getUser();
+
     if (authError || !userData.user) {
       return NextResponse.json(
         { error: 'User not authenticated' },
@@ -36,18 +41,22 @@ async function handleGrantConsent(request: NextRequest) {
     // Add request metadata
     const enrichedMetadata = {
       ...metadata,
-      ip_address: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip'),
+      ip_address:
+        request.headers.get('x-forwarded-for') ||
+        request.headers.get('x-real-ip'),
       request_id: crypto.randomUUID(),
     };
 
     // Grant consent using the database function
-    const { data, error: grantError } = await supabaseClient
-      .rpc('grant_user_consent', {
+    const { data, error: grantError } = await supabaseClient.rpc(
+      'grant_user_consent',
+      {
         p_consent_type: consent_type,
         p_version: version,
         p_metadata: enrichedMetadata,
         p_expires_at: expires_at,
-      });
+      }
+    );
 
     if (grantError) {
       console.error('Database error:', grantError);
@@ -62,7 +71,6 @@ async function handleGrantConsent(request: NextRequest) {
       consent_id: data,
       message: `${consent_type} consent granted successfully`,
     });
-
   } catch (error) {
     console.error('Grant consent error:', error);
     return NextResponse.json(
@@ -72,4 +80,4 @@ async function handleGrantConsent(request: NextRequest) {
   }
 }
 
-export const POST = csrfProtection(handleGrantConsent); 
+export const POST = csrfProtection(handleGrantConsent);

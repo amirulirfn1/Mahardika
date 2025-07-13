@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 import { theme } from '../theme';
 
 describe('Mahardika Theme System', () => {

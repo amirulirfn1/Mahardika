@@ -39,7 +39,10 @@ type PolicyFormProps = {
   defaultValues?: Record<string, any>;
 };
 
-export default function PolicyForm({ onSubmit, defaultValues = {} }: PolicyFormProps) {
+export default function PolicyForm({
+  onSubmit,
+  defaultValues = {},
+}: PolicyFormProps) {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -66,12 +69,16 @@ export default function PolicyForm({ onSubmit, defaultValues = {} }: PolicyFormP
     <>
       {/* vehicle select */}
       <div className="mb-3">
-        <label className="form-label" style={{ fontWeight: 600 }}>Vehicle</label>
+        <label className="form-label" style={{ fontWeight: 600 }}>
+          Vehicle
+        </label>
         <div className="d-flex align-items-center gap-2">
           <select
             className="form-select"
             value={formData.vehicle_id}
-            onChange={e => setFormData({ ...formData, vehicle_id: e.target.value })}
+            onChange={e =>
+              setFormData({ ...formData, vehicle_id: e.target.value })
+            }
           >
             <option value="">— Select Vehicle —</option>
             {vehicles.map(v => (
@@ -91,10 +98,7 @@ export default function PolicyForm({ onSubmit, defaultValues = {} }: PolicyFormP
 
       {/* other policy fields can be inserted here */}
 
-      <BrandButton
-        variant="navy"
-        onClick={() => onSubmit(formData)}
-      >
+      <BrandButton variant="navy" onClick={() => onSubmit(formData)}>
         Save Policy
       </BrandButton>
 
@@ -145,16 +149,28 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
     try {
       const parsed = addVehicleSchema.parse(data);
       setSaving(true);
-      const res = await fetch('/api/vehicles', addToFetchOptions({
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...parsed, year: parsed.year ? Number(parsed.year) : undefined }),
-      }));
+      const res = await fetch(
+        '/api/vehicles',
+        addToFetchOptions({
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...parsed,
+            year: parsed.year ? Number(parsed.year) : undefined,
+          }),
+        })
+      );
       if (!res.ok) {
         const j = await res.json();
         // Handle CSRF-specific errors
-        if (j.code === 'CSRF_TOKEN_MISSING' || j.code === 'CSRF_TOKEN_INVALID' || j.code === 'CSRF_TOKEN_MISMATCH') {
-          throw new Error('Security verification failed. Please refresh the page and try again.');
+        if (
+          j.code === 'CSRF_TOKEN_MISSING' ||
+          j.code === 'CSRF_TOKEN_INVALID' ||
+          j.code === 'CSRF_TOKEN_MISMATCH'
+        ) {
+          throw new Error(
+            'Security verification failed. Please refresh the page and try again.'
+          );
         }
         throw new Error(j.error || 'Failed');
       }
@@ -171,50 +187,89 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
   const isSaveDisabled = saving || csrfLoading;
 
   return (
-    <div className="modal d-block" tabIndex={-1} style={{ background: '#00000080' }}>
+    <div
+      className="modal d-block"
+      tabIndex={-1}
+      style={{ background: '#00000080' }}
+    >
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header" style={{ backgroundColor: colors.navy, color: 'white' }}>
+          <div
+            className="modal-header"
+            style={{ backgroundColor: colors.navy, color: 'white' }}
+          >
             <h5 className="modal-title">Add Vehicle</h5>
             <button type="button" className="btn-close" onClick={onClose} />
           </div>
           <div className="modal-body">
             {error && <div className="alert alert-danger">{error}</div>}
-            {csrfLoading && <div className="alert alert-info">Initializing security verification...</div>}
+            {csrfLoading && (
+              <div className="alert alert-info">
+                Initializing security verification...
+              </div>
+            )}
             <div className="mb-2">
               <label className="form-label">Plate No *</label>
-              <input className="form-control" value={data.plate_no} onChange={e => setData({ ...data, plate_no: e.target.value })} />
+              <input
+                className="form-control"
+                value={data.plate_no}
+                onChange={e => setData({ ...data, plate_no: e.target.value })}
+              />
             </div>
             <div className="mb-2">
               <label className="form-label">Brand</label>
-              <input className="form-control" value={data.brand} onChange={e => setData({ ...data, brand: e.target.value })} />
+              <input
+                className="form-control"
+                value={data.brand}
+                onChange={e => setData({ ...data, brand: e.target.value })}
+              />
             </div>
             <div className="mb-2">
               <label className="form-label">Model</label>
-              <input className="form-control" value={data.model} onChange={e => setData({ ...data, model: e.target.value })} />
+              <input
+                className="form-control"
+                value={data.model}
+                onChange={e => setData({ ...data, model: e.target.value })}
+              />
             </div>
             <div className="mb-2">
               <label className="form-label">Year</label>
-              <input className="form-control" type="number" value={data.year} onChange={e => setData({ ...data, year: e.target.value })} />
+              <input
+                className="form-control"
+                type="number"
+                value={data.year}
+                onChange={e => setData({ ...data, year: e.target.value })}
+              />
             </div>
             <div className="mb-2">
               <label className="form-label">Color</label>
-              <input className="form-control" value={data.color} onChange={e => setData({ ...data, color: e.target.value })} />
+              <input
+                className="form-control"
+                value={data.color}
+                onChange={e => setData({ ...data, color: e.target.value })}
+              />
             </div>
             <div className="mb-2">
               <label className="form-label">Customer ID *</label>
-              <input className="form-control" value={data.customer_id} onChange={e => setData({ ...data, customer_id: e.target.value })} />
+              <input
+                className="form-control"
+                value={data.customer_id}
+                onChange={e =>
+                  setData({ ...data, customer_id: e.target.value })
+                }
+              />
             </div>
             <div className="mb-2">
               <label className="form-label">Agency ID *</label>
-              <input className="form-control" value={data.agency_id} onChange={e => setData({ ...data, agency_id: e.target.value })} />
+              <input
+                className="form-control"
+                value={data.agency_id}
+                onChange={e => setData({ ...data, agency_id: e.target.value })}
+              />
             </div>
           </div>
           <div className="modal-footer">
-            <BrandButton
-              variant="default"
-              onClick={onClose}
-            >
+            <BrandButton variant="default" onClick={onClose}>
               Cancel
             </BrandButton>
             <BrandButton
@@ -229,4 +284,4 @@ function AddVehicleModal({ onClose, onSuccess }: AddVehicleModalProps) {
       </div>
     </div>
   );
-} 
+}

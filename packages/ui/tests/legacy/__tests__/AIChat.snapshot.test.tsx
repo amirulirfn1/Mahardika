@@ -8,4 +8,4 @@ describe('AIChat Snapshot', () => {
     const { asFragment } = render(<AIChat />);
     expect(asFragment()).toMatchSnapshot();
   });
-}); 
+});

@@ -1,10 +1,9 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Forgot Password Page - Mahardika Platform
  * Demonstration page for the ForgotPasswordForm component
  * Brand Colors: Navy colors.navy, Gold colors.gold
  */
-
 
 import React from 'react';
 import { ForgotPasswordExample } from '@/components/auth/ForgotPasswordForm';

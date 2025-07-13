@@ -365,4 +365,4 @@ export async function checkRateLimit(
     allowed: true,
     result,
   };
-} 
+}

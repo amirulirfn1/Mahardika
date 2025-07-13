@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { withRateLimit, uploadRateLimit } from '@mah/core/security/rateLimit';
@@ -116,7 +116,6 @@ async function getUserAgencyId(
 
     return userData.agency_id;
   } catch (error) {
-    
     return null;
   }
 }
@@ -185,13 +184,11 @@ async function getSignedFileUrl(
       .createSignedUrl(fileName, 3600); // 1 hour expiry
 
     if (error) {
-      
       return null;
     }
 
     return data.signedUrl;
   } catch (error) {
-    
     return null;
   }
 }
@@ -323,8 +320,6 @@ async function handleUpload(request: NextRequest): Promise<NextResponse> {
       supabase
     );
 
-    
-
     return NextResponse.json(
       {
         success: true,
@@ -346,8 +341,6 @@ async function handleUpload(request: NextRequest): Promise<NextResponse> {
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : 'Upload processing failed';
-
-    
 
     return NextResponse.json(
       {

@@ -9,17 +9,57 @@
 // ENUMS
 // =============================================================================
 
-export type UserRole = 'admin' | 'agency_owner' | 'agent' | 'customer' | 'support';
+export type UserRole =
+  | 'admin'
+  | 'agency_owner'
+  | 'agent'
+  | 'customer'
+  | 'support';
 export type AgencyStatus = 'active' | 'inactive' | 'pending' | 'suspended';
 export type CustomerStatus = 'active' | 'inactive' | 'suspended';
-export type OrderStatus = 'PENDING' | 'PROCESSING' | 'CLEARED' | 'CANCELLED' | 'REFUNDED';
-export type PaymentStatus = 'pending' | 'processing' | 'completed' | 'failed' | 'refunded' | 'cancelled';
+export type OrderStatus =
+  | 'PENDING'
+  | 'PROCESSING'
+  | 'CLEARED'
+  | 'CANCELLED'
+  | 'REFUNDED';
+export type PaymentStatus =
+  | 'pending'
+  | 'processing'
+  | 'completed'
+  | 'failed'
+  | 'refunded'
+  | 'cancelled';
 export type ReviewStatus = 'pending' | 'approved' | 'rejected';
-export type InsuranceType = 'auto' | 'home' | 'life' | 'health' | 'business' | 'travel' | 'marine' | 'cyber';
-export type PolicyStatus = 'active' | 'expired' | 'cancelled' | 'pending' | 'suspended';
-export type ClaimStatus = 'submitted' | 'under_review' | 'approved' | 'denied' | 'paid' | 'closed';
+export type InsuranceType =
+  | 'auto'
+  | 'home'
+  | 'life'
+  | 'health'
+  | 'business'
+  | 'travel'
+  | 'marine'
+  | 'cyber';
+export type PolicyStatus =
+  | 'active'
+  | 'expired'
+  | 'cancelled'
+  | 'pending'
+  | 'suspended';
+export type ClaimStatus =
+  | 'submitted'
+  | 'under_review'
+  | 'approved'
+  | 'denied'
+  | 'paid'
+  | 'closed';
 export type DSRType = 'export' | 'delete' | 'rectify';
-export type DSRStatus = 'pending' | 'in_progress' | 'completed' | 'rejected' | 'cancelled';
+export type DSRStatus =
+  | 'pending'
+  | 'in_progress'
+  | 'completed'
+  | 'rejected'
+  | 'cancelled';
 export type DSRPriority = 'low' | 'normal' | 'high' | 'urgent';
 
 // =============================================================================
@@ -492,4 +532,4 @@ export interface ClaimWithPolicy extends Claim {
 export interface ReviewWithCustomer extends Review {
   customer?: Customer;
   agency?: Agency;
-} 
+}

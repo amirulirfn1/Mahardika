@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Line } from 'react-chartjs-2';
@@ -13,7 +13,14 @@ import {
 } from 'chart.js';
 import CustomerLoyaltyCard from '@/components/CustomerLoyaltyCard';
 
-ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend);
+ChartJS.register(
+  LineElement,
+  PointElement,
+  LinearScale,
+  CategoryScale,
+  Tooltip,
+  Legend
+);
 
 interface PointsHistoryItem {
   date: string;
@@ -60,11 +67,11 @@ const LoyaltyPage = () => {
   if (!customer) return <div>Customer not found</div>;
 
   const data = {
-    labels: history.map((h) => h.date),
+    labels: history.map(h => h.date),
     datasets: [
       {
         label: 'Points',
-        data: history.map((h) => h.points),
+        data: history.map(h => h.points),
         borderColor: '#007bff',
         backgroundColor: 'rgba(0,123,255,0.3)',
         fill: true,
@@ -76,7 +83,10 @@ const LoyaltyPage = () => {
     <div className="container py-4">
       <h2 className="mb-3">{customer.name} Loyalty</h2>
 
-      <CustomerLoyaltyCard tier={customer.tier} points={customer.loyalty_points} />
+      <CustomerLoyaltyCard
+        tier={customer.tier}
+        points={customer.loyalty_points}
+      />
 
       <div className="mt-4">
         <Line data={data} />
@@ -85,4 +95,4 @@ const LoyaltyPage = () => {
   );
 };
 
-export default LoyaltyPage; 
+export default LoyaltyPage;

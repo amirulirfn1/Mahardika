@@ -7,10 +7,8 @@ import { colors, BrandButton } from '@mahardika/ui';
  * Brand Colors: Navy colors.navy (Primary), Gold colors.gold (Accent)
  */
 
-
 import React, { useState } from 'react';
 import { MAHARDIKA_COLORS } from '@/lib/env';
-
 
 interface ForgotPasswordFormProps {
   onSubmit?: (email: string) => Promise<void>;
@@ -128,13 +126,10 @@ export default function ForgotPasswordForm({
               We&apos;ve sent a password reset link to <strong>{email}</strong>
             </p>
             <p className="small text-muted mb-4">
-              Didn&apos;t receive the email? Check your spam folder or try again.
+              Didn&apos;t receive the email? Check your spam folder or try
+              again.
             </p>
-            <BrandButton 
-              variant="navy"
-              fullWidth
-              onClick={onBackToLogin}
-            >
+            <BrandButton variant="navy" fullWidth onClick={onBackToLogin}>
               <i className="bi bi-arrow-left me-2" />
               Back to Login
             </BrandButton>
@@ -273,8 +268,8 @@ export default function ForgotPasswordForm({
         {/* Form Body */}
         <div className="card-body p-4">
           <p className="form-description text-center mb-4">
-            Enter your email address and we&apos;ll send you a link to reset your
-            password.
+            Enter your email address and we&apos;ll send you a link to reset
+            your password.
           </p>
 
           <form onSubmit={handleSubmit} noValidate>

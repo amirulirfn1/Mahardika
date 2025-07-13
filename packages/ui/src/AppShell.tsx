@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface AppShellProps {
   children: ReactNode;
@@ -21,4 +21,4 @@ export const AppShell = ({ children }: AppShellProps) => (
       © {new Date().getFullYear()} Mahardika. All rights reserved.
     </footer>
   </div>
-); 
+);

@@ -88,7 +88,11 @@ describe('BrandButton', () => {
 
     it('does not trigger click events when disabled', () => {
       const handleClick = jest.fn();
-      render(<BrandButton disabled onClick={handleClick}>Disabled Button</BrandButton>);
+      render(
+        <BrandButton disabled onClick={handleClick}>
+          Disabled Button
+        </BrandButton>
+      );
       const button = screen.getByRole('button');
       fireEvent.click(button);
       expect(handleClick).not.toHaveBeenCalled();
@@ -148,22 +152,38 @@ describe('BrandButton', () => {
   // Template tests
   describe('BrandButtonTemplates', () => {
     it('renders NavyPrimary template correctly', () => {
-      render(<BrandButtonTemplates.NavyPrimary>Navy Primary</BrandButtonTemplates.NavyPrimary>);
+      render(
+        <BrandButtonTemplates.NavyPrimary>
+          Navy Primary
+        </BrandButtonTemplates.NavyPrimary>
+      );
       expect(screen.getByText('Navy Primary')).toBeInTheDocument();
     });
 
     it('renders GoldSecondary template correctly', () => {
-      render(<BrandButtonTemplates.GoldSecondary>Gold Secondary</BrandButtonTemplates.GoldSecondary>);
+      render(
+        <BrandButtonTemplates.GoldSecondary>
+          Gold Secondary
+        </BrandButtonTemplates.GoldSecondary>
+      );
       expect(screen.getByText('Gold Secondary')).toBeInTheDocument();
     });
 
     it('renders NavyOutline template correctly', () => {
-      render(<BrandButtonTemplates.NavyOutline>Navy Outline</BrandButtonTemplates.NavyOutline>);
+      render(
+        <BrandButtonTemplates.NavyOutline>
+          Navy Outline
+        </BrandButtonTemplates.NavyOutline>
+      );
       expect(screen.getByText('Navy Outline')).toBeInTheDocument();
     });
 
     it('renders GoldOutline template correctly', () => {
-      render(<BrandButtonTemplates.GoldOutline>Gold Outline</BrandButtonTemplates.GoldOutline>);
+      render(
+        <BrandButtonTemplates.GoldOutline>
+          Gold Outline
+        </BrandButtonTemplates.GoldOutline>
+      );
       expect(screen.getByText('Gold Outline')).toBeInTheDocument();
     });
   });

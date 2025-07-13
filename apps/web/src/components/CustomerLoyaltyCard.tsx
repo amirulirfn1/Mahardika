@@ -1,7 +1,10 @@
 import React from 'react';
 import TierBadge from './TierBadge';
 
-const CustomerLoyaltyCard: React.FC<{ tier: 'bronze' | 'silver' | 'gold' | 'platinum'; points: number }> = ({ tier, points }) => (
+const CustomerLoyaltyCard: React.FC<{
+  tier: 'bronze' | 'silver' | 'gold' | 'platinum';
+  points: number;
+}> = ({ tier, points }) => (
   <div className="card shadow-sm">
     <div className="card-body d-flex align-items-center justify-content-between">
       <div>
@@ -13,4 +16,4 @@ const CustomerLoyaltyCard: React.FC<{ tier: 'bronze' | 'silver' | 'gold' | 'plat
   </div>
 );
 
-export default CustomerLoyaltyCard; 
+export default CustomerLoyaltyCard;

@@ -18,8 +18,12 @@ export interface WhatsAppResponse {
  * @param to E164 formatted phone number, e.g. 60123456789
  * @param body Text body within 4096 chars
  */
-export async function sendText(to: string, body: string): Promise<WhatsAppResponse> {
-  if (!WA_TOKEN || !WA_NUMBER) return { success: false, error: 'WA creds missing' };
+export async function sendText(
+  to: string,
+  body: string
+): Promise<WhatsAppResponse> {
+  if (!WA_TOKEN || !WA_NUMBER)
+    return { success: false, error: 'WA creds missing' };
 
   try {
     const res = await axios.post(
@@ -40,15 +44,25 @@ export async function sendText(to: string, body: string): Promise<WhatsAppRespon
     );
     return { success: true, data: res.data, status: res.status };
   } catch (err: any) {
-    return { success: false, error: err?.response?.data?.error?.message || err.message, status: err?.response?.status };
+    return {
+      success: false,
+      error: err?.response?.data?.error?.message || err.message,
+      status: err?.response?.status,
+    };
   }
 }
 
 /**
  * Send WhatsApp message from a template previously approved.
  */
-export async function sendTemplate(to: string, templateName: string, lang: string = 'en_US', components?: unknown[]): Promise<WhatsAppResponse> {
-  if (!WA_TOKEN || !WA_NUMBER) return { success: false, error: 'WA creds missing' };
+export async function sendTemplate(
+  to: string,
+  templateName: string,
+  lang: string = 'en_US',
+  components?: unknown[]
+): Promise<WhatsAppResponse> {
+  if (!WA_TOKEN || !WA_NUMBER)
+    return { success: false, error: 'WA creds missing' };
 
   try {
     const res = await axios.post(
@@ -72,6 +86,10 @@ export async function sendTemplate(to: string, templateName: string, lang: strin
     );
     return { success: true, data: res.data, status: res.status };
   } catch (err: any) {
-    return { success: false, error: err?.response?.data?.error?.message || err.message, status: err?.response?.status };
+    return {
+      success: false,
+      error: err?.response?.data?.error?.message || err.message,
+      status: err?.response?.status,
+    };
   }
-} 
+}

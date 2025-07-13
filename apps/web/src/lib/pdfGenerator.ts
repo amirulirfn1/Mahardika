@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 import PDFDocument from 'pdfkit';
 import { Readable } from 'stream';
 

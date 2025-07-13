@@ -73,7 +73,7 @@ module.exports = {
       extends: [
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
-        'next/core-web-vitals'  // If needed, adjust for web
+        'next/core-web-vitals', // If needed, adjust for web
       ],
       plugins: ['react', 'react-hooks'],
       settings: {

@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * File Mock for Jest - Mahardika Platform
  * Handles static assets in tests

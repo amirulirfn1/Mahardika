@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Reset Password Page - Mahardika Platform
  * Handles password reset after email verification

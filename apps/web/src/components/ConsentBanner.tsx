@@ -42,7 +42,9 @@ const CONSENT_DESCRIPTIONS = {
 
 // Simple consent management without the complex hook
 function useSimpleConsent() {
-  const [consentState, setConsentState] = useState<Record<ConsentType, boolean>>({
+  const [consentState, setConsentState] = useState<
+    Record<ConsentType, boolean>
+  >({
     necessary: false,
     functional: false,
     analytics: false,
@@ -97,14 +99,9 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [focusTrapEnabled, setFocusTrapEnabled] = useState(false);
-  
-  const {
-    consentState,
-    loading,
-    grantConsent,
-    isConsentRequired,
-    hasConsent,
-  } = useSimpleConsent();
+
+  const { consentState, loading, grantConsent, isConsentRequired, hasConsent } =
+    useSimpleConsent();
 
   // Show banner if consent is required and not loading
   useEffect(() => {
@@ -154,7 +151,7 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
         grantConsent('analytics'),
         grantConsent('marketing'),
       ]);
-      
+
       const failures = results.filter(result => result.status === 'rejected');
       if (failures.length === 0) {
         setIsAnimating(false);
@@ -199,7 +196,10 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
         localStorage.setItem('user-consent', JSON.stringify(newState));
       }
     } catch (error) {
-      console.error(`Error ${granted ? 'granting' : 'withdrawing'} ${type} consent:`, error);
+      console.error(
+        `Error ${granted ? 'granting' : 'withdrawing'} ${type} consent:`,
+        error
+      );
     } finally {
       setIsLoading(false);
     }
@@ -267,9 +267,11 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
           background: ${backgroundColor};
           backdrop-filter: blur(20px);
           border-${position === 'bottom' ? 'top' : 'bottom'}: 2px solid ${borderColor};
-          box-shadow: ${position === 'bottom' 
-            ? '0 -8px 32px rgba(13, 27, 42, 0.15), 0 -2px 8px rgba(13, 27, 42, 0.1)' 
-            : '0 8px 32px rgba(13, 27, 42, 0.15), 0 2px 8px rgba(13, 27, 42, 0.1)'};
+          box-shadow: ${
+            position === 'bottom'
+              ? '0 -8px 32px rgba(13, 27, 42, 0.15), 0 -2px 8px rgba(13, 27, 42, 0.1)'
+              : '0 8px 32px rgba(13, 27, 42, 0.15), 0 2px 8px rgba(13, 27, 42, 0.1)'
+          };
           z-index: 1000;
           font-family: 'Inter', system-ui, -apple-system, sans-serif;
           max-height: 90vh;
@@ -540,26 +542,39 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
           }
         }
       `}</style>
-      
-      <div className="consent-banner" role="dialog" aria-labelledby="consent-banner-title" aria-describedby="consent-banner-description">
+
+      <div
+        className="consent-banner"
+        role="dialog"
+        aria-labelledby="consent-banner-title"
+        aria-describedby="consent-banner-description"
+      >
         <div className="consent-content">
           <div className="consent-header">
             <div className="consent-text">
               <h2 id="consent-banner-title" className="consent-title">
                 🍪 Cookie Preferences
               </h2>
-              <p id="consent-banner-description" className="consent-description">
-                We use cookies to enhance your experience, analyze site usage, and deliver personalized content. 
-                Choose your preferences below or accept all to continue with optimal experience.
+              <p
+                id="consent-banner-description"
+                className="consent-description"
+              >
+                We use cookies to enhance your experience, analyze site usage,
+                and deliver personalized content. Choose your preferences below
+                or accept all to continue with optimal experience.
               </p>
               <div className="consent-links">
                 By continuing, you agree to our{' '}
-                <a href="/privacy" className="consent-link">Privacy Policy</a>{' '}
+                <a href="/privacy" className="consent-link">
+                  Privacy Policy
+                </a>{' '}
                 and{' '}
-                <a href="/terms" className="consent-link">Terms of Service</a>
+                <a href="/terms" className="consent-link">
+                  Terms of Service
+                </a>
               </div>
             </div>
-            
+
             <div className="consent-actions">
               <button
                 className="consent-button primary"
@@ -592,58 +607,61 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
           {showDetails && (
             <div className="consent-details">
               <h3>Cookie Preferences</h3>
-              
-              {(Object.keys(CONSENT_DESCRIPTIONS) as ConsentType[]).map((type) => {
-                const consent = CONSENT_DESCRIPTIONS[type];
-                const isGranted = hasConsent(type);
-                const isNecessary = type === 'necessary';
-                
-                return (
-                  <div key={type} className="consent-option">
-                    <div className="consent-option-icon">
-                      {consent.icon}
-                    </div>
-                    <div className="consent-option-content">
-                      <div className="consent-option-title">
-                        {consent.title}
-                        {isNecessary && (
-                          <span style={{ 
-                            fontSize: '0.625rem',
-                            color: colors.gold,
-                            fontWeight: 'normal',
-                            background: `${colors.gold}20`,
-                            padding: '0.125rem 0.5rem',
-                            borderRadius: '0.25rem',
-                          }}>
-                            Required
-                          </span>
-                        )}
+
+              {(Object.keys(CONSENT_DESCRIPTIONS) as ConsentType[]).map(
+                type => {
+                  const consent = CONSENT_DESCRIPTIONS[type];
+                  const isGranted = hasConsent(type);
+                  const isNecessary = type === 'necessary';
+
+                  return (
+                    <div key={type} className="consent-option">
+                      <div className="consent-option-icon">{consent.icon}</div>
+                      <div className="consent-option-content">
+                        <div className="consent-option-title">
+                          {consent.title}
+                          {isNecessary && (
+                            <span
+                              style={{
+                                fontSize: '0.625rem',
+                                color: colors.gold,
+                                fontWeight: 'normal',
+                                background: `${colors.gold}20`,
+                                padding: '0.125rem 0.5rem',
+                                borderRadius: '0.25rem',
+                              }}
+                            >
+                              Required
+                            </span>
+                          )}
+                        </div>
+                        <p className="consent-option-description">
+                          {consent.description}
+                        </p>
+                        <p className="consent-option-examples">
+                          Examples: {consent.examples}
+                        </p>
                       </div>
-                      <p className="consent-option-description">
-                        {consent.description}
-                      </p>
-                      <p className="consent-option-examples">
-                        Examples: {consent.examples}
-                      </p>
+
+                      <button
+                        className="consent-toggle"
+                        onClick={() => handleConsentToggle(type, !isGranted)}
+                        disabled={isNecessary || isLoading}
+                        style={{
+                          background: isGranted ? colors.gold : 'transparent',
+                          color: isGranted ? colors.navy : colors.gold,
+                        }}
+                      >
+                        {isGranted ? 'Enabled' : 'Disabled'}
+                      </button>
                     </div>
-                    
-                    <button
-                      className="consent-toggle"
-                      onClick={() => handleConsentToggle(type, !isGranted)}
-                      disabled={isNecessary || isLoading}
-                      style={{
-                        background: isGranted ? colors.gold : 'transparent',
-                        color: isGranted ? colors.navy : colors.gold,
-                      }}
-                    >
-                      {isGranted ? 'Enabled' : 'Disabled'}
-                    </button>
-                  </div>
-                );
-              })}
-              
+                  );
+                }
+              )}
+
               <div className="consent-footer">
-                💡 You can change these preferences anytime in your account settings or by clearing your browser cookies.
+                💡 You can change these preferences anytime in your account
+                settings or by clearing your browser cookies.
               </div>
             </div>
           )}
@@ -651,4 +669,4 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
       </div>
     </>
   );
-}; 
+};

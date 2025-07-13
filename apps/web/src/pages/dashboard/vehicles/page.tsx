@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { BrandButton, colors } from '@mahardika/ui';
 import {
@@ -31,7 +29,9 @@ export default function VehiclesDashboardPage() {
   const fetchVehicles = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/vehicles${search ? `?plate=${encodeURIComponent(search)}` : ''}`);
+      const res = await fetch(
+        `/api/vehicles${search ? `?plate=${encodeURIComponent(search)}` : ''}`
+      );
       const data = await res.json();
       const parsed = z.array(vehicleSchema).parse(data);
       setVehicles(parsed);
@@ -94,7 +94,12 @@ export default function VehiclesDashboardPage() {
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map(header => (
                     <th key={header.id} style={{ whiteSpace: 'nowrap' }}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </th>
                   ))}
                 </tr>
@@ -104,10 +109,18 @@ export default function VehiclesDashboardPage() {
               {table.getRowModel().rows.map(row => (
                 <tr key={row.id}>
                   {row.getVisibleCells().map(cell => (
-                    <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                    <td key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
                   ))}
                   <td>
-                    <a href={`/dashboard/vehicles/${row.original.id}/edit`} className="btn btn-sm btn-link">
+                    <a
+                      href={`/dashboard/vehicles/${row.original.id}/edit`}
+                      className="btn btn-sm btn-link"
+                    >
                       Edit
                     </a>
                   </td>
@@ -126,4 +139,4 @@ export default function VehiclesDashboardPage() {
       )}
     </div>
   );
-} 
+}

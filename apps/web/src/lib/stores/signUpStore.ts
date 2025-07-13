@@ -10,4 +10,4 @@ interface SignUpState {
 export const useSignUpStore = create<SignUpState>(set => ({
   step: 1,
   setStep: step => set({ step }),
-})); 
+}));

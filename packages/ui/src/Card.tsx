@@ -43,7 +43,7 @@ export const Card: React.FC<CardProps> = ({
   // Hover styles based on variant
   const getHoverStyles = () => {
     if (!isHovered || !hoverable) return {};
-    
+
     const hoverEffects = {
       'navy-primary': {
         transform: 'translateY(-2px)',
@@ -64,11 +64,13 @@ export const Card: React.FC<CardProps> = ({
         backgroundColor: 'rgba(244, 180, 0, 0.02)',
       },
     };
-    
-    return hoverEffects[variant] || {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
-    };
+
+    return (
+      hoverEffects[variant] || {
+        transform: 'translateY(-2px)',
+        boxShadow: '0 8px 25px rgba(0, 0, 0, 0.1)',
+      }
+    );
   };
 
   // Computed styles

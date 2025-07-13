@@ -16,7 +16,11 @@ async function handleWithdrawConsent(request: NextRequest) {
     }
 
     // Validate consent type
-    if (!['marketing', 'analytics', 'functional', 'necessary'].includes(consent_type)) {
+    if (
+      !['marketing', 'analytics', 'functional', 'necessary'].includes(
+        consent_type
+      )
+    ) {
       return NextResponse.json(
         { error: 'Invalid consent_type' },
         { status: 400 }
@@ -24,8 +28,9 @@ async function handleWithdrawConsent(request: NextRequest) {
     }
 
     // Get current user
-    const { data: userData, error: authError } = await supabaseClient.auth.getUser();
-    
+    const { data: userData, error: authError } =
+      await supabaseClient.auth.getUser();
+
     if (authError || !userData.user) {
       return NextResponse.json(
         { error: 'User not authenticated' },
@@ -34,11 +39,13 @@ async function handleWithdrawConsent(request: NextRequest) {
     }
 
     // Withdraw consent using the database function
-    const { data, error: withdrawError } = await supabaseClient
-      .rpc('withdraw_user_consent', {
+    const { data, error: withdrawError } = await supabaseClient.rpc(
+      'withdraw_user_consent',
+      {
         p_consent_type: consent_type,
         p_version: version,
-      });
+      }
+    );
 
     if (withdrawError) {
       console.error('Database error:', withdrawError);
@@ -59,7 +66,6 @@ async function handleWithdrawConsent(request: NextRequest) {
       success: true,
       message: `${consent_type} consent withdrawn successfully`,
     });
-
   } catch (error) {
     console.error('Withdraw consent error:', error);
     return NextResponse.json(
@@ -69,4 +75,4 @@ async function handleWithdrawConsent(request: NextRequest) {
   }
 }
 
-export const POST = csrfProtection(handleWithdrawConsent); 
+export const POST = csrfProtection(handleWithdrawConsent);

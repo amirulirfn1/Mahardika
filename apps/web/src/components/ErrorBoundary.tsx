@@ -6,7 +6,6 @@ import { colors, Button, theme } from '@mahardika/ui';
  * Graceful error handling with Fiverr-inspired design
  */
 
-
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 
 // Sentry is only enabled in production builds via the SDK configuration files

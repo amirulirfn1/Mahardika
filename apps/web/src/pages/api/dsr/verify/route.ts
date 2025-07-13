@@ -31,7 +31,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Rate limiting
-    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
 
     // Find the request with the verification token
     const { data: dsrRequest, error: queryError } = await supabaseClient
@@ -45,14 +48,14 @@ export async function POST(request: NextRequest) {
       if (queryError.code === 'PGRST116') {
         // No rows returned - invalid token/request combination
         return NextResponse.json(
-          { 
+          {
             error: 'Invalid verification token or request not found',
-            code: 'INVALID_TOKEN'
+            code: 'INVALID_TOKEN',
           },
           { status: 404 }
         );
       }
-      
+
       // Log error for debugging - consider using proper logging service in production
       // console.error('Database error:', queryError);
       return NextResponse.json(
@@ -64,12 +67,12 @@ export async function POST(request: NextRequest) {
     // Check if token has expired
     const now = new Date();
     const expiresAt = new Date(dsrRequest.verification_expires_at);
-    
+
     if (now > expiresAt) {
       return NextResponse.json(
-        { 
+        {
           error: 'Verification token has expired. Please submit a new request.',
-          code: 'TOKEN_EXPIRED'
+          code: 'TOKEN_EXPIRED',
         },
         { status: 410 }
       );
@@ -78,15 +81,15 @@ export async function POST(request: NextRequest) {
     // Check if already verified
     if (dsrRequest.status !== 'pending_verification') {
       return NextResponse.json(
-        { 
+        {
           error: 'Request has already been verified or processed',
           code: 'ALREADY_VERIFIED',
           request: {
             id: dsrRequest.id,
             type: dsrRequest.type,
             status: dsrRequest.status,
-            created_at: dsrRequest.created_at
-          }
+            created_at: dsrRequest.created_at,
+          },
         },
         { status: 409 }
       );
@@ -117,19 +120,17 @@ export async function POST(request: NextRequest) {
 
     // Create audit log entry
     try {
-      await supabaseClient
-        .from('dsr_audit_log')
-        .insert({
-          request_id: dsrRequest.id,
-          action: 'email_verified',
-          new_values: {
-            status: 'pending',
-            verified_at: new Date().toISOString(),
-            verification_method: 'email_token'
-          },
-          ip_address: ip,
-          user_agent: request.headers.get('user-agent')
-        });
+      await supabaseClient.from('dsr_audit_log').insert({
+        request_id: dsrRequest.id,
+        action: 'email_verified',
+        new_values: {
+          status: 'pending',
+          verified_at: new Date().toISOString(),
+          verification_method: 'email_token',
+        },
+        ip_address: ip,
+        user_agent: request.headers.get('user-agent'),
+      });
     } catch (auditError) {
       // Don't fail the verification if audit logging fails
       // Log error for debugging - consider using proper logging service in production
@@ -143,7 +144,7 @@ export async function POST(request: NextRequest) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+          Authorization: `Bearer ${process.env.SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({
           requestId: dsrRequest.id,
@@ -169,7 +170,12 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation email
     try {
-      await sendVerificationConfirmationEmail(dsrRequest.email, dsrRequest.full_name, dsrRequest.id, dsrRequest.type);
+      await sendVerificationConfirmationEmail(
+        dsrRequest.email,
+        dsrRequest.full_name,
+        dsrRequest.id,
+        dsrRequest.type
+      );
     } catch (emailError) {
       // Log error for debugging - consider using proper logging service in production
       // console.error('Failed to send confirmation email:', emailError);
@@ -178,7 +184,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Email verified successfully. Your request is now being processed.',
+      message:
+        'Email verified successfully. Your request is now being processed.',
       request: {
         id: updatedRequest.id,
         type: updatedRequest.type,
@@ -189,10 +196,9 @@ export async function POST(request: NextRequest) {
         created_at: updatedRequest.created_at,
         verified_at: updatedRequest.verified_at,
         data_types: updatedRequest.data_types,
-        description: updatedRequest.description
-      }
+        description: updatedRequest.description,
+      },
     });
-
   } catch (error) {
     // Log error for debugging - consider using proper logging service in production
     // console.error('DSR verification error:', error);
@@ -207,14 +213,14 @@ export async function POST(request: NextRequest) {
  * Send verification confirmation email
  */
 async function sendVerificationConfirmationEmail(
-  email: string, 
-  fullName: string, 
-  requestId: string, 
+  email: string,
+  fullName: string,
+  requestId: string,
   requestType: string
 ) {
   // Log email sending for debugging - consider using proper logging service in production
   // console.log(`Sending verification confirmation email to ${email}`);
-  
+
   // In a real implementation, this would use your email service
   const emailContent = {
     to: email,
@@ -227,12 +233,12 @@ async function sendVerificationConfirmationEmail(
       trackingUrl: `${process.env.NEXT_PUBLIC_APP_URL}/privacy/rights/track?id=${requestId}`,
       supportEmail: 'privacy@mahardika.com',
       estimatedCompletion: getEstimatedCompletion(requestType),
-    }
+    },
   };
 
   // Log email content for debugging - consider using proper logging service in production
   // console.log('Verification confirmation email prepared:', emailContent);
-  
+
   // Mock email sending
   return { success: true, messageId: `confirm_${Date.now()}` };
 }
@@ -242,10 +248,14 @@ async function sendVerificationConfirmationEmail(
  */
 function getRequestTypeLabel(type: string): string {
   switch (type) {
-    case 'export': return 'Data Export';
-    case 'delete': return 'Data Deletion';
-    case 'rectify': return 'Data Rectification';
-    default: return 'Data Rights';
+    case 'export':
+      return 'Data Export';
+    case 'delete':
+      return 'Data Deletion';
+    case 'rectify':
+      return 'Data Rectification';
+    default:
+      return 'Data Rights';
   }
 }
 
@@ -254,9 +264,13 @@ function getRequestTypeLabel(type: string): string {
  */
 function getEstimatedCompletion(type: string): string {
   switch (type) {
-    case 'export': return '10-20 business days';
-    case 'delete': return '5-15 business days';
-    case 'rectify': return '15-30 business days';
-    default: return '10-30 business days';
+    case 'export':
+      return '10-20 business days';
+    case 'delete':
+      return '5-15 business days';
+    case 'rectify':
+      return '15-30 business days';
+    default:
+      return '10-30 business days';
   }
-} 
+}

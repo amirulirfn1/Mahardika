@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
 
@@ -199,26 +199,34 @@ async function sendWhatsAppMessage(policy: Policy): Promise<boolean> {
   if (!WA_TOKEN || !WA_NUMBER) return false;
   if (!policy.customer_phone) return false;
 
-  const res = await fetch(`https://graph.facebook.com/v18.0/${WA_NUMBER}/messages`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${WA_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      messaging_product: 'whatsapp',
-      to: policy.customer_phone,
-      type: 'text',
-      text: { body: `Hi ${policy.customer_name}, your policy ${policy.policy_number} is expiring on ${new Date(policy.end_date).toLocaleDateString()}. Please renew in time.` },
-    }),
-  });
+  const res = await fetch(
+    `https://graph.facebook.com/v18.0/${WA_NUMBER}/messages`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${WA_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: policy.customer_phone,
+        type: 'text',
+        text: {
+          body: `Hi ${policy.customer_name}, your policy ${policy.policy_number} is expiring on ${new Date(policy.end_date).toLocaleDateString()}. Please renew in time.`,
+        },
+      }),
+    }
+  );
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     // log to notification_errors
     if (policy.agency_id) {
       try {
-        const supabaseAdmin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+        const supabaseAdmin = createClient(
+          Deno.env.get('SUPABASE_URL')!,
+          Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+        );
         await supabaseAdmin.from('notification_errors').insert({
           agency_id: policy.agency_id,
           channel: 'whatsapp',

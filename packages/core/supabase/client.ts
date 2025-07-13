@@ -6,10 +6,7 @@
  */
 
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import type {
-  DatabaseResponse,
-  PaginatedResponse,
-} from './types';
+import type { DatabaseResponse, PaginatedResponse } from './types';
 
 // =============================================================================
 // CLIENT CONFIGURATION
@@ -86,7 +83,9 @@ export class MahardikaSupabaseClient {
   constructor(config: SupabaseConfig) {
     // Validate configuration
     if (!config.url || !config.anonKey) {
-      throw new Error('Missing Supabase configuration: url and anonKey are required');
+      throw new Error(
+        'Missing Supabase configuration: url and anonKey are required'
+      );
     }
 
     // Create client with enhanced defaults
@@ -147,7 +146,10 @@ export class MahardikaSupabaseClient {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -158,10 +160,11 @@ export class MahardikaSupabaseClient {
    */
   async signIn(data: SignInData): Promise<DatabaseResponse<AuthUser>> {
     try {
-      const { data: authData, error } = await this.client.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
+      const { data: authData, error } =
+        await this.client.auth.signInWithPassword({
+          email: data.email,
+          password: data.password,
+        });
 
       if (error) {
         return {
@@ -181,7 +184,10 @@ export class MahardikaSupabaseClient {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -209,7 +215,10 @@ export class MahardikaSupabaseClient {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -220,7 +229,10 @@ export class MahardikaSupabaseClient {
    */
   async getCurrentUser(): Promise<DatabaseResponse<AuthUser>> {
     try {
-      const { data: { user }, error } = await this.client.auth.getUser();
+      const {
+        data: { user },
+        error,
+      } = await this.client.auth.getUser();
 
       if (error) {
         return {
@@ -240,7 +252,10 @@ export class MahardikaSupabaseClient {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -251,7 +266,10 @@ export class MahardikaSupabaseClient {
    */
   async getSession(): Promise<DatabaseResponse<AuthSession>> {
     try {
-      const { data: { session }, error } = await this.client.auth.getSession();
+      const {
+        data: { session },
+        error,
+      } = await this.client.auth.getSession();
 
       if (error) {
         return {
@@ -271,7 +289,10 @@ export class MahardikaSupabaseClient {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -280,10 +301,15 @@ export class MahardikaSupabaseClient {
   /**
    * Reset password
    */
-  async resetPassword(email: string, redirectTo?: string): Promise<DatabaseResponse<null>> {
+  async resetPassword(
+    email: string,
+    redirectTo?: string
+  ): Promise<DatabaseResponse<null>> {
     try {
       const { error } = await this.client.auth.resetPasswordForEmail(email, {
-        redirectTo: redirectTo || `${globalThis.location?.origin || ''}/auth/reset-password`,
+        redirectTo:
+          redirectTo ||
+          `${globalThis.location?.origin || ''}/auth/reset-password`,
       });
 
       if (error) {
@@ -301,7 +327,10 @@ export class MahardikaSupabaseClient {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -310,7 +339,9 @@ export class MahardikaSupabaseClient {
   /**
    * Update password
    */
-  async updatePassword(newPassword: string): Promise<DatabaseResponse<AuthUser>> {
+  async updatePassword(
+    newPassword: string
+  ): Promise<DatabaseResponse<AuthUser>> {
     try {
       const { data, error } = await this.client.auth.updateUser({
         password: newPassword,
@@ -334,7 +365,10 @@ export class MahardikaSupabaseClient {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -360,14 +394,21 @@ export class MahardikaSupabaseClient {
    */
   formatAuthError(error: AuthError): string {
     const errorMessages: Record<string, string> = {
-      'Invalid login credentials': 'Invalid email or password. Please try again.',
-      'Email not confirmed': 'Please check your email and click the confirmation link.',
+      'Invalid login credentials':
+        'Invalid email or password. Please try again.',
+      'Email not confirmed':
+        'Please check your email and click the confirmation link.',
       'User not found': 'No account found with this email address.',
       'Invalid email': 'Please enter a valid email address.',
-      'Password should be at least 6 characters': 'Password must be at least 6 characters long.',
+      'Password should be at least 6 characters':
+        'Password must be at least 6 characters long.',
     };
 
-    return errorMessages[error.message] || error.message || 'An unexpected error occurred';
+    return (
+      errorMessages[error.message] ||
+      error.message ||
+      'An unexpected error occurred'
+    );
   }
 
   /**
@@ -385,9 +426,11 @@ export class MahardikaSupabaseClient {
 /**
  * Create a new Mahardika Supabase client instance
  */
-export function createMahardikaSupabaseClient(config: SupabaseConfig): MahardikaSupabaseClient {
+export function createMahardikaSupabaseClient(
+  config: SupabaseConfig
+): MahardikaSupabaseClient {
   return new MahardikaSupabaseClient(config);
 }
 
 // Export the client class as default
-export { MahardikaSupabaseClient as default }; 
+export { MahardikaSupabaseClient as default };

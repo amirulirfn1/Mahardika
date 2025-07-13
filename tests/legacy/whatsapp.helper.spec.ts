@@ -16,15 +16,22 @@ describe('WhatsApp helper', () => {
   });
 
   it('posts to correct endpoint with bearer token', async () => {
-    mockedAxios.post.mockResolvedValue({ data: { messages: ['id'] }, status: 200 });
+    mockedAxios.post.mockResolvedValue({
+      data: { messages: ['id'] },
+      status: 200,
+    });
 
     const res = await sendText('60123456789', 'Hello');
 
     expect(mockedAxios.post).toHaveBeenCalledWith(
       'https://graph.facebook.com/v18.0/123456/messages',
       expect.objectContaining({ to: '60123456789', text: { body: 'Hello' } }),
-      expect.objectContaining({ headers: expect.objectContaining({ Authorization: 'Bearer test_token' }) })
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          Authorization: 'Bearer test_token',
+        }),
+      })
     );
     expect(res.success).toBe(true);
   });
-}); 
+});

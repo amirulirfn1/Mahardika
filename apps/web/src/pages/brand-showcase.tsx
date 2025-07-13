@@ -1,9 +1,5 @@
-
-
-
 import { colors, BrandButton, BrandCard } from '@mahardika/ui';
 import React from 'react';
-
 
 export default function BrandShowcasePage() {
   return (
@@ -37,8 +33,8 @@ export default function BrandShowcasePage() {
           }}
         >
           Comprehensive brand component library featuring navy (colors.navy) and
-          gold (colors.gold) Mahardika colors with prompt template functionality for
-          consistent UI development.
+          gold (colors.gold) Mahardika colors with prompt template functionality
+          for consistent UI development.
         </p>
       </header>
 

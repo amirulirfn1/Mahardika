@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * ✅ SECURITY IMPROVEMENT: Input Validation Utilities
  * Comprehensive validation system to prevent SQL injection, XSS, and ensure data integrity

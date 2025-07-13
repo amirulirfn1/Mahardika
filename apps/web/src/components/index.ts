@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Component Exports - Mahardika Platform
  * Centralized exports for all components

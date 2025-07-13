@@ -32,7 +32,9 @@ describe('Authentication Flows', () => {
     (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
 
     // Set mock resolution
-    (supabase.auth.signInWithPassword as jest.Mock).mockResolvedValue({ error: null });
+    (supabase.auth.signInWithPassword as jest.Mock).mockResolvedValue({
+      error: null,
+    });
 
     render(<SignInPage />);
 
@@ -51,4 +53,4 @@ describe('Authentication Flows', () => {
       expect(mockPush).toHaveBeenCalledWith('/dashboard');
     });
   });
-}); 
+});

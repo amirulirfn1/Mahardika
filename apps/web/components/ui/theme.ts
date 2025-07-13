@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Mahardika Brand Theme System
  * Comprehensive design system for consistent styling across all components

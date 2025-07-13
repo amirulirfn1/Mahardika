@@ -9,7 +9,10 @@ const tierColors: Record<Tier, { bg: string; text: string }> = {
   platinum: { bg: '#e5e4e2', text: '#000' },
 };
 
-const TierBadge: React.FC<{ tier: Tier; className?: string }> = ({ tier, className = '' }) => {
+const TierBadge: React.FC<{ tier: Tier; className?: string }> = ({
+  tier,
+  className = '',
+}) => {
   const { bg, text } = tierColors[tier];
   return (
     <span
@@ -21,4 +24,4 @@ const TierBadge: React.FC<{ tier: Tier; className?: string }> = ({ tier, classNa
   );
 };
 
-export default TierBadge; 
+export default TierBadge;

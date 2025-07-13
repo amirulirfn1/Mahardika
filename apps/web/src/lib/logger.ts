@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * ✅ SECURITY & MONITORING IMPROVEMENT: Structured Logging Utility
  * Replaces console.* calls with proper logging that doesn't expose sensitive data
@@ -132,10 +132,8 @@ export class MahardikaLogger {
   private output(entry: LogEntry): void {
     if (this.isDevelopment) {
       // Pretty console output in development
-      
     } else {
       // Structured JSON output in production
-      
     }
   }
 

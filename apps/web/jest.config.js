@@ -94,7 +94,10 @@ const customJestConfig = {
   globalTeardown: '<rootDir>/jest.globalTeardown.js',
 
   // Test path ignore
-  testPathIgnorePatterns: ['<rootDir>/tests/legacy', '<rootDir>/../tests/legacy'],
+  testPathIgnorePatterns: [
+    '<rootDir>/tests/legacy',
+    '<rootDir>/../tests/legacy',
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

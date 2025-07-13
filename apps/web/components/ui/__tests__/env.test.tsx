@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Environment Configuration Tests - Mahardika Platform
  * Tests for environment variable handling and configuration

@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * =============================================================================
  * Mahardika Platform - Supabase Client for Web App
@@ -70,7 +70,9 @@ export const authService = {
   /**
    * Sign up a new user
    */
-  async signUp(data: SignUpData): Promise<{ user: AuthUser | null; error: AuthError | null }> {
+  async signUp(
+    data: SignUpData
+  ): Promise<{ user: AuthUser | null; error: AuthError | null }> {
     try {
       const { data: authData, error } = await supabaseClient.auth.signUp({
         email: data.email,
@@ -104,7 +106,10 @@ export const authService = {
       return {
         user: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -113,12 +118,15 @@ export const authService = {
   /**
    * Sign in an existing user
    */
-  async signIn(data: SignInData): Promise<{ user: AuthUser | null; error: AuthError | null }> {
+  async signIn(
+    data: SignInData
+  ): Promise<{ user: AuthUser | null; error: AuthError | null }> {
     try {
-      const { data: authData, error } = await supabaseClient.auth.signInWithPassword({
-        email: data.email,
-        password: data.password,
-      });
+      const { data: authData, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: data.email,
+          password: data.password,
+        });
 
       if (error) {
         return {
@@ -139,7 +147,10 @@ export const authService = {
       return {
         user: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -166,7 +177,10 @@ export const authService = {
     } catch (error) {
       return {
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -175,9 +189,15 @@ export const authService = {
   /**
    * Get the current user session
    */
-  async getCurrentUser(): Promise<{ user: AuthUser | null; error: AuthError | null }> {
+  async getCurrentUser(): Promise<{
+    user: AuthUser | null;
+    error: AuthError | null;
+  }> {
     try {
-      const { data: { user }, error } = await supabaseClient.auth.getUser();
+      const {
+        data: { user },
+        error,
+      } = await supabaseClient.auth.getUser();
 
       if (error) {
         return {
@@ -198,7 +218,10 @@ export const authService = {
       return {
         user: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -207,9 +230,15 @@ export const authService = {
   /**
    * Get the current session
    */
-  async getSession(): Promise<{ session: any | null; error: AuthError | null }> {
+  async getSession(): Promise<{
+    session: any | null;
+    error: AuthError | null;
+  }> {
     try {
-      const { data: { session }, error } = await supabaseClient.auth.getSession();
+      const {
+        data: { session },
+        error,
+      } = await supabaseClient.auth.getSession();
 
       if (error) {
         return {
@@ -230,7 +259,10 @@ export const authService = {
       return {
         session: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -239,10 +271,14 @@ export const authService = {
   /**
    * Reset password for email
    */
-  async resetPassword(email: string, redirectTo?: string): Promise<{ error: AuthError | null }> {
+  async resetPassword(
+    email: string,
+    redirectTo?: string
+  ): Promise<{ error: AuthError | null }> {
     try {
       const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-        redirectTo: redirectTo || `${window.location.origin}/auth/reset-password`,
+        redirectTo:
+          redirectTo || `${window.location.origin}/auth/reset-password`,
       });
 
       if (error) {
@@ -259,7 +295,10 @@ export const authService = {
     } catch (error) {
       return {
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -268,7 +307,9 @@ export const authService = {
   /**
    * Update user password
    */
-  async updatePassword(newPassword: string): Promise<{ user: AuthUser | null; error: AuthError | null }> {
+  async updatePassword(
+    newPassword: string
+  ): Promise<{ user: AuthUser | null; error: AuthError | null }> {
     try {
       const { data, error } = await supabaseClient.auth.updateUser({
         password: newPassword,
@@ -293,7 +334,10 @@ export const authService = {
       return {
         user: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -305,7 +349,10 @@ export const userService = {
   /**
    * Create or update user profile
    */
-  async upsertProfile(userId: string, profile: any): Promise<{ data: any | null; error: AuthError | null }> {
+  async upsertProfile(
+    userId: string,
+    profile: any
+  ): Promise<{ data: any | null; error: AuthError | null }> {
     try {
       const { data, error } = await supabaseClient
         .from('user_profiles')
@@ -333,7 +380,10 @@ export const userService = {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -342,7 +392,9 @@ export const userService = {
   /**
    * Get user profile
    */
-  async getProfile(userId: string): Promise<{ data: any | null; error: AuthError | null }> {
+  async getProfile(
+    userId: string
+  ): Promise<{ data: any | null; error: AuthError | null }> {
     try {
       const { data, error } = await supabaseClient
         .from('user_profiles')
@@ -370,7 +422,10 @@ export const userService = {
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'An unexpected error occurred',
+          message:
+            error instanceof Error
+              ? error.message
+              : 'An unexpected error occurred',
         },
       };
     }
@@ -391,7 +446,9 @@ export const authUtils = {
    * Get user type from metadata
    */
   getUserType(user: AuthUser): 'customer' | 'agency' | 'unknown' {
-    return (user.user_metadata?.user_type as 'customer' | 'agency') || 'unknown';
+    return (
+      (user.user_metadata?.user_type as 'customer' | 'agency') || 'unknown'
+    );
   },
 
   /**
@@ -408,10 +465,12 @@ export const authUtils = {
       case 'Password should be at least 6 characters':
         return 'Password must be at least 6 characters long.';
       default:
-        return error.message || 'An unexpected error occurred. Please try again.';
+        return (
+          error.message || 'An unexpected error occurred. Please try again.'
+        );
     }
   },
 };
 
 // Export the main client for direct use
-export default supabaseClient; 
+export default supabaseClient;

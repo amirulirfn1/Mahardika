@@ -3,7 +3,7 @@
  * Official brand palette for consistent styling across all components
  */
 
-import { colors as brandColors } from "@mahardika/ui";
+import { colors as brandColors } from '@mahardika/ui';
 
 export const colors = {
   // Primary Mahardika Brand Colors

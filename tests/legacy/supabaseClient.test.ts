@@ -49,7 +49,13 @@ jest.mock('@supabase/supabase-js', () => ({
 }));
 
 // Now import the module after mocking
-import { authService, userService, authUtils, AuthUser, AuthError } from '@/lib/supabaseClient';
+import {
+  authService,
+  userService,
+  authUtils,
+  AuthUser,
+  AuthError,
+} from '@/lib/supabaseClient';
 
 describe('Supabase Client', () => {
   beforeEach(() => {
@@ -498,7 +504,9 @@ describe('Supabase Client', () => {
 
         const result = authUtils.formatError(error);
 
-        expect(result).toBe('Please check your email and confirm your account before signing in.');
+        expect(result).toBe(
+          'Please check your email and confirm your account before signing in.'
+        );
       });
 
       it('should format user already registered error', () => {
@@ -509,7 +517,9 @@ describe('Supabase Client', () => {
 
         const result = authUtils.formatError(error);
 
-        expect(result).toBe('An account with this email already exists. Please sign in instead.');
+        expect(result).toBe(
+          'An account with this email already exists. Please sign in instead.'
+        );
       });
 
       it('should format password length error', () => {
@@ -542,4 +552,4 @@ describe('Supabase Client', () => {
       });
     });
   });
-}); 
+});

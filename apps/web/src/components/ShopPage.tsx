@@ -27,10 +27,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
     return Array.from({ length: 5 }, (_, i) => (
       <span
         key={i}
-        style={{
-          color: i < rating ? colors.gold : colors.gray[300],
-          fontSize: '1.2rem',
-        }}
+        className={`text-xl ${i < rating ? 'text-accent' : 'text-gray-300'}`}
       >
         ★
       </span>
@@ -38,91 +35,63 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
   };
 
   return (
-    <div className="min-vh-100" style={{ backgroundColor: colors.gray[50] }}>
+    <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
-      <nav
-        className="navbar navbar-expand-lg shadow-sm sticky-top"
-        style={{
-          backgroundColor: colors.navy,
-          borderBottom: `3px solid ${colors.gold}`,
-        }}
-      >
-        <div className="container">
-          <a className="navbar-brand fw-bold text-white" href="/shop">
-            Mahardika Shop
-          </a>
-          <div className="navbar-nav ms-auto">
-            <a
-              className="nav-link text-white d-flex align-items-center"
-              href="/shop"
-              style={{ textDecoration: 'none' }}
-            >
-              <span className="me-2">←</span>
-              Back to Shop
+      <nav className="bg-primary shadow-lg sticky top-0 z-50 border-b-4 border-accent">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center h-16">
+            <a href="/shop" className="text-white font-bold text-xl">
+              Mahardika Shop
             </a>
+            <div className="flex items-center">
+              <a
+                href="/shop"
+                className="text-white hover:text-accent transition-colors duration-200 flex items-center gap-2"
+              >
+                <span>←</span>
+                Back to Shop
+              </a>
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Banner Section */}
       <section
-        className="position-relative"
+        className="relative min-h-[60vh] bg-cover bg-center"
         style={{
           backgroundImage: agency.banner_image_url
             ? `linear-gradient(rgba(13, 27, 42, 0.4), rgba(13, 27, 42, 0.4)), url(${agency.banner_image_url})`
             : `linear-gradient(135deg, ${colors.navy} 0%, rgba(13, 27, 42, 0.8) 100%)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          minHeight: '60vh',
         }}
       >
-        <div className="container h-100 d-flex align-items-center">
-          <div className="row w-100">
-            <div className="col-lg-8">
-              <div className="text-white py-5">
+        <div className="container mx-auto px-4 h-full flex items-center">
+          <div className="w-full">
+            <div className="lg:w-2/3">
+              <div className="text-white py-12">
                 {agency.logo_url && (
                   <Image
                     src={agency.logo_url}
                     alt={`${agency.name} logo`}
                     width={80}
                     height={80}
-                    className="mb-4 rounded"
-                    style={{
-                      border: `2px solid ${colors.gold}`,
-                    }}
+                    className="mb-6 rounded-lg border-2 border-accent"
                   />
                 )}
-                <h1
-                  className="display-4 fw-bold mb-3"
-                  style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}
-                >
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">
                   {agency.name}
                 </h1>
-                <p
-                  className="lead mb-4"
-                  style={{
-                    fontSize: '1.5rem',
-                    color: colors.gold,
-                    textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
-                  }}
-                >
+                <p className="text-2xl text-accent mb-6 drop-shadow-md">
                   {agency.tagline}
                 </p>
-                <p
-                  className="mb-4"
-                  style={{
-                    fontSize: '1.1rem',
-                    maxWidth: '600px',
-                    lineHeight: '1.6',
-                  }}
-                >
+                <p className="text-lg mb-6 max-w-2xl leading-relaxed">
                   {agency.description}
                 </p>
 
                 {/* Rating Display */}
                 {agency.rating && agency.review_count && (
-                  <div className="d-flex align-items-center mb-4">
-                    <div className="me-3">
+                  <div className="flex items-center mb-6">
+                    <div className="mr-4">
                       {renderStars(Math.round(agency.rating))}
                     </div>
                     <span className="text-white">
@@ -133,13 +102,13 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                 )}
 
                 {/* Contact Information */}
-                <div className="d-flex flex-wrap gap-4 mb-4">
+                <div className="flex flex-wrap gap-6 mb-6">
                   {agency.contact_phone && (
-                    <div className="d-flex align-items-center">
-                      <span className="me-2">📞</span>
+                    <div className="flex items-center gap-2">
+                      <span>📞</span>
                       <a
                         href={`tel:${agency.contact_phone}`}
-                        className="text-white text-decoration-none me-3"
+                        className="text-white hover:text-accent transition-colors duration-200"
                       >
                         {agency.contact_phone}
                       </a>
@@ -148,7 +117,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                         href={`https://wa.me/${agency.contact_phone.replace(/[^0-9]/g, '')}?text=Hi%20${encodeURIComponent(agency.name)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white text-decoration-none"
+                        className="text-white hover:text-accent transition-colors duration-200"
                         title="Chat on WhatsApp"
                       >
                         💬
@@ -156,24 +125,24 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                     </div>
                   )}
                   {agency.contact_email && (
-                    <div className="d-flex align-items-center">
-                      <span className="me-2">✉️</span>
+                    <div className="flex items-center gap-2">
+                      <span>✉️</span>
                       <a
                         href={`mailto:${agency.contact_email}`}
-                        className="text-white text-decoration-none"
+                        className="text-white hover:text-accent transition-colors duration-200"
                       >
                         {agency.contact_email}
                       </a>
                     </div>
                   )}
                   {agency.website_url && (
-                    <div className="d-flex align-items-center">
-                      <span className="me-2">🌐</span>
+                    <div className="flex items-center gap-2">
+                      <span>🌐</span>
                       <a
                         href={agency.website_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white text-decoration-none"
+                        className="text-white hover:text-accent transition-colors duration-200"
                       >
                         Visit Website
                       </a>
@@ -185,13 +154,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                 <BrandButton
                   variant="gold"
                   size="lg"
-                  className="px-5 py-3"
-                  style={{
-                    fontSize: '1.2rem',
-                    fontWeight: '600',
-                    borderRadius: '0.5rem',
-                    boxShadow: '0 4px 12px rgba(244, 180, 0, 0.3)',
-                  }}
+                  className="px-8 py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                   onClick={() => {
                     if (agency.contact_phone) {
                       window.location.href = `tel:${agency.contact_phone}`;
@@ -210,51 +173,34 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
 
       {/* Reviews Carousel Section */}
       {reviews.length > 0 && (
-        <section className="py-5">
-          <div className="container">
-            <div className="text-center mb-5">
-              <h2
-                className="display-5 fw-bold mb-3"
-                style={{ color: colors.navy }}
-              >
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary">
                 What Our Customers Say
               </h2>
-              <p style={{ color: colors.gray[600] }}>
+              <p className="text-gray-600 text-lg">
                 Real feedback from satisfied customers
               </p>
             </div>
 
-            <div className="row justify-content-center">
-              <div className="col-lg-8">
+            <div className="flex justify-center">
+              <div className="w-full max-w-4xl">
                 <BrandCard
                   variant="navy-outline"
                   size="lg"
-                  className="position-relative"
-                  style={{
-                    borderRadius: '0.5rem',
-                    minHeight: '200px',
-                  }}
+                  className="relative min-h-[200px] rounded-lg"
                 >
                   {/* Review Content */}
-                  <div className="text-center p-4">
-                    <div className="mb-3">
+                  <div className="text-center p-8">
+                    <div className="mb-6">
                       {renderStars(reviews[currentReviewIndex].rating)}
                     </div>
-                    <blockquote
-                      className="mb-4"
-                      style={{
-                        fontSize: '1.2rem',
-                        lineHeight: '1.6',
-                        color: colors.gray[700],
-                        fontStyle: 'italic',
-                      }}
-                    >
-                      &ldquo;{reviews[currentReviewIndex].comment}&rdquo;
+                    <blockquote className="text-xl leading-relaxed text-gray-700 italic mb-6">
+                      "{reviews[currentReviewIndex].comment}"
                     </blockquote>
-                    <footer className="blockquote-footer">
-                      <strong style={{ color: colors.navy }}>
-                        {reviews[currentReviewIndex].reviewer_name}
-                      </strong>
+                    <footer className="text-primary font-semibold">
+                      {reviews[currentReviewIndex].reviewer_name}
                     </footer>
                   </div>
 
@@ -262,30 +208,14 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                   {reviews.length > 1 && (
                     <>
                       <button
-                        className="btn position-absolute top-50 start-0 translate-middle-y ms-3"
-                        style={{
-                          backgroundColor: colors.navy,
-                          border: 'none',
-                          borderRadius: '50%',
-                          width: '40px',
-                          height: '40px',
-                          color: 'white',
-                        }}
+                        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/90 transition-colors duration-200"
                         onClick={prevReview}
                         aria-label="Previous review"
                       >
                         ‹
                       </button>
                       <button
-                        className="btn position-absolute top-50 end-0 translate-middle-y me-3"
-                        style={{
-                          backgroundColor: colors.navy,
-                          border: 'none',
-                          borderRadius: '50%',
-                          width: '40px',
-                          height: '40px',
-                          color: 'white',
-                        }}
+                        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-primary/90 transition-colors duration-200"
                         onClick={nextReview}
                         aria-label="Next review"
                       >
@@ -297,21 +227,15 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
 
                 {/* Review Indicators */}
                 {reviews.length > 1 && (
-                  <div className="d-flex justify-content-center mt-3">
+                  <div className="flex justify-center mt-6 gap-2">
                     {reviews.map((review, index) => (
                       <button
                         key={review.id}
-                        className="btn p-0 mx-1"
-                        style={{
-                          width: '12px',
-                          height: '12px',
-                          borderRadius: '50%',
-                          backgroundColor:
-                            index === currentReviewIndex
-                              ? colors.gold
-                              : colors.gray[300],
-                          border: 'none',
-                        }}
+                        className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                          index === currentReviewIndex
+                            ? 'bg-accent'
+                            : 'bg-gray-300'
+                        }`}
                         onClick={() => setCurrentReviewIndex(index)}
                         aria-label={`Go to review ${index + 1}`}
                       />
@@ -325,20 +249,19 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
       )}
 
       {/* Additional Information Section */}
-      <section className="py-5" style={{ backgroundColor: colors.gray[100] }}>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 mb-4">
+      <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div>
               <BrandCard
                 variant="navy-outline"
                 size="md"
-                className="h-100"
-                style={{ backgroundColor: 'white' }}
+                className="h-full bg-white"
               >
-                <h3 className="h4 mb-3" style={{ color: colors.navy }}>
+                <h3 className="text-xl font-semibold mb-4 text-primary">
                   About Our Services
                 </h3>
-                <p style={{ color: colors.gray[700] }}>{agency.description}</p>
+                <p className="text-gray-700 mb-6">{agency.description}</p>
                 {agency.website_url && (
                   <BrandButton
                     variant="navy-outline"
@@ -351,18 +274,18 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
               </BrandCard>
             </div>
 
-            <div className="col-lg-6 mb-4">
-              <BrandCard variant="gold-outline" size="md" className="h-100">
-                <h3 className="h4 mb-3" style={{ color: colors.navy }}>
+            <div>
+              <BrandCard variant="gold-outline" size="md" className="h-full">
+                <h3 className="text-xl font-semibold mb-4 text-primary">
                   Get in Touch
                 </h3>
-                <div className="mb-3">
+                <div className="mb-6">
                   {agency.contact_phone && (
                     <p className="mb-2">
                       <strong>Phone:</strong>{' '}
                       <a
                         href={`tel:${agency.contact_phone}`}
-                        style={{ color: colors.navy, textDecoration: 'none' }}
+                        className="text-primary hover:underline"
                       >
                         {agency.contact_phone}
                       </a>
@@ -373,7 +296,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                       <strong>Email:</strong>{' '}
                       <a
                         href={`mailto:${agency.contact_email}`}
-                        style={{ color: colors.navy, textDecoration: 'none' }}
+                        className="text-primary hover:underline"
                       >
                         {agency.contact_email}
                       </a>
@@ -383,7 +306,7 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
                 <BrandButton
                   variant="gold"
                   size="md"
-                  className="w-100"
+                  className="w-full"
                   onClick={() => {
                     if (agency.contact_phone) {
                       window.location.href = `tel:${agency.contact_phone}`;
@@ -402,46 +325,44 @@ export default function ShopPage({ agency, reviews }: ShopPageProps) {
 
       {/* Final CTA Section */}
       <section
-        className="py-5 text-center"
+        className="py-16 text-center text-white"
         style={{
           background: `linear-gradient(135deg, ${colors.navy} 0%, rgba(13, 27, 42, 0.9) 100%)`,
-          color: 'white',
         }}
       >
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-8">
-              <h2 className="display-6 fw-bold mb-3">Ready to Get Started?</h2>
-              <p className="lead mb-4">
-                Don&apos;t wait – secure your coverage today with {agency.name}
-              </p>
-              <div className="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-                <BrandButton
-                  variant="gold"
-                  size="lg"
-                  className="px-5"
-                  onClick={() => {
-                    if (agency.contact_phone) {
-                      window.location.href = `tel:${agency.contact_phone}`;
-                    }
-                  }}
-                >
-                  Call Now
-                </BrandButton>
-                <BrandButton
-                  variant="gold-outline"
-                  size="lg"
-                  className="px-5"
-                  style={{ color: 'white', borderColor: colors.gold }}
-                  onClick={() => {
-                    if (agency.contact_email) {
-                      window.location.href = `mailto:${agency.contact_email}`;
-                    }
-                  }}
-                >
-                  Email Us
-                </BrandButton>
-              </div>
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Get Started?
+            </h2>
+            <p className="text-xl mb-8 leading-relaxed">
+              Don't wait – secure your coverage today with {agency.name}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <BrandButton
+                variant="gold"
+                size="lg"
+                className="px-8 py-4"
+                onClick={() => {
+                  if (agency.contact_phone) {
+                    window.location.href = `tel:${agency.contact_phone}`;
+                  }
+                }}
+              >
+                Call Now
+              </BrandButton>
+              <BrandButton
+                variant="gold-outline"
+                size="lg"
+                className="px-8 py-4 text-white border-accent"
+                onClick={() => {
+                  if (agency.contact_email) {
+                    window.location.href = `mailto:${agency.contact_email}`;
+                  }
+                }}
+              >
+                Email Us
+              </BrandButton>
             </div>
           </div>
         </div>

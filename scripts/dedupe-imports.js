@@ -14,18 +14,18 @@ const globby = require('globby');
 
   let modified = 0;
 
-  files.forEach((file) => {
+  files.forEach(file => {
     let code = fs.readFileSync(file, 'utf8');
     const imports = [...code.matchAll(regex)];
     if (imports.length <= 1) return;
 
     const identifiers = new Set();
-    imports.forEach((m) => {
+    imports.forEach(m => {
       m[1]
         .split(',')
-        .map((s) => s.trim())
+        .map(s => s.trim())
         .filter(Boolean)
-        .forEach((id) => identifiers.add(id));
+        .forEach(id => identifiers.add(id));
     });
 
     // Remove all old imports
@@ -45,4 +45,4 @@ const globby = require('globby');
   });
 
   console.log(`\nFinished import de-dup. Files modified: ${modified}`);
-})(); 
+})();

@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Link from 'next/link';
 import { BrandButton, BrandCard, colors } from '@mahardika/ui';
@@ -72,7 +70,13 @@ const TermsOfServicePage = () => {
   ];
 
   return (
-    <div style={{ backgroundColor: colors.gray[50], minHeight: '100vh', position: 'relative' }}>
+    <div
+      style={{
+        backgroundColor: colors.gray[50],
+        minHeight: '100vh',
+        position: 'relative',
+      }}
+    >
       <style jsx>{`
         @keyframes fadeInUp {
           from {
@@ -86,8 +90,13 @@ const TermsOfServicePage = () => {
         }
 
         @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
+          0%,
+          100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
         }
 
         @keyframes slideInUp {
@@ -109,12 +118,24 @@ const TermsOfServicePage = () => {
           animation: slideInUp 0.6s ease-out;
         }
 
-        .animate-delay-1 { animation-delay: 0.1s; }
-        .animate-delay-2 { animation-delay: 0.2s; }
-        .animate-delay-3 { animation-delay: 0.3s; }
-        .animate-delay-4 { animation-delay: 0.4s; }
-        .animate-delay-5 { animation-delay: 0.5s; }
-        .animate-delay-6 { animation-delay: 0.6s; }
+        .animate-delay-1 {
+          animation-delay: 0.1s;
+        }
+        .animate-delay-2 {
+          animation-delay: 0.2s;
+        }
+        .animate-delay-3 {
+          animation-delay: 0.3s;
+        }
+        .animate-delay-4 {
+          animation-delay: 0.4s;
+        }
+        .animate-delay-5 {
+          animation-delay: 0.5s;
+        }
+        .animate-delay-6 {
+          animation-delay: 0.6s;
+        }
 
         .floating-element {
           animation: float 6s ease-in-out infinite;
@@ -145,7 +166,12 @@ const TermsOfServicePage = () => {
           left: -100%;
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(244,180,0,0.1), transparent);
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(244, 180, 0, 0.1),
+            transparent
+          );
           transition: left 0.6s ease;
         }
 
@@ -154,7 +180,11 @@ const TermsOfServicePage = () => {
         }
 
         .hero-background {
-          background: linear-gradient(135deg, ${colors.navy} 0%, ${colors.gray[800]} 100%);
+          background: linear-gradient(
+            135deg,
+            ${colors.navy} 0%,
+            ${colors.gray[800]} 100%
+          );
           position: relative;
           overflow: hidden;
         }
@@ -171,7 +201,7 @@ const TermsOfServicePage = () => {
         }
 
         .icon-container {
-          background: linear-gradient(135deg, ${colors.gold} 0%, #FFD700 100%);
+          background: linear-gradient(135deg, ${colors.gold} 0%, #ffd700 100%);
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -186,7 +216,11 @@ const TermsOfServicePage = () => {
         }
 
         .section-title {
-          background: linear-gradient(135deg, ${colors.navy} 0%, ${colors.gray[700]} 100%);
+          background: linear-gradient(
+            135deg,
+            ${colors.navy} 0%,
+            ${colors.gray[700]} 100%
+          );
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -202,7 +236,7 @@ const TermsOfServicePage = () => {
           left: 0;
           width: 50px;
           height: 3px;
-          background: linear-gradient(135deg, ${colors.gold} 0%, #FFD700 100%);
+          background: linear-gradient(135deg, ${colors.gold} 0%, #ffd700 100%);
           border-radius: 2px;
         }
 
@@ -213,7 +247,11 @@ const TermsOfServicePage = () => {
         }
 
         .highlight-box {
-          background: linear-gradient(135deg, ${colors.gold}15 0%, ${colors.gold}10 100%);
+          background: linear-gradient(
+            135deg,
+            ${colors.gold}15 0%,
+            ${colors.gold}10 100%
+          );
           border-left: 4px solid ${colors.gold};
           padding: 1.5rem;
           margin: 1.5rem 0;
@@ -233,7 +271,11 @@ const TermsOfServicePage = () => {
         }
 
         .contact-card {
-          background: linear-gradient(135deg, ${colors.navy}05 0%, ${colors.gold}05 100%);
+          background: linear-gradient(
+            135deg,
+            ${colors.navy}05 0%,
+            ${colors.gold}05 100%
+          );
           border: 2px solid ${colors.gold}30;
           border-radius: 1rem;
           padding: 2rem;
@@ -249,7 +291,11 @@ const TermsOfServicePage = () => {
           left: -50%;
           width: 200%;
           height: 200%;
-          background: radial-gradient(circle, ${colors.gold}10 0%, transparent 70%);
+          background: radial-gradient(
+            circle,
+            ${colors.gold}10 0%,
+            transparent 70%
+          );
           animation: float 8s ease-in-out infinite;
         }
 
@@ -294,7 +340,11 @@ const TermsOfServicePage = () => {
         }
 
         .info-item {
-          background: linear-gradient(135deg, ${colors.navy}05 0%, ${colors.gold}05 100%);
+          background: linear-gradient(
+            135deg,
+            ${colors.navy}05 0%,
+            ${colors.gold}05 100%
+          );
           padding: 1.5rem;
           border-radius: 12px;
           border: 1px solid ${colors.gold}20;
@@ -324,25 +374,47 @@ const TermsOfServicePage = () => {
       `}</style>
 
       {/* Floating Background Elements */}
-      <div style={{ position: 'absolute', top: '10%', right: '5%', opacity: 0.6, zIndex: 1 }}>
-        <div className="floating-element" style={{
-          width: '120px',
-          height: '120px',
-          background: `linear-gradient(135deg, ${colors.navy}15, ${colors.gold}15)`,
-          borderRadius: '50%',
-          filter: 'blur(40px)'
-        }} />
+      <div
+        style={{
+          position: 'absolute',
+          top: '10%',
+          right: '5%',
+          opacity: 0.6,
+          zIndex: 1,
+        }}
+      >
+        <div
+          className="floating-element"
+          style={{
+            width: '120px',
+            height: '120px',
+            background: `linear-gradient(135deg, ${colors.navy}15, ${colors.gold}15)`,
+            borderRadius: '50%',
+            filter: 'blur(40px)',
+          }}
+        />
       </div>
 
-      <div style={{ position: 'absolute', bottom: '20%', left: '8%', opacity: 0.4, zIndex: 1 }}>
-        <div className="floating-element" style={{
-          width: '80px',
-          height: '80px',
-          background: `linear-gradient(135deg, ${colors.gold}20, ${colors.navy}20)`,
-          borderRadius: '50%',
-          filter: 'blur(30px)',
-          animationDelay: '2s'
-        }} />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '20%',
+          left: '8%',
+          opacity: 0.4,
+          zIndex: 1,
+        }}
+      >
+        <div
+          className="floating-element"
+          style={{
+            width: '80px',
+            height: '80px',
+            background: `linear-gradient(135deg, ${colors.gold}20, ${colors.navy}20)`,
+            borderRadius: '50%',
+            filter: 'blur(30px)',
+            animationDelay: '2s',
+          }}
+        />
       </div>
 
       {/* Header Section */}
@@ -352,20 +424,32 @@ const TermsOfServicePage = () => {
             <div className="col-lg-8 text-center">
               {/* Breadcrumb */}
               <nav className="animate-fade-in-up mb-4">
-                <Link href="/" className="breadcrumb-item">Home</Link>
+                <Link href="/" className="breadcrumb-item">
+                  Home
+                </Link>
                 <span className="mx-2 text-white-50">•</span>
                 <span className="breadcrumb-item active">Terms of Service</span>
               </nav>
 
               {/* Icon */}
               <div className="animate-fade-in-up animate-delay-1 mb-4">
-                <div className="icon-container mx-auto" style={{ width: '80px', height: '80px' }}>
-                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={colors.navy} strokeWidth="2">
-                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                    <polyline points="14,2 14,8 20,8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                    <polyline points="10,9 9,9 8,9"/>
+                <div
+                  className="icon-container mx-auto"
+                  style={{ width: '80px', height: '80px' }}
+                >
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke={colors.navy}
+                    strokeWidth="2"
+                  >
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                    <polyline points="14,2 14,8 20,8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10,9 9,9 8,9" />
                   </svg>
                 </div>
               </div>
@@ -374,7 +458,7 @@ const TermsOfServicePage = () => {
                 Terms of Service
               </h1>
               <p className="animate-fade-in-up animate-delay-3 lead text-white-50 mb-4">
-                Please read these terms carefully before using our services. 
+                Please read these terms carefully before using our services.
                 Your use of our platform constitutes acceptance of these terms.
               </p>
               <div className="animate-fade-in-up animate-delay-4">
@@ -385,7 +469,7 @@ const TermsOfServicePage = () => {
                     height: '4px',
                     background: `linear-gradient(135deg, ${colors.gold} 0%, #FFD700 100%)`,
                     borderRadius: '0.5rem',
-                    boxShadow: `0 4px 15px ${colors.gold}40`
+                    boxShadow: `0 4px 15px ${colors.gold}40`,
                   }}
                 />
               </div>
@@ -405,31 +489,72 @@ const TermsOfServicePage = () => {
                   <div className="row align-items-center">
                     <div className="col-md-6">
                       <div className="d-flex align-items-center">
-                        <div className="icon-container me-3" style={{ width: '50px', height: '50px' }}>
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={colors.navy} strokeWidth="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <polyline points="12,6 12,12 16,14"/>
+                        <div
+                          className="icon-container me-3"
+                          style={{ width: '50px', height: '50px' }}
+                        >
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke={colors.navy}
+                            strokeWidth="2"
+                          >
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12,6 12,12 16,14" />
                           </svg>
                         </div>
                         <div>
-                          <h6 className="mb-1 fw-bold" style={{ color: colors.navy }}>Last Updated</h6>
-                          <p className="mb-0 text-muted">{termsData.lastUpdated}</p>
+                          <h6
+                            className="mb-1 fw-bold"
+                            style={{ color: colors.navy }}
+                          >
+                            Last Updated
+                          </h6>
+                          <p className="mb-0 text-muted">
+                            {termsData.lastUpdated}
+                          </p>
                         </div>
                       </div>
                     </div>
                     <div className="col-md-6">
                       <div className="d-flex align-items-center">
-                        <div className="icon-container me-3" style={{ width: '50px', height: '50px' }}>
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={colors.navy} strokeWidth="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                            <line x1="16" y1="2" x2="16" y2="6"/>
-                            <line x1="8" y1="2" x2="8" y2="6"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        <div
+                          className="icon-container me-3"
+                          style={{ width: '50px', height: '50px' }}
+                        >
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke={colors.navy}
+                            strokeWidth="2"
+                          >
+                            <rect
+                              x="3"
+                              y="4"
+                              width="18"
+                              height="18"
+                              rx="2"
+                              ry="2"
+                            />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
                           </svg>
                         </div>
                         <div>
-                          <h6 className="mb-1 fw-bold" style={{ color: colors.navy }}>Effective Date</h6>
-                          <p className="mb-0 text-muted">{termsData.effectiveDate}</p>
+                          <h6
+                            className="mb-1 fw-bold"
+                            style={{ color: colors.navy }}
+                          >
+                            Effective Date
+                          </h6>
+                          <p className="mb-0 text-muted">
+                            {termsData.effectiveDate}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -440,22 +565,28 @@ const TermsOfServicePage = () => {
               {/* Important Notice */}
               <div className="animate-slide-in-up animate-delay-1 mb-5">
                 <div className="highlight-box">
-                  <strong>Important Notice:</strong> By using our services, you agree to these terms and conditions. 
-                  If you do not agree to these terms, please do not use our services.
+                  <strong>Important Notice:</strong> By using our services, you
+                  agree to these terms and conditions. If you do not agree to
+                  these terms, please do not use our services.
                 </div>
               </div>
 
               {/* Terms Sections */}
-                             {sections.map((section) => (
-                 <div key={section.title} className={`animate-slide-in-up animate-delay-${sections.indexOf(section) + 2}`}>
-                   <div className="glass-card section-card p-5 rounded-3 mb-5">
-                     <h2 className="section-title mb-4">{section.title}</h2>
-                     <div className="text-content">
-                       <ul className="content-list">
-                         {section.content.map((item) => (
-                           <li key={`${section.title}-${item.substring(0, 20)}`}>{item}</li>
-                         ))}
-                       </ul>
+              {sections.map(section => (
+                <div
+                  key={section.title}
+                  className={`animate-slide-in-up animate-delay-${sections.indexOf(section) + 2}`}
+                >
+                  <div className="glass-card section-card p-5 rounded-3 mb-5">
+                    <h2 className="section-title mb-4">{section.title}</h2>
+                    <div className="text-content">
+                      <ul className="content-list">
+                        {section.content.map(item => (
+                          <li key={`${section.title}-${item.substring(0, 20)}`}>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
@@ -493,22 +624,29 @@ const TermsOfServicePage = () => {
               {/* Contact Section */}
               <div className="animate-slide-in-up animate-delay-6">
                 <div className="contact-card mb-5">
-                  <h3 className="fw-bold mb-3" style={{ color: colors.navy }}>Questions About Our Terms?</h3>
+                  <h3 className="fw-bold mb-3" style={{ color: colors.navy }}>
+                    Questions About Our Terms?
+                  </h3>
                   <p className="text-muted mb-4">
-                    If you have any questions about these Terms of Service, please contact our legal team.
+                    If you have any questions about these Terms of Service,
+                    please contact our legal team.
                   </p>
                   <div className="d-flex flex-column flex-md-row gap-3 justify-content-center">
                     <BrandButton
                       variant="navy"
                       size="lg"
-                      onClick={() => window.location.href = `mailto:${termsData.contactEmail}`}
+                      onClick={() =>
+                        (window.location.href = `mailto:${termsData.contactEmail}`)
+                      }
                     >
                       📧 Email Legal Team
                     </BrandButton>
                     <BrandButton
                       variant="gold-outline"
                       size="lg"
-                      onClick={() => window.location.href = `tel:${termsData.contactPhone}`}
+                      onClick={() =>
+                        (window.location.href = `tel:${termsData.contactPhone}`)
+                      }
                     >
                       📞 Call Us
                     </BrandButton>

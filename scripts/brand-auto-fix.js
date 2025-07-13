@@ -24,7 +24,8 @@ const EXT_REGEX = /\.(tsx|ts|jsx|js)$/;
 const NAVY_HEX = /#0[dD]1[bB]2[aA]/g;
 const GOLD_HEX = /#f4b400/gi;
 
-const BUTTON_BLOCK_REGEX = /<button([^>]*className="[^"]*\bbtn btn-primary\b[^"]*"[^>]*)>([\s\S]*?)<\/button>/g;
+const BUTTON_BLOCK_REGEX =
+  /<button([^>]*className="[^"]*\bbtn btn-primary\b[^"]*"[^>]*)>([\s\S]*?)<\/button>/g;
 
 let totalChanged = 0;
 
@@ -43,13 +44,18 @@ function walk(dir, fileList = []) {
 
 function ensureImport(content, _import, identifier) {
   if (!content.includes(identifier)) return content; // identifier not used
-  const alreadyImported = new RegExp(`import .*${identifier}.* from`).test(content);
+  const alreadyImported = new RegExp(`import .*${identifier}.* from`).test(
+    content
+  );
   if (alreadyImported) {
     // If identifier not part of existing import, extend it
-    return content.replace(/import\s+\{([^}]*)\}\s+from\s+"@mahardika\/ui";/, (m, p1) => {
-      if (p1.includes(identifier)) return m;
-      return `import { ${p1.trim()}, ${identifier} } from "@mahardika/ui";`;
-    });
+    return content.replace(
+      /import\s+\{([^}]*)\}\s+from\s+"@mahardika\/ui";/,
+      (m, p1) => {
+        if (p1.includes(identifier)) return m;
+        return `import { ${p1.trim()}, ${identifier} } from "@mahardika/ui";`;
+      }
+    );
   }
 
   const lines = content.split('\n');
@@ -73,7 +79,10 @@ function processFile(file) {
   let updated = original;
 
   // Remove any faulty import inserted previously like "import { colors. } ..."
-  updated = updated.replace(/import \{[^}]*colors\.[^}]*\} from \"@mahardika\/ui\";?\n?/g, '');
+  updated = updated.replace(
+    /import \{[^}]*colors\.[^}]*\} from \"@mahardika\/ui\";?\n?/g,
+    ''
+  );
 
   // Replace hex colors
   updated = updated.replace(NAVY_HEX, 'colors.navy');
@@ -89,17 +98,31 @@ function processFile(file) {
 
   // Add imports if necessary (skip if file itself declares colors)
   if (!isColorsFile) {
-    updated = ensureImport(updated, 'import { colors } from "@mahardika/ui";', 'colors');
+    updated = ensureImport(
+      updated,
+      'import { colors } from "@mahardika/ui";',
+      'colors'
+    );
   }
 
   // Skip adding BrandButton import inside its own definition file and when file already defines component
-  if (!file.endsWith('BrandButton.tsx') && !updated.includes('function BrandButton') && !updated.includes('const BrandButton')) {
-    updated = ensureImport(updated, 'import { BrandButton } from "@mahardika/ui";', 'BrandButton');
+  if (
+    !file.endsWith('BrandButton.tsx') &&
+    !updated.includes('function BrandButton') &&
+    !updated.includes('const BrandButton')
+  ) {
+    updated = ensureImport(
+      updated,
+      'import { BrandButton } from "@mahardika/ui";',
+      'BrandButton'
+    );
   }
 
   // Ensure directive is first line if present
   const lines = updated.split('\n');
-  const dirIndex = lines.findIndex(l => /^['\"]use (client|server)['\"];?/.test(l.trim()));
+  const dirIndex = lines.findIndex(l =>
+    /^['\"]use (client|server)['\"];?/.test(l.trim())
+  );
   if (dirIndex > 0) {
     const directiveLine = lines.splice(dirIndex, 1)[0];
     lines.unshift(directiveLine);
@@ -121,4 +144,4 @@ if (!fs.existsSync(SCAN_DIR)) {
 const files = walk(SCAN_DIR);
 files.forEach(processFile);
 
-console.log(`\n✅ Auto-fix complete. ${totalChanged} files modified.`); 
+console.log(`\n✅ Auto-fix complete. ${totalChanged} files modified.`);

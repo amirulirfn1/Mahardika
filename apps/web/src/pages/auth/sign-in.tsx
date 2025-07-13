@@ -32,11 +32,5 @@ export default function SignInPage() {
     }
   };
 
-  return (
-    <AuthForm
-      onLogin={handleLogin}
-      isLoading={isLoading}
-      error={error}
-    />
-  );
-} 
+  return <AuthForm onLogin={handleLogin} isLoading={isLoading} error={error} />;
+}

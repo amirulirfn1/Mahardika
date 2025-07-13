@@ -16,15 +16,21 @@ export type BrandButtonProps = {
   disabled?: boolean;
 };
 
-export const BrandButton = ({ variant = 'navy', as = 'button', size = 'md', fullWidth = false, style, className = '', ...props }: BrandButtonProps) => {
+export const BrandButton = ({
+  variant = 'navy',
+  as = 'button',
+  size = 'md',
+  fullWidth = false,
+  style,
+  className = '',
+  ...props
+}: BrandButtonProps) => {
   const mappedVariant = variant === 'navy' ? 'primary' : variant; // adjust as needed
   const brandStyle = { backgroundColor: colors.navy, color: 'white', ...style }; // adjust
   let classes = `btn btn-${mappedVariant} btn-${size} ${className}`;
   if (fullWidth) classes += ' w-100';
   const Component = as;
-  return (
-    <Component className={classes} style={brandStyle} {...props} />
-  );
+  return <Component className={classes} style={brandStyle} {...props} />;
 };
 
 // Template variations for common use cases

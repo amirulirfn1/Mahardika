@@ -8,4 +8,4 @@ describe('BrandButton Snapshot', () => {
     const { asFragment } = render(<BrandButton>Action</BrandButton>);
     expect(asFragment()).toMatchSnapshot();
   });
-}); 
+});

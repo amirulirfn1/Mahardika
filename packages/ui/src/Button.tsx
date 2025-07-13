@@ -43,7 +43,7 @@ export const Button: React.FC<ButtonProps> = ({
   // Hover styles based on variant
   const getHoverStyles = () => {
     if (!isHovered || disabled || loading) return {};
-    
+
     const hoverEffects = {
       navy: {
         backgroundColor: colors.hover.navy,
@@ -66,7 +66,7 @@ export const Button: React.FC<ButtonProps> = ({
         boxShadow: '0 4px 12px rgba(244, 180, 0, 0.1)',
       },
     };
-    
+
     return hoverEffects[variant] || {};
   };
 

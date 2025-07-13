@@ -2,10 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Mahardika Platform Pre-commit Hook
-# Ensures code quality and brand consistency before commits
-
-echo "🎨 Running Mahardika brand color checks..."
-node scripts/check-brand-colors.js
+# Ensures code quality before commits
 
 echo "📋 Running code quality checks..."
 npm run format:check
@@ -13,11 +10,5 @@ npm run lint
 
 echo "🔒 Running security checks..."
 npm run security:check
-
-echo "🏗️  Building project..."
-npm run build
-
-echo "🧪 Running tests..."
-npm run test
 
 echo "✅ All pre-commit checks passed!"

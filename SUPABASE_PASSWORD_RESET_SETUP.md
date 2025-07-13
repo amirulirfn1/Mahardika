@@ -88,13 +88,11 @@ export const resetPassword = async (email: string, redirectTo?: string) => {
 ### Password Reset Flow
 
 1. **Forgot Password Page**: `apps/web/src/app/auth/forgot-password/page.tsx`
-
    - User enters email address
    - Calls `resetPassword()` function
    - Shows success message
 
 2. **Reset Password Page**: `apps/web/src/app/auth/reset-password/page.tsx`
-
    - Handles the redirect from email link
    - Allows user to set new password
    - Calls `updatePassword()` function

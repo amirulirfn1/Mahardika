@@ -15,12 +15,6 @@
     "allowSyntheticDefaultImports": true,
     "noEmit": false
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
-} 
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["dist", "node_modules"]
+}

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useEffect, useState } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { Session } from '@supabase/supabase-js';
@@ -25,7 +25,9 @@ const CustomerQuotationsPage = () => {
 
   // Fetch current session on mount and subscribe to auth changes
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSession(data.session ?? null));
+    supabase.auth
+      .getSession()
+      .then(({ data }) => setSession(data.session ?? null));
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, newSession) => {
@@ -69,7 +71,11 @@ const CustomerQuotationsPage = () => {
                 <td>{idx + 1}</td>
                 <td>{new Date(q.created_at).toLocaleDateString()}</td>
                 <td>
-                  <Link href={q.file_url} target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href={q.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     View PDF
                   </Link>
                 </td>
@@ -82,4 +88,4 @@ const CustomerQuotationsPage = () => {
   );
 };
 
-export default CustomerQuotationsPage; 
+export default CustomerQuotationsPage;

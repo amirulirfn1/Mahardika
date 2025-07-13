@@ -33,12 +33,16 @@ async function handleTrackDSR(request: NextRequest) {
     }
 
     // Rate limiting check (basic implementation)
-    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
-    
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
+
     // Query the DSR request
     const { data: dsrRequest, error: queryError } = await supabaseClient
       .from('dsr_requests')
-      .select(`
+      .select(
+        `
         id,
         type,
         email,
@@ -52,7 +56,8 @@ async function handleTrackDSR(request: NextRequest) {
         completed_at,
         resolution_notes,
         rejected_reason
-      `)
+      `
+      )
       .eq('id', request_id)
       .eq('email', email.toLowerCase())
       .single();
@@ -61,14 +66,14 @@ async function handleTrackDSR(request: NextRequest) {
       if (queryError.code === 'PGRST116') {
         // No rows returned - request not found or email doesn't match
         return NextResponse.json(
-          { 
+          {
             error: 'Request not found or email does not match our records',
-            code: 'REQUEST_NOT_FOUND' 
+            code: 'REQUEST_NOT_FOUND',
           },
           { status: 404 }
         );
       }
-      
+
       console.error('Database error:', queryError);
       return NextResponse.json(
         { error: 'Failed to retrieve request information' },
@@ -78,18 +83,16 @@ async function handleTrackDSR(request: NextRequest) {
 
     // Log the access for audit purposes
     try {
-      await supabaseClient
-        .from('dsr_audit_log')
-        .insert({
-          request_id: dsrRequest.id,
-          action: 'status_checked',
-          new_values: {
-            checked_by_email: email,
-            checked_at: new Date().toISOString(),
-          },
-          ip_address: ip,
-          user_agent: request.headers.get('user-agent'),
-        });
+      await supabaseClient.from('dsr_audit_log').insert({
+        request_id: dsrRequest.id,
+        action: 'status_checked',
+        new_values: {
+          checked_by_email: email,
+          checked_at: new Date().toISOString(),
+        },
+        ip_address: ip,
+        user_agent: request.headers.get('user-agent'),
+      });
     } catch (auditError) {
       // Don't fail the request if audit logging fails
       console.error('Audit log error:', auditError);
@@ -116,7 +119,6 @@ async function handleTrackDSR(request: NextRequest) {
       success: true,
       request: sanitizedRequest,
     });
-
   } catch (error) {
     console.error('DSR tracking error:', error);
     return NextResponse.json(
@@ -126,4 +128,4 @@ async function handleTrackDSR(request: NextRequest) {
   }
 }
 
-export const POST = csrfProtection(handleTrackDSR); 
+export const POST = csrfProtection(handleTrackDSR);

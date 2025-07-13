@@ -1,10 +1,8 @@
 'use client';
 
-
 import { colors, theme } from '@mahardika/ui';
 import React from 'react';
 import Link from 'next/link';
-
 
 export function Footer() {
   return (

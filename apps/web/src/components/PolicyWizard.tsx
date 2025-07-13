@@ -26,11 +26,18 @@ type Props = {
   defaultValues?: Partial<PolicyWizardResult>;
 };
 
-export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) {
+export default function PolicyWizard({
+  onComplete,
+  defaultValues = {},
+}: Props) {
   type Step = 'customer' | 'vehicle' | 'details' | 'pdf';
   const [step, setStep] = useState<Step>('customer');
-  const [customers, setCustomers] = useState<Array<z.infer<typeof customerSchema>>>([]);
-  const [vehicles, setVehicles] = useState<Array<z.infer<typeof vehicleSchema>>>([]);
+  const [customers, setCustomers] = useState<
+    Array<z.infer<typeof customerSchema>>
+  >([]);
+  const [vehicles, setVehicles] = useState<
+    Array<z.infer<typeof vehicleSchema>>
+  >([]);
 
   const [form, setForm] = useState<PolicyWizardResult>({
     customer_id: defaultValues.customer_id || '',
@@ -60,7 +67,11 @@ export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) 
   }, []);
 
   const isDetailsValid = () =>
-    form.policy_type && form.product_name && form.start_date && form.end_date && form.premium_amount > 0;
+    form.policy_type &&
+    form.product_name &&
+    form.start_date &&
+    form.end_date &&
+    form.premium_amount > 0;
 
   const uploadPdf = async (): Promise<string | undefined> => {
     if (!pdfFile) return undefined;
@@ -71,9 +82,13 @@ export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) 
     const { url, anonKey } = getSupabaseConfig();
     const supabase = createBrowserClient(url, anonKey);
     const filePath = `${Date.now()}_${pdfFile.name}`;
-    const { error } = await supabase.storage.from('policy-pdfs').upload(filePath, pdfFile);
+    const { error } = await supabase.storage
+      .from('policy-pdfs')
+      .upload(filePath, pdfFile);
     if (error) throw error;
-    const { data } = await supabase.storage.from('policy-pdfs').getPublicUrl(filePath);
+    const { data } = await supabase.storage
+      .from('policy-pdfs')
+      .getPublicUrl(filePath);
     setUploading(false);
     return data?.publicUrl;
   };
@@ -100,10 +115,18 @@ export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) 
     return (
       <div className="d-flex gap-2 mb-3">
         {steps.map(s => (
-          <div key={s} className="d-flex flex-column align-items-center" style={{ flex: 1 }}>
+          <div
+            key={s}
+            className="d-flex flex-column align-items-center"
+            style={{ flex: 1 }}
+          >
             <div
               className="rounded-circle d-flex align-items-center justify-content-center"
-              style={{ width: 32, height: 32, background: s === step ? colors.gold : colors.gray[300] }}
+              style={{
+                width: 32,
+                height: 32,
+                background: s === step ? colors.gold : colors.gray[300],
+              }}
             >
               {steps.indexOf(s) + 1}
             </div>
@@ -129,7 +152,10 @@ export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) 
           </option>
         ))}
       </select>
-      <BrandButton disabled={!form.customer_id} onClick={() => setStep('vehicle')}>
+      <BrandButton
+        disabled={!form.customer_id}
+        onClick={() => setStep('vehicle')}
+      >
         Next
       </BrandButton>
     </div>
@@ -150,8 +176,13 @@ export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) 
           </option>
         ))}
       </select>
-      <BrandButton variant="secondary" onClick={() => setStep('customer')}>Back</BrandButton>{' '}
-      <BrandButton disabled={!form.vehicle_id} onClick={() => setStep('details')}>
+      <BrandButton variant="secondary" onClick={() => setStep('customer')}>
+        Back
+      </BrandButton>{' '}
+      <BrandButton
+        disabled={!form.vehicle_id}
+        onClick={() => setStep('details')}
+      >
         Next
       </BrandButton>
     </div>
@@ -161,30 +192,66 @@ export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) 
     <div>
       <div className="mb-2">
         <label className="form-label">Policy Type</label>
-        <input className="form-control" value={form.policy_type} onChange={e => setForm({ ...form, policy_type: e.target.value })} />
+        <input
+          className="form-control"
+          value={form.policy_type}
+          onChange={e => setForm({ ...form, policy_type: e.target.value })}
+        />
       </div>
       <div className="mb-2">
         <label className="form-label">Product Name</label>
-        <input className="form-control" value={form.product_name} onChange={e => setForm({ ...form, product_name: e.target.value })} />
+        <input
+          className="form-control"
+          value={form.product_name}
+          onChange={e => setForm({ ...form, product_name: e.target.value })}
+        />
       </div>
       <div className="mb-2">
         <label className="form-label">Start Date</label>
-        <input type="date" className="form-control" value={form.start_date} onChange={e => setForm({ ...form, start_date: e.target.value })} />
+        <input
+          type="date"
+          className="form-control"
+          value={form.start_date}
+          onChange={e => setForm({ ...form, start_date: e.target.value })}
+        />
       </div>
       <div className="mb-2">
         <label className="form-label">End Date</label>
-        <input type="date" className="form-control" value={form.end_date} onChange={e => setForm({ ...form, end_date: e.target.value })} />
+        <input
+          type="date"
+          className="form-control"
+          value={form.end_date}
+          onChange={e => setForm({ ...form, end_date: e.target.value })}
+        />
       </div>
       <div className="mb-2">
         <label className="form-label">Premium Amount</label>
-        <input type="number" className="form-control" value={form.premium_amount} onChange={e => setForm({ ...form, premium_amount: Number(e.target.value) })} />
+        <input
+          type="number"
+          className="form-control"
+          value={form.premium_amount}
+          onChange={e =>
+            setForm({ ...form, premium_amount: Number(e.target.value) })
+          }
+        />
       </div>
       <div className="mb-2">
         <label className="form-label">Coverage Amount</label>
-        <input type="number" className="form-control" value={form.coverage_amount} onChange={e => setForm({ ...form, coverage_amount: Number(e.target.value) })} />
+        <input
+          type="number"
+          className="form-control"
+          value={form.coverage_amount}
+          onChange={e =>
+            setForm({ ...form, coverage_amount: Number(e.target.value) })
+          }
+        />
       </div>
-      <BrandButton variant="secondary" onClick={() => setStep('vehicle')}>Back</BrandButton>{' '}
-      <BrandButton disabled={!isDetailsValid()} onClick={() => setStep('pdf')}>Next</BrandButton>
+      <BrandButton variant="secondary" onClick={() => setStep('vehicle')}>
+        Back
+      </BrandButton>{' '}
+      <BrandButton disabled={!isDetailsValid()} onClick={() => setStep('pdf')}>
+        Next
+      </BrandButton>
     </div>
   );
 
@@ -192,10 +259,17 @@ export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) 
     <div>
       <div className="mb-3">
         <label className="form-label fw-bold">Upload Policy PDF</label>
-        <input type="file" accept="application/pdf" className="form-control" onChange={e => setPdfFile(e.target.files?.[0] || null)} />
+        <input
+          type="file"
+          accept="application/pdf"
+          className="form-control"
+          onChange={e => setPdfFile(e.target.files?.[0] || null)}
+        />
       </div>
-      <BrandButton variant="secondary" onClick={() => setStep('details')}>Back</BrandButton>{' '}
-      <BrandButton onClick={finish} disabled={uploading || (pdfFile == null)}>
+      <BrandButton variant="secondary" onClick={() => setStep('details')}>
+        Back
+      </BrandButton>{' '}
+      <BrandButton onClick={finish} disabled={uploading || pdfFile == null}>
         {uploading ? 'Uploading…' : 'Finish'}
       </BrandButton>
     </div>
@@ -210,4 +284,4 @@ export default function PolicyWizard({ onComplete, defaultValues = {} }: Props) 
       {step === 'pdf' && <PdfStep />}
     </div>
   );
-} 
+}

@@ -10,8 +10,7 @@ import * as Sentry from '@sentry/nextjs';
  *   - SENTRY_DSN               (fallback)
  */
 Sentry.init({
-  dsn:
-    process.env.NEXT_PUBLIC_SENTRY_DSN || process.env.SENTRY_DSN || '',
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN || process.env.SENTRY_DSN || '',
 
   // Disable all reporting outside production to avoid spam
   enabled: process.env.NODE_ENV === 'production',
@@ -22,4 +21,4 @@ Sentry.init({
   // Session Replay – capture 10% of sessions, 100% with errors
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
-}); 
+});

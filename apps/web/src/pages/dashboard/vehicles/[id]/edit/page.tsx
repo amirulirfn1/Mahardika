@@ -18,7 +18,9 @@ type Vehicle = z.infer<typeof vehicleSchema>;
 
 export default function EditVehiclePage() {
   const router = useRouter();
-  const vehicleId = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id;
+  const vehicleId = Array.isArray(router.query.id)
+    ? router.query.id[0]
+    : router.query.id;
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [saving, setSaving] = useState(false);
 
@@ -81,7 +83,9 @@ export default function EditVehiclePage() {
           className="form-control"
           type="number"
           value={vehicle.year ?? ''}
-          onChange={e => setVehicle({ ...vehicle, year: Number(e.target.value) })}
+          onChange={e =>
+            setVehicle({ ...vehicle, year: Number(e.target.value) })
+          }
         />
       </div>
       <div className="mb-3">
@@ -98,4 +102,4 @@ export default function EditVehiclePage() {
       </BrandButton>
     </div>
   );
-} 
+}

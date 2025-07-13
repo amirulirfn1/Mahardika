@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface ThemeContextProps {
@@ -6,14 +6,21 @@ interface ThemeContextProps {
   toggleDark: () => void;
 }
 
-const ThemeContext = createContext<ThemeContextProps>({ dark: false, toggleDark: () => {} });
+const ThemeContext = createContext<ThemeContextProps>({
+  dark: false,
+  toggleDark: () => {},
+});
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('theme');
-    const isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const isDark =
+      stored === 'dark' ||
+      (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
     setDark(isDark);
   }, []);
 
@@ -27,9 +34,13 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [dark]);
 
-  const toggleDark = () => setDark((v) => !v);
+  const toggleDark = () => setDark(v => !v);
 
-  return <ThemeContext.Provider value={{ dark, toggleDark }}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={{ dark, toggleDark }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
-export const useTheme = () => useContext(ThemeContext); 
+export const useTheme = () => useContext(ThemeContext);

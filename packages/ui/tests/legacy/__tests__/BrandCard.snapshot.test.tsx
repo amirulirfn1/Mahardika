@@ -10,4 +10,4 @@ describe('BrandCard Snapshot', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
-}); 
+});

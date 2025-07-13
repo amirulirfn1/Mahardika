@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Jest Global Setup - Mahardika Platform
  * Global test environment initialization

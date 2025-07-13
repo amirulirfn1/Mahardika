@@ -1,8 +1,11 @@
-
-
 import React, { useEffect, useMemo, useState } from 'react';
 import { colors } from '@mahardika/ui';
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
 import { z } from 'zod';
 
 const orderSchema = z.object({
@@ -34,41 +37,62 @@ export default function PaymentAdminPage() {
     fetchOrders();
   }, []);
 
-  const columns = useMemo<ColumnDef<Order>[]>(() => [
-    { accessorKey: 'order_number', header: 'Order #' },
-    { accessorKey: 'total_amount', header: 'Amount', cell: ({ getValue }) => `$${getValue<number>().toFixed(2)}` },
-    { accessorKey: 'state', header: 'State' },
-    { 
-      id: 'actions', 
-      header: '', 
-      cell: ({ row }) => (
-        <button 
-          className="btn btn-sm" 
-          style={{ backgroundColor: colors.navy, color: 'white', border: 'none' }}
-          onClick={() => setSelected(row.original)}
-        >
-          Upload Proof
-        </button>
-      )
-    }
-  ], []);
+  const columns = useMemo<ColumnDef<Order>[]>(
+    () => [
+      { accessorKey: 'order_number', header: 'Order #' },
+      {
+        accessorKey: 'total_amount',
+        header: 'Amount',
+        cell: ({ getValue }) => `$${getValue<number>().toFixed(2)}`,
+      },
+      { accessorKey: 'state', header: 'State' },
+      {
+        id: 'actions',
+        header: '',
+        cell: ({ row }) => (
+          <button
+            className="btn btn-sm"
+            style={{
+              backgroundColor: colors.navy,
+              color: 'white',
+              border: 'none',
+            }}
+            onClick={() => setSelected(row.original)}
+          >
+            Upload Proof
+          </button>
+        ),
+      },
+    ],
+    []
+  );
 
-  const table = useReactTable({ data: orders, columns, getCoreRowModel: getCoreRowModel() });
+  const table = useReactTable({
+    data: orders,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
 
   return (
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 style={{ color: colors.navy }}>Pending Payments</h2>
-        <button 
-          className="btn" 
-          style={{ backgroundColor: colors.navy, color: 'white', border: 'none' }}
+        <button
+          className="btn"
+          style={{
+            backgroundColor: colors.navy,
+            color: 'white',
+            border: 'none',
+          }}
           onClick={fetchOrders}
         >
           Refresh
         </button>
       </div>
 
-      {loading ? 'Loading…' : (
+      {loading ? (
+        'Loading…'
+      ) : (
         <table className="table table-striped">
           <thead>
             {table.getHeaderGroups().map(hg => (
@@ -95,12 +119,26 @@ export default function PaymentAdminPage() {
         </table>
       )}
 
-      {selected && <UploadProofModal order={selected} onClose={() => { setSelected(null); fetchOrders(); }} />}
+      {selected && (
+        <UploadProofModal
+          order={selected}
+          onClose={() => {
+            setSelected(null);
+            fetchOrders();
+          }}
+        />
+      )}
     </div>
   );
 }
 
-function UploadProofModal({ order, onClose }: { order: Order; onClose: () => void }) {
+function UploadProofModal({
+  order,
+  onClose,
+}: {
+  order: Order;
+  onClose: () => void;
+}) {
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
@@ -111,7 +149,10 @@ function UploadProofModal({ order, onClose }: { order: Order; onClose: () => voi
     const fd = new FormData();
     fd.append('file', file);
     fd.append('orderId', order.id);
-    const res = await fetch('/api/payments/proof', { method: 'POST', body: fd });
+    const res = await fetch('/api/payments/proof', {
+      method: 'POST',
+      body: fd,
+    });
     if (!res.ok) {
       const j = await res.json();
       setError(j.error || 'Upload failed');
@@ -125,11 +166,20 @@ function UploadProofModal({ order, onClose }: { order: Order; onClose: () => voi
     <div className="modal d-block" style={{ background: '#00000066' }}>
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header" style={{ backgroundColor: colors.navy, color: 'white' }}>
-            <h5 className="modal-title">Upload Payment Proof – {order.order_number}</h5>
-            <button 
-              className="btn btn-sm" 
-              style={{ backgroundColor: 'transparent', color: 'white', border: '1px solid white' }}
+          <div
+            className="modal-header"
+            style={{ backgroundColor: colors.navy, color: 'white' }}
+          >
+            <h5 className="modal-title">
+              Upload Payment Proof – {order.order_number}
+            </h5>
+            <button
+              className="btn btn-sm"
+              style={{
+                backgroundColor: 'transparent',
+                color: 'white',
+                border: '1px solid white',
+              }}
               onClick={onClose}
             >
               ×
@@ -137,20 +187,33 @@ function UploadProofModal({ order, onClose }: { order: Order; onClose: () => voi
           </div>
           <div className="modal-body">
             {error && <div className="alert alert-danger">{error}</div>}
-            <input type="file" accept="image/*" className="form-control" onChange={e => setFile(e.target.files?.[0] || null)} />
+            <input
+              type="file"
+              accept="image/*"
+              className="form-control"
+              onChange={e => setFile(e.target.files?.[0] || null)}
+            />
           </div>
           <div className="modal-footer">
-            <button 
-              className="btn" 
-              style={{ backgroundColor: '#6c757d', color: 'white', border: 'none' }}
+            <button
+              className="btn"
+              style={{
+                backgroundColor: '#6c757d',
+                color: 'white',
+                border: 'none',
+              }}
               onClick={onClose}
             >
               Cancel
             </button>
-            <button 
-              className="btn" 
-              style={{ backgroundColor: colors.navy, color: 'white', border: 'none' }}
-              onClick={submit} 
+            <button
+              className="btn"
+              style={{
+                backgroundColor: colors.navy,
+                color: 'white',
+                border: 'none',
+              }}
+              onClick={submit}
               disabled={uploading || !file}
             >
               {uploading ? 'Uploading…' : 'Submit'}
@@ -160,4 +223,4 @@ function UploadProofModal({ order, onClose }: { order: Order; onClose: () => voi
       </div>
     </div>
   );
-} 
+}

@@ -1,12 +1,10 @@
 'use client';
 
-
 import { colors, BrandButton, theme } from '@mahardika/ui';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import SettingsMenu from './SettingsMenu';
-
 
 export function Navigation() {
   const { t } = useTranslation();
@@ -131,18 +129,12 @@ export function Navigation() {
             {/* Authentication */}
             <div className="d-flex align-items-center gap-2">
               <Link href="/auth" style={{ textDecoration: 'none' }}>
-                <BrandButton
-                  variant="outline-navy"
-                  size="sm"
-                >
+                <BrandButton variant="outline-navy" size="sm">
                   {t('navbar.signin')}
                 </BrandButton>
               </Link>
               <Link href="/auth" style={{ textDecoration: 'none' }}>
-                <BrandButton
-                  variant="navy"
-                  size="sm"
-                >
+                <BrandButton variant="navy" size="sm">
                   {t('navbar.join')}
                 </BrandButton>
               </Link>
@@ -220,7 +212,7 @@ export function Navigation() {
                 >
                   {t('navbar.dashboard')}
                 </Link>
-                
+
                 {/* Mobile Authentication */}
                 <div className="d-flex gap-2 px-3 pt-2">
                   <Link href="/auth" style={{ textDecoration: 'none' }}>

@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Jest Setup - Mahardika Platform
  * Global test configuration and utilities
@@ -200,18 +200,31 @@ afterEach(() => {
 // Enhanced Supabase mock (shared instance) for tests that rely on Supabase
 // -----------------------------------------------------------------------------
 const sharedAuthMock = {
-  signInWithPassword: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
-  signUp: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
+  signInWithPassword: jest.fn().mockResolvedValue({
+    data: { user: { id: '1', email: 'test@example.com' } },
+    error: null,
+  }),
+  signUp: jest.fn().mockResolvedValue({
+    data: { user: { id: '1', email: 'test@example.com' } },
+    error: null,
+  }),
   signOut: jest.fn().mockResolvedValue({ error: null }),
-  getUser: jest.fn().mockResolvedValue({ data: { user: { id: '1', email: 'test@example.com' } }, error: null }),
-  getSession: jest.fn().mockResolvedValue({ data: { session: null }, error: null }),
+  getUser: jest.fn().mockResolvedValue({
+    data: { user: { id: '1', email: 'test@example.com' } },
+    error: null,
+  }),
+  getSession: jest
+    .fn()
+    .mockResolvedValue({ data: { session: null }, error: null }),
   resetPasswordForEmail: jest.fn().mockResolvedValue({ data: {}, error: null }),
   updateUser: jest.fn().mockResolvedValue({ data: {}, error: null }),
 };
 const sharedFromMock = () => ({
   select: jest.fn(() => ({
     eq: jest.fn(() => ({
-      single: jest.fn().mockResolvedValue({ data: null, error: { code: 'PGRST116' } }),
+      single: jest
+        .fn()
+        .mockResolvedValue({ data: null, error: { code: 'PGRST116' } }),
     })),
   })),
   upsert: jest.fn(() => ({

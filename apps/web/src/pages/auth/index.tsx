@@ -5,7 +5,7 @@ export default function AuthPage() {
   // Mock authentication handlers
   const handleLogin = async (email: string, password: string) => {
     // ✅ SECURITY FIX: Never log passwords - only log email for debugging
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     alert(`Login successful for ${email}`);
@@ -19,7 +19,7 @@ export default function AuthPage() {
     lastName: string
   ) => {
     // ✅ SECURITY FIX: Never log passwords - only log safe user data
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
     alert(`Registration successful for ${firstName} ${lastName}!`);

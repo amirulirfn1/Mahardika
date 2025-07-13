@@ -5,7 +5,9 @@ import { colors } from '@mahardika/ui';
 
 export default function AuthCallbackPage() {
   const router = useRouter();
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
+    'loading'
+  );
   const [message, setMessage] = useState('Processing authentication...');
 
   useEffect(() => {
@@ -19,7 +21,10 @@ export default function AuthCallbackPage() {
 
         // If no session, try to exchange code for session
         if (!session) {
-          const { data: exchanged, error: exchangeError } = await supabaseClient.auth.exchangeCodeForSession(window.location.href);
+          const { data: exchanged, error: exchangeError } =
+            await supabaseClient.auth.exchangeCodeForSession(
+              window.location.href
+            );
           if (exchangeError) {
             console.error('Exchange error:', exchangeError);
             setStatus('error');
@@ -66,12 +71,11 @@ export default function AuthCallbackPage() {
 
         setStatus('success');
         setMessage('Authentication successful! Redirecting to dashboard...');
-        
+
         // Redirect to dashboard after a short delay
         setTimeout(() => {
           router.push('/dashboard');
         }, 2000);
-
       } catch (e) {
         console.error('Authentication error:', e);
         setStatus('error');
@@ -84,23 +88,29 @@ export default function AuthCallbackPage() {
   }, [router]);
 
   return (
-    <div className="min-vh-100 d-flex align-items-center justify-content-center" style={{
-      background: `linear-gradient(135deg, ${colors.navy}15 0%, ${colors.gold}10 100%)`,
-    }}>
-      <div className="text-center p-5" style={{
-        background: 'rgba(255, 255, 255, 0.95)',
-        borderRadius: '1rem',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-        maxWidth: '400px',
-        width: '100%',
-        margin: '0 1rem',
-      }}>
+    <div
+      className="min-vh-100 d-flex align-items-center justify-content-center"
+      style={{
+        background: `linear-gradient(135deg, ${colors.navy}15 0%, ${colors.gold}10 100%)`,
+      }}
+    >
+      <div
+        className="text-center p-5"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          borderRadius: '1rem',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          maxWidth: '400px',
+          width: '100%',
+          margin: '0 1rem',
+        }}
+      >
         {status === 'loading' && (
           <>
-            <div 
-              className="spinner-border mb-3" 
+            <div
+              className="spinner-border mb-3"
               role="status"
-              style={{ 
+              style={{
                 color: colors.navy,
                 width: '3rem',
                 height: '3rem',
@@ -117,7 +127,7 @@ export default function AuthCallbackPage() {
 
         {status === 'success' && (
           <>
-            <div 
+            <div
               className="mb-3 d-flex align-items-center justify-content-center"
               style={{
                 width: '60px',
@@ -128,10 +138,17 @@ export default function AuthCallbackPage() {
               }}
             >
               <svg width="30" height="30" fill="white" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
-            <h3 className="h5 fw-bold mb-2" style={{ color: colors.successDark }}>
+            <h3
+              className="h5 fw-bold mb-2"
+              style={{ color: colors.successDark }}
+            >
               Success!
             </h3>
             <p className="text-muted mb-0">{message}</p>
@@ -140,7 +157,7 @@ export default function AuthCallbackPage() {
 
         {status === 'error' && (
           <>
-            <div 
+            <div
               className="mb-3 d-flex align-items-center justify-content-center"
               style={{
                 width: '60px',
@@ -151,7 +168,11 @@ export default function AuthCallbackPage() {
               }}
             >
               <svg width="30" height="30" fill="white" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
               </svg>
             </div>
             <h3 className="h5 fw-bold mb-2" style={{ color: colors.errorDark }}>
@@ -163,4 +184,4 @@ export default function AuthCallbackPage() {
       </div>
     </div>
   );
-} 
+}

@@ -14,7 +14,12 @@ import {
   handleAuthError,
   SignInResult,
 } from '@/app/(auth)/signin/actions';
-import { authService, authUtils, AuthUser, AuthError } from '@/lib/supabaseClient';
+import {
+  authService,
+  authUtils,
+  AuthUser,
+  AuthError,
+} from '@/lib/supabaseClient';
 
 // Mock the Supabase client
 jest.mock('@/lib/supabaseClient', () => ({
@@ -96,7 +101,9 @@ describe('Sign In Actions', () => {
         error: mockError,
       });
 
-      (authUtils.formatError as jest.Mock).mockReturnValue('Invalid email or password. Please try again.');
+      (authUtils.formatError as jest.Mock).mockReturnValue(
+        'Invalid email or password. Please try again.'
+      );
 
       const result = await signInAction('test@example.com', 'wrongpassword');
 
@@ -122,7 +129,9 @@ describe('Sign In Actions', () => {
     });
 
     it('should handle unexpected errors', async () => {
-      (authService.signIn as jest.Mock).mockRejectedValue(new Error('Network error'));
+      (authService.signIn as jest.Mock).mockRejectedValue(
+        new Error('Network error')
+      );
 
       const result = await signInAction('test@example.com', 'password123');
 
@@ -170,7 +179,9 @@ describe('Sign In Actions', () => {
     });
 
     it('should handle unexpected errors', async () => {
-      (authService.signOut as jest.Mock).mockRejectedValue(new Error('Network error'));
+      (authService.signOut as jest.Mock).mockRejectedValue(
+        new Error('Network error')
+      );
 
       const result = await signOutAction();
 
@@ -219,7 +230,9 @@ describe('Sign In Actions', () => {
         error: mockError,
       });
 
-      (authUtils.formatError as jest.Mock).mockReturnValue('Failed to get current user.');
+      (authUtils.formatError as jest.Mock).mockReturnValue(
+        'Failed to get current user.'
+      );
 
       const result = await getCurrentUserAction();
 
@@ -231,7 +244,9 @@ describe('Sign In Actions', () => {
     });
 
     it('should handle unexpected errors', async () => {
-      (authService.getCurrentUser as jest.Mock).mockRejectedValue(new Error('Network error'));
+      (authService.getCurrentUser as jest.Mock).mockRejectedValue(
+        new Error('Network error')
+      );
 
       const result = await getCurrentUserAction();
 
@@ -280,7 +295,9 @@ describe('Sign In Actions', () => {
     });
 
     it('should handle errors gracefully', async () => {
-      (authUtils.isAuthenticated as jest.Mock).mockRejectedValue(new Error('Network error'));
+      (authUtils.isAuthenticated as jest.Mock).mockRejectedValue(
+        new Error('Network error')
+      );
 
       const result = await checkAuthAction();
 
@@ -380,7 +397,9 @@ describe('Sign In Actions', () => {
         code: 'Invalid login credentials',
       };
 
-      (authUtils.formatError as jest.Mock).mockReturnValue('Invalid email or password. Please try again.');
+      (authUtils.formatError as jest.Mock).mockReturnValue(
+        'Invalid email or password. Please try again.'
+      );
 
       const result = handleAuthError(mockError);
 
@@ -388,4 +407,4 @@ describe('Sign In Actions', () => {
       expect(authUtils.formatError).toHaveBeenCalledWith(mockError);
     });
   });
-}); 
+});

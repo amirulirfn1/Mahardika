@@ -161,7 +161,10 @@ async function handleCheckout(request: NextRequest) {
     // ✅ SECURITY IMPROVEMENT: Don't expose internal error details
     let errorMessage = 'An internal error occurred';
     if (error instanceof Error) {
-      if (error.message.includes('required') || error.message.includes('Invalid')) {
+      if (
+        error.message.includes('required') ||
+        error.message.includes('Invalid')
+      ) {
         errorMessage = error.message;
       }
     }

@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { withRateLimit, uploadRateLimit } from '@mah/core/security/rateLimit';
@@ -138,7 +138,7 @@ async function scanFileForViruses(fileBuffer: ArrayBuffer): Promise<{
     };
   } catch (error) {
     // If scanning fails, err on the side of caution
-    
+
     return {
       infected: false,
       threats: [],
@@ -175,8 +175,6 @@ async function compressPDF(fileBuffer: ArrayBuffer): Promise<{
     const compressionRatio =
       ((originalSize - mockCompressedSize) / originalSize) * 100;
 
-    
-
     return {
       compressedBuffer,
       originalSize,
@@ -184,7 +182,6 @@ async function compressPDF(fileBuffer: ArrayBuffer): Promise<{
       compressionRatio,
     };
   } catch (error) {
-    
     return {
       compressedBuffer: fileBuffer,
       originalSize: fileBuffer.byteLength,
@@ -230,7 +227,6 @@ async function getUserAgencyId(
 
     return userData.agency_id;
   } catch (error) {
-    
     return null;
   }
 }
@@ -294,7 +290,6 @@ async function uploadToStorageWithSignedUrl(
         .createSignedUrl(fileName, 3600); // 1 hour expiry
 
     if (signedUrlError) {
-      
       // Continue without signed URL - upload was successful
     }
 
@@ -355,7 +350,6 @@ async function logUploadActivity(
       };
 
       // no-op
-      
     }
   } catch (auditError) {
     // In a production environment, you might want to log this to a dedicated monitoring service.
@@ -521,8 +515,6 @@ async function handleCompressUpload(
       scanResults
     );
 
-    
-
     return NextResponse.json(
       {
         success: true,
@@ -549,8 +541,6 @@ async function handleCompressUpload(
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : 'Upload processing failed';
-
-    
 
     return NextResponse.json(
       {

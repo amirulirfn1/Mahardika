@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 /**
  * Environment Configuration - Mahardika Platform
  * Centralized environment variable management with type safety
@@ -38,7 +38,7 @@ export const DATABASE_CONFIG = {
   supabase: {
     enabled: Boolean(
       process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     ),
     url: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
     anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',

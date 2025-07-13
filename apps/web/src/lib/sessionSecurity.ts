@@ -12,10 +12,10 @@ import { cookies } from 'next/headers';
 export const SESSION_CONFIG = {
   // Session duration: 24 hours
   maxAge: 24 * 60 * 60, // 24 hours in seconds
-  
+
   // Rolling sessions: extend session on activity
   rolling: true,
-  
+
   // Secure cookie settings
   cookieOptions: {
     httpOnly: true,
@@ -24,12 +24,12 @@ export const SESSION_CONFIG = {
     path: '/',
     maxAge: 24 * 60 * 60, // 24 hours
   },
-  
+
   // Auto-refresh settings
   autoRefreshToken: true,
   detectSessionInUrl: true,
   persistSession: true,
-  
+
   // Security headers for session-related responses
   securityHeaders: {
     'X-Content-Type-Options': 'nosniff',
@@ -43,9 +43,12 @@ export const SESSION_CONFIG = {
 /**
  * Create a hardened Supabase server client with secure session settings
  */
-export function createSecureServerClient(supabaseUrl: string, supabaseAnonKey: string) {
+export function createSecureServerClient(
+  supabaseUrl: string,
+  supabaseAnonKey: string
+) {
   const cookieStore = cookies();
-  
+
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       get(name: string) {
@@ -88,7 +91,10 @@ export function createSecureServerClient(supabaseUrl: string, supabaseAnonKey: s
 /**
  * Create a hardened Supabase browser client with secure session settings
  */
-export function createSecureBrowserClient(supabaseUrl: string, supabaseAnonKey: string) {
+export function createSecureBrowserClient(
+  supabaseUrl: string,
+  supabaseAnonKey: string
+) {
   return createBrowserClient(supabaseUrl, supabaseAnonKey, {
     auth: {
       autoRefreshToken: SESSION_CONFIG.autoRefreshToken,
@@ -107,7 +113,9 @@ export interface SessionValidation {
   recommendations: string[];
 }
 
-export async function validateSessionSecurity(sessionData: any): Promise<SessionValidation> {
+export async function validateSessionSecurity(
+  sessionData: any
+): Promise<SessionValidation> {
   const issues: string[] = [];
   const recommendations: string[] = [];
 
@@ -120,10 +128,11 @@ export async function validateSessionSecurity(sessionData: any): Promise<Session
   const now = new Date();
   const expiresAt = new Date(sessionData.expires_at * 1000);
   const timeUntilExpiry = expiresAt.getTime() - now.getTime();
-  
+
   if (timeUntilExpiry <= 0) {
     issues.push('Session has expired');
-  } else if (timeUntilExpiry < 5 * 60 * 1000) { // Less than 5 minutes
+  } else if (timeUntilExpiry < 5 * 60 * 1000) {
+    // Less than 5 minutes
     recommendations.push('Session expires soon, consider refreshing');
   }
 
@@ -131,7 +140,7 @@ export async function validateSessionSecurity(sessionData: any): Promise<Session
   const createdAt = new Date(sessionData.created_at);
   const sessionAge = now.getTime() - createdAt.getTime();
   const maxSessionAge = SESSION_CONFIG.maxAge * 1000;
-  
+
   if (sessionAge > maxSessionAge) {
     issues.push('Session has exceeded maximum age');
   }
@@ -140,7 +149,7 @@ export async function validateSessionSecurity(sessionData: any): Promise<Session
   if (sessionData.user?.last_sign_in_at) {
     const lastSignIn = new Date(sessionData.user.last_sign_in_at);
     const timeSinceLastSignIn = now.getTime() - lastSignIn.getTime();
-    
+
     // If last sign-in was more than 7 days ago, recommend re-authentication
     if (timeSinceLastSignIn > 7 * 24 * 60 * 60 * 1000) {
       recommendations.push('Consider re-authenticating for enhanced security');
@@ -168,19 +177,27 @@ export async function secureLogout(supabaseClient: any): Promise<void> {
   try {
     // Sign out from Supabase
     await supabaseClient.auth.signOut();
-    
+
     // Clear any additional security-related storage
     if (typeof window !== 'undefined') {
       // Clear localStorage
       Object.keys(localStorage).forEach(key => {
-        if (key.includes('supabase') || key.includes('auth') || key.includes('session')) {
+        if (
+          key.includes('supabase') ||
+          key.includes('auth') ||
+          key.includes('session')
+        ) {
           localStorage.removeItem(key);
         }
       });
-      
+
       // Clear sessionStorage
       Object.keys(sessionStorage).forEach(key => {
-        if (key.includes('supabase') || key.includes('auth') || key.includes('session')) {
+        if (
+          key.includes('supabase') ||
+          key.includes('auth') ||
+          key.includes('session')
+        ) {
           sessionStorage.removeItem(key);
         }
       });
@@ -196,11 +213,11 @@ export async function secureLogout(supabaseClient: any): Promise<void> {
  */
 export function shouldRefreshSession(sessionData: any): boolean {
   if (!sessionData) return false;
-  
+
   const now = new Date();
   const expiresAt = new Date(sessionData.expires_at * 1000);
   const timeUntilExpiry = expiresAt.getTime() - now.getTime();
-  
+
   // Refresh if less than 10 minutes remaining
   return timeUntilExpiry < 10 * 60 * 1000;
-} 
+}

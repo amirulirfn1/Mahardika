@@ -47,20 +47,26 @@ describe('CustomerSignUpPage', () => {
       render(<CustomerSignUpPage />);
 
       expect(screen.getByText('Create Customer Account')).toBeInTheDocument();
-      expect(screen.getByText('Step 1: Enter your basic information')).toBeInTheDocument();
-      
+      expect(
+        screen.getByText('Step 1: Enter your basic information')
+      ).toBeInTheDocument();
+
       // Check form fields
       expect(screen.getByLabelText('Full Name')).toBeInTheDocument();
       expect(screen.getByLabelText('Email Address')).toBeInTheDocument();
       expect(screen.getByLabelText('Password')).toBeInTheDocument();
       expect(screen.getByLabelText('Confirm Password')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'Create Account' })).toBeInTheDocument();
+      expect(
+        screen.getByRole('button', { name: 'Create Account' })
+      ).toBeInTheDocument();
     });
 
     it('should show password requirements', () => {
       render(<CustomerSignUpPage />);
 
-      expect(screen.getByText('Password must be at least 8 characters long')).toBeInTheDocument();
+      expect(
+        screen.getByText('Password must be at least 8 characters long')
+      ).toBeInTheDocument();
     });
 
     it('should show link to sign in', () => {
@@ -78,7 +84,9 @@ describe('CustomerSignUpPage', () => {
       const emailInput = screen.getByLabelText('Email Address');
       fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
 
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
@@ -92,11 +100,15 @@ describe('CustomerSignUpPage', () => {
       const nameInput = screen.getByLabelText('Full Name');
       fireEvent.change(nameInput, { target: { value: 'A' } });
 
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Name must be at least 2 characters')).toBeInTheDocument();
+        expect(
+          screen.getByText('Name must be at least 2 characters')
+        ).toBeInTheDocument();
       });
     });
 
@@ -106,11 +118,15 @@ describe('CustomerSignUpPage', () => {
       const passwordInput = screen.getByLabelText('Password');
       fireEvent.change(passwordInput, { target: { value: '123' } });
 
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Password must be at least 8 characters')).toBeInTheDocument();
+        expect(
+          screen.getByText('Password must be at least 8 characters')
+        ).toBeInTheDocument();
       });
     });
 
@@ -121,9 +137,13 @@ describe('CustomerSignUpPage', () => {
       const confirmPasswordInput = screen.getByLabelText('Confirm Password');
 
       fireEvent.change(passwordInput, { target: { value: 'password123' } });
-      fireEvent.change(confirmPasswordInput, { target: { value: 'different123' } });
+      fireEvent.change(confirmPasswordInput, {
+        target: { value: 'different123' },
+      });
 
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
@@ -137,7 +157,9 @@ describe('CustomerSignUpPage', () => {
       const emailInput = screen.getByLabelText('Email Address');
       fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
 
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
@@ -147,7 +169,9 @@ describe('CustomerSignUpPage', () => {
       fireEvent.change(emailInput, { target: { value: 'valid@email.com' } });
 
       await waitFor(() => {
-        expect(screen.queryByText('Valid email required')).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('Valid email required')
+        ).not.toBeInTheDocument();
       });
     });
   });
@@ -187,7 +211,9 @@ describe('CustomerSignUpPage', () => {
       });
 
       // Submit form
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       // Check loading state
@@ -213,7 +239,9 @@ describe('CustomerSignUpPage', () => {
 
       // Check success message
       await waitFor(() => {
-        expect(screen.getByText('Account created successfully!')).toBeInTheDocument();
+        expect(
+          screen.getByText('Account created successfully!')
+        ).toBeInTheDocument();
       });
 
       // Check session storage
@@ -223,9 +251,14 @@ describe('CustomerSignUpPage', () => {
       );
 
       // Check redirect after delay
-      await waitFor(() => {
-        expect(mockRouter.push).toHaveBeenCalledWith('/auth/sign-up/customer/step-2');
-      }, { timeout: 2000 });
+      await waitFor(
+        () => {
+          expect(mockRouter.push).toHaveBeenCalledWith(
+            '/auth/sign-up/customer/step-2'
+          );
+        },
+        { timeout: 2000 }
+      );
     });
 
     it('should handle API error response', async () => {
@@ -254,11 +287,15 @@ describe('CustomerSignUpPage', () => {
       });
 
       // Submit form
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        expect(screen.getByText('User already exists with this email')).toBeInTheDocument();
+        expect(
+          screen.getByText('User already exists with this email')
+        ).toBeInTheDocument();
       });
 
       // Should not redirect
@@ -266,7 +303,9 @@ describe('CustomerSignUpPage', () => {
     });
 
     it('should handle network errors', async () => {
-      (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+      (global.fetch as jest.Mock).mockRejectedValueOnce(
+        new Error('Network error')
+      );
 
       render(<CustomerSignUpPage />);
 
@@ -285,7 +324,9 @@ describe('CustomerSignUpPage', () => {
       });
 
       // Submit form
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
@@ -319,11 +360,15 @@ describe('CustomerSignUpPage', () => {
       });
 
       // Submit form
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Account created successfully!')).toBeInTheDocument();
+        expect(
+          screen.getByText('Account created successfully!')
+        ).toBeInTheDocument();
       });
 
       // Should not set session storage if no user data
@@ -354,7 +399,9 @@ describe('CustomerSignUpPage', () => {
       });
 
       // Submit form
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       // Check loading state
@@ -379,7 +426,9 @@ describe('CustomerSignUpPage', () => {
       const emailInput = screen.getByLabelText('Email Address');
       fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
 
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
@@ -391,7 +440,9 @@ describe('CustomerSignUpPage', () => {
       fireEvent.change(nameInput, { target: { value: 'Test User' } });
 
       await waitFor(() => {
-        expect(screen.queryByText('Valid email required')).not.toBeInTheDocument();
+        expect(
+          screen.queryByText('Valid email required')
+        ).not.toBeInTheDocument();
       });
     });
 
@@ -401,25 +452,42 @@ describe('CustomerSignUpPage', () => {
         json: async () => ({
           success: true,
           message: 'Account created successfully!',
-          user: { id: 'user-id', email: 'test@example.com', name: 'Test User', user_type: 'customer' },
+          user: {
+            id: 'user-id',
+            email: 'test@example.com',
+            name: 'Test User',
+            user_type: 'customer',
+          },
         }),
       });
 
       render(<CustomerSignUpPage />);
 
       // Fill and submit form
-      fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
-      fireEvent.change(screen.getByLabelText('Email Address'), { target: { value: 'test@example.com' } });
-      fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'password123' } });
-      fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'password123' } });
+      fireEvent.change(screen.getByLabelText('Full Name'), {
+        target: { value: 'Test User' },
+      });
+      fireEvent.change(screen.getByLabelText('Email Address'), {
+        target: { value: 'test@example.com' },
+      });
+      fireEvent.change(screen.getByLabelText('Password'), {
+        target: { value: 'password123' },
+      });
+      fireEvent.change(screen.getByLabelText('Confirm Password'), {
+        target: { value: 'password123' },
+      });
 
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        const successMessage = screen.getByText('Account created successfully!');
+        const successMessage = screen.getByText(
+          'Account created successfully!'
+        );
         expect(successMessage).toBeInTheDocument();
-        
+
         // Check that it's in a success alert
         const alert = successMessage.closest('.alert-success');
         expect(alert).toBeInTheDocument();
@@ -438,22 +506,34 @@ describe('CustomerSignUpPage', () => {
       render(<CustomerSignUpPage />);
 
       // Fill and submit form
-      fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
-      fireEvent.change(screen.getByLabelText('Email Address'), { target: { value: 'test@example.com' } });
-      fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'password123' } });
-      fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'password123' } });
+      fireEvent.change(screen.getByLabelText('Full Name'), {
+        target: { value: 'Test User' },
+      });
+      fireEvent.change(screen.getByLabelText('Email Address'), {
+        target: { value: 'test@example.com' },
+      });
+      fireEvent.change(screen.getByLabelText('Password'), {
+        target: { value: 'password123' },
+      });
+      fireEvent.change(screen.getByLabelText('Confirm Password'), {
+        target: { value: 'password123' },
+      });
 
-      const submitButton = screen.getByRole('button', { name: 'Create Account' });
+      const submitButton = screen.getByRole('button', {
+        name: 'Create Account',
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => {
-        const errorMessage = screen.getByText('User already exists with this email');
+        const errorMessage = screen.getByText(
+          'User already exists with this email'
+        );
         expect(errorMessage).toBeInTheDocument();
-        
+
         // Check that it's in a danger alert
         const alert = errorMessage.closest('.alert-danger');
         expect(alert).toBeInTheDocument();
       });
     });
   });
-}); 
+});

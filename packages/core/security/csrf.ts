@@ -10,7 +10,10 @@ import { createHmac, randomBytes } from 'crypto';
 
 // CSRF Configuration
 const CSRF_CONFIG = {
-  secretKey: process.env.CSRF_SECRET_KEY || process.env.NEXTAUTH_SECRET || 'mahardika-csrf-secret-key',
+  secretKey:
+    process.env.CSRF_SECRET_KEY ||
+    process.env.NEXTAUTH_SECRET ||
+    'mahardika-csrf-secret-key',
   tokenLength: 32,
   cookieName: 'csrf-token',
   headerName: 'x-csrf-token',
@@ -68,8 +71,15 @@ export function validateCSRFToken(signedToken: string): boolean {
 /**
  * Set CSRF token in response cookies
  */
-export function setCSRFTokenCookie(response: NextResponse, token: string): void {
-  response.cookies.set(CSRF_CONFIG.cookieName, token, CSRF_CONFIG.cookieOptions);
+export function setCSRFTokenCookie(
+  response: NextResponse,
+  token: string
+): void {
+  response.cookies.set(
+    CSRF_CONFIG.cookieName,
+    token,
+    CSRF_CONFIG.cookieOptions
+  );
 }
 
 /**
@@ -133,7 +143,7 @@ export function csrfProtection(handler: Function) {
         {
           error: 'CSRF token missing',
           message: 'Request must include valid CSRF token',
-          code: 'CSRF_TOKEN_MISSING'
+          code: 'CSRF_TOKEN_MISSING',
         },
         { status: 403 }
       );
@@ -144,7 +154,7 @@ export function csrfProtection(handler: Function) {
         {
           error: 'Invalid CSRF token',
           message: 'CSRF token is invalid or expired',
-          code: 'CSRF_TOKEN_INVALID'
+          code: 'CSRF_TOKEN_INVALID',
         },
         { status: 403 }
       );
@@ -155,7 +165,7 @@ export function csrfProtection(handler: Function) {
         {
           error: 'CSRF token mismatch',
           message: 'Cookie and header CSRF tokens do not match',
-          code: 'CSRF_TOKEN_MISMATCH'
+          code: 'CSRF_TOKEN_MISMATCH',
         },
         { status: 403 }
       );
@@ -169,13 +179,16 @@ export function csrfProtection(handler: Function) {
 /**
  * Middleware function to generate and set CSRF tokens for pages
  */
-export function handleCSRFForPages(request: NextRequest, response: NextResponse): NextResponse {
+export function handleCSRFForPages(
+  request: NextRequest,
+  response: NextResponse
+): NextResponse {
   const { pathname } = request.nextUrl;
 
   // Only set CSRF tokens for HTML pages (not API routes)
   if (!pathname.startsWith('/api/') && !isCSRFExempt(pathname)) {
     const existingToken = getCSRFTokenFromCookie(request);
-    
+
     // Generate new token if none exists or if token is invalid
     if (!existingToken || !validateCSRFToken(existingToken)) {
       const newToken = generateSignedCSRFToken();
@@ -191,14 +204,14 @@ export function handleCSRFForPages(request: NextRequest, response: NextResponse)
  */
 export function getCSRFTokenForClient(): string | null {
   if (typeof window === 'undefined') return null;
-  
+
   const cookies = document.cookie.split(';');
-  const csrfCookie = cookies.find(cookie => 
+  const csrfCookie = cookies.find(cookie =>
     cookie.trim().startsWith(`${CSRF_CONFIG.cookieName}=`)
   );
-  
+
   if (!csrfCookie) return null;
-  
+
   const [, tokenValue] = csrfCookie.split('=');
   return tokenValue;
 }
@@ -206,9 +219,11 @@ export function getCSRFTokenForClient(): string | null {
 /**
  * Utility to add CSRF token to fetch requests
  */
-export function addCSRFToken(options: Record<string, any> = {}): Record<string, any> {
+export function addCSRFToken(
+  options: Record<string, any> = {}
+): Record<string, any> {
   const token = getCSRFTokenForClient();
-  
+
   if (!token) {
     console.warn('CSRF token not found. Request may be blocked.');
     return options;
@@ -230,4 +245,4 @@ export const CSRF_HEADER_NAME = CSRF_CONFIG.headerName;
 export const CSRF_COOKIE_NAME = CSRF_CONFIG.cookieName;
 
 // Alias for backward compatibility with index.ts
-export const validateCSRF = validateCSRFToken; 
+export const validateCSRF = validateCSRFToken;

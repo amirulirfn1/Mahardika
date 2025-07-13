@@ -25,7 +25,9 @@ export async function middleware(req) {
 
   // Check authentication for protected routes
   if (!user) {
-    const signInResponse = NextResponse.redirect(new URL('/auth/sign-in', req.url));
+    const signInResponse = NextResponse.redirect(
+      new URL('/auth/sign-in', req.url)
+    );
     return handleCSRFForPages(req, signInResponse);
   }
 
@@ -34,7 +36,7 @@ export async function middleware(req) {
   const restricted = Object.entries(maps).some(
     ([key, prefixes]) => prefixes.some(p => path.startsWith(p)) && role !== key
   );
-  
+
   if (restricted) {
     const redirectResponse = NextResponse.redirect(new URL('/', req.url));
     return handleCSRFForPages(req, redirectResponse);

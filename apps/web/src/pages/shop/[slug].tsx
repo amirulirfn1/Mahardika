@@ -32,9 +32,9 @@ export default function ShopSlugPage({ agency, reviews }: ShopSlugPageProps) {
   return <ShopPage agency={agency} reviews={reviews} />;
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async context => {
   const { slug } = context.params!;
-  
+
   let agency: Agency | null = null;
   let reviews: AgencyReview[] = [];
 

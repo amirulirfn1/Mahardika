@@ -3,7 +3,7 @@
  * Mahardika Platform - CSRF Test Component
  * Development component for testing CSRF protection implementation
  * =============================================================================
- * 
+ *
  * ⚠️  DEVELOPMENT ONLY - Remove before production deployment
  */
 
@@ -68,7 +68,7 @@ export default function CSRFTestComponent() {
           make: 'Test',
           model: 'CSRF Test Vehicle',
           year: 2024,
-          plateNumber: 'CSRF-TEST-001'
+          plateNumber: 'CSRF-TEST-001',
         }),
       });
 
@@ -79,14 +79,14 @@ export default function CSRFTestComponent() {
           test: 'Valid CSRF Request',
           status: 'success',
           message: 'CSRF protection working - valid request accepted',
-          details: data
+          details: data,
         });
       } else {
         addTestResult({
           test: 'Valid CSRF Request',
           status: 'error',
           message: `Request failed: ${data.message}`,
-          details: data
+          details: data,
         });
       }
     } catch (error) {
@@ -94,7 +94,7 @@ export default function CSRFTestComponent() {
         test: 'Valid CSRF Request',
         status: 'error',
         message: `Network error: ${error}`,
-        details: error
+        details: error,
       });
     }
   };
@@ -111,7 +111,7 @@ export default function CSRFTestComponent() {
           make: 'Test',
           model: 'No CSRF Token Vehicle',
           year: 2024,
-          plateNumber: 'NO-CSRF-001'
+          plateNumber: 'NO-CSRF-001',
         }),
       });
 
@@ -122,14 +122,14 @@ export default function CSRFTestComponent() {
           test: 'Missing CSRF Token',
           status: 'success',
           message: 'CSRF protection working - missing token rejected',
-          details: data
+          details: data,
         });
       } else {
         addTestResult({
           test: 'Missing CSRF Token',
           status: 'error',
           message: `Expected 403 CSRF_TOKEN_MISSING, got: ${response.status}`,
-          details: data
+          details: data,
         });
       }
     } catch (error) {
@@ -137,7 +137,7 @@ export default function CSRFTestComponent() {
         test: 'Missing CSRF Token',
         status: 'error',
         message: `Network error: ${error}`,
-        details: error
+        details: error,
       });
     }
   };
@@ -155,28 +155,30 @@ export default function CSRFTestComponent() {
           make: 'Test',
           model: 'Invalid CSRF Token Vehicle',
           year: 2024,
-          plateNumber: 'INVALID-CSRF-001'
+          plateNumber: 'INVALID-CSRF-001',
         }),
       });
 
       const data = await response.json();
 
       if (response.status === 403) {
-        const isExpectedError = data.code === 'CSRF_TOKEN_INVALID' || data.code === 'CSRF_TOKEN_MISMATCH';
-        
+        const isExpectedError =
+          data.code === 'CSRF_TOKEN_INVALID' ||
+          data.code === 'CSRF_TOKEN_MISMATCH';
+
         if (isExpectedError) {
           addTestResult({
             test: 'Invalid CSRF Token',
             status: 'success',
             message: 'CSRF protection working - invalid token rejected',
-            details: data
+            details: data,
           });
         } else {
           addTestResult({
             test: 'Invalid CSRF Token',
             status: 'error',
             message: `Expected CSRF error, got: ${data.code}`,
-            details: data
+            details: data,
           });
         }
       } else {
@@ -184,7 +186,7 @@ export default function CSRFTestComponent() {
           test: 'Invalid CSRF Token',
           status: 'error',
           message: `Expected 403 error, got: ${response.status}`,
-          details: data
+          details: data,
         });
       }
     } catch (error) {
@@ -192,7 +194,7 @@ export default function CSRFTestComponent() {
         test: 'Invalid CSRF Token',
         status: 'error',
         message: `Network error: ${error}`,
-        details: error
+        details: error,
       });
     }
   };
@@ -204,7 +206,7 @@ export default function CSRFTestComponent() {
     addTestResult({
       test: 'Test Suite Started',
       status: 'pending',
-      message: 'Running CSRF protection tests...'
+      message: 'Running CSRF protection tests...',
     });
 
     await testValidCSRFRequest();
@@ -218,7 +220,7 @@ export default function CSRFTestComponent() {
     addTestResult({
       test: 'Test Suite Completed',
       status: 'success',
-      message: 'All CSRF tests completed'
+      message: 'All CSRF tests completed',
     });
 
     setIsRunningTests(false);
@@ -255,34 +257,34 @@ export default function CSRFTestComponent() {
       <div className="mb-6 p-4 bg-gray-50 rounded-lg">
         <h3 className="text-lg font-semibold mb-2">CSRF Token Status</h3>
         <div className="space-y-2">
-                     <div>
-             <span className="font-medium">Token:</span>{' '}
-             {isLoading && <span className="text-yellow-600">Loading...</span>}
-             {/* The original code had 'error' here, but 'error' is not defined in the new useSimpleCSRF hook.
+          <div>
+            <span className="font-medium">Token:</span>{' '}
+            {isLoading && <span className="text-yellow-600">Loading...</span>}
+            {/* The original code had 'error' here, but 'error' is not defined in the new useSimpleCSRF hook.
                  Assuming 'error' should be removed or replaced with a placeholder if needed.
                  For now, removing it as it's not part of the new useSimpleCSRF hook's return. */}
-             {!isLoading && (
-               <span className="text-green-600 font-mono text-sm break-all">
-                 Token not available (requires cookie)
-               </span>
-             )}
-           </div>
-                     <div>
-             <span className="font-medium">Status:</span>{' '}
-             {isLoading && (
-               <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-sm">
-                 Loading
-               </span>
-             )}
-             {/* The original code had 'error' here, but 'error' is not defined in the new useSimpleCSRF hook.
+            {!isLoading && (
+              <span className="text-green-600 font-mono text-sm break-all">
+                Token not available (requires cookie)
+              </span>
+            )}
+          </div>
+          <div>
+            <span className="font-medium">Status:</span>{' '}
+            {isLoading && (
+              <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-sm">
+                Loading
+              </span>
+            )}
+            {/* The original code had 'error' here, but 'error' is not defined in the new useSimpleCSRF hook.
                  Assuming 'error' should be removed or replaced with a placeholder if needed.
                  For now, removing it as it's not part of the new useSimpleCSRF hook's return. */}
-             {!isLoading && (
-               <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
-                 Ready
-               </span>
-             )}
-           </div>
+            {!isLoading && (
+              <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
+                Ready
+              </span>
+            )}
+          </div>
         </div>
         {/* The original code had 'refetchToken' here, but 'refetchToken' is not defined in the new useSimpleCSRF hook.
             Assuming 'refetchToken' should be removed or replaced with a placeholder if needed.
@@ -293,11 +295,11 @@ export default function CSRFTestComponent() {
       <div className="mb-6 p-4 bg-gray-50 rounded-lg">
         <h3 className="text-lg font-semibold mb-3">Test Controls</h3>
         <div className="flex gap-3">
-                     <button
-             onClick={runAllTests}
-             disabled={isRunningTests || isLoading}
-             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-           >
+          <button
+            onClick={runAllTests}
+            disabled={isRunningTests || isLoading}
+            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+          >
             {isRunningTests ? 'Running Tests...' : 'Run All Tests'}
           </button>
           <button
@@ -314,7 +316,7 @@ export default function CSRFTestComponent() {
         <div className="p-4 bg-gray-50 rounded-lg">
           <h3 className="text-lg font-semibold mb-3">Test Results</h3>
           <div className="space-y-3">
-            {testResults.map((result) => (
+            {testResults.map(result => (
               <div
                 key={result.test}
                 className="p-3 bg-white rounded border-l-4 border-l-gray-300"
@@ -346,16 +348,21 @@ export default function CSRFTestComponent() {
 
       {/* Instructions */}
       <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-        <h3 className="text-lg font-semibold text-blue-900 mb-2">Instructions</h3>
+        <h3 className="text-lg font-semibold text-blue-900 mb-2">
+          Instructions
+        </h3>
         <ul className="list-disc list-inside text-blue-800 text-sm space-y-1">
           <li>Ensure CSRF_SECRET_KEY is set in your environment variables</li>
           <li>The first test should succeed (valid CSRF token)</li>
           <li>The second test should fail with CSRF_TOKEN_MISSING error</li>
-          <li>The third test should fail with CSRF_TOKEN_INVALID or CSRF_TOKEN_MISMATCH error</li>
+          <li>
+            The third test should fail with CSRF_TOKEN_INVALID or
+            CSRF_TOKEN_MISMATCH error
+          </li>
           <li>All tests use the /api/vehicles endpoint for demonstration</li>
           <li>Remove this component before deploying to production</li>
         </ul>
       </div>
     </div>
   );
-} 
+}

@@ -12,4 +12,4 @@ describe('Card Snapshot', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
-}); 
+});

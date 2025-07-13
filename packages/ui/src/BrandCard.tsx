@@ -8,10 +8,25 @@ export type BrandCardProps = HTMLAttributes<HTMLDivElement> & {
   variant?: 'default' | 'navy' | 'gold';
 };
 
-export const BrandCard = ({ children, variant = 'default', className = '', style, ...props }: BrandCardProps) => {
-  const brandStyle = variant === 'navy' ? { backgroundColor: colors.navy, color: 'white' } : variant === 'gold' ? { backgroundColor: colors.gold, color: colors.navy } : {};
+export const BrandCard = ({
+  children,
+  variant = 'default',
+  className = '',
+  style,
+  ...props
+}: BrandCardProps) => {
+  const brandStyle =
+    variant === 'navy'
+      ? { backgroundColor: colors.navy, color: 'white' }
+      : variant === 'gold'
+        ? { backgroundColor: colors.gold, color: colors.navy }
+        : {};
   return (
-    <div className={`card brand-card ${className}`} style={{ ...brandStyle, ...style }} {...props}>
+    <div
+      className={`card brand-card ${className}`}
+      style={{ ...brandStyle, ...style }}
+      {...props}
+    >
       {children}
     </div>
   );

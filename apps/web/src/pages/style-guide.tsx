@@ -1,7 +1,6 @@
 import { colors, BrandButton, BrandCard } from '@mahardika/ui';
 import React, { useState } from 'react';
 
-
 const StyleGuidePage = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -243,8 +242,9 @@ const StyleGuidePage = () => {
                     exercitation.
                   </p>
                   <p>
-                    <strong style={{ color: 'colors.navy' }}>Bold text</strong> and{' '}
-                    <em style={{ color: '#6C757D' }}>italic text</em> examples.
+                    <strong style={{ color: 'colors.navy' }}>Bold text</strong>{' '}
+                    and <em style={{ color: '#6C757D' }}>italic text</em>{' '}
+                    examples.
                   </p>
                   <p>
                     <mark

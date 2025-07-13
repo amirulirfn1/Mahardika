@@ -1,4 +1,4 @@
-import { colors } from "@mahardika/ui";
+import { colors } from '@mahardika/ui';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
@@ -70,7 +70,9 @@ describe('SecurityStatus Component', () => {
     render(<SecurityStatus isSecure={true} environment="production" />);
 
     expect(screen.getByText('Mahardika Security')).toBeInTheDocument();
-    expect(screen.getByText('Navy colors.navy • Gold colors.gold')).toBeInTheDocument();
+    expect(
+      screen.getByText('Navy colors.navy • Gold colors.gold')
+    ).toBeInTheDocument();
   });
 
   it('applies custom className', () => {
@@ -219,11 +221,15 @@ describe('SecurityStatus Component', () => {
       <SecurityStatus isSecure={true} environment="production" />
     );
 
-    expect(screen.getByText('Navy colors.navy • Gold colors.gold')).toBeInTheDocument();
+    expect(
+      screen.getByText('Navy colors.navy • Gold colors.gold')
+    ).toBeInTheDocument();
 
     // Test insecure state colors
     rerender(<SecurityStatus isSecure={false} environment="development" />);
 
-    expect(screen.getByText('Navy colors.navy • Gold colors.gold')).toBeInTheDocument();
+    expect(
+      screen.getByText('Navy colors.navy • Gold colors.gold')
+    ).toBeInTheDocument();
   });
 });

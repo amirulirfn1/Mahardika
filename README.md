@@ -58,7 +58,8 @@ pnpm -F "@mahardika/web" dev
 
 ## ✨ Demo
 
-Below is a short recording of the local **customer sign-up** flow (running against the dev database):
+Below is a short recording of the local **customer sign-up** flow (running against the dev
+database):
 
 ![Signup flow](docs/assets/signup-flow.gif)
 
@@ -216,7 +217,8 @@ technologies.
 
 ## 🏷️ Release workflow
 
-We manage versions with [standard-version](https://github.com/conventional-changelog/standard-version).
+We manage versions with
+[standard-version](https://github.com/conventional-changelog/standard-version).
 
 ```bash
 # bump version, generate CHANGELOG and git tag
@@ -226,6 +228,8 @@ pnpm release
 git push --follow-tags
 ```
 
-The command analyses Conventional Commits across the workspace and updates `package.json`, the root CHANGELOG, and creates a git tag (e.g. `v1.2.0`).  CI/CD can then publish artifacts or trigger deployments based on the tag.
+The command analyses Conventional Commits across the workspace and updates `package.json`, the root
+CHANGELOG, and creates a git tag (e.g. `v1.2.0`). CI/CD can then publish artifacts or trigger
+deployments based on the tag.
 
 ---

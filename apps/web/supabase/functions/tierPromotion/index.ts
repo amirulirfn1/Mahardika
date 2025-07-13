@@ -28,13 +28,15 @@ serve(async () => {
       .select('id, agency_id');
 
     if (error) {
-      return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+      });
     }
     const promotedCount = updated?.length ?? 0;
     summaries[`${rule.current}->${rule.target}`] = promotedCount;
 
     if (promotedCount > 0 && updated) {
-      const auditRows = updated.map((u) => ({
+      const auditRows = updated.map(u => ({
         agency_id: u.agency_id,
         action: 'tier_promotion',
         resource: 'customer',
@@ -42,7 +44,9 @@ serve(async () => {
         user_role: 'system',
         new_values: { tier: rule.target },
       }));
-      const { error: auditErr } = await supabase.from('audit_logs').insert(auditRows);
+      const { error: auditErr } = await supabase
+        .from('audit_logs')
+        .insert(auditRows);
       if (auditErr) {
         console.error('Audit log error', auditErr.message);
       }
@@ -50,4 +54,4 @@ serve(async () => {
   }
 
   return new Response(JSON.stringify({ success: true, promoted: summaries }));
-}); 
+});

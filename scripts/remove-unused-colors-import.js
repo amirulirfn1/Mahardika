@@ -12,7 +12,10 @@ for (const rel of files) {
   const full = path.resolve(rel);
   let txt = fs.readFileSync(full, 'utf8');
   if (txt.includes('import { colors }') && !txt.match(/colors\./)) {
-    const newTxt = txt.replace(/import \{ colors \} from "@mahardika\/ui";\n?/, '');
+    const newTxt = txt.replace(
+      /import \{ colors \} from "@mahardika\/ui";\n?/,
+      ''
+    );
     if (newTxt !== txt) {
       fs.writeFileSync(full, newTxt, 'utf8');
       removed++;
@@ -20,4 +23,4 @@ for (const rel of files) {
     }
   }
 }
-console.log(`Removal complete. ${removed} files cleaned.`); 
+console.log(`Removal complete. ${removed} files cleaned.`);

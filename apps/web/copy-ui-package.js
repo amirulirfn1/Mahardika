@@ -12,8 +12,13 @@ if (!fs.existsSync(localUiPath)) {
 }
 
 // Copy package.json
-const uiPackageJson = JSON.parse(fs.readFileSync(path.join(uiPackagePath, 'package.json'), 'utf8'));
-fs.writeFileSync(path.join(localUiPath, 'package.json'), JSON.stringify(uiPackageJson, null, 2));
+const uiPackageJson = JSON.parse(
+  fs.readFileSync(path.join(uiPackagePath, 'package.json'), 'utf8')
+);
+fs.writeFileSync(
+  path.join(localUiPath, 'package.json'),
+  JSON.stringify(uiPackageJson, null, 2)
+);
 
 // Copy dist directory if it exists
 const distPath = path.join(uiPackagePath, 'dist');
@@ -22,7 +27,7 @@ if (fs.existsSync(distPath)) {
   if (!fs.existsSync(localDistPath)) {
     fs.mkdirSync(localDistPath, { recursive: true });
   }
-  
+
   // Copy all files from dist
   const files = fs.readdirSync(distPath);
   files.forEach(file => {
@@ -34,4 +39,4 @@ if (fs.existsSync(distPath)) {
   });
 }
 
-console.log('✅ UI package files copied to web app for deployment'); 
+console.log('✅ UI package files copied to web app for deployment');

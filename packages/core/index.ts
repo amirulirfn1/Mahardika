@@ -7,18 +7,18 @@
 // Security exports
 export { validateCSRF, generateCSRFToken } from './security/csrf';
 export { createRateLimiter } from './security/rateLimit';
-export { 
-  validatePassword, 
-  hashPassword, 
-  verifyPassword, 
+export {
+  validatePassword,
+  hashPassword,
+  verifyPassword,
   generateSalt,
-  getPasswordStrength 
+  getPasswordStrength,
 } from './security/passwordSecurity';
 
 // Supabase exports
-export { 
-  createMahardikaSupabaseClient, 
-  MahardikaSupabaseClient as default 
+export {
+  createMahardikaSupabaseClient,
+  MahardikaSupabaseClient as default,
 } from './supabase/client';
 export type {
   SupabaseConfig,
@@ -36,7 +36,7 @@ export type {
   DatabaseResponse,
   PaginatedResponse,
   BaseFilters,
-  
+
   // Enums
   UserRole,
   AgencyStatus,
@@ -50,7 +50,7 @@ export type {
   DSRType,
   DSRStatus,
   DSRPriority,
-  
+
   // Entity types
   User,
   Agency,
@@ -69,19 +69,19 @@ export type {
   DSRRequest,
   DSRAuditLog,
   UserConsent,
-  
+
   // Filter types
   AgencyFilters,
   CustomerFilters,
   PolicyFilters,
-  
+
   // Extended types
   AgencyWithOwner,
   PolicyWithCustomer,
   OrderWithItems,
   ClaimWithPolicy,
   ReviewWithCustomer,
-  
+
   // Function response types
   DSRStatistics,
-} from './supabase/types'; 
+} from './supabase/types';

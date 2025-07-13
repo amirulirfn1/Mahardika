@@ -9,4 +9,4 @@ Sentry.init({
   enabled: process.env.NODE_ENV === 'production',
 
   tracesSampleRate: 1.0,
-}); 
+});

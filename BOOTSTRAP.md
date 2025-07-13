@@ -287,7 +287,6 @@ pnpm run security:check
 ## 📚 Next Steps After Bootstrap
 
 1. **Update Environment Variables**
-
    - Add your actual Supabase project credentials
    - Add your DeepSeek API key
    - Configure any additional services
@@ -299,7 +298,6 @@ pnpm run security:check
    ```
 
 3. **Visit Your Application**
-
    - Web app: http://localhost:3000
    - Supabase Studio: http://localhost:54323
 

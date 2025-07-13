@@ -17,14 +17,16 @@ async function handleDSRRequest(request: NextRequest) {
   try {
     // Parse form data
     const formData = await request.formData();
-    
+
     const type = formData.get('type') as string;
     const email = formData.get('email') as string;
     const fullName = formData.get('fullName') as string;
     const description = formData.get('description') as string;
     const dataTypesStr = formData.get('dataTypes') as string;
     const urgency = formData.get('urgency') as string;
-    const verificationDocument = formData.get('verificationDocument') as File | null;
+    const verificationDocument = formData.get(
+      'verificationDocument'
+    ) as File | null;
 
     // Validate required fields
     if (!type || !email || !fullName) {
@@ -78,7 +80,10 @@ async function handleDSRRequest(request: NextRequest) {
     }
 
     // Rate limiting check
-    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown';
     const userAgent = request.headers.get('user-agent') || 'unknown';
 
     // Check for recent requests from the same email (prevent spam)
@@ -86,16 +91,20 @@ async function handleDSRRequest(request: NextRequest) {
       .from('dsr_requests')
       .select('id, created_at')
       .eq('email', email.toLowerCase())
-      .gte('created_at', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()) // Last 24 hours
+      .gte(
+        'created_at',
+        new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+      ) // Last 24 hours
       .limit(5);
 
     if (recentError) {
       console.error('Error checking recent requests:', recentError);
     } else if (recentRequests && recentRequests.length >= 3) {
       return NextResponse.json(
-        { 
-          error: 'Too many requests from this email address. Please wait 24 hours before submitting another request.',
-          code: 'RATE_LIMITED'
+        {
+          error:
+            'Too many requests from this email address. Please wait 24 hours before submitting another request.',
+          code: 'RATE_LIMITED',
         },
         { status: 429 }
       );
@@ -103,7 +112,7 @@ async function handleDSRRequest(request: NextRequest) {
 
     // Generate unique request ID
     const requestId = `dsr_${Date.now()}_${crypto.randomBytes(8).toString('hex')}`;
-    
+
     // Generate email verification token
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
@@ -112,12 +121,21 @@ async function handleDSRRequest(request: NextRequest) {
     let documentInfo = null;
     if (verificationDocument && verificationDocument.size > 0) {
       // Validate file type and size
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'];
+      const allowedTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+        'image/webp',
+        'application/pdf',
+      ];
       const maxSize = 5 * 1024 * 1024; // 5MB
 
       if (!allowedTypes.includes(verificationDocument.type)) {
         return NextResponse.json(
-          { error: 'Invalid file type. Only JPG, PNG, GIF, WebP, and PDF files are allowed.' },
+          {
+            error:
+              'Invalid file type. Only JPG, PNG, GIF, WebP, and PDF files are allowed.',
+          },
           { status: 400 }
         );
       }
@@ -136,7 +154,7 @@ async function handleDSRRequest(request: NextRequest) {
         type: verificationDocument.type,
         size: verificationDocument.size,
         upload_path: `dsr_documents/${requestId}/${verificationDocument.name}`,
-        uploaded_at: new Date().toISOString()
+        uploaded_at: new Date().toISOString(),
       };
     }
 
@@ -168,8 +186,8 @@ async function handleDSRRequest(request: NextRequest) {
           user_agent: userAgent,
           urgency_requested: urgency,
           submission_timestamp: new Date().toISOString(),
-          form_version: '2.0'
-        }
+          form_version: '2.0',
+        },
       })
       .select()
       .single();
@@ -184,34 +202,35 @@ async function handleDSRRequest(request: NextRequest) {
     }
 
     // Create audit log entry
-    await supabaseClient
-      .from('dsr_audit_log')
-      .insert({
-        request_id: requestId,
-        action: 'request_submitted',
-        new_values: {
-          type,
-          email: email.toLowerCase(),
-          data_types: dataTypes,
-          priority,
-          has_verification_document: Boolean(documentInfo)
-        },
-        ip_address: ip,
-        user_agent: userAgent
-      });
+    await supabaseClient.from('dsr_audit_log').insert({
+      request_id: requestId,
+      action: 'request_submitted',
+      new_values: {
+        type,
+        email: email.toLowerCase(),
+        data_types: dataTypes,
+        priority,
+        has_verification_document: Boolean(documentInfo),
+      },
+      ip_address: ip,
+      user_agent: userAgent,
+    });
 
     // Send verification email
     try {
-      await sendVerificationEmail(email, fullName, requestId, verificationToken, type);
+      await sendVerificationEmail(
+        email,
+        fullName,
+        requestId,
+        verificationToken,
+        type
+      );
     } catch (emailError) {
       // Log error for debugging - consider using proper logging service in production
       // console.error('Failed to send verification email:', emailError);
-      
+
       // Delete the request if email sending fails (optional - depends on your requirements)
-      await supabaseClient
-        .from('dsr_requests')
-        .delete()
-        .eq('id', requestId);
+      await supabaseClient.from('dsr_requests').delete().eq('id', requestId);
 
       return NextResponse.json(
         { error: 'Failed to send verification email. Please try again.' },
@@ -221,18 +240,18 @@ async function handleDSRRequest(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Your request has been submitted successfully. Please check your email to verify your identity.',
+      message:
+        'Your request has been submitted successfully. Please check your email to verify your identity.',
       requestId,
       nextSteps: [
         'Check your email inbox for a verification message',
         'Click the verification link in the email',
         'Your request will be processed once verified',
-        'You will receive updates via email'
+        'You will receive updates via email',
       ],
       estimatedProcessingTime: getEstimatedProcessingTime(type, priority),
-      trackingUrl: `/privacy/rights/track?id=${requestId}`
+      trackingUrl: `/privacy/rights/track?id=${requestId}`,
     });
-
   } catch (error) {
     // Log error for debugging - consider using proper logging service in production
     // console.error('DSR request error:', error);
@@ -247,14 +266,14 @@ async function handleDSRRequest(request: NextRequest) {
  * Send verification email to confirm identity
  */
 async function sendVerificationEmail(
-  email: string, 
-  fullName: string, 
-  requestId: string, 
-  verificationToken: string, 
+  email: string,
+  fullName: string,
+  requestId: string,
+  verificationToken: string,
   requestType: string
 ) {
   const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/privacy/rights/verify?token=${verificationToken}&id=${requestId}`;
-  
+
   // In a real implementation, this would use your email service
   // For now, we'll log the email content
   const emailContent = {
@@ -266,14 +285,16 @@ async function sendVerificationEmail(
       requestId,
       requestType: getRequestTypeLabel(requestType),
       verificationUrl,
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleDateString(),
-      supportEmail: 'privacy@mahardika.com'
-    }
+      expiresAt: new Date(
+        Date.now() + 24 * 60 * 60 * 1000
+      ).toLocaleDateString(),
+      supportEmail: 'privacy@mahardika.com',
+    },
   };
 
   // Log email content for debugging - replace with actual email service
   // console.log('Verification email prepared:', emailContent);
-  
+
   // Mock email sending - replace with actual email service
   return Promise.resolve({ success: true, messageId: `verify_${Date.now()}` });
 }
@@ -283,10 +304,14 @@ async function sendVerificationEmail(
  */
 function getRequestTypeLabel(type: string): string {
   switch (type) {
-    case 'export': return 'Export';
-    case 'delete': return 'Deletion';
-    case 'rectify': return 'Rectification';
-    default: return 'Rights';
+    case 'export':
+      return 'Export';
+    case 'delete':
+      return 'Deletion';
+    case 'rectify':
+      return 'Rectification';
+    default:
+      return 'Rights';
   }
 }
 
@@ -303,4 +328,4 @@ function getEstimatedProcessingTime(type: string, priority: string): string {
   }
 }
 
-export const POST = csrfProtection(handleDSRRequest); 
+export const POST = csrfProtection(handleDSRRequest);

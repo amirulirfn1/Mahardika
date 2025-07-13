@@ -8,7 +8,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { authService, userService, SignUpData } from '@/lib/supabaseClient';
 import { csrfProtection } from '@mah/core/security/csrf';
-import { validateStrongPassword, StrongPasswordSchema } from '@mah/core/security/passwordSecurity';
+import {
+  validateStrongPassword,
+  StrongPasswordSchema,
+} from '@mah/core/security/passwordSecurity';
 import { z } from 'zod';
 
 // Validation schema for sign-up data
@@ -62,7 +65,7 @@ async function handleSignUp(req: NextApiRequest, res: NextApiResponse) {
 
     if (result.error) {
       console.error('Sign up error:', result.error);
-      
+
       // Handle specific error cases
       if (result.error.message?.includes('User already registered')) {
         return res.status(409).json({
@@ -87,10 +90,9 @@ async function handleSignUp(req: NextApiRequest, res: NextApiResponse) {
         user_type: result.data?.user?.user_metadata?.user_type,
       },
     });
-
   } catch (error) {
     console.error('Sign up error:', error);
-    
+
     // Handle specific error types
     if (error instanceof z.ZodError) {
       return res.status(400).json({
@@ -110,4 +112,4 @@ async function handleSignUp(req: NextApiRequest, res: NextApiResponse) {
 }
 
 // Wrap handler with CSRF protection
-export default csrfProtection(handleSignUp); 
+export default csrfProtection(handleSignUp);

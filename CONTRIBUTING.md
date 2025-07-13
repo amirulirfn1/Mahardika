@@ -19,11 +19,11 @@ This project follows a few simple rules so that everyone can move fast **without
 
 ## Prerequisites
 
-* Node.js **≥18**
-* **pnpm** – install via `corepack enable && corepack prepare pnpm@latest --activate`.
-* A GitHub fork of the repo and a feature branch (see below).
+- Node.js **≥18**
+- **pnpm** – install via `corepack enable && corepack prepare pnpm@latest --activate`.
+- A GitHub fork of the repo and a feature branch (see below).
 
-> npm & Yarn are *not* supported for local development – the workspace relies on pnpm features.
+> npm & Yarn are _not_ supported for local development – the workspace relies on pnpm features.
 
 ---
 
@@ -35,17 +35,19 @@ This project follows a few simple rules so that everyone can move fast **without
 
 Examples:
 
-* `feat/signup-oauth`
-* `fix/button-loading-state`
-* `docs/readme-typo`
+- `feat/signup-oauth`
+- `fix/button-loading-state`
+- `docs/readme-typo`
 
-Choose one of the conventional *types*: `feat`, `fix`, `docs`, `chore`, `test`, `refactor`, `perf`, `ci`.
+Choose one of the conventional _types_: `feat`, `fix`, `docs`, `chore`, `test`, `refactor`, `perf`,
+`ci`.
 
 ---
 
 ## Commit messages
 
-We use **[Conventional Commits](https://www.conventionalcommits.org)**. This keeps the history tidy and enables automated changelogs / releases.
+We use **[Conventional Commits](https://www.conventionalcommits.org)**. This keeps the history tidy
+and enables automated changelogs / releases.
 
 Basic format:
 
@@ -91,8 +93,8 @@ Please **never** commit a `package-lock.json` or `yarn.lock` – the root `.giti
 
 ## Running tests
 
-* **Unit & integration** – `pnpm run test`
-* **Watch mode** – `pnpm run test -- --watch`
+- **Unit & integration** – `pnpm run test`
+- **Watch mode** – `pnpm run test -- --watch`
 
 PRs should not reduce overall coverage (see Jest thresholds).
 
@@ -114,4 +116,4 @@ pnpm lint && pnpm format:check && pnpm run test
 
 ---
 
-Thank you for helping make **Mahardika** better! 🚀 
+Thank you for helping make **Mahardika** better! 🚀

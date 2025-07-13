@@ -46,10 +46,6 @@ export default function SignUpPage() {
   };
 
   return (
-    <AuthForm
-      onRegister={handleRegister}
-      isLoading={isLoading}
-      error={error}
-    />
+    <AuthForm onRegister={handleRegister} isLoading={isLoading} error={error} />
   );
-} 
+}

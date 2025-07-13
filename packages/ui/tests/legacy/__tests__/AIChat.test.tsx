@@ -110,7 +110,10 @@ describe('AIChat Component', () => {
   });
 
   it('shows loading state during API call', async () => {
-    let resolvePromise: (value: { ok: boolean; json: () => Promise<{ response: string; }> }) => void;
+    let resolvePromise: (value: {
+      ok: boolean;
+      json: () => Promise<{ response: string }>;
+    }) => void;
     const promise = new Promise(resolve => {
       resolvePromise = resolve;
     });

@@ -15,24 +15,28 @@ interface ConsentBannerProps {
 
 const CONSENT_DESCRIPTIONS = {
   necessary: {
-    title: 'Necessary Cookies',
-    description: 'Essential for the website to function properly. These cannot be disabled.',
-    examples: 'Authentication, security, basic site functionality',
+    title: 'Essential Cookies',
+    description: 'Required for core website functionality and security.',
+    examples: 'Authentication, security tokens, basic site features',
+    icon: '🔒',
   },
   functional: {
     title: 'Functional Cookies',
     description: 'Enhance your experience with personalized features.',
-    examples: 'Language preferences, chat support, user interface customization',
+    examples: 'Language preferences, chat support, user settings',
+    icon: '⚙️',
   },
   analytics: {
     title: 'Analytics Cookies',
-    description: 'Help us understand how you use our site to improve performance.',
-    examples: 'Page views, user behavior, performance metrics (anonymized)',
+    description: 'Help us understand usage patterns to improve our service.',
+    examples: 'Page views, user behavior, performance metrics',
+    icon: '📊',
   },
   marketing: {
     title: 'Marketing Cookies',
-    description: 'Enable personalized advertising and marketing communications.',
+    description: 'Enable personalized advertising and communications.',
     examples: 'Targeted ads, email campaigns, social media integration',
+    icon: '🎯',
   },
 };
 
@@ -89,8 +93,9 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
   theme = 'light',
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showDetails, setShowDetails] = useState(showDetailedOptions);
+  const [showDetails, setShowDetails] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [focusTrapEnabled, setFocusTrapEnabled] = useState(false);
   
   const {
@@ -107,6 +112,10 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
       const shouldShow = isConsentRequired();
       setIsVisible(shouldShow);
       setFocusTrapEnabled(shouldShow);
+      if (shouldShow) {
+        // Add entrance animation
+        setTimeout(() => setIsAnimating(true), 100);
+      }
     }
   }, [loading, isConsentRequired]);
 
@@ -140,15 +149,16 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
     setIsLoading(true);
     try {
       const results = await Promise.allSettled([
-        grantConsent('necessary'), // 1 year
+        grantConsent('necessary'),
         grantConsent('functional'),
-        grantConsent('analytics'), // 6 months
-        grantConsent('marketing'), // 3 months
+        grantConsent('analytics'),
+        grantConsent('marketing'),
       ]);
       
       const failures = results.filter(result => result.status === 'rejected');
       if (failures.length === 0) {
-        setIsVisible(false);
+        setIsAnimating(false);
+        setTimeout(() => setIsVisible(false), 300);
       } else {
         console.error('Some consents failed:', failures);
       }
@@ -163,7 +173,8 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
     setIsLoading(true);
     try {
       await grantConsent('necessary');
-      setIsVisible(false);
+      setIsAnimating(false);
+      setTimeout(() => setIsVisible(false), 300);
     } catch (error) {
       console.error('Error accepting necessary consent:', error);
     } finally {
@@ -182,9 +193,8 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
       if (granted) {
         await grantConsent(type);
       } else {
-        // No withdrawConsent function in useSimpleConsent, so we just remove it from state
-        const newState = { ...consentState };
-        delete newState[type];
+        // Simple withdrawal by updating state
+        const newState = { ...consentState, [type]: false };
         setConsentState(newState);
         localStorage.setItem('user-consent', JSON.stringify(newState));
       }
@@ -195,9 +205,8 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
     }
   };
 
-  const getExpirationInfo = (type: ConsentType) => {
-    // No getConsentExpiration function in useSimpleConsent
-    return null;
+  const toggleDetails = () => {
+    setShowDetails(!showDetails);
   };
 
   const isThemeDark = theme === 'dark';
@@ -205,304 +214,441 @@ export const ConsentBanner: React.FC<ConsentBannerProps> = ({
   const textColor = isThemeDark ? colors.white : colors.navy;
   const borderColor = isThemeDark ? colors.gold : colors.navy;
 
-  const bannerStyles: React.CSSProperties = {
-    position: 'fixed',
-    [position]: 0,
-    left: 0,
-    right: 0,
-    backgroundColor,
-    border: position === 'top' ? `2px solid ${borderColor}` : undefined,
-    borderTop: position === 'bottom' ? `2px solid ${borderColor}` : undefined,
-    boxShadow: position === 'bottom' 
-      ? '0 -4px 16px rgba(13, 27, 42, 0.1)' 
-      : '0 4px 16px rgba(13, 27, 42, 0.1)',
-    padding: '1.5rem',
-    zIndex: 1000,
-    fontFamily: 'system-ui, -apple-system, sans-serif',
-    maxHeight: '80vh',
-    overflowY: 'auto',
-  };
-
-  const buttonStyles: React.CSSProperties = {
-    padding: '0.75rem 1.5rem',
-    borderRadius: '0.5rem',
-    border: '2px solid',
-    fontWeight: '600',
-    cursor: isLoading ? 'not-allowed' : 'pointer',
-    transition: 'all 0.2s ease-in-out',
-    opacity: isLoading ? 0.6 : 1,
-    marginLeft: '0.5rem',
-    fontSize: '0.875rem',
-    outline: 'none',
-  };
-
-  const primaryButtonStyles: React.CSSProperties = {
-    ...buttonStyles,
-    backgroundColor: colors.navy,
-    borderColor: colors.navy,
-    color: colors.white,
-  };
-
-  const secondaryButtonStyles: React.CSSProperties = {
-    ...buttonStyles,
-    backgroundColor: colors.gold,
-    borderColor: colors.gold,
-    color: colors.navy,
-  };
-
-  const outlineButtonStyles: React.CSSProperties = {
-    ...buttonStyles,
-    backgroundColor: 'transparent',
-    borderColor: textColor,
-    color: textColor,
-  };
-
-  const toggleContainerStyles: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '0.75rem',
-    padding: '1rem',
-    backgroundColor: isThemeDark ? 'rgba(255, 255, 255, 0.05)' : colors.gray[50],
-    borderRadius: '0.5rem',
-    border: `1px solid ${isThemeDark ? 'rgba(255, 255, 255, 0.1)' : colors.gray[200]}`,
-  };
-
-  const switchStyles: React.CSSProperties = {
-    position: 'relative',
-    width: '44px',
-    height: '24px',
-    backgroundColor: colors.gray[300],
-    borderRadius: '12px',
-    cursor: 'pointer',
-    transition: 'background-color 0.2s',
-    marginLeft: 'auto',
-    outline: 'none',
-    border: 'none',
-  };
-
-  const switchActiveStyles: React.CSSProperties = {
-    ...switchStyles,
-    backgroundColor: colors.navy,
-  };
-
-  const switchThumbStyles: React.CSSProperties = {
-    position: 'absolute',
-    top: '2px',
-    left: '2px',
-    width: '20px',
-    height: '20px',
-    backgroundColor: colors.white,
-    borderRadius: '50%',
-    transition: 'transform 0.2s',
-    transform: 'translateX(0)',
-  };
-
-  const switchThumbActiveStyles: React.CSSProperties = {
-    ...switchThumbStyles,
-    transform: 'translateX(20px)',
-  };
-
-  const toggleButtonStyles: React.CSSProperties = {
-    ...buttonStyles,
-    padding: '0.5rem 1rem',
-    fontSize: '0.75rem',
-    borderRadius: '0.375rem',
-    border: '1px solid',
-    borderColor: textColor,
-    color: textColor,
-    backgroundColor: 'transparent',
-    cursor: isLoading ? 'not-allowed' : 'pointer',
-    transition: 'all 0.2s ease-in-out',
-    opacity: isLoading ? 0.6 : 1,
-  };
-
   return (
-    <div style={bannerStyles} role="dialog" aria-labelledby="consent-banner-title" aria-describedby="consent-banner-description">
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {/* Main Banner Content */}
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-            <div style={{ flex: 1 }}>
-              <h2 id="consent-banner-title" style={{ 
-                margin: '0 0 0.5rem 0', 
-                fontSize: '1.125rem', 
-                fontWeight: '600',
-                color: textColor
-              }}>
-                🍪 Cookie & Privacy Preferences
+    <>
+      <style jsx>{`
+        @keyframes slideInUp {
+          from {
+            transform: translateY(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes slideInDown {
+          from {
+            transform: translateY(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.05);
+          }
+        }
+        
+        .consent-banner {
+          position: fixed;
+          ${position}: 0;
+          left: 0;
+          right: 0;
+          background: ${backgroundColor};
+          backdrop-filter: blur(20px);
+          border-${position === 'bottom' ? 'top' : 'bottom'}: 2px solid ${borderColor};
+          box-shadow: ${position === 'bottom' 
+            ? '0 -8px 32px rgba(13, 27, 42, 0.15), 0 -2px 8px rgba(13, 27, 42, 0.1)' 
+            : '0 8px 32px rgba(13, 27, 42, 0.15), 0 2px 8px rgba(13, 27, 42, 0.1)'};
+          z-index: 1000;
+          font-family: 'Inter', system-ui, -apple-system, sans-serif;
+          max-height: 90vh;
+          overflow-y: auto;
+          animation: ${(() => {
+            if (!isAnimating) return 'none';
+            return position === 'bottom' ? 'slideInUp' : 'slideInDown';
+          })()} 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .consent-content {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 2rem;
+        }
+        
+        .consent-header {
+          display: flex;
+          align-items: flex-start;
+          gap: 2rem;
+          margin-bottom: 1.5rem;
+        }
+        
+        .consent-text {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .consent-title {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: ${textColor};
+          margin: 0 0 0.75rem 0;
+          line-height: 1.3;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .consent-description {
+          font-size: 1rem;
+          line-height: 1.6;
+          color: ${isThemeDark ? colors.gray[300] : colors.gray[600]};
+          margin: 0 0 1rem 0;
+        }
+        
+        .consent-links {
+          font-size: 0.875rem;
+          color: ${isThemeDark ? colors.gray[400] : colors.gray[500]};
+          line-height: 1.5;
+        }
+        
+        .consent-link {
+          color: ${colors.gold};
+          text-decoration: none;
+          font-weight: 600;
+          transition: all 0.2s ease;
+          border-bottom: 1px solid transparent;
+        }
+        
+        .consent-link:hover {
+          color: ${colors.gold};
+          border-bottom-color: ${colors.gold};
+          transform: translateY(-1px);
+        }
+        
+        .consent-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          min-width: 220px;
+        }
+        
+        .consent-button {
+          padding: 0.875rem 1.5rem;
+          border-radius: 0.75rem;
+          border: 2px solid;
+          font-weight: 600;
+          font-size: 0.875rem;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          outline: none;
+          position: relative;
+          overflow: hidden;
+          text-align: center;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          white-space: nowrap;
+        }
+        
+        .consent-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+        
+        .consent-button:not(:disabled):hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(13, 27, 42, 0.2);
+        }
+        
+        .consent-button:not(:disabled):active {
+          transform: translateY(0);
+        }
+        
+        .consent-button.primary {
+          background: linear-gradient(135deg, ${colors.navy} 0%, ${colors.navy}E6 100%);
+          border-color: ${colors.navy};
+          color: ${colors.white};
+        }
+        
+        .consent-button.secondary {
+          background: linear-gradient(135deg, ${colors.gold} 0%, ${colors.gold}E6 100%);
+          border-color: ${colors.gold};
+          color: ${colors.navy};
+        }
+        
+        .consent-button.outline {
+          background: transparent;
+          border-color: ${textColor};
+          color: ${textColor};
+        }
+        
+        .consent-button.outline:hover {
+          background: ${colors.gold}10;
+          border-color: ${colors.gold};
+          color: ${colors.gold};
+        }
+        
+        .consent-details {
+          border-top: 1px solid ${isThemeDark ? 'rgba(255, 255, 255, 0.1)' : colors.gray[200]};
+          padding-top: 1.5rem;
+          margin-top: 1.5rem;
+          animation: fadeIn 0.3s ease-out;
+        }
+        
+        .consent-details h3 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          margin: 0 0 1.5rem 0;
+          color: ${textColor};
+        }
+        
+        .consent-option {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1.25rem;
+          margin-bottom: 1rem;
+          background: ${isThemeDark ? 'rgba(255, 255, 255, 0.03)' : colors.gray[50]};
+          border: 1px solid ${isThemeDark ? 'rgba(255, 255, 255, 0.1)' : colors.gray[200]};
+          border-radius: 0.75rem;
+          transition: all 0.2s ease;
+        }
+        
+        .consent-option:hover {
+          border-color: ${colors.gold};
+          background: ${isThemeDark ? 'rgba(244, 180, 0, 0.05)' : 'rgba(244, 180, 0, 0.05)'};
+        }
+        
+        .consent-option-icon {
+          font-size: 1.5rem;
+          flex-shrink: 0;
+        }
+        
+        .consent-option-content {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .consent-option-title {
+          font-size: 0.875rem;
+          font-weight: 600;
+          color: ${textColor};
+          margin: 0 0 0.25rem 0;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .consent-option-description {
+          font-size: 0.75rem;
+          line-height: 1.4;
+          color: ${isThemeDark ? colors.gray[300] : colors.gray[600]};
+          margin: 0 0 0.25rem 0;
+        }
+        
+        .consent-option-examples {
+          font-size: 0.625rem;
+          color: ${isThemeDark ? colors.gray[400] : colors.gray[500]};
+          font-style: italic;
+          margin: 0;
+        }
+        
+        .consent-toggle {
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          border: 1px solid ${colors.gold};
+          background: ${hasConsent('necessary') ? colors.gold : 'transparent'};
+          color: ${hasConsent('necessary') ? colors.navy : colors.gold};
+          font-size: 0.75rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+        }
+        
+        .consent-toggle:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(244, 180, 0, 0.3);
+        }
+        
+        .consent-toggle:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        
+        .consent-footer {
+          margin-top: 1.5rem;
+          text-align: center;
+          font-size: 0.75rem;
+          color: ${isThemeDark ? colors.gray[400] : colors.gray[500]};
+          line-height: 1.5;
+        }
+        
+        .loading-spinner {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          border-top-color: currentColor;
+          animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+          .consent-content {
+            padding: 1.5rem;
+          }
+          
+          .consent-header {
+            flex-direction: column;
+            gap: 1.5rem;
+          }
+          
+          .consent-actions {
+            width: 100%;
+          }
+          
+          .consent-button {
+            width: 100%;
+          }
+          
+          .consent-option {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+          }
+          
+          .consent-toggle {
+            align-self: flex-end;
+          }
+        }
+      `}</style>
+      
+      <div className="consent-banner" role="dialog" aria-labelledby="consent-banner-title" aria-describedby="consent-banner-description">
+        <div className="consent-content">
+          <div className="consent-header">
+            <div className="consent-text">
+              <h2 id="consent-banner-title" className="consent-title">
+                🍪 Cookie Preferences
               </h2>
-              <p id="consent-banner-description" style={{ 
-                margin: '0 0 0.75rem 0', 
-                fontSize: '0.875rem', 
-                lineHeight: '1.5',
-                color: isThemeDark ? colors.gray[300] : colors.gray[700]
-              }}>
-                We use cookies and similar technologies to enhance your experience, analyze site usage, 
-                and assist with marketing efforts. You can manage your preferences below or accept all to continue.
+              <p id="consent-banner-description" className="consent-description">
+                We use cookies to enhance your experience, analyze site usage, and deliver personalized content. 
+                Choose your preferences below or accept all to continue with optimal experience.
               </p>
-              <div style={{ fontSize: '0.75rem', color: isThemeDark ? colors.gray[400] : colors.gray[600] }}>
+              <div className="consent-links">
                 By continuing, you agree to our{' '}
-                <a 
-                  href="/privacy" 
-                  style={{ 
-                    color: colors.gold, 
-                    textDecoration: 'none',
-                    outline: 'none',
-                  }}
-                  onFocus={(e) => e.target.style.textDecoration = 'underline'}
-                  onBlur={(e) => e.target.style.textDecoration = 'none'}
-                >
-                  Privacy Policy
-                </a>{' '}
+                <a href="/privacy" className="consent-link">Privacy Policy</a>{' '}
                 and{' '}
-                <a 
-                  href="/cookies" 
-                  style={{ 
-                    color: colors.gold, 
-                    textDecoration: 'none',
-                    outline: 'none',
-                  }}
-                  onFocus={(e) => e.target.style.textDecoration = 'underline'}
-                  onBlur={(e) => e.target.style.textDecoration = 'none'}
-                >
-                  Cookie Policy
-                </a>
+                <a href="/terms" className="consent-link">Terms of Service</a>
               </div>
-              
-              {/* Rate Limit Status */}
-              {/* No rateLimitStatus in useSimpleConsent */}
             </div>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', minWidth: '200px' }}>
-              <BrandButton
-                variant="navy"
+            <div className="consent-actions">
+              <button
+                className="consent-button primary"
                 onClick={handleAcceptAll}
                 disabled={isLoading}
-                style={primaryButtonStyles}
               >
-                Accept All
-              </BrandButton>
+                {isLoading ? <span className="loading-spinner" /> : null}
+                Accept All Cookies
+              </button>
 
-              <BrandButton
-                variant="gold"
+              <button
+                className="consent-button secondary"
                 onClick={handleAcceptNecessary}
                 disabled={isLoading}
-                style={secondaryButtonStyles}
               >
-                Accept Necessary
-              </BrandButton>
+                {isLoading ? <span className="loading-spinner" /> : null}
+                Essential Only
+              </button>
 
-              <BrandButton
-                variant="outline-navy"
-                onClick={() => setShowDetails(!showDetails)}
-                style={outlineButtonStyles}
+              <button
+                className="consent-button outline"
+                onClick={toggleDetails}
+                disabled={isLoading}
               >
-                {showDetails ? 'Hide' : 'Manage Preferences'}
-              </BrandButton>
+                {showDetails ? 'Hide' : 'Customize'} Preferences
+              </button>
             </div>
           </div>
 
-          {/* Detailed Options */}
           {showDetails && (
-            <div style={{ 
-              borderTop: `1px solid ${isThemeDark ? 'rgba(255, 255, 255, 0.1)' : colors.gray[200]}`, 
-              paddingTop: '1rem',
-              marginTop: '0.5rem',
-            }}>
-              <h3 style={{ 
-                fontSize: '1rem', 
-                fontWeight: '600', 
-                marginBottom: '1rem',
-                color: textColor
-              }}>
-                Cookie Preferences
-              </h3>
+            <div className="consent-details">
+              <h3>Cookie Preferences</h3>
               
               {(Object.keys(CONSENT_DESCRIPTIONS) as ConsentType[]).map((type) => {
                 const consent = CONSENT_DESCRIPTIONS[type];
-                const isGranted = consentState[type];
+                const isGranted = hasConsent(type);
                 const isNecessary = type === 'necessary';
-                const expirationInfo = getExpirationInfo(type);
                 
                 return (
-                  <div key={type} style={toggleContainerStyles}>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ 
-                        display: 'flex', 
-                        alignItems: 'center',
-                        marginBottom: '0.25rem',
-                      }}>
-                        <h4 style={{ 
-                          fontSize: '0.875rem', 
-                          fontWeight: '600',
-                          margin: 0,
-                          color: textColor
-                        }}>
-                          {consent.title}
-                          {isNecessary && (
-                            <span style={{ 
-                              marginLeft: '0.5rem',
-                              fontSize: '0.75rem',
-                              color: colors.gold,
-                              fontWeight: 'normal'
-                            }}>
-                              (Required)
-                            </span>
-                          )}
-                        </h4>
-                        {expirationInfo && isGranted && (
-                          <span style={{
-                            marginLeft: '0.5rem',
-                            fontSize: '0.75rem',
-                            color: isThemeDark ? colors.gray[400] : colors.gray[600],
-                            fontStyle: 'italic',
+                  <div key={type} className="consent-option">
+                    <div className="consent-option-icon">
+                      {consent.icon}
+                    </div>
+                    <div className="consent-option-content">
+                      <div className="consent-option-title">
+                        {consent.title}
+                        {isNecessary && (
+                          <span style={{ 
+                            fontSize: '0.625rem',
+                            color: colors.gold,
+                            fontWeight: 'normal',
+                            background: `${colors.gold}20`,
+                            padding: '0.125rem 0.5rem',
+                            borderRadius: '0.25rem',
                           }}>
-                            {expirationInfo}
+                            Required
                           </span>
                         )}
                       </div>
-                      <p style={{ 
-                        fontSize: '0.75rem', 
-                        color: isThemeDark ? colors.gray[300] : colors.gray[600],
-                        margin: '0 0 0.25rem 0',
-                        lineHeight: '1.3',
-                      }}>
+                      <p className="consent-option-description">
                         {consent.description}
                       </p>
-                      <p style={{ 
-                        fontSize: '0.625rem', 
-                        color: isThemeDark ? colors.gray[400] : colors.gray[500],
-                        margin: 0,
-                        fontStyle: 'italic',
-                      }}>
+                      <p className="consent-option-examples">
                         Examples: {consent.examples}
                       </p>
                     </div>
                     
-                    <BrandButton
-                      variant="outline-gold"
-                      onClick={() => handleConsentToggle(type, !hasConsent(type))}
-                      disabled={type === 'necessary'}
-                      style={toggleButtonStyles}
+                    <button
+                      className="consent-toggle"
+                      onClick={() => handleConsentToggle(type, !isGranted)}
+                      disabled={isNecessary || isLoading}
+                      style={{
+                        background: isGranted ? colors.gold : 'transparent',
+                        color: isGranted ? colors.navy : colors.gold,
+                      }}
                     >
-                      {hasConsent(type) ? 'Disable' : 'Enable'}
-                    </BrandButton>
+                      {isGranted ? 'Enabled' : 'Disabled'}
+                    </button>
                   </div>
                 );
               })}
               
-              <div style={{ 
-                marginTop: '1rem', 
-                textAlign: 'center',
-                fontSize: '0.75rem',
-                color: isThemeDark ? colors.gray[400] : colors.gray[600]
-              }}>
-                You can change these preferences at any time in your account settings or by clicking the cookie icon at the bottom of any page.
+              <div className="consent-footer">
+                💡 You can change these preferences anytime in your account settings or by clearing your browser cookies.
               </div>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }; 

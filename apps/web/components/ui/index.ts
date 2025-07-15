@@ -31,8 +31,8 @@ export { SecurityStatus } from './SecurityStatus';
 export type { SecurityStatusProps } from './SecurityStatus';
 
 // Export brand components (re-export from @mahardika/ui)
-export { BrandButton, BrandCard } from '@mahardika/ui';
-export type { BrandButtonProps, BrandCardProps } from '@mahardika/ui';
+export { BrandButton, BrandCard } from '@mah/ui';
+export type { BrandButtonProps, BrandCardProps } from '@mah/ui';
 
 // Export demo component
 export { MahardikaDemo } from './demo';

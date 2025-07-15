@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@mahardika/ui'],
+  transpilePackages: ['@mah/ui'],
   experimental: {
-    optimizePackageImports: ['@mahardika/ui'],
+    optimizePackageImports: ['@mah/ui'],
   },
   eslint: {
     // Skip ESLint checks during production build (handled in CI)

@@ -19,7 +19,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@mahardika/ui": ["../../packages/ui/src"]
+      "@mah/ui": ["../../packages/ui/src"]
     },
     "target": "ES2017"
   },

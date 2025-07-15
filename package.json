@@ -11,7 +11,7 @@
     "test": "turbo run test",
     "release": "standard-version",
     "test:scripts": "cd scripts && jest --config jest.config.js",
-    "lint:fix": "pnpm --filter @mahardika/ui... lint:fix && pnpm --filter @mahardika/web... lint:fix",
+    "lint:fix": "pnpm --filter @mah/ui... lint:fix && pnpm --filter @mahardika/web... lint:fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint:test": "node scripts/lint-test.js",

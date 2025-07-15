@@ -1,4 +1,4 @@
-import { colors, BrandButton, BrandCard } from '@mahardika/ui';
+import { colors, BrandButton, BrandCard } from '@mah/ui';
 import React, { useState } from 'react';
 
 const StyleGuidePage = () => {

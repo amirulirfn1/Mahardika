@@ -14,7 +14,7 @@
  */
 
 import React, { useState, useRef, useCallback } from 'react';
-import { colors, BrandButton } from '@mahardika/ui';
+import { colors, BrandButton } from '@mah/ui';
 
 interface UploadProgress {
   loaded: number;

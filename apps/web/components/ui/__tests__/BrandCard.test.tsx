@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { BrandCard, BrandCardTemplates } from '../BrandCard';
+import { BrandCard, BrandCardTemplates } from '@mah/ui';
 import { colors } from '../colors';
 
 describe('BrandCard', () => {

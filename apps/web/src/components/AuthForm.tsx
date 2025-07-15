@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '@mah/ui';
 import { supabaseClient } from '@/lib/supabaseClient';
 
 interface AuthFormProps {
@@ -587,7 +587,7 @@ export default function AuthForm({
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3" />
                   {activeTab === 'login'
                     ? 'Signing In...'
                     : 'Creating Account...'}

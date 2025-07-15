@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { BrandButton } from '../BrandButton';
+import { BrandButton } from '../../../src/BrandButton';
 import '@testing-library/jest-dom';
 
 describe('BrandButton Snapshot', () => {

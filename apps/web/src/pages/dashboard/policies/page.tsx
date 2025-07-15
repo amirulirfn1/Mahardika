@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { BrandButton, colors } from '@mahardika/ui';
+import { BrandButton, colors } from '@mah/ui';
 import {
   useReactTable,
   getCoreRowModel,

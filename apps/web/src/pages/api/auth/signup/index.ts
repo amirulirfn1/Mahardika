@@ -29,7 +29,7 @@ async function handleSignUp(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     // Parse and validate request body
-    const body = req.body;
+    const { body } = req;
     const validationResult = SignUpSchema.safeParse(body);
 
     if (!validationResult.success) {

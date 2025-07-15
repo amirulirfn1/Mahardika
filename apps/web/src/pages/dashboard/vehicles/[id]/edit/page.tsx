@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { BrandButton, colors } from '@mahardika/ui';
+import { BrandButton, colors } from '@mah/ui';
 import { z } from 'zod';
 
 const vehicleSchema = z.object({

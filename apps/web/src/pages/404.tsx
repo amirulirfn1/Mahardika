@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '@mah/ui';
 
 export default function NotFound() {
   return (

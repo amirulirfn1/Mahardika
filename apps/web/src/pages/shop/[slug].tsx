@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '@mah/ui';
 import {
   agencyService,
   mockAgencyData,

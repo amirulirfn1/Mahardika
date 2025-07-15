@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { BrandCard } from '../BrandCard';
+import { BrandCard } from '../../../src/BrandCard';
 import '@testing-library/jest-dom';
 
 describe('BrandCard Snapshot', () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { colors, BrandButton } from '@mahardika/ui';
+import { colors, BrandButton } from '@mah/ui';
 
 // Simple CSRF hook replacement
 function useSimpleCSRF() {

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '@mah/ui';
 import { Agency, AgencyReview } from '../lib/supabase';
 
 interface ShopPageProps {

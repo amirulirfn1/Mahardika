@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { BrandButton, colors } from '@mahardika/ui';
+import { BrandButton, colors } from '@mah/ui';
 import { z } from 'zod';
 
 // --- schemas

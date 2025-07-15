@@ -1,6 +1,6 @@
 'use client';
 
-import { colors, BrandButton } from '@mahardika/ui';
+import { colors, BrandButton } from '@mah/ui';
 /**
  * Forgot Password Form Component - Mahardika Platform
  * Bootstrap 5 styled form with Mahardika brand colors

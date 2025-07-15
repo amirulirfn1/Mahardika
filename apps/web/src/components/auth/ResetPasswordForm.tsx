@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { updatePassword } from '@/lib/supabase';
 import { MAHARDIKA_COLORS } from '@/lib/env';
-import { BrandButton } from '@mahardika/ui';
+import { BrandButton } from '@mah/ui';
 
 export default function ResetPasswordForm() {
   const [password, setPassword] = useState('');

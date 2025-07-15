@@ -1,6 +1,6 @@
 'use client';
 
-import { colors, BrandButton, theme } from '@mahardika/ui';
+import { colors, BrandButton, theme } from '@mah/ui';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';

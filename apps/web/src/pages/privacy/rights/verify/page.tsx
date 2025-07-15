@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { colors, BrandButton } from '@mahardika/ui';
+import { colors, BrandButton } from '@mah/ui';
 
 // Separate component that uses useSearchParams
 function DSRVerificationContent() {

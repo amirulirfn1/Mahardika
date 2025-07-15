@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { colors, BrandButton } from '@mahardika/ui';
+import { colors, BrandButton } from '@mah/ui';
 
 // Simple consent types without complex hook
 type ConsentType = 'necessary' | 'functional' | 'analytics' | 'marketing';

@@ -1,4 +1,3 @@
-import { BrandButton, colors } from '@mahardika/ui';
 /**
  * @mahardika/ui - Mahardika UI Component Library
  *
@@ -31,12 +30,9 @@ export type { AIChatProps } from './AIChat';
 export { SecurityStatus } from './SecurityStatus';
 export type { SecurityStatusProps } from './SecurityStatus';
 
-// Export brand components (legacy compatibility)
-export { BrandButton } from './BrandButton';
-export type { BrandButtonProps } from './BrandButton';
-
-export { BrandCard } from './BrandCard';
-export type { BrandCardProps } from './BrandCard';
+// Export brand components (re-export from @mahardika/ui)
+export { BrandButton, BrandCard } from '@mahardika/ui';
+export type { BrandButtonProps, BrandCardProps } from '@mahardika/ui';
 
 // Export demo component
 export { MahardikaDemo } from './demo';

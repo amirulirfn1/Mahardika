@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrandButton, BrandCard, colors, theme } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors, theme } from '@mah/ui';
 
 // Enhanced shop data with more details
 const shopCategories = [

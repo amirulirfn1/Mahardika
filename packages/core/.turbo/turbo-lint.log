@@ -2,4 +2,3 @@
 > @mah/core@0.0.1 lint C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\packages\core
 > eslint . --ext .ts,.tsx
 
-Warning: React version was set to "detect" in eslint-plugin-react settings, but the "react" package is not installed. Assuming latest React version for linting.

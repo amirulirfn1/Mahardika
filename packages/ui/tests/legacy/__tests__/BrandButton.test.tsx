@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { BrandButton, BrandButtonTemplates } from '../BrandButton';
+import { BrandButton, BrandButtonTemplates } from '../../../src/BrandButton';
 
 describe('BrandButton', () => {
   // Basic rendering tests

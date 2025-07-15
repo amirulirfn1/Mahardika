@@ -1,5 +1,5 @@
 {
-  "name": "@mahardika/ui",
+  "name": "@mah/ui",
   "version": "1.0.0",
   "description": "Mahardika UI Component Library",
   "main": "./dist/index.js",

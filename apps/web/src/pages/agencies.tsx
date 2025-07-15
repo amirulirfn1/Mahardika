@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrandButton, BrandCard, colors } from '@mahardika/ui';
+import { BrandButton, BrandCard, colors } from '@mah/ui';
 import AgencyGrid from '../../components/AgencyGrid';
 
 // Enhanced mock data for demonstration

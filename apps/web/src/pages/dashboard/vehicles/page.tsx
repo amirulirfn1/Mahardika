@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { BrandButton, colors } from '@mahardika/ui';
+import { BrandButton, colors } from '@mah/ui';
 import {
   flexRender,
   getCoreRowModel,

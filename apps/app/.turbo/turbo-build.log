@@ -5,25 +5,94 @@
   ▲ Next.js 14.2.5
 
    Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (108kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Compiled with warnings
+
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+A Node.js API is used (process.versions at line: 11) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+A Node.js API is used (process.versions at line: 12) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+A Node.js API is used (process.versions at line: 58) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+A Node.js API is used (process.versions at line: 59) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+A Node.js API is used (process.versions at line: 60) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+A Node.js API is used (process.version at line: 24) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+
  ✓ Compiled successfully
    Linting and checking validity of types ...
+
+./src/app/dashboard/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
    Collecting page data ...
-   Generating static pages (0/5) ...
-   Generating static pages (1/5) 
-   Generating static pages (2/5) 
-   Generating static pages (3/5) 
- ✓ Generating static pages (5/5)
+   Generating static pages (0/2) ...
+ ✓ Generating static pages (2/2)
    Finalizing page optimization ...
    Collecting build traces ...
 
-Route (app)                              Size     First Load JS
-┌ ○ /                                    5.25 kB        92.2 kB
-└ ○ /_not-found                          872 B          87.9 kB
-+ First Load JS shared by all            87 kB
-  ├ chunks/753-fb54a495ce337509.js       31.5 kB
-  ├ chunks/abf17911-b72ece1d4472ef4e.js  53.6 kB
-  └ other shared chunks (total)          1.86 kB
+Route (pages)                             Size     First Load JS
+─ ○ /404                                  181 B          79.1 kB
++ First Load JS shared by all             78.9 kB
+  ├ chunks/framework-bef83a85c94ff7de.js  45.2 kB
+  ├ chunks/main-b3b5ac737906d5bf.js       32.1 kB
+  └ other shared chunks (total)           1.63 kB
 
+ƒ Middleware                              62.3 kB
 
 ○  (Static)  prerendered as static content
 

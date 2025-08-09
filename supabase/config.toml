@@ -1,0 +1,12 @@
+# Supabase project configuration stub for local CLI usage
+# See: https://supabase.com/docs/guides/cli
+
+[project]
+id = ""
+name = "mahardika"
+
+[db]
+# Port used by Supabase local dev (if using `supabase start`)
+port = 54322
+
+

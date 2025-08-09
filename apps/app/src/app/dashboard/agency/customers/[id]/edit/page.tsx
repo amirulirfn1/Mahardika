@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
+
 import { getServerClient } from "@/lib/supabase/server";
 import { CustomerForm } from "@/src/components/forms/CustomerForm";
+
 import { updateCustomer } from "../../_actions";
 
 async function fetchCustomer(id: string) {
@@ -13,7 +15,11 @@ async function fetchCustomer(id: string) {
   return data;
 }
 
-export default async function EditCustomerPage({ params }: { params: { id: string } }) {
+export default async function EditCustomerPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const customer = await fetchCustomer(params.id);
   if (!customer) return <div className="p-6">Customer not found</div>;
 
@@ -30,10 +36,12 @@ export default async function EditCustomerPage({ params }: { params: { id: strin
       <CustomerForm
         onSubmit={onSubmit}
         submitLabel="Update"
-        initial={{ full_name: customer.full_name, email: customer.email, phone: customer.phone }}
+        initial={{
+          full_name: customer.full_name,
+          email: customer.email,
+          phone: customer.phone,
+        }}
       />
     </div>
   );
 }
-
-

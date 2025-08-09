@@ -2,7 +2,7 @@
 
 Use Supabase Studio or SQL editor to create initial records.
 
-1) Create an agency
+1. Create an agency
 
 ```sql
 insert into public.agencies (id, name, slug, owner_id, plan)
@@ -10,14 +10,14 @@ values (gen_random_uuid(), 'First Agency', 'first-agency', auth.uid(), 'Lite')
 returning id;
 ```
 
-2) Create a platform admin profile linked to your user and agency
+2. Create a platform admin profile linked to your user and agency
 
 ```sql
 insert into public.profiles (user_id, agency_id, role, full_name)
 values (auth.uid(), (select id from public.agencies where slug = 'first-agency'), 'platform_admin', 'Admin');
 ```
 
-3) Optionally create a staff profile for testing
+3. Optionally create a staff profile for testing
 
 ```sql
 insert into public.agency_staff (agency_id, user_id, role)

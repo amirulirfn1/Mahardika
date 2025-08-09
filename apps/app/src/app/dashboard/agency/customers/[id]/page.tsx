@@ -1,11 +1,13 @@
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
-import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
-import { Card, CardContent, CardHeader } from "@/components/ui/Card";
+
 import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader } from "@/components/ui/Card";
+import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
 import { getServerClient } from "@/lib/supabase/server";
 import { ConfirmAction } from "@/src/components/ConfirmAction";
 import { VehicleInlineForm } from "@/src/components/forms/VehicleInlineForm";
+
 import { addVehicle, removeVehicle } from "../_actions";
 
 async function fetchCustomerWithVehicles(id: string) {
@@ -27,7 +29,11 @@ async function fetchCustomerWithVehicles(id: string) {
 
 export const revalidate = 0;
 
-export default async function CustomerDetailPage({ params }: { params: { id: string } }) {
+export default async function CustomerDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { customer, vehicles } = await fetchCustomerWithVehicles(params.id);
   if (!customer) return <div className="p-6">Customer not found</div>;
 
@@ -50,7 +56,10 @@ export default async function CustomerDetailPage({ params }: { params: { id: str
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">{customer.full_name}</h1>
         <div className="flex gap-2">
-          <Link href={`/dashboard/agency/customers/${customer.id}/edit`} className="underline">
+          <Link
+            href={`/dashboard/agency/customers/${customer.id}/edit`}
+            className="underline"
+          >
             Edit
           </Link>
           <Link href="/dashboard/agency/customers" className="underline">
@@ -103,9 +112,14 @@ export default async function CustomerDetailPage({ params }: { params: { id: str
                       <TD>{v.model ?? "-"}</TD>
                       <TD>{v.year ?? "-"}</TD>
                       <TD>
-                        <ConfirmAction action={onRemoveVehicle} confirmMessage="Remove this vehicle?">
+                        <ConfirmAction
+                          action={onRemoveVehicle}
+                          confirmMessage="Remove this vehicle?"
+                        >
                           <input type="hidden" name="vehicle_id" value={v.id} />
-                          <Button variant="ghost" className="px-2">Remove</Button>
+                          <Button variant="ghost" className="px-2">
+                            Remove
+                          </Button>
                         </ConfirmAction>
                       </TD>
                     </TR>
@@ -124,5 +138,3 @@ export default async function CustomerDetailPage({ params }: { params: { id: str
     </div>
   );
 }
-
-

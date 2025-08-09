@@ -23,5 +23,3 @@ export type Vehicle = {
   year?: number | null;
   created_at: string;
 };
-
-

@@ -9,7 +9,12 @@ type Props = {
   className?: string;
 };
 
-export function ConfirmAction({ action, confirmMessage = "Are you sure?", children, className }: Props) {
+export function ConfirmAction({
+  action,
+  confirmMessage = "Are you sure?",
+  children,
+  className,
+}: Props) {
   return (
     <form
       action={action}
@@ -23,5 +28,3 @@ export function ConfirmAction({ action, confirmMessage = "Are you sure?", childr
     </form>
   );
 }
-
-

@@ -11,9 +11,13 @@ const VehicleSchema = z.object({
     .string()
     .optional()
     .transform((v: string | undefined) => (v ? parseInt(v, 10) : undefined))
-    .refine((v: number | undefined) => (v == null ? true : Number.isInteger(v) && v >= 1900 && v <= 2100), {
-      message: "Year must be 1900..2100",
-    }),
+    .refine(
+      (v: number | undefined) =>
+        v == null ? true : Number.isInteger(v) && v >= 1900 && v <= 2100,
+      {
+        message: "Year must be 1900..2100",
+      },
+    ),
 });
 
 export function VehicleInlineForm({
@@ -46,19 +50,39 @@ export function VehicleInlineForm({
       className="space-y-3"
     >
       {error && (
-        <div className="rounded border border-red-300 bg-red-50 text-red-700 px-3 py-2 text-sm">{error}</div>
+        <div className="rounded border border-red-300 bg-red-50 text-red-700 px-3 py-2 text-sm">
+          {error}
+        </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
-        <input name="plate_no" placeholder="Plate No" className="rounded border px-3 py-2 col-span-2" required />
-        <input name="make" placeholder="Make" className="rounded border px-3 py-2" />
-        <input name="model" placeholder="Model" className="rounded border px-3 py-2" />
-        <input name="year" placeholder="Year" className="rounded border px-3 py-2" />
+        <input
+          name="plate_no"
+          placeholder="Plate No"
+          className="rounded border px-3 py-2 col-span-2"
+          required
+        />
+        <input
+          name="make"
+          placeholder="Make"
+          className="rounded border px-3 py-2"
+        />
+        <input
+          name="model"
+          placeholder="Model"
+          className="rounded border px-3 py-2"
+        />
+        <input
+          name="year"
+          placeholder="Year"
+          className="rounded border px-3 py-2"
+        />
       </div>
-      <button disabled={pending} className="rounded bg-black text-white px-4 py-2 disabled:opacity-50">
+      <button
+        disabled={pending}
+        className="rounded bg-black text-white px-4 py-2 disabled:opacity-50"
+      >
         {pending ? "Adding..." : "Add Vehicle"}
       </button>
     </form>
   );
 }
-
-

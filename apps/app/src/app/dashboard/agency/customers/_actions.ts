@@ -1,9 +1,10 @@
 "use server";
 
 import { z } from "zod";
+
+import { getProfile } from "@/lib/auth";
 import { normalizePhone } from "@/lib/phone";
 import { getServerClient } from "@/lib/supabase/server";
-import { getProfile } from "@/lib/auth";
 
 const CustomerSchema = z.object({
   full_name: z.string().min(2, "Name too short"),
@@ -16,7 +17,9 @@ const CustomerSchema = z.object({
   phone: z
     .string()
     .optional()
-    .transform((v: string | undefined) => normalizePhone(v ?? null) ?? undefined),
+    .transform(
+      (v: string | undefined) => normalizePhone(v ?? null) ?? undefined,
+    ),
 });
 
 const VehicleSchema = z.object({
@@ -27,9 +30,13 @@ const VehicleSchema = z.object({
     .string()
     .optional()
     .transform((v: string | undefined) => (v ? parseInt(v, 10) : undefined))
-    .refine((v: number | undefined) => (v == null ? true : Number.isInteger(v) && v >= 1900 && v <= 2100), {
-      message: "Year must be 1900..2100",
-    }),
+    .refine(
+      (v: number | undefined) =>
+        v == null ? true : Number.isInteger(v) && v >= 1900 && v <= 2100,
+      {
+        message: "Year must be 1900..2100",
+      },
+    ),
 });
 
 export async function createCustomer(formData: FormData) {
@@ -41,7 +48,8 @@ export async function createCustomer(formData: FormData) {
       email: formData.get("email") ?? undefined,
       phone: formData.get("phone") ?? undefined,
     });
-    if (!parsed.success) return { ok: false, error: parsed.error.message } as const;
+    if (!parsed.success)
+      return { ok: false, error: parsed.error.message } as const;
     const supabase = getServerClient();
     const { data, error } = await supabase
       .from("customers")
@@ -63,9 +71,13 @@ export async function updateCustomer(id: string, formData: FormData) {
       email: formData.get("email") ?? undefined,
       phone: formData.get("phone") ?? undefined,
     });
-    if (!parsed.success) return { ok: false, error: parsed.error.message } as const;
+    if (!parsed.success)
+      return { ok: false, error: parsed.error.message } as const;
     const supabase = getServerClient();
-    const { error } = await supabase.from("customers").update(parsed.data).eq("id", id);
+    const { error } = await supabase
+      .from("customers")
+      .update(parsed.data)
+      .eq("id", id);
     if (error) return { ok: false, error: error.message } as const;
     return { ok: true } as const;
   } catch (e) {
@@ -96,11 +108,16 @@ export async function addVehicle(customerId: string, formData: FormData) {
       model: formData.get("model") ?? undefined,
       year: formData.get("year") ?? undefined,
     });
-    if (!parsed.success) return { ok: false, error: parsed.error.message } as const;
+    if (!parsed.success)
+      return { ok: false, error: parsed.error.message } as const;
     const supabase = getServerClient();
     const { error } = await supabase
       .from("vehicles")
-      .insert({ agency_id: profile.agency_id, customer_id: customerId, ...parsed.data });
+      .insert({
+        agency_id: profile.agency_id,
+        customer_id: customerId,
+        ...parsed.data,
+      });
     if (error) return { ok: false, error: error.message } as const;
     return { ok: true } as const;
   } catch (e) {
@@ -112,7 +129,10 @@ export async function addVehicle(customerId: string, formData: FormData) {
 export async function removeVehicle(vehicleId: string) {
   try {
     const supabase = getServerClient();
-    const { error } = await supabase.from("vehicles").delete().eq("id", vehicleId);
+    const { error } = await supabase
+      .from("vehicles")
+      .delete()
+      .eq("id", vehicleId);
     if (error) return { ok: false, error: error.message } as const;
     return { ok: true } as const;
   } catch (e) {
@@ -120,5 +140,3 @@ export async function removeVehicle(vehicleId: string) {
     return { ok: false, error: msg } as const;
   }
 }
-
-

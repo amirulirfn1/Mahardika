@@ -10,13 +10,13 @@
   "scripts": {
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
+    "lint:fix": "turbo lint -- --fix",
     "typecheck": "turbo run typecheck",
     "build": "turbo run build",
-    "test": "turbo run test || echo no-tests"
+    "test": "turbo run test || echo no-tests",
+    "fmt": "prettier --write ."
   },
   "devDependencies": {
     "turbo": "^2.2.3"
   }
 }
-
-

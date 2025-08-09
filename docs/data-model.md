@@ -14,10 +14,12 @@
 - audit_log: before/after change snapshots.
 
 Relationships
-- agencies 1—* customers, vehicles, policies, payments, reminder_jobs, message_logs, upload_files
-- customers 1—* vehicles, policies, payments, loyalty_ledger
+
+- agencies 1—\* customers, vehicles, policies, payments, reminder_jobs, message_logs, upload_files
+- customers 1—\* vehicles, policies, payments, loyalty_ledger
 - payments 1—1 loyalty_ledger (optional)
-- policies *—1 customers, *—1 vehicles
+- policies _—1 customers, _—1 vehicles
 
 RLS
+
 - Tenant isolation by agency_id and public.current_agency_id(); platform admin override via public.is_platform_admin().

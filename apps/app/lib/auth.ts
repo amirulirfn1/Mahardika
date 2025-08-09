@@ -26,5 +26,3 @@ export async function requireAuth() {
   if (!session) throw new Error("Unauthorized");
   return session;
 }
-
-

@@ -4,5 +4,3 @@
 - Supabase for Postgres, Auth, Storage
 - Turborepo with pnpm workspaces
 - Packages: `@mahardika/ui`, `@mahardika/config`
-
-

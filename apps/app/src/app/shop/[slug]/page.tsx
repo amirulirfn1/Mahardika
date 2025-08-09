@@ -1,5 +1,6 @@
-import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
 import { getServerClient } from "@/lib/supabase/server";
 import { toWaLink } from "@/lib/whatsapp";
 import type { Agency } from "@/types/domain";
@@ -19,7 +20,9 @@ async function fetchAgency(slug: string): Promise<Agency | null> {
   return (data as Agency) ?? null;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const agency = await fetchAgency(params.slug);
   if (!agency) return { title: "Agency not found" };
   return {
@@ -45,7 +48,9 @@ export default async function AgencyStorefrontPage({ params }: PageProps) {
     <div className="mx-auto max-w-3xl p-6 space-y-6">
       <div className="space-y-2">
         <h1 className="text-3xl font-semibold">{agency.name}</h1>
-        {agency.description && <p className="text-gray-600">{agency.description}</p>}
+        {agency.description && (
+          <p className="text-gray-600">{agency.description}</p>
+        )}
       </div>
       <div>
         {wa ? (
@@ -70,5 +75,3 @@ export default async function AgencyStorefrontPage({ params }: PageProps) {
     </div>
   );
 }
-
-

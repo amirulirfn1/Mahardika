@@ -20,7 +20,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <header className="border-b">
           <div className="mx-auto max-w-6xl flex items-center justify-between p-4">
-            <Link href="/" className="font-semibold">Mahardika</Link>
+            <Link href="/" className="font-semibold">
+              Mahardika
+            </Link>
             <nav className="flex items-center gap-4 text-sm">
               <Link href="/dashboard">Dashboard</Link>
             </nav>

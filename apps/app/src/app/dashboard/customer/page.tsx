@@ -8,9 +8,9 @@ export default async function CustomerDashboardPage() {
       <p>
         Hello {profile?.full_name ?? "Customer"} ({profile?.role})
       </p>
-      <p className="text-gray-600">TODO: show active policies, renewal reminders</p>
+      <p className="text-gray-600">
+        TODO: show active policies, renewal reminders
+      </p>
     </div>
   );
 }
-
-

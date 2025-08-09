@@ -10,6 +10,3 @@ export function normalizePhone(input?: string | null): string | null {
   }
   return digits;
 }
-
-
-

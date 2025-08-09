@@ -1,21 +1,32 @@
-import Link from "next/link";
 import { revalidatePath } from "next/cache";
-import { getServerClient } from "@/lib/supabase/server";
-import { deleteCustomer } from "./_actions";
-import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/Button";
+import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
+import { getServerClient } from "@/lib/supabase/server";
 import { ConfirmAction } from "@/src/components/ConfirmAction";
+
+import { deleteCustomer } from "./_actions";
 
 export const revalidate = 0;
 
-function parseSearchParams(searchParams: Record<string, string | string[] | undefined>) {
+function parseSearchParams(
+  searchParams: Record<string, string | string[] | undefined>,
+) {
   const q = typeof searchParams.q === "string" ? searchParams.q : "";
   const page = Math.max(1, parseInt((searchParams.page as string) || "1", 10));
-  const pageSize = Math.max(1, parseInt((searchParams.pageSize as string) || "10", 10));
+  const pageSize = Math.max(
+    1,
+    parseInt((searchParams.pageSize as string) || "10", 10),
+  );
   return { q, page, pageSize };
 }
 
-export default async function CustomersListPage({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function CustomersListPage({
+  searchParams,
+}: {
+  searchParams: Record<string, string>;
+}) {
   const { q, page, pageSize } = parseSearchParams(searchParams);
   const supabase = getServerClient();
   const from = (page - 1) * pageSize;
@@ -45,12 +56,20 @@ export default async function CustomersListPage({ searchParams }: { searchParams
     <div className="p-6 space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Customers</h1>
-        <Link href="/dashboard/agency/customers/new" className="rounded bg-black text-white px-3 py-2 text-sm">
+        <Link
+          href="/dashboard/agency/customers/new"
+          className="rounded bg-black text-white px-3 py-2 text-sm"
+        >
           New Customer
         </Link>
       </div>
       <form className="flex gap-2">
-        <input name="q" defaultValue={q} placeholder="Search name, email, phone" className="rounded border px-3 py-2 w-full" />
+        <input
+          name="q"
+          defaultValue={q}
+          placeholder="Search name, email, phone"
+          className="rounded border px-3 py-2 w-full"
+        />
         <button className="rounded border px-3 py-2">Search</button>
       </form>
       <div className="rounded border overflow-x-auto">
@@ -65,28 +84,53 @@ export default async function CustomersListPage({ searchParams }: { searchParams
             </TR>
           </THead>
           <TBody>
-            {(data || []).map((c: { id: string; full_name: string; email?: string | null; phone?: string | null; vehicles?: { id: string }[] }) => (
-              <TR key={c.id}>
-                <TD>{c.full_name}</TD>
-                <TD>{c.email ?? "-"}</TD>
-                <TD>{c.phone ?? "-"}</TD>
-                <TD>{Array.isArray(c.vehicles) ? c.vehicles.length : 0}</TD>
-                <TD>
-                  <div className="flex items-center gap-2">
-                    <Link href={`/dashboard/agency/customers/${c.id}`} className="underline">View</Link>
-                    <Link href={`/dashboard/agency/customers/${c.id}/edit`} className="underline">Edit</Link>
-                    <ConfirmAction action={onDelete} confirmMessage="Delete this customer? This cannot be undone.">
-                      <input type="hidden" name="id" value={c.id} />
-                      <Button variant="ghost" className="px-2">Delete</Button>
-                    </ConfirmAction>
-                  </div>
-                </TD>
-              </TR>
-            ))}
+            {(data || []).map(
+              (c: {
+                id: string;
+                full_name: string;
+                email?: string | null;
+                phone?: string | null;
+                vehicles?: { id: string }[];
+              }) => (
+                <TR key={c.id}>
+                  <TD>{c.full_name}</TD>
+                  <TD>{c.email ?? "-"}</TD>
+                  <TD>{c.phone ?? "-"}</TD>
+                  <TD>{Array.isArray(c.vehicles) ? c.vehicles.length : 0}</TD>
+                  <TD>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/dashboard/agency/customers/${c.id}`}
+                        className="underline"
+                      >
+                        View
+                      </Link>
+                      <Link
+                        href={`/dashboard/agency/customers/${c.id}/edit`}
+                        className="underline"
+                      >
+                        Edit
+                      </Link>
+                      <ConfirmAction
+                        action={onDelete}
+                        confirmMessage="Delete this customer? This cannot be undone."
+                      >
+                        <input type="hidden" name="id" value={c.id} />
+                        <Button variant="ghost" className="px-2">
+                          Delete
+                        </Button>
+                      </ConfirmAction>
+                    </div>
+                  </TD>
+                </TR>
+              ),
+            )}
             {(!data || data.length === 0) && (
               <TR>
                 <TD colSpan={5}>
-                  <div className="py-4 text-center text-gray-500">No customers</div>
+                  <div className="py-4 text-center text-gray-500">
+                    No customers
+                  </div>
                 </TD>
               </TR>
             )}
@@ -99,15 +143,23 @@ export default async function CustomersListPage({ searchParams }: { searchParams
         </div>
         <div className="flex gap-2">
           {page > 1 && (
-            <Link href={`?q=${encodeURIComponent(q)}&page=${page - 1}&pageSize=${pageSize}`} className="underline">Prev</Link>
+            <Link
+              href={`?q=${encodeURIComponent(q)}&page=${page - 1}&pageSize=${pageSize}`}
+              className="underline"
+            >
+              Prev
+            </Link>
           )}
           {(count ?? 0) > page * pageSize && (
-            <Link href={`?q=${encodeURIComponent(q)}&page=${page + 1}&pageSize=${pageSize}`} className="underline">Next</Link>
+            <Link
+              href={`?q=${encodeURIComponent(q)}&page=${page + 1}&pageSize=${pageSize}`}
+              className="underline"
+            >
+              Next
+            </Link>
           )}
         </div>
       </div>
     </div>
   );
 }
-
-

@@ -12,5 +12,3 @@ export function toWaLink(input: string, message?: string): string {
   }
   return base;
 }
-
-

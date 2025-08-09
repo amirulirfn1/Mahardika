@@ -1,4 +1,6 @@
 
 > app@0.1.0 lint C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
-> next lint
+> next lint "--fix"
 
+Pages directory cannot be found at . If using a custom path, please configure with the `no-html-link-for-pages` rule in your eslint config file.
+✔ No ESLint warnings or errors

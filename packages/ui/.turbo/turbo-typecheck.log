@@ -1,0 +1,4 @@
+
+> @mahardika/ui@0.1.0 typecheck C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\packages\ui
+> tsc -p tsconfig.json --noEmit
+

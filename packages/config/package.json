@@ -1,0 +1,15 @@
+{
+  "name": "@mahardika/config",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "types": "",
+  "scripts": {
+    "build": "echo 'config: nothing to build'",
+    "dev": "echo 'config: dev'",
+    "lint": "echo 'config: no lint'",
+    "typecheck": "echo 'config: no types'"
+  }
+}
+
+

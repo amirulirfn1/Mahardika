@@ -2,8 +2,20 @@
   "name": "@mahardika/config",
   "version": "0.1.0",
   "private": true,
+  "type": "commonjs",
   "main": "index.js",
-  "types": "",
+  "exports": {
+    "./eslint": "./eslint/index.cjs",
+    "./tailwind/preset": "./tailwind/preset.cjs",
+    "./prettier": "./prettier/index.cjs",
+    "./tsconfig/base.json": "./tsconfig/base.json"
+  },
+  "files": [
+    "eslint",
+    "tailwind",
+    "prettier",
+    "tsconfig"
+  ],
   "scripts": {
     "build": "echo 'config: nothing to build'",
     "dev": "echo 'config: dev'",

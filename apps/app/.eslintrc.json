@@ -1,3 +1,9 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "extends": ["../../packages/config/eslint/index.cjs"],
+  "settings": {
+    "next": {
+      "rootDir": ["apps/app"]
+    }
+  }
 }

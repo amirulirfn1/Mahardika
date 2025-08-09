@@ -1,27 +1,43 @@
 import React from "react";
 
-export function Table({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <table className={`min-w-full text-sm ${className}`}>{children}</table>;
+export function Table({ children, className = "", ...props }: React.TableHTMLAttributes<HTMLTableElement>) {
+  return (
+    <table className={`min-w-full text-sm ${className}`} {...props}>
+      {children}
+    </table>
+  );
 }
 
-export function THead({ children }: { children: React.ReactNode }) {
-  return <thead>{children}</thead>;
+export function THead({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {
+  return <thead {...props}>{children}</thead>;
 }
 
-export function TBody({ children }: { children: React.ReactNode }) {
-  return <tbody>{children}</tbody>;
+export function TBody({ children, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {
+  return <tbody {...props}>{children}</tbody>;
 }
 
-export function TR({ children }: { children: React.ReactNode }) {
-  return <tr className="border-t">{children}</tr>;
+export function TR({ children, className = "", ...props }: React.HTMLAttributes<HTMLTableRowElement>) {
+  return (
+    <tr className={`border-t ${className}`} {...props}>
+      {children}
+    </tr>
+  );
 }
 
-export function TH({ children }: { children: React.ReactNode }) {
-  return <th className="py-2 pr-4 text-left text-gray-600">{children}</th>;
+export function TH({ children, className = "", ...props }: React.ThHTMLAttributes<HTMLTableCellElement>) {
+  return (
+    <th className={`py-2 pr-4 text-left text-gray-600 ${className}`} {...props}>
+      {children}
+    </th>
+  );
 }
 
-export function TD({ children }: { children: React.ReactNode }) {
-  return <td className="py-2 pr-4">{children}</td>;
+export function TD({ children, className = "", ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) {
+  return (
+    <td className={`py-2 pr-4 ${className}`} {...props}>
+      {children}
+    </td>
+  );
 }
 
 

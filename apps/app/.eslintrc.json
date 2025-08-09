@@ -4,6 +4,11 @@
   "settings": {
     "next": {
       "rootDir": ["apps/app"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": ["apps/app/tsconfig.json"]
+      }
     }
   }
 }

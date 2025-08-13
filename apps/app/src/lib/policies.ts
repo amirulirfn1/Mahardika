@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { getProfile } from "@/lib/auth";
 import { getServerClient } from "@/lib/supabase/server";
 import { uploadPolicyPdf } from "./storage";
@@ -50,6 +51,20 @@ export async function replacePolicyPdf(id: string, file: File) {
   const { error } = await supabase.from("policies").update({ pdf_path: uploaded.path }).eq("id", id);
   if (error) return { ok: false as const, error: error.message };
   return { ok: true as const, path: uploaded.path };
+}
+
+export async function softDeletePolicy(id: string) {
+  const supabase = getServerClient();
+  const { error } = await supabase.from('policies').update({ deleted_at: new Date().toISOString() }).eq('id', id);
+  if (error) return { ok: false as const, error: error.message };
+  return { ok: true as const };
+}
+
+export async function restorePolicy(id: string) {
+  const supabase = getServerClient();
+  const { error } = await supabase.from('policies').update({ deleted_at: null }).eq('id', id);
+  if (error) return { ok: false as const, error: error.message };
+  return { ok: true as const };
 }
 
 

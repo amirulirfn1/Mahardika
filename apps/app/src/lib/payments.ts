@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { getServerClient } from "@/lib/supabase/server";
 
 export const PaymentInputSchema = z.object({
@@ -27,10 +28,25 @@ export async function listPaymentsByPolicy(policyId: string) {
     .from("policy_payments")
     .select("id, amount, channel, reference, paid_at, notes")
     .eq("policy_id", policyId)
+    .is('deleted_at', null)
     .order("paid_at", { ascending: false })
     .limit(20);
   if (error) return { ok: false as const, error: error.message };
   return { ok: true as const, data };
+}
+
+export async function softDeletePayment(id: string) {
+  const supabase = getServerClient();
+  const { error } = await supabase.from('policy_payments').update({ deleted_at: new Date().toISOString() }).eq('id', id);
+  if (error) return { ok: false as const, error: error.message };
+  return { ok: true as const };
+}
+
+export async function restorePayment(id: string) {
+  const supabase = getServerClient();
+  const { error } = await supabase.from('policy_payments').update({ deleted_at: null }).eq('id', id);
+  if (error) return { ok: false as const, error: error.message };
+  return { ok: true as const };
 }
 
 

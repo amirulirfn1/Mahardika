@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { getServerClient } from "@/lib/supabase/server";
 import { listPaymentsByPolicy } from "@/src/lib/payments";
 import { getPolicyPdfUrl } from "@/src/lib/storage";
+import { softDeletePolicy, restorePolicy } from "@/src/lib/policies";
 
 type PolicyDetail = {
   id: string;
@@ -125,6 +126,26 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
             </tbody>
           </table>
         </div>
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold">Danger zone</h2>
+        <form
+          action={async () => {
+            "use server";
+            await softDeletePolicy(policy.id);
+          }}
+        >
+          <button className="rounded bg-red-600 text-white px-4 py-2">Soft delete policy</button>
+        </form>
+        <form
+          action={async () => {
+            "use server";
+            await restorePolicy(policy.id);
+          }}
+        >
+          <button className="rounded border px-4 py-2">Restore policy</button>
+        </form>
       </div>
     </div>
   );

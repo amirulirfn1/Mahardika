@@ -19,8 +19,11 @@
     "fmt": "prettier --write ."
   },
   "devDependencies": {
-    "turbo": "^2.2.3",
     "@playwright/test": "^1.46.1",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "turbo": "^2.2.3"
+  },
+  "dependencies": {
+    "@sentry/nextjs": "^10.5.0"
   }
 }

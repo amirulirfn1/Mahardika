@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { getProfile } from "@/lib/auth";
 import { getServerClient } from "@/lib/supabase/server";
+import { logError } from "@/src/lib/log";
 import { uploadPolicyPdf } from "@/src/lib/storage";
 
 const BaseSchema = z.object({
@@ -45,6 +46,7 @@ export async function createPolicyAction(formData: FormData) {
     }
     return { ok: true as const, id: created.id };
   } catch (e) {
+    logError(e, { op: "createPolicyAction" });
     const msg = e instanceof Error ? e.message : "Unknown error";
     return { ok: false as const, error: msg };
   }
@@ -66,6 +68,7 @@ export async function updatePolicyAction(id: string, formData: FormData) {
     if (error) return { ok: false as const, error: error.message };
     return { ok: true as const };
   } catch (e) {
+    logError(e, { op: "updatePolicyAction", id });
     const msg = e instanceof Error ? e.message : "Unknown error";
     return { ok: false as const, error: msg };
   }
@@ -83,6 +86,7 @@ export async function uploadPolicyPdfAction(id: string, file: File) {
     if (uErr) return { ok: false as const, error: uErr.message };
     return { ok: true as const, path: up.path };
   } catch (e) {
+    logError(e, { op: "uploadPolicyPdfAction", id, size: file?.size });
     const msg = e instanceof Error ? e.message : "Unknown error";
     return { ok: false as const, error: msg };
   }

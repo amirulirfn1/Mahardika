@@ -2,7 +2,6 @@
 > app@0.1.0 lint C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
 > next lint
 
-Pages directory cannot be found at . If using a custom path, please configure with the `no-html-link-for-pages` rule in your eslint config file.
 
 ./src/app/dashboard/agency/policies/new/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
@@ -17,6 +16,7 @@ Pages directory cannot be found at . If using a custom path, please configure wi
 
 ./src/app/dashboard/agency/policies/[id]/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
+6:1  Warning: `@/src/lib/policies` import should occur before import of `@/src/lib/storage`  import/order
 
 ./src/app/dashboard/agency/policies/[id]/payments/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
@@ -25,11 +25,7 @@ Pages directory cannot be found at . If using a custom path, please configure wi
 ./src/app/dashboard/agency/policies/_actions.ts
 3:1  Warning: There should be at least one empty line between import groups  import/order
 
-./src/lib/payments.ts
-1:1  Warning: There should be at least one empty line between import groups  import/order
-
 ./src/lib/policies.ts
-1:1  Warning: There should be at least one empty line between import groups  import/order
-3:1  Warning: There should be at least one empty line between import groups  import/order
+4:1  Warning: There should be at least one empty line between import groups  import/order
 
 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules

@@ -21,6 +21,7 @@
 
 ./src/app/dashboard/agency/policies/[id]/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
+6:1  Warning: `@/src/lib/policies` import should occur before import of `@/src/lib/storage`  import/order
 
 ./src/app/dashboard/agency/policies/[id]/payments/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
@@ -29,12 +30,8 @@
 ./src/app/dashboard/agency/policies/_actions.ts
 3:1  Warning: There should be at least one empty line between import groups  import/order
 
-./src/lib/payments.ts
-1:1  Warning: There should be at least one empty line between import groups  import/order
-
 ./src/lib/policies.ts
-1:1  Warning: There should be at least one empty line between import groups  import/order
-3:1  Warning: There should be at least one empty line between import groups  import/order
+4:1  Warning: There should be at least one empty line between import groups  import/order
 
 info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
    Collecting page data ...
@@ -44,13 +41,13 @@ info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/d
    Collecting build traces ...
 
 Route (pages)                             Size     First Load JS
-─ ○ /404                                  178 B          79.1 kB
+─ ○ /404                                  180 B          79.1 kB
 + First Load JS shared by all             78.9 kB
   ├ chunks/framework-bef83a85c94ff7de.js  45.2 kB
-  ├ chunks/main-0ae122fca5d78be2.js       32.1 kB
+  ├ chunks/main-7222bf04c99848bf.js       32.1 kB
   └ other shared chunks (total)           1.63 kB
 
-ƒ Middleware                              62.3 kB
+ƒ Middleware                              61.3 kB
 
 ○  (Static)  prerendered as static content
 

@@ -32,3 +32,16 @@ Workspaces
 - `public.policy_payments` tracks incoming payments tied to `public.policies`.
 - RLS strictly scopes all operations to the agency of the owning policy. Delete is limited to agency owners (and platform admins).
 - UI: create and list payments under a policy detail, with a dedicated payments page for more entries.
+
+## Soft delete and audit trail
+
+- Both `public.policies` and `public.policy_payments` support soft delete via `deleted_at`.
+- RLS hides soft-deleted rows by default in SELECT/UPDATE/INSERT checks.
+- `public.audit_events` records inserts/updates/deletes and soft-delete/restore, scoped by `actor_agency_id`.
+- Policy detail includes a danger zone to soft delete/restore; audit visibility is restricted to the same agency.
+
+## Monitoring (Sentry)
+
+- Integrated `@sentry/nextjs` with safe defaults. If `SENTRY_DSN` is unset, Sentry is inert and the app still runs.
+- Configure `SENTRY_DSN`, `SENTRY_ENV`, and `SENTRY_TRACES_SAMPLE_RATE` in environment.
+- A small server logger at `apps/app/src/lib/log.ts` captures errors to Sentry when DSN is set, and always logs to stderr with redaction of sensitive keys.

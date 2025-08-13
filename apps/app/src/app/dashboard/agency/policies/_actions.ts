@@ -38,7 +38,7 @@ export async function createPolicyAction(formData: FormData) {
 
     const file = formData.get("pdf") as File | null;
     if (file && file.size > 0) {
-      const up = await uploadPolicyPdf({ supabase, agencyId: profile.agency_id, policyId: created.id, file });
+      const up = await uploadPolicyPdf({ supabase, policyId: created.id, file });
       if (!up.ok) return { ok: false as const, error: up.error };
       const { error: uErr } = await supabase.from("policies").update({ pdf_path: up.path }).eq("id", created.id);
       if (uErr) return { ok: false as const, error: uErr.message };
@@ -77,7 +77,7 @@ export async function uploadPolicyPdfAction(id: string, file: File) {
     const { data: policy, error } = await supabase.from("policies").select("id, agency_id").eq("id", id).maybeSingle();
     if (error) return { ok: false as const, error: error.message };
     if (!policy) return { ok: false as const, error: "Policy not found" };
-    const up = await uploadPolicyPdf({ supabase, agencyId: policy.agency_id, policyId: id, file });
+    const up = await uploadPolicyPdf({ supabase, policyId: id, file });
     if (!up.ok) return up;
     const { error: uErr } = await supabase.from("policies").update({ pdf_path: up.path }).eq("id", id);
     if (uErr) return { ok: false as const, error: uErr.message };

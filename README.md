@@ -19,3 +19,10 @@ Workspaces
 - `apps/app` Next.js application
 - `packages/ui` shared UI components
 - `packages/config` shared configs (ESLint, Tailwind, TS, Prettier)
+
+## Security model for policies and PDFs
+
+- `public.policies` is protected by strict RLS: same-agency users can select/insert/update; delete is limited to `agency_owner` (and platform admins) within the same agency.
+- Policy PDFs are stored in a private bucket `policy-pdfs`. RLS on `storage.objects` restricts access by `metadata.agency_id == current_agency_id()`.
+- Server code ensures all PDF uploads set `metadata.agency_id` automatically; clients cannot override it.
+- Signed URLs expire after 10 minutes.

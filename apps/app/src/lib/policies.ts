@@ -45,7 +45,7 @@ export async function replacePolicyPdf(id: string, file: File) {
     .maybeSingle();
   if (fetchErr) return { ok: false as const, error: fetchErr.message };
   if (!policy) return { ok: false as const, error: "Policy not found" };
-  const uploaded = await uploadPolicyPdf({ supabase, agencyId: policy.agency_id, policyId: id, file });
+  const uploaded = await uploadPolicyPdf({ supabase, policyId: id, file });
   if (!uploaded.ok) return uploaded;
   const { error } = await supabase.from("policies").update({ pdf_path: uploaded.path }).eq("id", id);
   if (error) return { ok: false as const, error: error.message };

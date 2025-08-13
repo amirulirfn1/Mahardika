@@ -34,3 +34,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Security model for policies and PDFs
+
+- Policy records in `public.policies` are protected by row-level security: users can only read/insert/update rows for their own agency. Deletes are limited to `agency_owner` (and platform admins) within the same agency.
+- Policy PDFs live in a private bucket `policy-pdfs`. Access is enforced by RLS on `storage.objects` using the object `metadata.agency_id` and the caller's current agency.
+- The server sets `metadata.agency_id` automatically when uploading/replacing a policy PDF. Clients cannot override it.
+- Signed URLs are generated on demand and expire after 10 minutes.

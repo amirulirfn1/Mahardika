@@ -4,22 +4,53 @@
 
   ▲ Next.js 14.2.5
 
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
 
-> Build error occurred
-Error: EINVAL: invalid argument, readlink 'C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app\.next\server\app-paths-manifest.json'
-    at async Object.readlink (node:internal/fs/promises:972:10)
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@playwright+test@1.54.2_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\lib\recursive-delete.js:58:30
-    at async Promise.all (index 0)
-    at async recursiveDelete (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@playwright+test@1.54.2_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\lib\recursive-delete.js:51:5)
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@playwright+test@1.54.2_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\lib\recursive-delete.js:68:17
-    at async Promise.all (index 1)
-    at async recursiveDelete (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@playwright+test@1.54.2_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\lib\recursive-delete.js:51:5)
-    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@playwright+test@1.54.2_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\index.js:692:17
-    at async Span.traceAsyncFn (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@playwright+test@1.54.2_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\trace\trace.js:154:20)
-    at async build (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@playwright+test@1.54.2_react-dom@18.3.1_react@18.3.1__react@18.3.1\node_modules\next\dist\build\index.js:366:9) {
-  errno: -4071,
-  code: 'EINVAL',
-  syscall: 'readlink',
-  path: 'C:\\Users\\amiru\\OneDrive\\Documents\\GitHub\\Mahardika\\apps\\app\\.next\\server\\app-paths-manifest.json'
-}
- ELIFECYCLE  Command failed with exit code 1.
+./src/app/dashboard/agency/policies/new/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+3:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/app/dashboard/agency/policies/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/app/dashboard/agency/policies/[id]/edit/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+3:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/app/dashboard/agency/policies/[id]/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/app/dashboard/agency/policies/[id]/payments/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+2:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/app/dashboard/agency/policies/_actions.ts
+3:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/lib/payments.ts
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/lib/policies.ts
+1:1  Warning: There should be at least one empty line between import groups  import/order
+3:1  Warning: There should be at least one empty line between import groups  import/order
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/2) ...
+ ✓ Generating static pages (2/2)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (pages)                             Size     First Load JS
+─ ○ /404                                  178 B          79.1 kB
++ First Load JS shared by all             78.9 kB
+  ├ chunks/framework-bef83a85c94ff7de.js  45.2 kB
+  ├ chunks/main-0ae122fca5d78be2.js       32.1 kB
+  └ other shared chunks (total)           1.63 kB
+
+ƒ Middleware                              62.3 kB
+
+○  (Static)  prerendered as static content
+

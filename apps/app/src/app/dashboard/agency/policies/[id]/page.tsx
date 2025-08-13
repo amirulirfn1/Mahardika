@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { getServerClient } from "@/lib/supabase/server";
+import { listPaymentsByPolicy } from "@/src/lib/payments";
 import { getPolicyPdfUrl } from "@/src/lib/storage";
 
 type PolicyDetail = {
@@ -31,6 +32,7 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
   const supabase = getServerClient();
   const signed = policy.pdf_path ? await getPolicyPdfUrl({ supabase, path: policy.pdf_path }) : null;
   const signedUrl = signed && signed.ok ? signed.url : null;
+  const payments = await listPaymentsByPolicy(params.id);
 
   return (
     <div className="p-6 space-y-6">
@@ -92,6 +94,38 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
       ) : (
         <div className="text-sm text-gray-600">No PDF uploaded</div>
       )}
+
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Payments</h2>
+          <Link href={`/dashboard/agency/policies/${policy.id}/payments`} className="underline">Manage</Link>
+        </div>
+        <div className="rounded border overflow-hidden">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b bg-gray-50">
+                <th className="text-left p-2">Paid At</th>
+                <th className="text-left p-2">Amount</th>
+                <th className="text-left p-2">Channel</th>
+                <th className="text-left p-2">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(payments.ok ? payments.data : []).slice(0, 5).map((p: { id: string; amount: number; channel: string; reference?: string | null; paid_at: string }) => (
+                <tr key={p.id} className="border-b">
+                  <td className="p-2">{new Date(p.paid_at).toLocaleString()}</td>
+                  <td className="p-2">{Number(p.amount).toFixed(2)}</td>
+                  <td className="p-2">{p.channel}</td>
+                  <td className="p-2">{p.reference || '-'}</td>
+                </tr>
+              ))}
+              {(!payments.ok || (payments.data || []).length === 0) && (
+                <tr><td className="p-3 text-center text-gray-500" colSpan={4}>No payments yet</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

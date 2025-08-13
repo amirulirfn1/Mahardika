@@ -26,3 +26,9 @@ Workspaces
 - Policy PDFs are stored in a private bucket `policy-pdfs`. RLS on `storage.objects` restricts access by `metadata.agency_id == current_agency_id()`.
 - Server code ensures all PDF uploads set `metadata.agency_id` automatically; clients cannot override it.
 - Signed URLs expire after 10 minutes.
+
+## Payment tracking
+
+- `public.policy_payments` tracks incoming payments tied to `public.policies`.
+- RLS strictly scopes all operations to the agency of the owning policy. Delete is limited to agency owners (and platform admins).
+- UI: create and list payments under a policy detail, with a dedicated payments page for more entries.

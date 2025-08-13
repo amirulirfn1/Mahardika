@@ -40,7 +40,7 @@ export default async function PoliciesListPage({ searchParams }: { searchParams:
       </div>
       <form className="flex gap-2">
         <input name="q" defaultValue={q} placeholder="Search policy no or customer" className="rounded border px-3 py-2 w-full" />
-        <button className="rounded border px-3 py-2">Search</button>
+        <button className="rounded border px-3 py-2" type="submit">Search</button>
       </form>
       <div className="rounded border overflow-x-auto">
         <Table>

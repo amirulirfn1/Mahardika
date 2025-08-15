@@ -1,0 +1,37 @@
+"use server";
+
+import { logError } from "@/src/lib/log";
+import { listTiers, setDefaultTier, upsertTier } from "@/src/lib/loyalty";
+
+export async function upsertTierAction(formData: FormData) {
+  try {
+    const input = {
+      id: (formData.get("id") || undefined) as string | undefined,
+      code: formData.get("code") || undefined,
+      name: formData.get("name") || undefined,
+      points_per_myr: formData.get("points_per_myr") || undefined,
+      is_default: (formData.get("is_default") as string | undefined) === "on",
+    };
+    return await upsertTier(input);
+  } catch (e) {
+    logError(e, { op: "upsertTierAction" });
+    const msg = e instanceof Error ? e.message : "Unknown error";
+    return { ok: false as const, error: msg };
+  }
+}
+
+export async function setDefaultTierAction(tierId: string) {
+  try {
+    return await setDefaultTier(tierId);
+  } catch (e) {
+    logError(e, { op: "setDefaultTierAction", tierId });
+    const msg = e instanceof Error ? e.message : "Unknown error";
+    return { ok: false as const, error: msg };
+  }
+}
+
+export async function listTiersAction() {
+  return await listTiers();
+}
+
+

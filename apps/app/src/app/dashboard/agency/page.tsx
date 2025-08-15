@@ -57,6 +57,16 @@ export default async function AgencyDashboardPage() {
           </table>
         </div>
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="/dashboard/agency/policies" className="block rounded border p-4 hover:bg-gray-50">
+          <div className="font-medium">Policies</div>
+          <div className="text-sm text-gray-600">Manage policies and PDFs</div>
+        </a>
+        <a href="/dashboard/agency/loyalty" className="block rounded border p-4 hover:bg-gray-50">
+          <div className="font-medium">Loyalty</div>
+          <div className="text-sm text-gray-600">Configure tiers and rates</div>
+        </a>
+      </div>
     </div>
   );
 }

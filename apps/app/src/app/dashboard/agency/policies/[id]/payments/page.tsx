@@ -1,11 +1,20 @@
 import Link from "next/link";
 import { listPaymentsByPolicy } from "@/src/lib/payments";
+import { getCustomerBalance } from "@/src/lib/loyalty";
 import { createPaymentAction } from "./_actions";
 
 export const revalidate = 0;
 
 export default async function PolicyPaymentsPage({ params }: { params: { id: string } }) {
   const payments = await listPaymentsByPolicy(params.id);
+  const supabase = (await import("@/lib/supabase/server")).getServerClient();
+  const { data: policy } = await supabase
+    .from("policies")
+    .select("customer_id")
+    .eq("id", params.id)
+    .maybeSingle();
+  const custId = policy?.customer_id as string | undefined;
+  const balance = custId ? await getCustomerBalance(custId) : null;
   return (
     <div className="p-6 space-y-6 max-w-3xl">
       <div className="flex items-center justify-between">
@@ -73,6 +82,9 @@ export default async function PolicyPaymentsPage({ params }: { params: { id: str
           </tbody>
         </table>
       </div>
+      {balance?.ok && (
+        <div className="text-sm text-gray-600">Current points balance: {balance.points}</div>
+      )}
     </div>
   );
 }

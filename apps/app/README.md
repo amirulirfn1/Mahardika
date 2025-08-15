@@ -29,8 +29,23 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Loyalty
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Loyalty enables agency-configurable tiers with a points-per-MYR rate. When a policy payment is recorded, a trigger credits points into a per-customer ledger. If a payment amount changes or is deleted, balancing ledger rows are written.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Objects:
+
+- `public.loyalty_tiers`: Scoped by `agency_id`. Fields: `code`, `name`, `points_per_myr`, `is_default`. Bronze is seeded as default per agency on first use.
+- `public.loyalty_memberships`: Assigns a customer to a tier per agency.
+- `public.loyalty_ledger`: Append-only ledger of credits/debits with references to policy and payment.
+- `public.loyalty_balances_by_customer` view: Summarizes points balance per customer and agency.
+
+Accrual:
+
+- On `policy_payments` insert: credit `floor(amount * rate)` points.
+- On update of `amount`: delta between new and old points is applied as credit/debit.
+- On delete (including soft delete): debit equal to previously credited points.
+
+RLS restricts access to rows where `agency_id = public.current_agency_id()`.
+
+Manage tiers at `/dashboard/agency/loyalty`. Default tiers are used when a customer has no membership.

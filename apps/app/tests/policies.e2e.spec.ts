@@ -22,6 +22,7 @@ async function signInAndSetCookies(page: any, email: string, password: string) {
 
 async function getAdmin(): Promise<SupabaseClient> {
   if (!hasEnv) throw new Error('Missing Supabase env');
+  // @ts-ignore service role
   return createClient(url, serviceRole);
 }
 

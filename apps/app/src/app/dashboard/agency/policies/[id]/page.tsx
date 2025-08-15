@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { getServerClient } from "@/lib/supabase/server";
 import { listPaymentsByPolicy } from "@/src/lib/payments";
+import { getCustomerBalance } from "@/src/lib/loyalty";
 import { getPolicyPdfUrl } from "@/src/lib/storage";
 import { softDeletePolicy, restorePolicy } from "@/src/lib/policies";
 
@@ -34,6 +35,9 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
   const signed = policy.pdf_path ? await getPolicyPdfUrl({ supabase, path: policy.pdf_path }) : null;
   const signedUrl = signed && signed.ok ? signed.url : null;
   const payments = await listPaymentsByPolicy(params.id);
+  const { data: policyRow } = await supabase.from("policies").select("customer_id").eq("id", params.id).maybeSingle();
+  const custId = (policyRow?.customer_id as string | undefined) ?? undefined;
+  const balance = custId ? await getCustomerBalance(custId) : null;
 
   return (
     <div className="p-6 space-y-6">
@@ -126,6 +130,9 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
             </tbody>
           </table>
         </div>
+        {balance?.ok && (
+          <div className="text-sm text-gray-600">Customer points balance: {balance.points}</div>
+        )}
       </div>
 
       <div className="space-y-3">

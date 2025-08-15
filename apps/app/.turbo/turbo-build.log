@@ -5,9 +5,21 @@
   ▲ Next.js 14.2.5
 
    Creating an optimized production build ...
-<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (108kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
  ✓ Compiled successfully
    Linting and checking validity of types ...
+Pages directory cannot be found at . If using a custom path, please configure with the `no-html-link-for-pages` rule in your eslint config file.
+
+./src/app/dashboard/agency/customers/[id]/page.tsx
+8:1  Warning: There should be no empty line within import group  import/order
+10:1  Warning: `@/lib/supabase/server` import should occur before import of `@/src/components/ConfirmAction`  import/order
+11:1  Warning: There should be at least one empty line between import groups  import/order
+12:1  Warning: There should be no empty line within import group  import/order
+
+./src/app/dashboard/agency/customers/[id]/_actions.ts
+4:1  Warning: `@/lib/supabase/server` import should occur before import of `@/src/lib/log`  import/order
+
+./src/app/dashboard/agency/loyalty/page.tsx
+6:1  Warning: There should be at least one empty line between import groups  import/order
 
 ./src/app/dashboard/agency/policies/new/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
@@ -22,11 +34,13 @@
 
 ./src/app/dashboard/agency/policies/[id]/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
-6:1  Warning: `@/src/lib/policies` import should occur before import of `@/src/lib/storage`  import/order
+5:1  Warning: `@/src/lib/loyalty` import should occur before import of `@/src/lib/payments`  import/order
+7:1  Warning: `@/src/lib/policies` import should occur before import of `@/src/lib/storage`  import/order
 
 ./src/app/dashboard/agency/policies/[id]/payments/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
-2:1  Warning: There should be at least one empty line between import groups  import/order
+3:1  Warning: There should be at least one empty line between import groups  import/order
+3:1  Warning: `@/src/lib/loyalty` import should occur before import of `@/src/lib/payments`  import/order
 
 ./src/app/dashboard/agency/policies/_actions.ts
 3:1  Warning: There should be at least one empty line between import groups  import/order

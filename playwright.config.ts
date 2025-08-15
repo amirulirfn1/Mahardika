@@ -7,7 +7,7 @@ export default defineConfig({
 	retries: 0,
 	workers: 1,
 	use: {
-		baseURL: process.env.E2E_BASE_URL || 'http://localhost:3000',
+		baseURL: process.env.BASE_URL || 'http://localhost:3000',
 		trace: 'on-first-retry',
 		headless: true,
 	},

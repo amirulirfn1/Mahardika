@@ -45,3 +45,10 @@ Workspaces
 - Integrated `@sentry/nextjs` with safe defaults. If `SENTRY_DSN` is unset, Sentry is inert and the app still runs.
 - Configure `SENTRY_DSN`, `SENTRY_ENV`, and `SENTRY_TRACES_SAMPLE_RATE` in environment.
 - A small server logger at `apps/app/src/lib/log.ts` captures errors to Sentry when DSN is set, and always logs to stderr with redaction of sensitive keys.
+
+## Staging deploy on push to main
+
+- Workflow `.github/workflows/deploy_staging.yml` deploys `apps/app` to a Vercel preview on pushes to `main`, then runs Playwright smoke tests.
+- Required GitHub secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
+- The job skips gracefully with a notice if any secret is missing.
+- Smoke tests use `BASE_URL` and the `@smoke` tag to target a fast subset.

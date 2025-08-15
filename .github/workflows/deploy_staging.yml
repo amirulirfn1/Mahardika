@@ -1,0 +1,86 @@
+name: Deploy staging and run smoke E2E
+
+on:
+  push:
+    branches: [ "main" ]
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: true
+
+jobs:
+  deploy-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Guard - ensure Vercel secrets exist
+        id: guard
+        run: |
+          missing=0
+          [ -z "${{ secrets.VERCEL_TOKEN }}" ] && echo "::notice title=Missing::VERCEL_TOKEN not set. Skipping." && missing=1
+          [ -z "${{ secrets.VERCEL_ORG_ID }}" ] && echo "::notice title=Missing::VERCEL_ORG_ID not set. Skipping." && missing=1
+          [ -z "${{ secrets.VERCEL_PROJECT_ID }}" ] && echo "::notice title=Missing::VERCEL_PROJECT_ID not set. Skipping." && missing=1
+          if [ $missing -eq 0 ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node
+        if: steps.guard.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        if: steps.guard.outputs.ready == 'true'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install repo deps
+        if: steps.guard.outputs.ready == 'true'
+        run: pnpm -w install
+
+      - name: Write Vercel project file
+        if: steps.guard.outputs.ready == 'true'
+        run: |
+          mkdir -p apps/app/.vercel
+          cat > apps/app/.vercel/project.json <<'JSON'
+          { "projectId": "${{ secrets.VERCEL_PROJECT_ID }}", "orgId": "${{ secrets.VERCEL_ORG_ID }}" }
+          JSON
+
+      - name: Install Vercel CLI
+        if: steps.guard.outputs.ready == 'true'
+        run: pnpm -w dlx vercel@latest --version
+
+      - name: Deploy to Vercel preview
+        if: steps.guard.outputs.ready == 'true'
+        id: deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        working-directory: apps/app
+        run: |
+          set -e
+          url="$(pnpm -s dlx vercel@latest deploy --yes --token "$VERCEL_TOKEN" | grep -Eo 'https://[^ ]+\.vercel\.app' | tail -n1)"
+          if [ -z "$url" ]; then
+            echo "No URL found in deploy output" >&2
+            exit 1
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Preview URL: $url"
+
+      - name: Install Playwright browsers
+        if: steps.guard.outputs.ready == 'true'
+        run: pnpm -w dlx playwright install --with-deps
+
+      - name: Run smoke E2E against deployed URL
+        if: steps.guard.outputs.ready == 'true'
+        env:
+          BASE_URL: ${{ steps.deploy.outputs.url }}
+        run: pnpm -w e2e:smoke
+
+

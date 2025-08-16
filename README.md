@@ -52,3 +52,9 @@ Workspaces
 - Required GitHub secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
 - The job skips gracefully with a notice if any secret is missing.
 - Smoke tests use `BASE_URL` and the `@smoke` tag to target a fast subset.
+
+## CI for Pull Requests
+
+- Workflow `.github/workflows/pr_e2e.yml` runs on pull requests.
+- Jobs: install deps, lint, typecheck, build, install Playwright browsers, run full E2E with `--retries=1`.
+- Artifacts uploaded: `apps/app/playwright-report` and `apps/app/test-results` (collected under `artifacts/`).

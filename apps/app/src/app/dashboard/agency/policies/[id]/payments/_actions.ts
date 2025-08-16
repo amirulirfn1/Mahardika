@@ -1,7 +1,7 @@
 "use server";
 
 import { logError } from "@/src/lib/log";
-import { createPayment, PaymentInputSchema } from "@/src/lib/payments";
+import { createPayment, PaymentInputSchema, softDeletePayment, restorePayment } from "@/src/lib/payments";
 
 export async function createPaymentAction(policyId: string, formData: FormData) {
   try {
@@ -18,6 +18,29 @@ export async function createPaymentAction(policyId: string, formData: FormData) 
     return await createPayment(parsed.data);
   } catch (e) {
     logError(e, { op: "createPaymentAction", policyId });
+    const msg = e instanceof Error ? e.message : "Unknown error";
+    return { ok: false as const, error: msg };
+  }
+}
+
+
+export async function softDeletePaymentAction(paymentId: string) {
+  try {
+    const res = await softDeletePayment(paymentId);
+    return res;
+  } catch (e) {
+    logError(e, { op: "softDeletePaymentAction", paymentId });
+    const msg = e instanceof Error ? e.message : "Unknown error";
+    return { ok: false as const, error: msg };
+  }
+}
+
+export async function restorePaymentAction(paymentId: string) {
+  try {
+    const res = await restorePayment(paymentId);
+    return res;
+  } catch (e) {
+    logError(e, { op: "restorePaymentAction", paymentId });
     const msg = e instanceof Error ? e.message : "Unknown error";
     return { ok: false as const, error: msg };
   }

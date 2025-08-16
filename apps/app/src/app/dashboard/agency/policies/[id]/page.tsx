@@ -6,6 +6,7 @@ import { getCustomerBalance } from "@/src/lib/loyalty";
 import { getPolicyPdfUrl } from "@/src/lib/storage";
 import { sendRenewalReminderAction } from "./_actions";
 import { softDeletePolicy, restorePolicy } from "@/src/lib/policies";
+import { listAuditForEntity } from "@/src/lib/audit";
 
 type PolicyDetail = {
   id: string;
@@ -36,6 +37,7 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
   const signed = policy.pdf_path ? await getPolicyPdfUrl({ supabase, path: policy.pdf_path }) : null;
   const signedUrl = signed && signed.ok ? signed.url : null;
   const payments = await listPaymentsByPolicy(params.id);
+  const audit = await listAuditForEntity('policy', params.id, 50);
   const { data: policyRow } = await supabase.from("policies").select("customer_id").eq("id", params.id).maybeSingle();
   const custId = (policyRow?.customer_id as string | undefined) ?? undefined;
   const balance = custId ? await getCustomerBalance(custId) : null;
@@ -173,6 +175,35 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
         >
           <button className="rounded border px-4 py-2">Restore policy</button>
         </form>
+      </div>
+
+      <div className="space-y-3">
+        <h2 className="text-xl font-semibold">Audit</h2>
+        <div className="rounded border overflow-hidden">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b bg-gray-50">
+                <th className="text-left p-2">When</th>
+                <th className="text-left p-2">Action</th>
+                <th className="text-left p-2">Actor</th>
+                <th className="text-left p-2">Summary</th>
+              </tr>
+            </thead>
+            <tbody>
+              {((audit.ok ? audit.data : []) as Array<{ id: string; occurred_at: string; action: string; actor_user_id: string | null; before: Record<string, unknown> | null; after: Record<string, unknown> | null }>).map((e) => (
+                <tr key={e.id} className="border-b">
+                  <td className="p-2">{new Date(e.occurred_at).toLocaleString()}</td>
+                  <td className="p-2">{e.action}</td>
+                  <td className="p-2">{e.actor_user_id ? e.actor_user_id.slice(0, 6) + '…' : '-'}</td>
+                  <td className="p-2 max-w-[500px] truncate" title={JSON.stringify(e.after || e.before || {})}>{Object.keys(e.after || e.before || {}).join(', ')}</td>
+                </tr>
+              ))}
+              {(!audit.ok || (audit.data || []).length === 0) && (
+                <tr><td className="p-3 text-center text-gray-500" colSpan={4}>No audit entries</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

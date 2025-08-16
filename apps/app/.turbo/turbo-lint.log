@@ -2,7 +2,6 @@
 > app@0.1.0 lint C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
 > next lint
 
-Pages directory cannot be found at . If using a custom path, please configure with the `no-html-link-for-pages` rule in your eslint config file.
 
 ./src/app/dashboard/agency/communications/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order
@@ -37,6 +36,7 @@ Pages directory cannot be found at . If using a custom path, please configure wi
 6:1  Warning: There should be at least one empty line between import groups  import/order
 7:1  Warning: There should be at least one empty line between import groups  import/order
 8:1  Warning: `@/src/lib/policies` import should occur before import of `@/src/lib/storage`  import/order
+9:1  Warning: `@/src/lib/audit` import should occur before import of `@/src/lib/payments`  import/order
 
 ./src/app/dashboard/agency/policies/[id]/payments/page.tsx
 1:1  Warning: There should be at least one empty line between import groups  import/order

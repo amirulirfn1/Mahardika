@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { listPaymentsByPolicy } from "@/src/lib/payments";
 import { getCustomerBalance } from "@/src/lib/loyalty";
-import { createPaymentAction } from "./_actions";
+import { createPaymentAction, softDeletePaymentAction, restorePaymentAction } from "./_actions";
 
 export const revalidate = 0;
 
@@ -73,7 +73,21 @@ export default async function PolicyPaymentsPage({ params }: { params: { id: str
                 <td className="p-2">{new Date(p.paid_at).toLocaleString()}</td>
                 <td className="p-2">{Number(p.amount).toFixed(2)}</td>
                 <td className="p-2">{p.channel}</td>
-                <td className="p-2">{p.reference || '-'}</td>
+                <td className="p-2 flex items-center gap-2">
+                  <span>{p.reference || '-'}</span>
+                  <form action={async () => {
+                    'use server';
+                    await softDeletePaymentAction(p.id);
+                  }}>
+                    <button className="text-xs underline">Soft delete</button>
+                  </form>
+                  <form action={async () => {
+                    'use server';
+                    await restorePaymentAction(p.id);
+                  }}>
+                    <button className="text-xs underline">Restore</button>
+                  </form>
+                </td>
               </tr>
             ))}
             {(!payments.ok || (payments.data || []).length === 0) && (

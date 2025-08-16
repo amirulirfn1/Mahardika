@@ -58,3 +58,10 @@ Workspaces
 - Workflow `.github/workflows/pr_e2e.yml` runs on pull requests.
 - Jobs: install deps, lint, typecheck, build, install Playwright browsers, run full E2E with `--retries=1`.
 - Artifacts uploaded: `apps/app/playwright-report` and `apps/app/test-results` (collected under `artifacts/`).
+
+## Production deploy
+
+- Workflow `.github/workflows/deploy_prod.yml` promotes to Vercel production after manual approval via the GitHub `production` environment.
+- Triggers: manual `workflow_dispatch` or tags matching `release-*`.
+- Uses the same Vercel secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`).
+- After deploy, runs Playwright smoke tests against the production URL.

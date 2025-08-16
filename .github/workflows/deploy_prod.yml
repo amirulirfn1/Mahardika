@@ -1,0 +1,77 @@
+name: Deploy production and run prod smoke
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "release-*"
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Guard secrets
+        id: guard
+        run: |
+          missing=0
+          [ -z "${{ secrets.VERCEL_TOKEN }}" ] && echo "Missing VERCEL_TOKEN" && missing=1
+          [ -z "${{ secrets.VERCEL_ORG_ID }}" ] && echo "Missing VERCEL_ORG_ID" && missing=1
+          [ -z "${{ secrets.VERCEL_PROJECT_ID }}" ] && echo "Missing VERCEL_PROJECT_ID" && missing=1
+          if [ $missing -eq 0 ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "ready=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Setup Node
+        if: steps.guard.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        if: steps.guard.outputs.ready == 'true'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install Vercel CLI
+        if: steps.guard.outputs.ready == 'true'
+        run: pnpm -w dlx vercel@latest --version
+
+      - name: Write Vercel project file
+        if: steps.guard.outputs.ready == 'true'
+        run: |
+          mkdir -p apps/app/.vercel
+          cat > apps/app/.vercel/project.json <<'JSON'
+          { "projectId": "${{ secrets.VERCEL_PROJECT_ID }}", "orgId": "${{ secrets.VERCEL_ORG_ID }}" }
+          JSON
+
+      - name: Promote latest preview to production
+        if: steps.guard.outputs.ready == 'true'
+        id: promote
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        working-directory: apps/app
+        run: |
+          set -e
+          prod_url="$(pnpm -s dlx vercel@latest deploy --prod --yes --token "$VERCEL_TOKEN" | grep -Eo 'https://[^ ]+\.vercel\.app' | tail -n1)"
+          if [ -z "$prod_url" ]; then echo "No production URL found"; exit 1; fi
+          echo "url=$prod_url" >> "$GITHUB_OUTPUT"
+          echo "Production URL: $prod_url"
+
+      - name: Install Playwright
+        if: steps.guard.outputs.ready == 'true'
+        run: pnpm -w dlx playwright install --with-deps
+
+      - name: Run prod smoke
+        if: steps.guard.outputs.ready == 'true'
+        env:
+          BASE_URL: ${{ steps.promote.outputs.url }}
+        run: pnpm -w e2e:smoke
+
+

@@ -63,7 +63,7 @@ importers:
         version: 7.18.0(eslint@8.57.1)(typescript@5.9.2)
       '@vitest/coverage-v8':
         specifier: ^1.6.1
-        version: 1.6.1(vitest@1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1))
+        version: 1.6.1(vitest@1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)(terser@5.43.1))
       '@vitest/ui':
         specifier: ^1.6.1
         version: 1.6.1(vitest@1.6.1)
@@ -96,7 +96,7 @@ importers:
         version: 5.9.2
       vitest:
         specifier: ^1.6.1
-        version: 1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)
+        version: 1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)(terser@5.43.1)
 
   packages/config: {}
 
@@ -4586,7 +4586,7 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vitest/coverage-v8@1.6.1(vitest@1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1))':
+  '@vitest/coverage-v8@1.6.1(vitest@1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)(terser@5.43.1))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -4601,7 +4601,7 @@ snapshots:
       std-env: 3.9.0
       strip-literal: 2.1.1
       test-exclude: 6.0.0
-      vitest: 1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)
+      vitest: 1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)(terser@5.43.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -4636,7 +4636,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.1.1
       sirv: 2.0.4
-      vitest: 1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)
+      vitest: 1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)(terser@5.43.1)
 
   '@vitest/utils@1.6.1':
     dependencies:
@@ -6952,13 +6952,13 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  vite-node@1.6.1(@types/node@20.19.10):
+  vite-node@1.6.1(@types/node@20.19.10)(terser@5.43.1):
     dependencies:
       cac: 6.7.14
       debug: 4.4.1
       pathe: 1.1.2
       picocolors: 1.1.1
-      vite: 5.4.19(@types/node@20.19.10)
+      vite: 5.4.19(@types/node@20.19.10)(terser@5.43.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -6970,7 +6970,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.19(@types/node@20.19.10):
+  vite@5.4.19(@types/node@20.19.10)(terser@5.43.1):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.5.6
@@ -6978,8 +6978,9 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.19.10
       fsevents: 2.3.3
+      terser: 5.43.1
 
-  vitest@1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1):
+  vitest@1.6.1(@types/node@20.19.10)(@vitest/ui@1.6.1)(terser@5.43.1):
     dependencies:
       '@vitest/expect': 1.6.1
       '@vitest/runner': 1.6.1
@@ -6998,8 +6999,8 @@ snapshots:
       strip-literal: 2.1.1
       tinybench: 2.9.0
       tinypool: 0.8.4
-      vite: 5.4.19(@types/node@20.19.10)
-      vite-node: 1.6.1(@types/node@20.19.10)
+      vite: 5.4.19(@types/node@20.19.10)(terser@5.43.1)
+      vite-node: 1.6.1(@types/node@20.19.10)(terser@5.43.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 20.19.10

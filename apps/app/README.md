@@ -65,3 +65,19 @@ WHATSAPP_PHONE_NUMBER_ID= # required for cloud
 - Stub writes to `public.outbound_messages` with status `sent` and logs a `wa.me` link.
 - Cloud posts to `https://graph.facebook.com/v20.0/<PHONE_NUMBER_ID>/messages` and logs rows with `sent` or `failed`.
 - View logs at `/dashboard/agency/communications`.
+
+## Sentry
+
+Basic Sentry integration is enabled and safe when envs are missing.
+
+Env:
+
+```env
+SENTRY_DSN=
+SENTRY_ENV=local
+SENTRY_TRACES_SAMPLE_RATE=0.1
+```
+
+- Config files: `sentry.client.config.ts`, `sentry.server.config.ts`.
+- `logError(err, context)` in `src/lib/log.ts` captures to Sentry (if DSN) and prints a redacted log.
+- Health check: `/api/health` returns `{ ok: true, ts }`.

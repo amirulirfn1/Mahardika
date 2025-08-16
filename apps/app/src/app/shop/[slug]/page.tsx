@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getServerClient } from "@/lib/supabase/server";
-import { toWaLink } from "@/lib/whatsapp";
+import { toWaLink } from "@/src/lib/whatsapp";
 import type { Agency } from "@/types/domain";
 
 type PageProps = { params: { slug: string } };

@@ -49,3 +49,19 @@ Accrual:
 RLS restricts access to rows where `agency_id = public.current_agency_id()`.
 
 Manage tiers at `/dashboard/agency/loyalty`. Default tiers are used when a customer has no membership.
+
+## WhatsApp Provider
+
+Pluggable WhatsApp sender with feature flag. Default provider is `stub` (no network). Optional `cloud` uses WhatsApp Cloud API.
+
+Env:
+
+```env
+WHATSAPP_PROVIDER=stub # or cloud
+WHATSAPP_CLOUD_TOKEN= # required for cloud
+WHATSAPP_PHONE_NUMBER_ID= # required for cloud
+```
+
+- Stub writes to `public.outbound_messages` with status `sent` and logs a `wa.me` link.
+- Cloud posts to `https://graph.facebook.com/v20.0/<PHONE_NUMBER_ID>/messages` and logs rows with `sent` or `failed`.
+- View logs at `/dashboard/agency/communications`.

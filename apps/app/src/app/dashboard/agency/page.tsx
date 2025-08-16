@@ -66,6 +66,10 @@ export default async function AgencyDashboardPage() {
           <div className="font-medium">Loyalty</div>
           <div className="text-sm text-gray-600">Configure tiers and rates</div>
         </a>
+        <a href="/dashboard/agency/communications" className="block rounded border p-4 hover:bg-gray-50">
+          <div className="font-medium">Communications</div>
+          <div className="text-sm text-gray-600">View outbound messages</div>
+        </a>
       </div>
     </div>
   );

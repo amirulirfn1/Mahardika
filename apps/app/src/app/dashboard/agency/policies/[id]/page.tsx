@@ -4,6 +4,7 @@ import { getServerClient } from "@/lib/supabase/server";
 import { listPaymentsByPolicy } from "@/src/lib/payments";
 import { getCustomerBalance } from "@/src/lib/loyalty";
 import { getPolicyPdfUrl } from "@/src/lib/storage";
+import { sendRenewalReminderAction } from "./_actions";
 import { softDeletePolicy, restorePolicy } from "@/src/lib/policies";
 
 type PolicyDetail = {
@@ -99,6 +100,25 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
       ) : (
         <div className="text-sm text-gray-600">No PDF uploaded</div>
       )}
+
+      <div className="rounded border p-4 space-y-3">
+        <div className="font-medium">Communications</div>
+        <form action={async (fd) => {
+          'use server';
+          const to = String(fd.get('to'));
+          if (!to) return;
+          await sendRenewalReminderAction(policy.id, to);
+        }} className="flex items-end gap-2">
+          <div className="flex-1">
+            <label className="block text-sm mb-1">WhatsApp number</label>
+            <input name="to" className="w-full rounded border px-3 py-2" placeholder="60XXXXXXXXX" />
+          </div>
+          <Button type="submit">Send WhatsApp reminder</Button>
+        </form>
+        <div>
+          <a className="underline text-sm" href="/dashboard/agency/communications">View Communications log</a>
+        </div>
+      </div>
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">

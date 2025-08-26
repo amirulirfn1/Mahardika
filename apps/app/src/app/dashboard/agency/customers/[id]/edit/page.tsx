@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 
 import { getServerClient } from "@/lib/supabase/server";
-import { CustomerForm } from "@/src/components/forms/CustomerForm";
+import { CustomerForm } from "@/components/forms/CustomerForm";
 
 import { updateCustomer } from "../../_actions";
 
@@ -45,3 +45,4 @@ export default async function EditCustomerPage({
     </div>
   );
 }
+

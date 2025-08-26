@@ -1,0 +1,16 @@
+Error: EINVAL: invalid argument, readlink 'C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app\.next\static\development\_ssgManifest.js'
+    at async Object.readlink (node:internal/fs/promises:972:10)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:58:30
+    at async Promise.all (index 0)
+    at async recursiveDelete (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:51:5)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:68:17
+    at async Promise.all (index 0)
+    at async recursiveDelete (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:51:5)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:68:17
+    at async Promise.all (index 1)
+    at async recursiveDelete (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:51:5) {
+  errno: -4071,
+  code: 'EINVAL',
+  syscall: 'readlink',
+  path: 'C:\\Users\\amiru\\OneDrive\\Documents\\GitHub\\Mahardika\\apps\\app\\.next\\static\\development\\_ssgManifest.js'
+}

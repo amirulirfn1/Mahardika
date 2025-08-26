@@ -1,9 +1,10 @@
-import { revalidatePath } from "next/cache";
+﻿import { revalidatePath } from "next/cache";
 
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
-import { listTiers } from "@/src/lib/loyalty";
+import { listTiers } from "@/lib/loyalty";
+
 import { setDefaultTierAction, upsertTierAction } from "./_actions";
 
 export const revalidate = 0;
@@ -102,5 +103,6 @@ export default async function LoyaltyTiersPage() {
     </div>
   );
 }
+
 
 

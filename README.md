@@ -65,3 +65,19 @@ Workspaces
 - Triggers: manual `workflow_dispatch` or tags matching `release-*`.
 - Uses the same Vercel secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`).
 - After deploy, runs Playwright smoke tests against the production URL.
+
+## Staging
+
+- **Branch rules**: Pushes to `develop` or `staging` trigger the `Staging Deploy` workflow.
+- **Manual runs**: Use the `Staging Deploy` workflow's manual dispatch and optionally provide `ref` to deploy a specific commit/branch/tag.
+- **Gated by E2E**: The deploy is gated by the reusable `pr_e2e.yml` job. Deployment runs only if E2E passes.
+- **Required secrets**: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `STAGING_DATABASE_URL`.
+- **Optional variables**:
+  - `STAGING_ALIAS`: Friendly domain alias (e.g., `staging.mahardika.app`).
+  - `RUN_MIGRATIONS`: Set to `1` to run `pnpm -w exec prisma migrate deploy` against `STAGING_DATABASE_URL`.
+- **Windows note**: If a build fails due to a readlink error, clean and rebuild:
+
+```cmd
+rmdir /s /q apps\app\.next
+pnpm -w build
+```

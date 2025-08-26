@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 
-import { CustomerForm } from "@/src/components/forms/CustomerForm";
+import { CustomerForm } from "@/components/forms/CustomerForm";
 
 import { createCustomer } from "../_actions";
 
@@ -19,3 +19,4 @@ export default function NewCustomerPage() {
     </div>
   );
 }
+

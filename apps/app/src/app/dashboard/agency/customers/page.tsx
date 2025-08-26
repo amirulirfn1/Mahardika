@@ -1,10 +1,10 @@
-import { revalidatePath } from "next/cache";
+﻿import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/Button";
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
 import { getServerClient } from "@/lib/supabase/server";
-import { ConfirmAction } from "@/src/components/ConfirmAction";
+import { ConfirmAction } from "@/components/ConfirmAction";
 
 import { deleteCustomer } from "./_actions";
 
@@ -163,3 +163,4 @@ export default async function CustomersListPage({
     </div>
   );
 }
+

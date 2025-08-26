@@ -1,7 +1,7 @@
-"use server";
+﻿"use server";
 
-import { logError } from "@/src/lib/log";
-import { createPayment, PaymentInputSchema, softDeletePayment, restorePayment } from "@/src/lib/payments";
+import { logError } from "@/lib/log";
+import { createPayment, PaymentInputSchema, softDeletePayment, restorePayment } from "@/lib/payments";
 
 export async function createPaymentAction(policyId: string, formData: FormData) {
   try {
@@ -45,5 +45,6 @@ export async function restorePaymentAction(paymentId: string) {
     return { ok: false as const, error: msg };
   }
 }
+
 
 

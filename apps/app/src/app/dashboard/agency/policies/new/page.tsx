@@ -1,6 +1,8 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
+
 import { getServerClient } from "@/lib/supabase/server";
-import { PolicyForm } from "@/src/components/forms/PolicyForm";
+import { PolicyForm } from "@/components/forms/PolicyForm";
+
 import { createPolicyAction } from "../_actions";
 
 async function fetchOptions() {
@@ -32,5 +34,6 @@ export default async function NewPolicyPage() {
     </div>
   );
 }
+
 
 

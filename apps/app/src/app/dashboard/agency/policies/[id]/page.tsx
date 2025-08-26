@@ -1,12 +1,15 @@
-import Link from "next/link";
+﻿import Link from "next/link";
+
 import { Button } from "@/components/ui/Button";
 import { getServerClient } from "@/lib/supabase/server";
-import { listPaymentsByPolicy } from "@/src/lib/payments";
-import { getCustomerBalance } from "@/src/lib/loyalty";
-import { getPolicyPdfUrl } from "@/src/lib/storage";
+import { listAuditForEntity } from "@/lib/audit";
+import { getCustomerBalance } from "@/lib/loyalty";
+import { listPaymentsByPolicy } from "@/lib/payments";
+import { softDeletePolicy, restorePolicy } from "@/lib/policies";
+import { getPolicyPdfUrl } from "@/lib/storage";
+
 import { sendRenewalReminderAction } from "./_actions";
-import { softDeletePolicy, restorePolicy } from "@/src/lib/policies";
-import { listAuditForEntity } from "@/src/lib/audit";
+
 
 type PolicyDetail = {
   id: string;
@@ -194,7 +197,7 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
                 <tr key={e.id} className="border-b">
                   <td className="p-2">{new Date(e.occurred_at).toLocaleString()}</td>
                   <td className="p-2">{e.action}</td>
-                  <td className="p-2">{e.actor_user_id ? e.actor_user_id.slice(0, 6) + '…' : '-'}</td>
+                  <td className="p-2">{e.actor_user_id ? e.actor_user_id.slice(0, 6) + 'â€¦' : '-'}</td>
                   <td className="p-2 max-w-[500px] truncate" title={JSON.stringify(e.after || e.before || {})}>{Object.keys(e.after || e.before || {}).join(', ')}</td>
                 </tr>
               ))}
@@ -208,5 +211,6 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
     </div>
   );
 }
+
 
 

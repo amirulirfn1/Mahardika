@@ -1,0 +1,10 @@
+
+> app@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
+> next dev
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+[?25h

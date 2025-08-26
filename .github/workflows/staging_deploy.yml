@@ -1,0 +1,103 @@
+name: Staging Deploy
+
+on:
+  push:
+    branches: [develop, staging]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref to deploy (defaults to the workflow ref)"
+        required: false
+
+concurrency:
+  group: staging-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  deployments: write
+  id-token: write
+
+jobs:
+  e2e:
+    uses: ./.github/workflows/pr_e2e.yml
+    secrets: inherit
+
+  deploy:
+    needs: e2e
+    if: ${{ needs.e2e.result == 'success' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: ${{ steps.deploy.outputs.preview_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          run_install: true
+
+      - name: Install Playwright deps
+        run: pnpm -w exec playwright install --with-deps
+
+      - name: Build
+        run: pnpm -w build
+
+      - name: Install Vercel CLI
+        run: pnpm add -g vercel
+
+      - name: Vercel pull env
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Vercel build
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Vercel deploy
+        id: deploy
+        run: |
+          url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} | tail -n1)
+          echo "preview_url=$url" >> "$GITHUB_OUTPUT"
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Set staging alias
+        if: ${{ vars.STAGING_ALIAS != '' }}
+        run: vercel alias set ${{ steps.deploy.outputs.preview_url }} ${{ vars.STAGING_ALIAS }} --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Run DB migrations on staging
+        if: ${{ vars.RUN_MIGRATIONS == '1' }}
+        run: pnpm -w exec prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+
+      - name: Upload deployment info
+        uses: actions/upload-artifact@v4
+        with:
+          name: staging-deploy-info
+          path: |
+            .vercel
+            .vercel/output
+          if-no-files-found: ignore
+
+

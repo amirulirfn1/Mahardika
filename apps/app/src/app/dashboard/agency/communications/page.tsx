@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { getServerClient } from "@/lib/supabase/server";
+
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
+import { getServerClient } from "@/lib/supabase/server";
 
 export const revalidate = 0;
 

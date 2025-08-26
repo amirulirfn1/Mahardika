@@ -1,5 +1,6 @@
-import type { WhatsAppMessage, WhatsAppProvider } from "../provider";
 import { getServerClient } from "@/lib/supabase/server";
+
+import type { WhatsAppMessage, WhatsAppProvider } from "../provider";
 
 export function createCloudProvider(): WhatsAppProvider {
   const token = process.env.WHATSAPP_CLOUD_TOKEN;

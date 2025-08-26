@@ -1,6 +1,6 @@
 import type { WhatsAppProvider } from "./provider";
-import { createStubProvider } from "./providers/stub";
 import { createCloudProvider } from "./providers/cloud";
+import { createStubProvider } from "./providers/stub";
 
 let cached: WhatsAppProvider | null = null;
 

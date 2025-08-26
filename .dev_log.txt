@@ -1,0 +1,23 @@
+
+> app@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
+> next dev "-p" "3000"
+
+ ⨯ Failed to start server
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\start-server.js:280:16
+    at new Promise (<anonymous>)
+    at startServer (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\start-server.js:191:11)
+    at C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\start-server.js:310:52
+    at Span.traceAsyncFn (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\trace\trace.js:154:26)
+    at process.<anonymous> (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\start-server.js:310:35)
+    at process.emit (node:events:518:28) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '::',
+  port: 3000
+}
+[?25h

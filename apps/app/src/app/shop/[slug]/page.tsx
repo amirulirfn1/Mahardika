@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getServerClient } from "@/lib/supabase/server";
-import { toWaLink } from "@/src/lib/whatsapp";
+import { toWaLink } from "@/lib/whatsapp";
 import type { Agency } from "@/types/domain";
 
 type PageProps = { params: { slug: string } };
@@ -26,10 +26,10 @@ export async function generateMetadata({
   const agency = await fetchAgency(params.slug);
   if (!agency) return { title: "Agency not found" };
   return {
-    title: `${agency.name} – Mahardika`,
+    title: `${agency.name} â€“ Mahardika`,
     description: agency.description ?? undefined,
     openGraph: {
-      title: `${agency.name} – Mahardika`,
+      title: `${agency.name} â€“ Mahardika`,
       description: agency.description ?? undefined,
       url: `/shop/${agency.slug}`,
       type: "website",
@@ -75,3 +75,4 @@ export default async function AgencyStorefrontPage({ params }: PageProps) {
     </div>
   );
 }
+

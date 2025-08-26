@@ -6,6 +6,12 @@ export async function middleware(req: NextRequest) {
   const isDashboard = url.pathname.startsWith("/dashboard");
   if (!isDashboard) return NextResponse.next();
 
+  // Dev-only bypass to preview pages without auth
+  // Enable by setting SKIP_AUTH=true in .env.local
+  if (process.env.SKIP_AUTH === "true") {
+    return NextResponse.next();
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_KEY!,

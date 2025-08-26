@@ -1,6 +1,8 @@
-import Link from "next/link";
-import { listPaymentsByPolicy } from "@/src/lib/payments";
-import { getCustomerBalance } from "@/src/lib/loyalty";
+﻿import Link from "next/link";
+
+import { getCustomerBalance } from "@/lib/loyalty";
+import { listPaymentsByPolicy } from "@/lib/payments";
+
 import { createPaymentAction, softDeletePaymentAction, restorePaymentAction } from "./_actions";
 
 export const revalidate = 0;
@@ -102,5 +104,6 @@ export default async function PolicyPaymentsPage({ params }: { params: { id: str
     </div>
   );
 }
+
 
 

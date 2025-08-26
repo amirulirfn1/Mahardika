@@ -1,7 +1,7 @@
-"use server";
+﻿"use server";
 
-import { logError } from "@/src/lib/log";
-import { listTiers, setDefaultTier, upsertTier } from "@/src/lib/loyalty";
+import { logError } from "@/lib/log";
+import { listTiers, setDefaultTier, upsertTier } from "@/lib/loyalty";
 
 export async function upsertTierAction(formData: FormData) {
   try {
@@ -33,5 +33,6 @@ export async function setDefaultTierAction(tierId: string) {
 export async function listTiersAction() {
   return await listTiers();
 }
+
 
 

@@ -1,8 +1,8 @@
-"use server";
+﻿"use server";
 
 import { getServerClient } from "@/lib/supabase/server";
-import { logError } from "@/src/lib/log";
-import { getProvider } from "@/src/lib/whatsapp/index";
+import { logError } from "@/lib/log";
+import { getProvider } from "@/lib/whatsapp/index";
 
 export async function sendRenewalReminderAction(policyId: string, toNumber: string) {
   try {
@@ -33,5 +33,6 @@ export async function sendRenewalReminderAction(policyId: string, toNumber: stri
     return { ok: false as const, error: msg };
   }
 }
+
 
 

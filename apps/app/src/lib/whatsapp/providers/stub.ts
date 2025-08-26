@@ -1,6 +1,7 @@
+﻿import { getServerClient } from "@/lib/supabase/server";
+import { toWaLink } from "@/lib/whatsapp";
+
 import type { WhatsAppMessage, WhatsAppProvider } from "../provider";
-import { getServerClient } from "@/lib/supabase/server";
-import { toWaLink } from "@/src/lib/whatsapp";
 
 export function createStubProvider(): WhatsAppProvider {
   return {
@@ -27,5 +28,6 @@ export function createStubProvider(): WhatsAppProvider {
     },
   };
 }
+
 
 

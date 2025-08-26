@@ -1,16 +1,15 @@
-import { revalidatePath } from "next/cache";
+﻿import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
-import { ConfirmAction } from "@/src/components/ConfirmAction";
-import { VehicleInlineForm } from "@/src/components/forms/VehicleInlineForm";
-
 import { getServerClient } from "@/lib/supabase/server";
-import { getCustomerBalance, listLedgerByCustomer } from "@/src/lib/loyalty";
-import { setCustomerTierAction } from "./_actions";
+import { ConfirmAction } from "@/components/ConfirmAction";
+import { VehicleInlineForm } from "@/components/forms/VehicleInlineForm";
+import { getCustomerBalance, listLedgerByCustomer } from "@/lib/loyalty";
 
+import { setCustomerTierAction } from "./_actions";
 import { addVehicle, removeVehicle } from "../_actions";
 
 async function fetchCustomerWithVehicles(id: string) {
@@ -204,3 +203,4 @@ export default async function CustomerDetailPage({
     </div>
   );
 }
+

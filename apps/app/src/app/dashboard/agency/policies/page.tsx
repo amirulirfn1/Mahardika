@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import { Table, TBody, TD, TH, THead, TR } from "@/components/ui/Table";
 import { getServerClient } from "@/lib/supabase/server";
 

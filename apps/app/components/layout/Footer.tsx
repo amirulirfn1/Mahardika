@@ -15,7 +15,11 @@ export const Footer: React.FC = () => {
             </div>
             <nav aria-label="Footer" className="flex items-center gap-4">
               {site.footer.map((f) => (
-                <Link key={f.href} href={f.href} className="text-neutral-600 hover:text-neutral-900 dark:text-white/70 dark:hover:text-white">
+                <Link
+                  key={f.href}
+                  href={f.href}
+                  className="text-neutral-600 hover:text-neutral-900 dark:text-white/70 dark:hover:text-white"
+                >
                   {f.label}
                 </Link>
               ))}
@@ -26,3 +30,4 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+

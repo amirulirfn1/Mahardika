@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { FAQ } from "@/components/marketing/FAQ";
 import { FeatureCard } from "@/components/marketing/FeatureCard";
-import { PricingCard } from "@/components/marketing/PricingCard";
+import { PricingToggle } from "@/components/marketing/PricingToggle";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
@@ -20,22 +20,23 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="motion-reduce:animate-none">
             <Badge className="animate-fade-up" style={{ animationDelay: "100ms" }} variant="accent">New: Modern insurance dashboard</Badge>
-            <h1
-              id="home-hero"
-              className="font-heading text-5xl md:text-6xl font-semibold tracking-tight bg-gradient-to-br from-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-fuchsia-400 animate-fade-up"
-              style={{ animationDelay: "150ms" }}
-            >
-              Mahardika
-            </h1>
+            <div className="hero-shine inline-block animate-fade-up" style={{ animationDelay: "150ms" }}>
+              <h1
+                id="home-hero"
+                className="font-heading text-5xl md:text-6xl font-semibold tracking-tight bg-gradient-to-br from-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-fuchsia-400"
+              >
+                Mahardika
+              </h1>
+            </div>
             <p className="mt-5 max-w-xl text-neutral-600 dark:text-white/70 animate-fade-up" style={{ animationDelay: "220ms" }}>
               Policies, payments, customers, loyalty in one place.
             </p>
             <div className="mt-8 flex items-center gap-3 animate-fade-up" style={{ animationDelay: "280ms" }}>
               <Link href="/signup" aria-label="Get started">
-                <Button size="lg">Get started</Button>
+                <Button size="lg" className="btn-sheen">Get started</Button>
               </Link>
               <Link href="/features" aria-label="Explore features">
-                <Button size="lg" variant="outline">Explore features</Button>
+                <Button size="lg" variant="outline" className="btn-sheen">Explore features</Button>
               </Link>
             </div>
             <div className="mt-8 grid grid-cols-3 gap-6 text-xs text-neutral-600 dark:text-white/70 animate-fade-up" style={{ animationDelay: "340ms" }}>
@@ -104,21 +105,7 @@ export default function Home() {
       {/* Pricing */}
       <Section>
         <SectionHeading overline="Pricing" title="Simple pricing" subtitle="Start free, scale when you need more." />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {pricingTiers.map((t) => (
-            <PricingCard
-              key={t.name}
-              name={t.name}
-              price={t.priceMonthly === 0 ? "Free" : `$${t.priceMonthly}/mo`}
-              features={t.features}
-              cta={t.cta}
-              highlighted={t.highlighted}
-            />
-          ))}
-        </div>
-        <div className="mt-6 text-center text-sm">
-          Prefer yearly? Save 2 months on annual billing.
-        </div>
+        <PricingToggle tiers={pricingTiers} />
       </Section>
 
       {/* FAQ */}

@@ -12,10 +12,7 @@ export function Card({ children, className = "", ...props }: DivProps) {
 
 export function CardHeader({ children, className = "", ...props }: DivProps) {
   return (
-    <div
-      className={`border-b border-neutral-200 dark:border-neutral-800 p-6 font-medium ${className}`}
-      {...props}
-    >
+    <div className={`p-6 font-medium ${className}`} {...props}>
       {children}
     </div>
   );

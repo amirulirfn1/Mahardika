@@ -1,43 +1,62 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FeatureCard } from "@/components/marketing/FeatureCard";
 import { PricingCard } from "@/components/marketing/PricingCard";
 import { FAQ } from "@/components/marketing/FAQ";
 import { site, pricingTiers } from "@/lib/site";
+import { Card, CardContent } from "@/components/ui/Card";
 
 export default function Home() {
   return (
     <main>
+      {/* Hero */}
       <Section className="pt-20">
-        <div className="text-center">
-          <h1 id="home-hero" className="text-5xl md:text-6xl font-semibold tracking-tight">
-            {site.name}
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-neutral-600 dark:text-neutral-300">
-            Manage policies, payments, customers, and loyalty — all in one place.
-          </p>
-          <div className="mt-8 flex items-center justify-center gap-3">
-            <Link
-              href="/signup"
-              className="inline-flex items-center justify-center rounded-md font-medium text-sm h-9 px-4 bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900"
-            >
-              Get Started
-            </Link>
-            <Link
-              href="/features"
-              className="inline-flex items-center justify-center rounded-md font-medium text-sm h-9 px-4 border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-            >
-              Explore Features
-            </Link>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 id="home-hero" className="font-heading text-5xl md:text-6xl font-semibold tracking-tight">Mahardika</h1>
+            <p className="mt-5 max-w-xl text-white/70">
+              Policies, payments, customers, loyalty in one place.
+            </p>
+            <div className="mt-8 flex items-center gap-3">
+              <Link href="/signup" className="inline-flex">
+                <span className="inline-flex items-center justify-center rounded-lg font-medium text-sm h-10 px-5 bg-[hsl(var(--accent))] text-white hover:opacity-90">Get started</span>
+              </Link>
+              <Link href="/features" className="inline-flex">
+                <span className="inline-flex items-center justify-center rounded-lg font-medium text-sm h-10 px-5 ring-1 ring-white/10 hover:bg-white/10">Explore features</span>
+              </Link>
+            </div>
+            <div className="mt-8 grid grid-cols-3 gap-6 text-xs text-white/70">
+              <div><div className="text-2xl font-semibold text-white">8k+</div><div>Policies managed</div></div>
+              <div><div className="text-2xl font-semibold text-white">$4.2m</div><div>Payments tracked</div></div>
+              <div><div className="text-2xl font-semibold text-white">98%</div><div>CSAT</div></div>
+            </div>
           </div>
-        </div>
-        <div className="mt-12 grid grid-cols-2 gap-6 opacity-70">
-          <div className="h-8 rounded bg-neutral-200 dark:bg-neutral-800" />
-          <div className="h-8 rounded bg-neutral-200 dark:bg-neutral-800" />
+          <div className="relative">
+            <div className="absolute -inset-x-6 -top-6 bottom-6 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/10 blur-2xl" aria-hidden />
+            <div className="relative grid gap-4">
+              <Card className="max-w-md">
+                <CardContent>
+                  <div className="h-24 rounded-lg ring-1 ring-white/10 bg-white/5" />
+                </CardContent>
+              </Card>
+              <Card className="max-w-sm ml-auto">
+                <CardContent>
+                  <div className="h-24 rounded-lg ring-1 ring-white/10 bg-white/5" />
+                </CardContent>
+              </Card>
+              <Card className="max-w-xs">
+                <CardContent>
+                  <div className="h-24 rounded-lg ring-1 ring-white/10 bg-white/5" />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </Section>
 
+      {/* Features */}
       <Section>
         <SectionHeading overline="Capabilities" title="What you get" subtitle="Minimal, fast, and accessible building blocks for your app." />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -47,6 +66,7 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Pricing */}
       <Section>
         <SectionHeading overline="Pricing" title="Simple pricing" subtitle="Start free, scale when you need more." />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -66,6 +86,7 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* FAQ */}
       <Section>
         <SectionHeading overline="Answers" title="Frequently asked questions" />
         <FAQ
@@ -74,6 +95,8 @@ export default function Home() {
             { q: "Is there dark mode?", a: "Yes, toggle in the header." },
             { q: "Can I integrate payments?", a: "Yes, with your preferred provider." },
             { q: "Do you support SSO?", a: "SSO is available on Business." },
+            { q: "Is my data secure?", a: "Row-Level Security and audit trails by default." },
+            { q: "How do I get support?", a: "Email support for free; priority on Pro." },
           ]}
         />
       </Section>

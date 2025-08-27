@@ -13,12 +13,12 @@ export default function DocsIndexPage() {
           <label htmlFor="docs-search" className="sr-only">Search docs</label>
           <input
             id="docs-search"
-            className="w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-4 py-2"
+            className="w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
             placeholder="Search..."
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
-          <div className="mt-6 text-sm text-neutral-600 dark:text-neutral-300">
+          <div className="mt-6 text-sm text-white/70">
             {q ? `No results for "${q}" (yet)` : "Type to search..."}
           </div>
         </div>

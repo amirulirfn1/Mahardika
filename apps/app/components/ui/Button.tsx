@@ -12,7 +12,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const base =
-    "inline-flex items-center justify-center rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition";
+    "inline-flex items-center justify-center rounded-lg font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 disabled:opacity-50 disabled:cursor-not-allowed transition";
   const sizes =
     size === "sm"
       ? "text-xs h-8 px-3"
@@ -21,11 +21,11 @@ export const Button: React.FC<ButtonProps> = ({
       : "text-sm h-9 px-4";
   const styles =
     variant === "primary"
-      ? "bg-neutral-900 text-white hover:bg-neutral-800 focus:ring-neutral-400 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-white"
+      ? "bg-[hsl(var(--accent))] text-white hover:opacity-90"
       : variant === "outline"
-      ? "border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-900"
+      ? "ring-1 ring-white/10 text-white hover:bg-white/10"
       : variant === "link"
-      ? "bg-transparent underline underline-offset-4 text-neutral-900 dark:text-neutral-100 hover:no-underline"
-      : "bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-900 dark:text-neutral-100";
+      ? "bg-transparent underline underline-offset-4 text-white hover:opacity-90"
+      : "bg-transparent hover:bg-white/10 text-white";
   return <button className={`${base} ${sizes} ${styles} ${className}`} {...props} />;
 };

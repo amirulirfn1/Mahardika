@@ -10,19 +10,21 @@ export const PricingCard: React.FC<{
   highlighted?: boolean;
 }> = ({ name, price, features, cta, highlighted }) => {
   return (
-    <Card className={`h-full ${highlighted ? "ring-1" : ""}`} style={highlighted ? { boxShadow: "0 0 0 1px rgb(var(--accent))" } : undefined}>
+    <Card className={`h-full ${highlighted ? "ring-1 ring-[hsl(var(--accent))]" : ""}`}>
       <CardHeader>
-        <div className="text-lg font-semibold tracking-tight">{name}</div>
+        <div className="flex items-baseline justify-between">
+          <div className="text-lg font-semibold tracking-tight text-white/90">{name}</div>
+          <div className="text-2xl font-semibold text-white">{price}</div>
+        </div>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-semibold">{price}</div>
-        <ul className="mt-4 space-y-2 text-sm">
+        <ul className="space-y-2 text-white/70">
           {features.map((f) => (
-            <li key={f} className="text-neutral-700 dark:text-neutral-200">{f}</li>
+            <li key={f}>{f}</li>
           ))}
         </ul>
         <div className="mt-6">
-          <Button className="w-full">{cta}</Button>
+          <Button className="w-full" variant={highlighted ? "primary" : "outline"}>{cta}</Button>
         </div>
       </CardContent>
     </Card>

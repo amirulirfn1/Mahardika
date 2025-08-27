@@ -24,7 +24,7 @@ export default function ContactPage() {
             <label htmlFor="name" className="block text-sm font-medium">Name</label>
             <input
               id="name"
-              className="mt-1 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-4 py-2"
+              className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -35,7 +35,7 @@ export default function ContactPage() {
             <input
               id="email"
               type="email"
-              className="mt-1 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-4 py-2"
+              className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -46,14 +46,14 @@ export default function ContactPage() {
             <textarea
               id="message"
               rows={5}
-              className="mt-1 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-4 py-2"
+              className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
             />
           </div>
           <div>
-            <button type="submit" className="inline-flex h-10 items-center rounded-md bg-neutral-900 px-4 text-white hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900">
+            <button type="submit" className="inline-flex h-10 items-center rounded-lg bg-[hsl(var(--accent))] px-4 text-white hover:opacity-90">
               Send
             </button>
           </div>

@@ -8,9 +8,9 @@ export const TableSimple: React.FC<{
     <div className="overflow-x-auto">
       <table className="min-w-full text-sm">
         <thead>
-          <tr className="border-b border-neutral-200 dark:border-neutral-800">
+          <tr className="border-b border-white/10">
             {columns.map((c) => (
-              <th key={c.key} className="py-2 pr-4 text-left text-neutral-600 dark:text-neutral-300">
+              <th key={c.key} className="py-2 pr-4 text-left text-white/60 text-xs uppercase tracking-wide">
                 {c.header}
               </th>
             ))}
@@ -18,7 +18,7 @@ export const TableSimple: React.FC<{
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <tr key={i} className="border-b border-neutral-100 dark:border-neutral-900/50">
+            <tr key={i} className="border-b border-white/5 hover:bg-white/5">
               {columns.map((c) => (
                 <td key={c.key} className="py-2 pr-4">
                   {row[c.key]}

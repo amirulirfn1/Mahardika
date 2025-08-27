@@ -39,7 +39,7 @@ export default function SignInPage() {
               <input
                 id="email"
                 type="email"
-                className="mt-1 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-4 py-2"
+                className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 aria-invalid={!!errors.email}
@@ -55,7 +55,7 @@ export default function SignInPage() {
               <input
                 id="password"
                 type="password"
-                className="mt-1 w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-4 py-2"
+                className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 aria-invalid={!!errors.password}
@@ -66,9 +66,9 @@ export default function SignInPage() {
                 <p id="password-error" className="mt-1 text-xs text-red-600">{errors.password}</p>
               ) : null}
             </div>
-            <button type="submit" className="inline-flex h-10 items-center rounded-md bg-neutral-900 px-4 text-white hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 w-full">Sign in</button>
+            <button type="submit" className="inline-flex h-10 items-center rounded-lg bg-[hsl(var(--accent))] px-4 text-white hover:opacity-90 w-full">Sign in</button>
           </form>
-          <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-300">
+          <div className="mt-4 text-sm text-white/70">
             Don’t have an account? <Link className="underline" href="/signup">Sign up</Link>
           </div>
         </div>

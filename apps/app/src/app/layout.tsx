@@ -4,6 +4,10 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/lib/site";
 import { Providers } from "./providers";
+import { Manrope, Inter } from "next/font/google";
+
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
   title: {
@@ -31,26 +35,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body style={{
-        // Map site.accent to a CSS variable used in CSS
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error inline style custom property
-        "--accent": ((): string => {
-          switch (site.accent) {
-            case "indigo":
-              return "79 70 229"; // indigo-600
-            case "blue":
-              return "37 99 235"; // blue-600
-            case "violet":
-              return "109 40 217"; // violet-600
-            case "emerald":
-              return "5 150 105"; // emerald-600
-            default:
-              return "79 70 229";
-          }
-        })()
-      }}>
+    <html lang="en" suppressHydrationWarning className={`${manrope.variable} ${inter.variable} antialiased`}>
+      <body
+        className="bg-grain"
+        style={{
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error inline style custom property
+          "--accent": process.env.NEXT_PUBLIC_ACCENT || ((): string => {
+            // default to Mahardika violet 600
+            return "124 58 237";
+          })(),
+        }}
+      >
         <Providers>
           <Header />
           <main>{children}</main>

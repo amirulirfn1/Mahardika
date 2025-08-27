@@ -1,33 +1,30 @@
 import React from "react";
 
-export function Card({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return <div className={`rounded-lg border ${className}`}>{children}</div>;
-}
+type DivProps = React.HTMLAttributes<HTMLDivElement> & { className?: string };
 
-export function CardHeader({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+export function Card({ children, className = "", ...props }: DivProps) {
   return (
-    <div className={`border-b p-4 font-medium ${className}`}>{children}</div>
+    <div className={`card ${className}`} {...props}>
+      {children}
+    </div>
   );
 }
 
-export function CardContent({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return <div className={`p-4 ${className}`}>{children}</div>;
+export function CardHeader({ children, className = "", ...props }: DivProps) {
+  return (
+    <div
+      className={`border-b border-neutral-200 dark:border-neutral-800 p-6 font-medium ${className}`}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function CardContent({ children, className = "", ...props }: DivProps) {
+  return (
+    <div className={`p-6 ${className}`} {...props}>
+      {children}
+    </div>
+  );
 }

@@ -21,6 +21,8 @@ module.exports = {
       "error",
       { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
     ],
+    // App Router projects don't rely on Pages directory
+    "@next/next/no-html-link-for-pages": "off",
     "import/order": [
       "warn",
       {

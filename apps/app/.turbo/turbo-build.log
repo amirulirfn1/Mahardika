@@ -3,91 +3,213 @@
 > next build
 
   ▲ Next.js 14.2.5
+  - Environments: .env.local
 
    Creating an optimized production build ...
-<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (108kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
  ⚠ Compiled with warnings
 
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-A Node.js API is used (process.versions at line: 11) which is not supported in the Edge Runtime.
-Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+Critical dependency: the request of a dependency is an expression
 
 Import trace for requested module:
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+../../node_modules/.pnpm/@sentry+node@10.5.0/node_modules/@sentry/node/build/cjs/integrations/tracing/postgresjs.js
+../../node_modules/.pnpm/@sentry+node@10.5.0/node_modules/@sentry/node/build/cjs/index.js
+../../node_modules/.pnpm/@sentry+nextjs@10.5.0_@opentelemetry+context-async-hooks@2.0.1_@opentelemetry+api@1.9.0__@ope_ivgpb5cplq3yvmqn3gwdvkh7ma/node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/lib/log.ts
+./src/app/dashboard/agency/policies/_actions.ts
+./src/app/dashboard/agency/policies/new/page.tsx
 
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-A Node.js API is used (process.versions at line: 12) which is not supported in the Edge Runtime.
-Learn more: https://nextjs.org/docs/api-reference/edge-runtime
-
-Import trace for requested module:
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
-
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-A Node.js API is used (process.versions at line: 58) which is not supported in the Edge Runtime.
-Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+../../node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
 
 Import trace for requested module:
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
-
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-A Node.js API is used (process.versions at line: 59) which is not supported in the Edge Runtime.
-Learn more: https://nextjs.org/docs/api-reference/edge-runtime
-
-Import trace for requested module:
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
-
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-A Node.js API is used (process.versions at line: 60) which is not supported in the Edge Runtime.
-Learn more: https://nextjs.org/docs/api-reference/edge-runtime
-
-Import trace for requested module:
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
-../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
-
-../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
-A Node.js API is used (process.version at line: 24) which is not supported in the Edge Runtime.
-Learn more: https://nextjs.org/docs/api-reference/edge-runtime
-
-Import trace for requested module:
-../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
-../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+../../node_modules/.pnpm/require-in-the-middle@7.5.2/node_modules/require-in-the-middle/index.js
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/instrumentation.js
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/node/index.js
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/platform/index.js
+../../node_modules/.pnpm/@opentelemetry+instrumentation@0.203.0_@opentelemetry+api@1.9.0/node_modules/@opentelemetry/instrumentation/build/esm/index.js
+../../node_modules/.pnpm/@sentry+node@10.5.0/node_modules/@sentry/node/build/cjs/integrations/tracing/postgresjs.js
+../../node_modules/.pnpm/@sentry+node@10.5.0/node_modules/@sentry/node/build/cjs/index.js
+../../node_modules/.pnpm/@sentry+nextjs@10.5.0_@opentelemetry+context-async-hooks@2.0.1_@opentelemetry+api@1.9.0__@ope_ivgpb5cplq3yvmqn3gwdvkh7ma/node_modules/@sentry/nextjs/build/cjs/index.server.js
+./src/lib/log.ts
+./src/app/dashboard/agency/policies/_actions.ts
+./src/app/dashboard/agency/policies/new/page.tsx
 
  ✓ Compiled successfully
    Linting and checking validity of types ...
+
+./components/dashboard/StatCard.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./components/layout/Footer.tsx
+2:1  Warning: There should be at least one empty line between import groups  import/order
+2:1  Warning: `next/link` import should occur before import of `react`  import/order
+
+./components/layout/Header.tsx
+2:1  Warning: `react` import should occur after import of `next/navigation`  import/order
+4:1  Warning: There should be at least one empty line between import groups  import/order
+5:1  Warning: There should be at least one empty line between import groups  import/order
+
+./components/layout/ThemeToggle.tsx
+3:1  Warning: `next-themes` import should occur before import of `react`  import/order
+
+./components/marketing/FAQ.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./components/marketing/FeatureCard.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./components/marketing/PricingCard.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+3:1  Warning: `../ui/Button` import should occur before import of `../ui/Card`  import/order
+
+./components/marketing/Testimonial.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./components/ui/Section.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/app/contact/page.tsx
+2:1  Warning: There should be at least one empty line between import groups  import/order
+7:27  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+8:29  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+9:33  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+
+./src/app/dashboard/agency/customers/page.tsx
+7:1  Warning: `@/components/ConfirmAction` import should occur before import of `@/components/ui/Button`  import/order
+
+./src/app/dashboard/agency/customers/[id]/edit/page.tsx
+4:1  Warning: `@/components/forms/CustomerForm` import should occur before import of `@/lib/supabase/server`  import/order
+
+./src/app/dashboard/agency/customers/[id]/page.tsx
+8:1  Warning: `@/components/ConfirmAction` import should occur before import of `@/components/ui/Button`  import/order
+9:1  Warning: `@/components/forms/VehicleInlineForm` import should occur before import of `@/components/ui/Button`  import/order
+10:1  Warning: `@/lib/loyalty` import should occur before import of `@/lib/supabase/server`  import/order
+
+./src/app/dashboard/agency/customers/[id]/_actions.ts
+4:1  Warning: `@/lib/log` import should occur before import of `@/lib/supabase/server`  import/order
+
+./src/app/dashboard/agency/policies/new/page.tsx
+4:1  Warning: `@/components/forms/PolicyForm` import should occur before import of `@/lib/supabase/server`  import/order
+
+./src/app/dashboard/agency/policies/[id]/edit/page.tsx
+4:1  Warning: `@/components/forms/PolicyForm` import should occur before import of `@/lib/supabase/server`  import/order
+
+./src/app/dashboard/agency/policies/[id]/page.tsx
+4:1  Warning: `@/lib/supabase/server` import should occur after import of `@/lib/storage`  import/order
+
+./src/app/dashboard/agency/policies/[id]/_actions.ts
+4:1  Warning: `@/lib/log` import should occur before import of `@/lib/supabase/server`  import/order
+
+./src/app/dashboard/agency/policies/_actions.ts
+6:1  Warning: `@/lib/supabase/server` import should occur after import of `@/lib/storage`  import/order
+
+./src/app/dashboard/overview/page.tsx
+4:1  Warning: `@/components/dashboard/TableSimple` import should occur before import of `@/components/ui/Card`  import/order
+
+./src/app/dashboard/settings/page.tsx
+2:1  Warning: There should be at least one empty line between import groups  import/order
+7:25  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+
+./src/app/dashboard/users/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/app/dashboard/users/[id]/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+2:1  Warning: `@/lib/mock` import should occur after import of `@/components/ui/Card`  import/order
+
+./src/app/docs/page.tsx
+2:1  Warning: There should be at least one empty line between import groups  import/order
+7:21  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+
+./src/app/error.tsx
+5:3  Warning: Caution: `React` also has a named export `useEffect`. Check if you meant to write `import {useEffect} from 'react'` instead.  import/no-named-as-default-member
+
+./src/app/layout.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+4:1  Warning: `@/components/layout/Footer` import should occur before import of `@/components/layout/Header`  import/order
+5:1  Warning: There should be at least one empty line between import groups  import/order
+
+./src/app/page.tsx
+1:1  Warning: There should be at least one empty line between import groups  import/order
+4:1  Warning: `@/components/marketing/FeatureCard` import should occur before import of `@/components/ui/Section`  import/order
+5:1  Warning: `@/components/marketing/PricingCard` import should occur before import of `@/components/ui/Section`  import/order
+6:1  Warning: `@/components/marketing/FAQ` import should occur before import of `@/components/ui/Section`  import/order
+
+./src/app/pricing/page.tsx
+2:1  Warning: There should be at least one empty line between import groups  import/order
+5:1  Warning: `@/components/marketing/PricingCard` import should occur before import of `@/components/ui/Section`  import/order
+9:31  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+
+./src/app/providers.tsx
+3:1  Warning: `next-themes` import should occur before import of `react`  import/order
+
+./src/app/signin/page.tsx
+3:1  Warning: There should be at least one empty line between import groups  import/order
+4:1  Warning: There should be at least one empty line between import groups  import/order
+5:1  Warning: `next/link` import should occur before import of `react`  import/order
+13:27  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+14:31  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+
+./src/app/signup/page.tsx
+3:1  Warning: There should be at least one empty line between import groups  import/order
+4:1  Warning: There should be at least one empty line between import groups  import/order
+5:1  Warning: `next/link` import should occur before import of `react`  import/order
+13:27  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+14:31  Warning: Caution: `React` also has a named export `useState`. Check if you meant to write `import {useState} from 'react'` instead.  import/no-named-as-default-member
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
    Collecting page data ...
-   Generating static pages (0/2) ...
- ✓ Generating static pages (2/2)
+   Generating static pages (0/27) ...
+   Generating static pages (6/27) 
+   Generating static pages (13/27) 
+   Generating static pages (20/27) 
+ ✓ Generating static pages (27/27)
    Finalizing page optimization ...
    Collecting build traces ...
 
-Route (pages)                             Size     First Load JS
-─ ○ /404                                  180 B          79.1 kB
-+ First Load JS shared by all             78.9 kB
-  ├ chunks/framework-bef83a85c94ff7de.js  45.2 kB
-  ├ chunks/main-7222bf04c99848bf.js       32.1 kB
-  └ other shared chunks (total)           1.63 kB
+Route (app)                                   Size     First Load JS
+┌ ○ /                                         191 B          94.1 kB
+├ ○ /_not-found                               170 B          87.3 kB
+├ ○ /all                                      170 B          87.3 kB
+├ ○ /api/health                               0 B                0 B
+├ ƒ /api/test-login                           0 B                0 B
+├ ○ /contact                                  1.01 kB        88.1 kB
+├ ○ /dashboard                                170 B          87.3 kB
+├ ○ /dashboard/agency                         170 B          87.3 kB
+├ ƒ /dashboard/agency/communications          191 B          94.1 kB
+├ ƒ /dashboard/agency/customers               350 B          94.2 kB
+├ ƒ /dashboard/agency/customers/[id]          1.03 kB         108 kB
+├ ƒ /dashboard/agency/customers/[id]/edit     898 B           101 kB
+├ ○ /dashboard/agency/customers/new           898 B           101 kB
+├ ƒ /dashboard/agency/loyalty                 170 B          87.3 kB
+├ ƒ /dashboard/agency/policies                192 B          94.1 kB
+├ ƒ /dashboard/agency/policies/[id]           191 B          94.1 kB
+├ ƒ /dashboard/agency/policies/[id]/edit      1.37 kB         101 kB
+├ ƒ /dashboard/agency/policies/[id]/payments  192 B          94.1 kB
+├ ƒ /dashboard/agency/policies/new            1.37 kB         101 kB
+├ ○ /dashboard/customer                       170 B          87.3 kB
+├ ○ /dashboard/overview                       170 B          87.3 kB
+├ ○ /dashboard/settings                       839 B            88 kB
+├ ○ /dashboard/staff                          170 B          87.3 kB
+├ ○ /dashboard/users                          191 B          94.1 kB
+├ ƒ /dashboard/users/[id]                     170 B          87.3 kB
+├ ○ /docs                                     862 B            88 kB
+├ ○ /features                                 170 B          87.3 kB
+├ ○ /pricing                                  2.66 kB        89.8 kB
+├ ƒ /shop/[slug]                              170 B          87.3 kB
+├ ○ /signin                                   1.14 kB         108 kB
+└ ○ /signup                                   1.14 kB         108 kB
++ First Load JS shared by all                 87.1 kB
+  ├ chunks/946-bd8837b76627f13d.js            31.5 kB
+  ├ chunks/fc3b69ff-40a0c4635aa60d9d.js       53.6 kB
+  └ other shared chunks (total)               1.95 kB
 
-ƒ Middleware                              61.3 kB
 
-○  (Static)  prerendered as static content
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
 

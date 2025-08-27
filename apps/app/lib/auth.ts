@@ -9,6 +9,23 @@ export async function getSession() {
 }
 
 export async function getProfile() {
+  if (process.env.SKIP_AUTH === "true") {
+    return {
+      id: "local-preview-profile",
+      user_id: "local-preview-user",
+      agency_id: null,
+      role: "agency_owner",
+      full_name: "Local Preview",
+      phone: null,
+    } as {
+      id: string;
+      user_id: string;
+      agency_id: string | null;
+      role: "platform_admin" | "agency_owner" | "staff" | "customer";
+      full_name: string;
+      phone: string | null;
+    };
+  }
   const supabase = getServerClient();
   const session = await getSession();
   if (!session?.user) return null;

@@ -48,7 +48,7 @@ Workspaces
 
 ## Staging deploy on push to main
 
-- Workflow `.github/workflows/deploy_staging.yml` deploys `apps/app` to a Vercel preview on pushes to `main`, then runs Playwright smoke tests.
+- Workflow `.github/workflows/staging_deploy.yml` deploys `apps/app` to a Vercel preview on pushes to `main`, then runs Playwright smoke tests.
 - Required GitHub secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
 - The job skips gracefully with a notice if any secret is missing.
 - Smoke tests use `BASE_URL` and the `@smoke` tag to target a fast subset.
@@ -59,12 +59,15 @@ Workspaces
 - Jobs: install deps, lint, typecheck, build, install Playwright browsers, run full E2E with `--retries=1`.
 - Artifacts uploaded: `apps/app/playwright-report` and `apps/app/test-results` (collected under `artifacts/`).
 
-## Production deploy
+## Production release
 
-- Workflow `.github/workflows/deploy_prod.yml` promotes to Vercel production after manual approval via the GitHub `production` environment.
-- Triggers: manual `workflow_dispatch` or tags matching `release-*`.
-- Uses the same Vercel secrets (`VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`).
-- After deploy, runs Playwright smoke tests against the production URL.
+- Workflow `.github/workflows/prod_release.yml` promotes the already-built Vercel preview to Production after E2E passes.
+- Triggers: push to `main`, release published, and manual `workflow_dispatch` (inputs: optional `ref`, optional `deployment_url`).
+- Promotion behavior: resolves the preview deployment for the current commit via Vercel REST API, then runs `vercel promote` to flip Production.
+- Environment gate: uses the GitHub Environment `production` with required reviewers; the job publishes the Production URL to the environment.
+- Required secrets: `VERCEL_TOKEN`, `VERCEL_PROJECT_ID`. Optional: `VERCEL_ORG_ID` if your CLI setup requires it.
+- Post-deploy: optional smoke check pings `/` until HTTP 200.
+- Gated by CI: reuses the reusable `pr_e2e.yml` job; promotion only runs if E2E succeeds.
 
 ## Staging
 
@@ -81,3 +84,44 @@ Workspaces
 rmdir /s /q apps\app\.next
 pnpm -w build
 ```
+
+## Local preview
+
+- Install deps: `pnpm i -w`
+- Pull Vercel env (Preview): `vercel pull --yes --environment=preview` and save as `apps/app/.env.local` (or copy from `apps/app/.env.example`).
+- Run dev: `pnpm -w dev` (Next.js on `http://localhost:3000`).
+- Run E2E UI against local: `PLAYWRIGHT_BASE_URL=http://localhost:3000 pnpm -w test:e2e:ui`.
+- Vercel CLI dev (optional): `pnpm vercel:dev`.
+- Windows tip: if you hit `readlink` errors, remove `.next` and rebuild:
+
+```cmd
+rmdir /s /q apps\app\.next
+pnpm -w build
+```
+
+## Design notes
+
+- Tokens: CSS custom properties for spacing and radii defined in `apps/app/src/app/globals.css` (e.g., `--space-*`, `--radius-*`). Accent color is injected via `--accent` and defaults to indigo; override with `NEXT_PUBLIC_ACCENT`.
+- Typography: system font stack, headings tight tracking and 1.15 line-height, body 1.6.
+- Components: minimal UI primitives under `apps/app/components/ui` (`Button`, `Badge`, `Card`, `Container`, `Section`, `SectionHeading`). Layout (`Header`, `Footer`, `ThemeToggle`). Marketing (`FeatureCard`, `PricingCard`, `Testimonial`, `FAQ`). Dashboard (`PageHeader`, `StatCard`, `TableSimple`).
+- Dark mode: `next-themes` with class attribute; toggle in header.
+- Metadata: Next.js Metadata API in `apps/app/src/app/layout.tsx` via values from `apps/app/lib/site.ts`.
+
+## Routes (App Router)
+
+- Marketing: `/`, `/features`, `/pricing`, `/docs`, `/contact`
+- Auth: `/signin`, `/signup`
+- App: `/dashboard/overview`, `/dashboard/users`, `/dashboard/users/[id]`, `/dashboard/settings`
+- System: `/404`, `not-found.tsx`, `loading.tsx`, `error.tsx`
+
+## Staging deploy
+
+Push to `develop`:
+
+```bash
+git add -A
+git commit -m "feat(ui): scaffold minimalist design system and core pages"
+git push origin develop
+```
+
+Expected workflow: CI runs Lint/Typecheck/Build, Playwright smoke (`apps/app/tests/smoke-nav.e2e.spec.ts`), then Vercel stages a Preview URL. Check Actions → Staging Deploy for the preview link.

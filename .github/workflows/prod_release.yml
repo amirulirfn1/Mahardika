@@ -1,0 +1,126 @@
+name: Production Release
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref to release (defaults to workflow ref)"
+        required: false
+      deployment_url:
+        description: "Preview deployment URL to promote (optional)"
+        required: false
+
+concurrency:
+  group: prod-release-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  deployments: write
+  id-token: write
+
+jobs:
+  e2e:
+    uses: ./.github/workflows/pr_e2e.yml
+    secrets: inherit
+
+  resolve_preview:
+    name: Resolve preview for this commit
+    needs: e2e
+    runs-on: ubuntu-latest
+    outputs:
+      preview_url: ${{ steps.out.outputs.preview_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Use provided preview URL if given
+        id: maybe
+        run: |
+          if [ -n "${{ github.event.inputs.deployment_url }}" ]; then
+            echo "preview_url=${{ github.event.inputs.deployment_url }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Resolve preview via Vercel API when not provided
+        if: ${{ steps.maybe.outputs.preview_url == '' }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          resp=$(curl -fsSL "https://api.vercel.com/v6/deployments?projectId=${VERCEL_PROJECT_ID}&sha=${GITHUB_SHA}&target=preview&limit=1" \
+                 -H "Authorization: Bearer ${VERCEL_TOKEN}")
+          url=$(echo "$resp" | jq -r '.deployments[0].url')
+          if [ -z "$url" ] || [ "$url" = "null" ]; then
+            echo "No preview deployment found for this commit"; exit 1
+          fi
+          echo "preview_url=https://$url" >> "$GITHUB_OUTPUT"
+
+      - name: Output preview url
+        id: out
+        run: echo "preview_url=${{ steps.maybe.outputs.preview_url || steps.resolve_preview.outputs.preview_url }}" >> "$GITHUB_OUTPUT"
+
+  promote:
+    name: Promote to Production
+    needs: resolve_preview
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.promote.outputs.prod_url }}
+    outputs:
+      prod_url: ${{ steps.promote.outputs.prod_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Vercel CLI
+        run: pnpm add -g vercel
+
+      - name: Promote preview to Production
+        id: promote
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          set -euo pipefail
+          vercel promote "${{ needs.resolve_preview.outputs.preview_url }}" --yes --token="${VERCEL_TOKEN}"
+          # Find the new Production URL for this commit
+          pkg='https://api.vercel.com/v6/deployments?projectId='"${VERCEL_PROJECT_ID}"'&sha='"${GITHUB_SHA}"'&target=production&limit=1'
+          resp=$(curl -fsSL "$pkg" -H "Authorization: Bearer ${VERCEL_TOKEN}")
+          purl=$(echo "$resp" | jq -r '.deployments[0].url')
+          if [ -z "$purl" ] || [ "$purl" = "null" ]; then
+            echo "Failed to resolve production URL after promote"; exit 1
+          fi
+          echo "prod_url=https://$purl" >> "$GITHUB_OUTPUT"
+
+  post_deploy_smoke:
+    name: Smoke check on Production
+    needs: promote
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for 200 at /
+        run: |
+          url="${{ needs.promote.outputs.prod_url }}"
+          for i in {1..20}; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "$url")
+            if [ "$code" = "200" ]; then echo "OK"; exit 0; fi
+            sleep 5
+          done
+          echo "Smoke check failed"; exit 1
+

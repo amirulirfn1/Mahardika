@@ -17,7 +17,12 @@
     "test:e2e": "playwright test",
     "e2e:smoke": "playwright test -g \"@smoke\"",
     "e2e:ui": "playwright test --ui",
-    "fmt": "prettier --write ."
+    "fmt": "prettier --write .",
+    "db:gen": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:push": "prisma db push",
+    "db:seed": "prisma db seed",
+    "vercel:dev": "vercel dev --cwd apps/app --listen 3000"
   },
   "devDependencies": {
     "@playwright/test": "^1.46.1",

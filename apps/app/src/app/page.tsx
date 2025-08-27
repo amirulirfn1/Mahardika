@@ -6,6 +6,8 @@ import { PricingCard } from "@/components/marketing/PricingCard";
 import { FAQ } from "@/components/marketing/FAQ";
 import { pricingTiers } from "@/lib/site";
 import { Card, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Shield, CreditCard, Sparkles } from "lucide-react";
 
 export default function Home() {
   return (
@@ -19,11 +21,11 @@ export default function Home() {
               Policies, payments, customers, loyalty in one place.
             </p>
             <div className="mt-8 flex items-center gap-3">
-              <Link href="/signup" className="inline-flex">
-                <span className="inline-flex items-center justify-center rounded-lg font-medium text-sm h-10 px-5 bg-[hsl(var(--accent))] text-white hover:opacity-90">Get started</span>
+              <Link href="/signup" aria-label="Get started">
+                <Button size="lg">Get started</Button>
               </Link>
-              <Link href="/features" className="inline-flex">
-                <span className="inline-flex items-center justify-center rounded-lg font-medium text-sm h-10 px-5 ring-1 ring-white/10 hover:bg-white/10">Explore features</span>
+              <Link href="/features" aria-label="Explore features">
+                <Button size="lg" variant="outline">Explore features</Button>
               </Link>
             </div>
             <div className="mt-8 grid grid-cols-3 gap-6 text-xs text-white/70">
@@ -59,9 +61,21 @@ export default function Home() {
       <Section>
         <SectionHeading overline="Capabilities" title="What you get" subtitle="Minimal, fast, and accessible building blocks for your app." />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <FeatureCard title="Policies" description="Create and manage insurance policies with ease." icon="📄" />
-          <FeatureCard title="Payments" description="Track payments with clear, concise records." icon="💳" />
-          <FeatureCard title="Loyalty" description="Reward customers and grow retention." icon="🏆" />
+          <FeatureCard
+            title="Policies"
+            description="Create and manage insurance policies with ease."
+            icon={<Shield size={18} />}
+          />
+          <FeatureCard
+            title="Payments"
+            description="Track payments with clear, concise records."
+            icon={<CreditCard size={18} />}
+          />
+          <FeatureCard
+            title="Loyalty"
+            description="Reward customers and grow retention."
+            icon={<Sparkles size={18} />}
+          />
         </div>
       </Section>
 
@@ -102,3 +116,4 @@ export default function Home() {
     </main>
   );
 }
+

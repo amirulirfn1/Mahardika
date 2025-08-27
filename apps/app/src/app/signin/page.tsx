@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { Button } from "@/components/ui/Button";
 import { z } from "zod";
 import { Section } from "@/components/ui/Section";
 import Link from "next/link";
@@ -39,7 +40,9 @@ export default function SignInPage() {
               <input
                 id="email"
                 type="email"
-                className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
+                name="email"
+                autoComplete="email"
+                className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 aria-invalid={!!errors.email}
@@ -55,7 +58,9 @@ export default function SignInPage() {
               <input
                 id="password"
                 type="password"
-                className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
+                name="password"
+                autoComplete="current-password"
+                className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 aria-invalid={!!errors.password}
@@ -66,7 +71,7 @@ export default function SignInPage() {
                 <p id="password-error" className="mt-1 text-xs text-red-600">{errors.password}</p>
               ) : null}
             </div>
-            <button type="submit" className="inline-flex h-10 items-center rounded-lg bg-[hsl(var(--accent))] px-4 text-white hover:opacity-90 w-full">Sign in</button>
+            <Button type="submit" className="w-full">Sign in</Button>
           </form>
           <div className="mt-4 text-sm text-white/70">
             Don’t have an account? <Link className="underline" href="/signup">Sign up</Link>

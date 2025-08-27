@@ -1,15 +1,16 @@
 import { FeatureCard } from "@/components/marketing/FeatureCard";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { LayoutDashboard, Search, ListChecks, ShieldCheck, FileDown, Plug2 } from "lucide-react";
 
 export default function FeaturesPage() {
   const items = [
-    { title: "Unified dashboard", description: "Everything in one clean place.", icon: "📊" },
-    { title: "Fast search", description: "Find policies and customers instantly.", icon: "🔎" },
-    { title: "Activity log", description: "Always know who did what.", icon: "🧭" },
-    { title: "Secure by default", description: "RLS and audit baked in.", icon: "🔒" },
-    { title: "Exports", description: "Export payments and data on demand.", icon: "⬇️" },
-    { title: "Integrations", description: "Connect WhatsApp and more.", icon: "🔌" },
+    { title: "Unified dashboard", description: "Everything in one clean place.", icon: <LayoutDashboard size={18} /> },
+    { title: "Fast search", description: "Find policies and customers instantly.", icon: <Search size={18} /> },
+    { title: "Activity log", description: "Always know who did what.", icon: <ListChecks size={18} /> },
+    { title: "Secure by default", description: "RLS and audit baked in.", icon: <ShieldCheck size={18} /> },
+    { title: "Exports", description: "Export payments and data on demand.", icon: <FileDown size={18} /> },
+    { title: "Integrations", description: "Connect WhatsApp and more.", icon: <Plug2 size={18} /> },
   ];
   return (
     <main>
@@ -24,6 +25,4 @@ export default function FeaturesPage() {
     </main>
   );
 }
-
-
 

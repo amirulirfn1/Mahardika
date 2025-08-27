@@ -1,7 +1,7 @@
 "use client";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/Button";
@@ -43,8 +43,9 @@ export default function SignInPage() {
         if (error) throw error;
       }
       router.push("/dashboard");
-    } catch (err: any) {
-      setNotice(err?.message || "Sign in failed");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Sign in failed";
+      setNotice(msg);
     } finally {
       setLoading(false);
     }
@@ -58,8 +59,9 @@ export default function SignInPage() {
       const { error, data } = await supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
       if (error) throw error;
       if (data?.url) window.location.assign(data.url);
-    } catch (err: any) {
-      setNotice(err?.message || "OAuth error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "OAuth error";
+      setNotice(msg);
       setLoading(false);
     }
   }
@@ -114,4 +116,3 @@ export default function SignInPage() {
     </main>
   );
 }
-

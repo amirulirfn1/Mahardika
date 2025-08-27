@@ -1,13 +1,11 @@
 import * as React from "react";
 
-type Props = React.HTMLAttributes<HTMLElement> & { as?: keyof JSX.IntrinsicElements };
+type Props = React.HTMLAttributes<HTMLElement>;
 
-export function Section({ as, className = "", children, ...rest }: Props) {
-  const Comp: any = as ?? "section";
+export function Section({ className = "", children, ...rest }: Props) {
   return (
-    <Comp className={`px-4 sm:px-6 lg:px-8 ${className}`} {...rest}>
+    <section className={`px-4 sm:px-6 lg:px-8 ${className}`} {...rest}>
       <div className="mx-auto max-w-7xl">{children}</div>
-    </Comp>
+    </section>
   );
 }
-

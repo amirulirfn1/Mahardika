@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/Button";
@@ -16,7 +15,6 @@ const schema = z.object({
 });
 
 export default function SignUpPage() {
-  const router = useRouter();
   const [form, setForm] = React.useState<{ method: "email" | "phone"; email?: string; phone?: string; password: string }>({ method: "email", email: "", phone: "", password: "" });
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [loading, setLoading] = React.useState(false);
@@ -44,8 +42,9 @@ export default function SignUpPage() {
         if (error) throw error;
         setNotice("We sent an SMS OTP. Verify to complete sign up.");
       }
-    } catch (err: any) {
-      setNotice(err?.message || "Sign up failed");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Sign up failed";
+      setNotice(msg);
     } finally {
       setLoading(false);
     }
@@ -59,8 +58,9 @@ export default function SignUpPage() {
       const { error, data } = await supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
       if (error) throw error;
       if (data?.url) window.location.assign(data.url);
-    } catch (err: any) {
-      setNotice(err?.message || "OAuth error");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "OAuth error";
+      setNotice(msg);
       setLoading(false);
     }
   }

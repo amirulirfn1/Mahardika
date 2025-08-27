@@ -13,12 +13,12 @@ export const PricingCard: React.FC<{
     <Card className={`h-full ${highlighted ? "ring-1 ring-[hsl(var(--accent))]" : ""}`}>
       <CardHeader>
         <div className="flex items-baseline justify-between">
-          <div className="text-lg font-semibold tracking-tight text-white/90">{name}</div>
-          <div className="text-2xl font-semibold text-white">{price}</div>
+          <div className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-white/90">{name}</div>
+          <div className="text-2xl font-semibold text-neutral-900 dark:text-white">{price}</div>
         </div>
       </CardHeader>
       <CardContent>
-        <ul className="space-y-2 text-white/70">
+        <ul className="space-y-2 text-neutral-600 dark:text-white/70">
           {features.map((f) => (
             <li key={f}>{f}</li>
           ))}
@@ -30,5 +30,4 @@ export const PricingCard: React.FC<{
     </Card>
   );
 };
-
 

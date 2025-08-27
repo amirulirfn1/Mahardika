@@ -25,8 +25,8 @@ export const Header: React.FC = () => {
                     href={n.href}
                     className={`px-3 py-1.5 rounded-md transition ${
                       active
-                        ? "text-white bg-white/10"
-                        : "text-white/70 hover:text-white hover:bg-white/5"
+                        ? "text-neutral-900 bg-neutral-100 dark:text-white dark:bg-white/10"
+                        : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/5"
                     }`}
                     aria-current={active ? "page" : undefined}
                   >
@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
           <div className="flex items-center gap-2 pr-3">
             <ThemeToggle />
             <Link href="/signup" aria-label="Get started">
-              <Button className="hidden sm:inline-flex bg-[hsl(var(--accent))] text-white hover:opacity-90">
+              <Button className="hidden sm:inline-flex">
                 Get started
               </Button>
             </Link>
@@ -49,5 +49,4 @@ export const Header: React.FC = () => {
     </header>
   );
 };
-
 

@@ -43,9 +43,14 @@ const config: Config = {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(8px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
-        "fade-in": "fade-in 300ms ease-out",
+        "fade-in": "fade-in 300ms ease-out both",
+        "fade-up": "fade-up 400ms ease-out both",
       },
     },
   },

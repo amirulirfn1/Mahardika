@@ -8,6 +8,7 @@ import { pricingTiers } from "@/lib/site";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Shield, CreditCard, Sparkles } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
 
 export default function Home() {
   return (
@@ -15,12 +16,19 @@ export default function Home() {
       {/* Hero */}
       <Section className="pt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h1 id="home-hero" className="font-heading text-5xl md:text-6xl font-semibold tracking-tight">Mahardika</h1>
-            <p className="mt-5 max-w-xl text-white/70">
+          <div className="motion-reduce:animate-none">
+            <Badge className="animate-fade-up" style={{ animationDelay: "100ms" }} variant="accent">New: Modern insurance dashboard</Badge>
+            <h1
+              id="home-hero"
+              className="font-heading text-5xl md:text-6xl font-semibold tracking-tight bg-gradient-to-br from-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-fuchsia-400 animate-fade-up"
+              style={{ animationDelay: "150ms" }}
+            >
+              Mahardika
+            </h1>
+            <p className="mt-5 max-w-xl text-neutral-600 dark:text-white/70 animate-fade-up" style={{ animationDelay: "220ms" }}>
               Policies, payments, customers, loyalty in one place.
             </p>
-            <div className="mt-8 flex items-center gap-3">
+            <div className="mt-8 flex items-center gap-3 animate-fade-up" style={{ animationDelay: "280ms" }}>
               <Link href="/signup" aria-label="Get started">
                 <Button size="lg">Get started</Button>
               </Link>
@@ -28,10 +36,30 @@ export default function Home() {
                 <Button size="lg" variant="outline">Explore features</Button>
               </Link>
             </div>
-            <div className="mt-8 grid grid-cols-3 gap-6 text-xs text-white/70">
-              <div><div className="text-2xl font-semibold text-white">8k+</div><div>Policies managed</div></div>
-              <div><div className="text-2xl font-semibold text-white">$4.2m</div><div>Payments tracked</div></div>
-              <div><div className="text-2xl font-semibold text-white">98%</div><div>CSAT</div></div>
+            <div className="mt-8 grid grid-cols-3 gap-6 text-xs text-neutral-600 dark:text-white/70 animate-fade-up" style={{ animationDelay: "340ms" }}>
+              <div><div className="text-2xl font-semibold text-neutral-900 dark:text-white">8k+</div><div>Policies managed</div></div>
+              <div><div className="text-2xl font-semibold text-neutral-900 dark:text-white">$4.2m</div><div>Payments tracked</div></div>
+              <div><div className="text-2xl font-semibold text-neutral-900 dark:text-white">98%</div><div>CSAT</div></div>
+            </div>
+            <div className="mt-10 animate-fade-up" style={{ animationDelay: "420ms" }}>
+              <div className="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Trusted by teams at</div>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                {[
+                  "Acme Inc.",
+                  "Globex",
+                  "Umbrella",
+                  "Initech",
+                  "Soylent",
+                ].map((name) => (
+                  <span
+                    key={name}
+                    className="px-3 py-1 rounded-md ring-1 ring-neutral-200 bg-white text-neutral-700 dark:ring-white/10 dark:bg-white/5 dark:text-white/70"
+                    aria-label={`Trusted by ${name}`}
+                  >
+                    {name}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
           <div className="relative">
@@ -39,17 +67,17 @@ export default function Home() {
             <div className="relative grid gap-4">
               <Card className="max-w-md">
                 <CardContent>
-                  <div className="h-24 rounded-lg ring-1 ring-white/10 bg-white/5" />
+                  <div className="h-24 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
                 </CardContent>
               </Card>
               <Card className="max-w-sm ml-auto">
                 <CardContent>
-                  <div className="h-24 rounded-lg ring-1 ring-white/10 bg-white/5" />
+                  <div className="h-24 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
                 </CardContent>
               </Card>
               <Card className="max-w-xs">
                 <CardContent>
-                  <div className="h-24 rounded-lg ring-1 ring-white/10 bg-white/5" />
+                  <div className="h-24 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
                 </CardContent>
               </Card>
             </div>
@@ -116,4 +144,3 @@ export default function Home() {
     </main>
   );
 }
-

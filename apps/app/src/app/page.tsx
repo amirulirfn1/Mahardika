@@ -1,11 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FeatureCard } from "@/components/marketing/FeatureCard";
 import { PricingCard } from "@/components/marketing/PricingCard";
 import { FAQ } from "@/components/marketing/FAQ";
-import { site, pricingTiers } from "@/lib/site";
+import { pricingTiers } from "@/lib/site";
 import { Card, CardContent } from "@/components/ui/Card";
 
 export default function Home() {

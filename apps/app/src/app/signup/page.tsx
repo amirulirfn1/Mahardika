@@ -73,7 +73,7 @@ export default function SignUpPage() {
             </div>
             <Button type="submit" className="w-full">Create account</Button>
           </form>
-          <div className="mt-4 text-sm text-white/70">
+          <div className="mt-4 text-sm text-neutral-600 dark:text-white/70">
             Already have an account? <Link className="underline" href="/signin">Sign in</Link>
           </div>
         </div>

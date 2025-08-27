@@ -44,19 +44,11 @@ export default function Home() {
             <div className="mt-10 animate-fade-up" style={{ animationDelay: "420ms" }}>
               <div className="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Trusted by teams at</div>
               <div className="mt-3 flex flex-wrap items-center gap-3">
-                {[
-                  "Acme Inc.",
-                  "Globex",
-                  "Umbrella",
-                  "Initech",
-                  "Soylent",
-                ].map((name) => (
-                  <span
-                    key={name}
-                    className="px-3 py-1 rounded-md ring-1 ring-neutral-200 bg-white text-neutral-700 dark:ring-white/10 dark:bg-white/5 dark:text-white/70"
-                    aria-label={`Trusted by ${name}`}
-                  >
-                    {name}
+                {[{
+                  name: "Acme Inc.", src: "/logos/acme.svg"
+                }, { name: "Globex", src: "/logos/globex.svg" }, { name: "Umbrella", src: "/logos/umbrella.svg" }, { name: "Initech", src: "/logos/initech.svg" }, { name: "Soylent", src: "/logos/soylent.svg" }].map((logo) => (
+                  <span key={logo.name} className="px-2 py-1 rounded-md ring-1 ring-neutral-200 bg-white dark:ring-white/10 dark:bg-white/5">
+                    <img src={logo.src} alt={logo.name} width={96} height={28} loading="lazy" />
                   </span>
                 ))}
               </div>

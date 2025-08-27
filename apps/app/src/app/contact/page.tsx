@@ -24,7 +24,7 @@ export default function ContactPage() {
             <label htmlFor="name" className="block text-sm font-medium">Name</label>
             <input
               id="name"
-              className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
+              className="mt-1 w-full rounded-lg ring-1 ring-neutral-300 bg-neutral-50 px-4 py-2 text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:ring-white/10 dark:bg-white/5 dark:text-white"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -35,7 +35,7 @@ export default function ContactPage() {
             <input
               id="email"
               type="email"
-              className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
+              className="mt-1 w-full rounded-lg ring-1 ring-neutral-300 bg-neutral-50 px-4 py-2 text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:ring-white/10 dark:bg-white/5 dark:text-white"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -46,7 +46,7 @@ export default function ContactPage() {
             <textarea
               id="message"
               rows={5}
-              className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2"
+              className="mt-1 w-full rounded-lg ring-1 ring-neutral-300 bg-neutral-50 px-4 py-2 text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:ring-white/10 dark:bg-white/5 dark:text-white"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required

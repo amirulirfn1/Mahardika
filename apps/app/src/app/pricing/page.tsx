@@ -13,14 +13,18 @@ export default function PricingPage() {
         <SectionHeading title="Pricing" subtitle="Start free, scale as you grow." />
         <div className="mb-6 flex items-center justify-center gap-3 text-sm">
           <button
-            className={`px-3 py-1 rounded-md ring-1 ring-white/10 ${!yearly ? "bg-white/10" : ""}`}
+            className={`px-3 py-1 rounded-md ring-1 text-neutral-900 ring-neutral-300 hover:bg-neutral-100 dark:text-white dark:ring-white/10 ${
+              !yearly ? "bg-neutral-100 dark:bg-white/10" : ""
+            }`}
             onClick={() => setYearly(false)}
             aria-pressed={!yearly}
           >
             Monthly
           </button>
           <button
-            className={`px-3 py-1 rounded-md ring-1 ring-white/10 ${yearly ? "bg-white/10" : ""}`}
+            className={`px-3 py-1 rounded-md ring-1 text-neutral-900 ring-neutral-300 hover:bg-neutral-100 dark:text-white dark:ring-white/10 ${
+              yearly ? "bg-neutral-100 dark:bg-white/10" : ""
+            }`}
             onClick={() => setYearly(true)}
             aria-pressed={yearly}
           >

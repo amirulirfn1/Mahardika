@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
+
+import { PricingCard } from "@/components/marketing/PricingCard";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { PricingCard } from "@/components/marketing/PricingCard";
 import { pricingTiers } from "@/lib/site";
 
 export default function PricingPage() {

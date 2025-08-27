@@ -1,7 +1,7 @@
 ﻿import { redirect } from "next/navigation";
 
-import { getServerClient } from "@/lib/supabase/server";
 import { PolicyForm } from "@/components/forms/PolicyForm";
+import { getServerClient } from "@/lib/supabase/server";
 
 import { createPolicyAction } from "../_actions";
 

@@ -1,12 +1,12 @@
 ﻿import Link from "next/link";
 
 import { Button } from "@/components/ui/Button";
-import { getServerClient } from "@/lib/supabase/server";
 import { listAuditForEntity } from "@/lib/audit";
 import { getCustomerBalance } from "@/lib/loyalty";
 import { listPaymentsByPolicy } from "@/lib/payments";
 import { softDeletePolicy, restorePolicy } from "@/lib/policies";
 import { getPolicyPdfUrl } from "@/lib/storage";
+import { getServerClient } from "@/lib/supabase/server";
 
 import { sendRenewalReminderAction } from "./_actions";
 

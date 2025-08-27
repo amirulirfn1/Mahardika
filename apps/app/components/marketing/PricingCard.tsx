@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, CardContent, CardHeader } from "../ui/Card";
+
 import { Button } from "../ui/Button";
+import { Card, CardContent, CardHeader } from "../ui/Card";
 
 export const PricingCard: React.FC<{
   name: string;
@@ -30,4 +31,3 @@ export const PricingCard: React.FC<{
     </Card>
   );
 };
-

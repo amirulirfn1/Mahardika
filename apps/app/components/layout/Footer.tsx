@@ -1,5 +1,6 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
+
 import { site } from "@/lib/site";
 
 export const Footer: React.FC = () => {
@@ -25,4 +26,3 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
-

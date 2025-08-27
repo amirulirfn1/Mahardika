@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
-import { Button } from "@/components/ui/Button";
-import { z } from "zod";
-import { Section } from "@/components/ui/Section";
 import Link from "next/link";
+import React from "react";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/Button";
+import { Section } from "@/components/ui/Section";
 
 const schema = z.object({
   email: z.string().email(),
@@ -42,7 +43,7 @@ export default function SignInPage() {
                 type="email"
                 name="email"
                 autoComplete="email"
-                className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+                className="mt-1 w-full rounded-lg ring-1 ring-neutral-300 bg-neutral-50 px-4 py-2 text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:ring-white/10 dark:bg-white/5 dark:text-white"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 aria-invalid={!!errors.email}
@@ -60,7 +61,7 @@ export default function SignInPage() {
                 type="password"
                 name="password"
                 autoComplete="current-password"
-                className="mt-1 w-full rounded-lg ring-1 ring-white/10 bg-white/5 px-4 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+                className="mt-1 w-full rounded-lg ring-1 ring-neutral-300 bg-neutral-50 px-4 py-2 text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:ring-white/10 dark:bg-white/5 dark:text-white"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 aria-invalid={!!errors.password}
@@ -81,6 +82,4 @@ export default function SignInPage() {
     </main>
   );
 }
-
-
 

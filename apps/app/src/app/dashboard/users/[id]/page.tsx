@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import { users } from "@/lib/mock";
+
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { Card, CardContent } from "@/components/ui/Card";
+import { users } from "@/lib/mock";
 
 export default function UserDetailPage({ params }: { params: { id: string } }) {
   const user = users.find((u) => u.id === params.id);

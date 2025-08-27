@@ -1,14 +1,16 @@
+import { Shield, CreditCard, Sparkles } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { Section } from "@/components/ui/Section";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+
+import { FAQ } from "@/components/marketing/FAQ";
 import { FeatureCard } from "@/components/marketing/FeatureCard";
 import { PricingCard } from "@/components/marketing/PricingCard";
-import { FAQ } from "@/components/marketing/FAQ";
-import { pricingTiers } from "@/lib/site";
-import { Card, CardContent } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
-import { Shield, CreditCard, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { pricingTiers } from "@/lib/site";
 
 export default function Home() {
   return (
@@ -48,7 +50,7 @@ export default function Home() {
                   name: "Acme Inc.", src: "/logos/acme.svg"
                 }, { name: "Globex", src: "/logos/globex.svg" }, { name: "Umbrella", src: "/logos/umbrella.svg" }, { name: "Initech", src: "/logos/initech.svg" }, { name: "Soylent", src: "/logos/soylent.svg" }].map((logo) => (
                   <span key={logo.name} className="px-2 py-1 rounded-md ring-1 ring-neutral-200 bg-white dark:ring-white/10 dark:bg-white/5">
-                    <img src={logo.src} alt={logo.name} width={96} height={28} loading="lazy" />
+                    <Image src={logo.src} alt={logo.name} width={96} height={28} loading="lazy" />
                   </span>
                 ))}
               </div>

@@ -1,7 +1,8 @@
+import { LayoutDashboard, Search, ListChecks, ShieldCheck, FileDown, Plug2 } from "lucide-react";
+
 import { FeatureCard } from "@/components/marketing/FeatureCard";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { LayoutDashboard, Search, ListChecks, ShieldCheck, FileDown, Plug2 } from "lucide-react";
 
 export default function FeaturesPage() {
   const items = [

@@ -1,7 +1,7 @@
 ﻿"use server";
 
-import { getServerClient } from "@/lib/supabase/server";
 import { logError } from "@/lib/log";
+import { getServerClient } from "@/lib/supabase/server";
 
 export async function setCustomerTierAction(customerId: string, tierId: string) {
   try {

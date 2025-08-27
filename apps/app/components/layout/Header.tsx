@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
+
 import { site } from "@/lib/site";
+
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "../ui/Button";
 
@@ -49,4 +51,3 @@ export const Header: React.FC = () => {
     </header>
   );
 };
-

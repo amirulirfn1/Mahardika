@@ -3,9 +3,9 @@
 import { z } from "zod";
 
 import { getProfile } from "@/lib/auth";
-import { getServerClient } from "@/lib/supabase/server";
 import { logError } from "@/lib/log";
 import { uploadPolicyPdf } from "@/lib/storage";
+import { getServerClient } from "@/lib/supabase/server";
 
 const BaseSchema = z.object({
   policy_no: z.string().min(1),

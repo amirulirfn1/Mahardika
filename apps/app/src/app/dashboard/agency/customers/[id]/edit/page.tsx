@@ -1,7 +1,7 @@
 ﻿import { redirect } from "next/navigation";
 
-import { getServerClient } from "@/lib/supabase/server";
 import { CustomerForm } from "@/components/forms/CustomerForm";
+import { getServerClient } from "@/lib/supabase/server";
 
 import { updateCustomer } from "../../_actions";
 

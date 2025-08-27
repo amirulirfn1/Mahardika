@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { StatCard } from "@/components/dashboard/StatCard";
-import { Card, CardContent } from "@/components/ui/Card";
 import { TableSimple } from "@/components/dashboard/TableSimple";
+import { Card, CardContent } from "@/components/ui/Card";
 import { activity, users } from "@/lib/mock";
 
 export default function DashboardOverviewPage() {

@@ -34,7 +34,7 @@ export default function SignUpPage() {
     setLoading(true);
     try {
       if (form.method === "email") {
-        const { error } = await supabase.auth.signUp({ email: form.email!, password: form.password, options: { emailRedirectTo: `${window.location.origin}/dashboard` } });
+        const { error } = await supabase.auth.signUp({ email: form.email!, password: form.password, options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard` } });
         if (error) throw error;
         setNotice("Check your email to confirm your account.");
       } else {
@@ -54,7 +54,7 @@ export default function SignUpPage() {
     setLoading(true);
     setNotice(null);
     try {
-      const redirectTo = `${window.location.origin}/dashboard`;
+      const redirectTo = `${window.location.origin}/auth/callback?next=/dashboard`;
       const { error, data } = await supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
       if (error) throw error;
       if (data?.url) window.location.assign(data.url);

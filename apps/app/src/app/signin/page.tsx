@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 import { z } from "zod";
@@ -17,10 +17,16 @@ const schema = z.object({
 
 export default function SignInPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [form, setForm] = React.useState<{ method: "email" | "phone"; email?: string; phone?: string; password: string }>({ method: "email", email: "", phone: "", password: "" });
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [loading, setLoading] = React.useState(false);
   const [notice, setNotice] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const err = searchParams.get("error");
+    if (err) setNotice(err);
+  }, [searchParams]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -55,7 +61,7 @@ export default function SignInPage() {
     setLoading(true);
     setNotice(null);
     try {
-      const redirectTo = `${window.location.origin}/dashboard`;
+      const redirectTo = `${window.location.origin}/auth/callback?next=/dashboard`;
       const { error, data } = await supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
       if (error) throw error;
       if (data?.url) window.location.assign(data.url);

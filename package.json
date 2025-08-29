@@ -26,8 +26,10 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.46.1",
+    "mcp-supabase": "^0.1.0",
     "ts-node": "^10.9.2",
-    "turbo": "^2.2.3"
+    "turbo": "^2.2.3",
+    "vercel-mcp": "^0.0.7"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.5.0"

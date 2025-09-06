@@ -3,18 +3,33 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import React from "react";
 
+// Avoid hydration mismatch by rendering the icon only after mount.
+// next-themes sets theme on the client; during SSR it's undefined.
 export const ThemeToggle: React.FC = () => {
-  const { theme, setTheme } = useTheme();
-  const isDark = theme === "dark";
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+
+  const isDark = mounted && resolvedTheme === "dark";
   return (
     <button
       id="theme-toggle"
       aria-label="Toggle theme"
       className="inline-flex h-9 w-9 items-center justify-center rounded-md ring-1 ring-neutral-300 hover:bg-neutral-100 dark:ring-white/10 dark:hover:bg-white/10"
       onClick={() => setTheme(isDark ? "light" : "dark")}
+      disabled={!mounted}
     >
       <span aria-hidden>
-        {isDark ? <Moon size={18} className="text-white/80" /> : <Sun size={18} className="text-neutral-700" />}
+        {mounted ? (
+          isDark ? (
+            <Moon size={18} className="text-white/80" />
+          ) : (
+            <Sun size={18} className="text-neutral-700" />
+          )
+        ) : (
+          // placeholder to preserve layout without causing hydration diff
+          <span className="block h-[18px] w-[18px]" />
+        )}
       </span>
     </button>
   );

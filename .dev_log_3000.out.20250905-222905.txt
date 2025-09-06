@@ -1,0 +1,70 @@
+ WARN  Unsupported engine: wanted: {"node":">=20 <21"} (current: {"node":"v22.14.0","pnpm":"9.0.0"})
+
+> mahardika@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika
+> turbo run dev --parallel
+
+• Packages in scope: @mahardika/config, @mahardika/ui, app
+• Running dev in 3 packages
+• Remote caching disabled
+app:dev: cache bypass, force executing 29934617c12ba87a
+@mahardika/ui:dev: cache bypass, force executing a748895aedc935e3
+@mahardika/config:dev: cache bypass, force executing ca5733acce3ebe6b
+app:dev: 
+app:dev: > app@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
+app:dev: > next dev
+app:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: > @mahardika/ui@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\packages\ui
+@mahardika/ui:dev: > tsc -w -p tsconfig.json
+@mahardika/ui:dev: 
+@mahardika/config:dev: 
+@mahardika/config:dev: > @mahardika/config@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\packages\config
+@mahardika/config:dev: > echo 'config: dev'
+@mahardika/config:dev: 
+@mahardika/config:dev: 'config: dev'
+@mahardika/ui:dev: [2J[3J[H10:29:08 pm - Starting compilation in watch mode...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 10:29:09 pm - Found 0 errors. Watching for file changes.
+app:dev:   ▲ Next.js 14.2.5
+app:dev:   - Local:        http://localhost:3000
+app:dev:   - Environments: .env.local
+app:dev: 
+app:dev:  ✓ Starting...
+app:dev: Error: EINVAL: invalid argument, readlink 'C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app\.next\types\package.json'
+app:dev:     at async Object.readlink (node:internal/fs/promises:972:10)
+app:dev:     at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:58:30
+app:dev:     at async Promise.all (index 0)
+app:dev:     at async recursiveDelete (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:51:5)
+app:dev:     at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:68:17
+app:dev:     at async Promise.all (index 8)
+app:dev:     at async recursiveDelete (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\lib\recursive-delete.js:51:5)
+app:dev:     at async Span.traceAsyncFn (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\trace\trace.js:154:20)
+app:dev:     at async HotReloaderWebpack.start (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\dev\hot-reloader-webpack.js:612:9)
+app:dev:     at async startWatcher (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js:156:5) {
+app:dev:   errno: -4071,
+app:dev:   code: 'EINVAL',
+app:dev:   syscall: 'readlink',
+app:dev:   path: 'C:\\Users\\amiru\\OneDrive\\Documents\\GitHub\\Mahardika\\apps\\app\\.next\\types\\package.json'
+app:dev: }
+app:dev: [?25h
+@mahardika/ui:dev: [2J[3J[H6:56:13 am - File change detected. Starting incremental compilation...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 6:56:13 am - Found 0 errors. Watching for file changes.
+@mahardika/ui:dev: [2J[3J[H6:56:13 am - File change detected. Starting incremental compilation...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 6:56:13 am - Found 0 errors. Watching for file changes.
+@mahardika/ui:dev: [2J[3J[H7:05:06 am - File change detected. Starting incremental compilation...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 7:05:07 am - Found 0 errors. Watching for file changes.
+@mahardika/ui:dev: [2J[3J[H8:04:15 am - File change detected. Starting incremental compilation...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 8:04:15 am - Found 0 errors. Watching for file changes.
+@mahardika/ui:dev: [2J[3J[H8:04:16 am - File change detected. Starting incremental compilation...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 8:04:16 am - Found 0 errors. Watching for file changes.

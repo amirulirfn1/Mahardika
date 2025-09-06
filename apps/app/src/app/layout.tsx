@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={`${manrope.variable} ${inter.variable} antialiased`}>
       <body
-        className="bg-grain"
+        className="bg-grain vignette"
         style={{
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error inline style custom property

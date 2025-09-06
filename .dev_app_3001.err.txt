@@ -1,1 +1,1 @@
-^C
+ ⨯ Invalid project directory provided, no such directory: C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app\-p

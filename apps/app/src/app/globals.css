@@ -123,3 +123,21 @@ a {
   opacity: 1;
   animation: btn-sheen-move 0.9s ease forwards;
 }
+
+/* Page depth and glow utilities */
+.vignette:after {
+  content: "";
+  position: fixed;
+  inset: -40px;
+  pointer-events: none;
+  background: radial-gradient(1000px 400px at 50% 110%, rgba(0,0,0,0.45), transparent 60%);
+}
+
+.orb {
+  position: absolute;
+  filter: blur(40px);
+  opacity: 0.55;
+  border-radius: 9999px;
+}
+.orb--violet { background: radial-gradient(closest-side, rgba(124,58,237,0.35), transparent 70%); }
+.orb--fuchsia { background: radial-gradient(closest-side, rgba(217,70,239,0.28), transparent 70%); }

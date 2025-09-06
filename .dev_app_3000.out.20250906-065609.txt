@@ -1,0 +1,58 @@
+
+> app@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
+> next dev
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 3.5s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.2s (703 modules)
+ ✓ Compiled in 517ms (297 modules)
+   Reload env: .env.local
+ ✓ Compiled in 164ms (283 modules)
+ ✓ Compiled / in 173ms (388 modules)
+ GET / 200 in 471ms
+ ✓ Compiled /_not-found in 294ms (672 modules)
+ GET / 404 in 382ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1708ms (895 modules)
+ GET / 404 in 1877ms
+ GET / 200 in 154ms
+ GET / 200 in 113ms
+ GET /_next/static/css/app/layout.css?v=1757114773446 404 in 95ms
+ GET /_next/static/chunks/main-app.js?v=1757114773446 404 in 171ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 165ms
+ GET /_next/static/chunks/app/page.js 404 in 162ms
+ GET /_next/static/chunks/app/not-found.js 404 in 159ms
+ GET /_next/static/chunks/app/layout.js 404 in 158ms
+ GET /_next/static/chunks/app/error.js 404 in 154ms
+ ✓ Compiled /favicon.ico in 457ms (458 modules)
+ GET /favicon.ico 200 in 584ms
+ GET / 200 in 177ms
+ ✓ Compiled /_error in 521ms (895 modules)
+ GET / 404 in 596ms
+ ✓ Compiled /favicon.ico in 197ms (459 modules)
+ GET /favicon.ico 200 in 265ms
+ GET / 200 in 181ms
+ GET /_next/static/css/app/layout.css?v=1757115222691 404 in 53ms
+ GET /_next/static/chunks/main-app.js?v=1757115222691 404 in 135ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 130ms
+ GET /_next/static/chunks/app/not-found.js 404 in 129ms
+ GET /_next/static/chunks/app/layout.js 404 in 126ms
+ GET /_next/static/chunks/app/page.js 404 in 127ms
+ GET /_next/static/chunks/app/error.js 404 in 116ms
+ GET / 200 in 39ms
+ GET / 200 in 80ms
+ GET /favicon.ico 404 in 27ms
+ GET /favicon.ico 404 in 108ms
+ GET /favicon.ico 404 in 22ms
+ ✓ Compiled in 1090ms (908 modules)
+ ✓ Compiled in 3.2s (908 modules)
+ ✓ Compiled in 447ms (908 modules)
+ ✓ Compiled in 521ms (480 modules)
+ ✓ Compiled in 961ms (908 modules)
+ ✓ Compiled in 2.4s (908 modules)
+ ✓ Compiled in 640ms (908 modules)

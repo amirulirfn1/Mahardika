@@ -58,16 +58,19 @@ export default function Home() {
             </div>
           </div>
           <div className="relative">
-            <div className="absolute -inset-x-6 -top-6 bottom-6 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/10 blur-2xl" aria-hidden />
+            {/* Ambient glows */}
+            <div className="orb orb--violet" style={{ width: 420, height: 420, top: -24, right: -40 }} aria-hidden />
+            <div className="orb orb--fuchsia" style={{ width: 320, height: 320, bottom: 40, right: 24 }} aria-hidden />
+            {/* Glass placeholders to suggest UI */}
             <div className="relative grid gap-4">
               <Card className="max-w-md">
                 <CardContent>
-                  <div className="h-24 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
+                  <div className="h-28 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
                 </CardContent>
               </Card>
               <Card className="max-w-sm ml-auto">
                 <CardContent>
-                  <div className="h-24 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
+                  <div className="h-28 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
                 </CardContent>
               </Card>
               <Card className="max-w-xs">

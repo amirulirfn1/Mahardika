@@ -1,7 +1,5 @@
-  ▲ Next.js 14.2.5
-  - Local:        http://localhost:3001
-  - Environments: .env.local
 
- ✓ Starting...
- ✓ Ready in 4.3s
-   Reload env: .env.local
+> app@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
+> next dev "--" "-p" "3001"
+
+ ELIFECYCLE  Command failed with exit code 1.

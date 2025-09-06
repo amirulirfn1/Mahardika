@@ -1,0 +1,44 @@
+ WARN  Unsupported engine: wanted: {"node":">=20 <21"} (current: {"node":"v22.14.0","pnpm":"9.0.0"})
+
+> mahardika@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika
+> turbo run dev --parallel
+
+• Packages in scope: @mahardika/config, @mahardika/ui, app
+• Running dev in 3 packages
+• Remote caching disabled
+app:dev: cache bypass, force executing 29934617c12ba87a
+@mahardika/config:dev: cache bypass, force executing ca5733acce3ebe6b
+@mahardika/ui:dev: cache bypass, force executing a748895aedc935e3
+app:dev: 
+app:dev: > app@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
+app:dev: > next dev
+app:dev: 
+@mahardika/config:dev: 
+@mahardika/config:dev: > @mahardika/config@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\packages\config
+@mahardika/config:dev: > echo 'config: dev'
+@mahardika/config:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: > @mahardika/ui@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\packages\ui
+@mahardika/ui:dev: > tsc -w -p tsconfig.json
+@mahardika/ui:dev: 
+@mahardika/config:dev: 'config: dev'
+@mahardika/ui:dev: [2J[3J[H7:23:13 am - Starting compilation in watch mode...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 7:23:14 am - Found 0 errors. Watching for file changes.
+app:dev:  ⚠ Port 3000 is in use, trying 3001 instead.
+app:dev:  ⚠ Port 3001 is in use, trying 3002 instead.
+app:dev:   ▲ Next.js 14.2.5
+app:dev:   - Local:        http://localhost:3002
+app:dev:   - Environments: .env.local
+app:dev: 
+app:dev:  ✓ Starting...
+app:dev:  ✓ Ready in 3.7s
+@mahardika/ui:dev: [2J[3J[H8:04:15 am - File change detected. Starting incremental compilation...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 8:04:15 am - Found 0 errors. Watching for file changes.
+@mahardika/ui:dev: [2J[3J[H8:04:16 am - File change detected. Starting incremental compilation...
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 
+@mahardika/ui:dev: 8:04:16 am - Found 0 errors. Watching for file changes.

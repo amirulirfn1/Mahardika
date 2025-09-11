@@ -12,8 +12,17 @@ import { supabase } from "@/lib/supabase/client";
 export function AuthHashHandler() {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const { location, history } = window;
-    const hash = location.hash || "";
+    const { location, history, localStorage } = window as Window & { localStorage: Storage };
+    // Prefer location.hash; fall back to stashed value written by the pre-hydration script
+    let hash = location.hash || "";
+    if (!hash || !hash.includes("access_token")) {
+      try {
+        const stashed = localStorage.getItem("sb-hash") || "";
+        if (stashed.includes("access_token")) hash = stashed;
+      } catch (_) {
+        /* ignore */
+      }
+    }
     if (!hash || !hash.includes("access_token")) return;
 
     // Persist session from URL and redirect
@@ -41,11 +50,12 @@ export function AuthHashHandler() {
         // eslint-disable-next-line no-console
         console.warn("AuthHashHandler: could not persist session from URL", e);
       } finally {
-        // Clean up the hash to avoid exposing tokens in the address bar
+        // Clean up any residue and clear stashed value
         const url = new URL(location.href);
-        const next = url.searchParams.get("next") || "/dashboard";
         history.replaceState(null, "", url.origin + url.pathname + (url.search || ""));
-        location.replace(next);
+        try { localStorage.removeItem("sb-hash"); } catch (_) {
+          /* ignore */
+        }
       }
     })();
   }, []);

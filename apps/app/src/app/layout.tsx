@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Sora } from "next/font/google";
 
 import "./globals.css";
+import Script from "next/script";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { toHslChannels } from "@/lib/color";
@@ -53,6 +54,25 @@ export default function RootLayout({
           "--accent": toHslChannels(process.env.NEXT_PUBLIC_ACCENT),
         }}
       >
+        {/* Early hash cleanup + stash for auth */}
+        <Script id="sb-hash-pre" strategy="beforeInteractive">
+          {`
+          (function(){
+            try{
+              var h = window.location.hash || '';
+              if (h && h.indexOf('access_token=') !== -1) {
+                // keep for later setSession after redirect
+                try { localStorage.setItem('sb-hash', h); } catch(e){}
+                var url = new URL(window.location.href);
+                var next = url.searchParams.get('next') || '/dashboard';
+                // remove hash from address bar immediately
+                history.replaceState(null, '', url.origin + url.pathname + (url.search || ''));
+                window.location.replace(next);
+              }
+            } catch(_){}
+          })();
+          `}
+        </Script>
         <Providers>
           <Header />
           <main>{children}</main>

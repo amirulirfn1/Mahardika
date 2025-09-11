@@ -55,7 +55,11 @@ export default function SignUpPage() {
     setNotice(null);
     try {
       const redirectTo = `${window.location.origin}/auth/callback?next=/dashboard`;
-      const { error, data } = await supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
+      const options: { redirectTo?: string; flowType?: "pkce" | "implicit" } = {
+        redirectTo,
+        flowType: "pkce",
+      };
+      const { error, data } = await supabase.auth.signInWithOAuth({ provider, options });
       if (error) throw error;
       if (data?.url) window.location.assign(data.url);
     } catch (err: unknown) {

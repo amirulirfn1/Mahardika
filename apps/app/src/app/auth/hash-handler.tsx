@@ -20,9 +20,11 @@ export function AuthHashHandler() {
     void (async () => {
       try {
         // Prefer official helper if present (bypass types with any)
-        const anyAuth: any = supabase.auth as any;
-        if (typeof anyAuth.getSessionFromUrl === "function") {
-          const { error } = await anyAuth.getSessionFromUrl({ storeSession: true });
+        const authMaybe = supabase.auth as unknown as {
+          getSessionFromUrl?: (opts: { storeSession: boolean }) => Promise<{ error?: unknown }>;
+        };
+        if (typeof authMaybe.getSessionFromUrl === "function") {
+          const { error } = await authMaybe.getSessionFromUrl({ storeSession: true });
           if (error) throw error;
         } else {
           // Fallback: parse tokens from hash and set session manually

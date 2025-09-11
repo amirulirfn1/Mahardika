@@ -17,8 +17,8 @@ export default function Home() {
     <main>
       {/* Hero */}
       <Section className="pt-28 md:pt-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="motion-reduce:animate-none">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+          <div className="motion-reduce:animate-none md:col-span-7 lg:col-span-7">
             <Badge className="animate-fade-up" style={{ animationDelay: "100ms" }} variant="accent">New: Modern insurance dashboard</Badge>
             <div className="hero-shine inline-block animate-fade-up" style={{ animationDelay: "150ms" }}>
               <h1
@@ -57,7 +57,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative md:col-span-5 lg:col-span-5">
             {/* Ambient glows */}
             <div className="orb orb--violet" style={{ width: 420, height: 420, top: -24, right: -40 }} aria-hidden />
             <div className="orb orb--fuchsia" style={{ width: 320, height: 320, bottom: 40, right: 24 }} aria-hidden />

@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
       <div className="container-default">
         <div className="mt-3 mb-3 flex h-14 items-center justify-between rounded-xl glass">
           <div className="flex items-center gap-6 pl-4">
-            <Link href="/" className="font-semibold tracking-tight" aria-label={site.name}>
+            <Link href="/" className="font-heading font-semibold tracking-tight" aria-label={site.name}>
               {site.name}
             </Link>
             <nav aria-label="Primary" className="hidden md:flex items-center gap-2 text-sm">
@@ -44,8 +44,8 @@ export const Header: React.FC = () => {
                     href={n.href}
                     className={`px-3 py-1.5 rounded-md transition ${
                       active
-                        ? "text-neutral-900 bg-neutral-100 dark:text-white dark:bg-white/10"
-                        : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 dark:text-white/70 dark:hover:text-white dark:hover:bg-white/5"
+                        ? "text-neutral-900 bg-[hsl(var(--accent))]/10 dark:text-white dark:bg-[hsl(var(--accent))]/20"
+                        : "text-neutral-600 hover:text-neutral-900 hover:bg-[hsl(var(--accent))]/10 dark:text-white/70 dark:hover:text-white dark:hover:bg-[hsl(var(--accent))]/20"
                     }`}
                     aria-current={active ? "page" : undefined}
                   >

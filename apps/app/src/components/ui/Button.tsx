@@ -12,8 +12,8 @@ export function Button({ className = "", variant = "default", size = "md", ...pr
     default:
       "bg-[hsl(var(--accent))] text-white hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed",
     outline:
-      "border border-neutral-300 bg-white text-neutral-900 hover:bg-neutral-50 dark:border-white/10 dark:bg-transparent dark:text-white",
-    ghost: "bg-transparent text-neutral-900 hover:bg-neutral-100 dark:text-white dark:hover:bg-white/10",
+      "border border-neutral-300 bg-white text-neutral-900 hover:bg-[hsl(var(--accent))]/10 dark:border-white/10 dark:bg-transparent dark:text-white dark:hover:bg-[hsl(var(--accent))]/20",
+    ghost: "bg-transparent text-neutral-900 hover:bg-[hsl(var(--accent))]/10 dark:text-white dark:hover:bg-[hsl(var(--accent))]/20",
   };
   const sizes: Record<NonNullable<ButtonProps["size"]>, string> = {
     sm: "px-3 py-1.5 text-xs",

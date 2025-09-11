@@ -19,7 +19,7 @@ export function PricingToggle({ tiers }: { tiers: PricingTier[] }) {
           className={`flex-1 px-3 py-1.5 text-sm rounded-md m-1 transition ${
             billing === "monthly"
               ? "bg-[hsl(var(--accent))] text-white"
-              : "text-neutral-700 hover:bg-neutral-100 dark:text-white/80 dark:hover:bg-white/10"
+              : "text-neutral-700 hover:bg-[hsl(var(--accent))]/10 dark:text-white/80 dark:hover:bg-[hsl(var(--accent))]/20"
           }`}
           aria-pressed={billing === "monthly"}
         >
@@ -31,7 +31,7 @@ export function PricingToggle({ tiers }: { tiers: PricingTier[] }) {
           className={`flex-1 px-3 py-1.5 text-sm rounded-md m-1 transition ${
             billing === "yearly"
               ? "bg-[hsl(var(--accent))] text-white"
-              : "text-neutral-700 hover:bg-neutral-100 dark:text-white/80 dark:hover:bg-white/10"
+              : "text-neutral-700 hover:bg-[hsl(var(--accent))]/10 dark:text-white/80 dark:hover:bg-[hsl(var(--accent))]/20"
           }`}
           aria-pressed={billing === "yearly"}
         >

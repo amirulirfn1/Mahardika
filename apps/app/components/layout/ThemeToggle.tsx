@@ -15,7 +15,7 @@ export const ThemeToggle: React.FC = () => {
     <button
       id="theme-toggle"
       aria-label="Toggle theme"
-      className="inline-flex h-9 w-9 items-center justify-center rounded-md ring-1 ring-neutral-300 hover:bg-neutral-100 dark:ring-white/10 dark:hover:bg-white/10"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-md ring-1 ring-neutral-300 hover:bg-[hsl(var(--accent))]/10 dark:ring-white/10 dark:hover:bg-[hsl(var(--accent))]/20"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       disabled={!mounted}
     >

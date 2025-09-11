@@ -16,14 +16,14 @@ export default function Home() {
   return (
     <main>
       {/* Hero */}
-      <Section className="pt-20">
+      <Section className="pt-28 md:pt-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="motion-reduce:animate-none">
             <Badge className="animate-fade-up" style={{ animationDelay: "100ms" }} variant="accent">New: Modern insurance dashboard</Badge>
             <div className="hero-shine inline-block animate-fade-up" style={{ animationDelay: "150ms" }}>
               <h1
                 id="home-hero"
-                className="font-heading text-5xl md:text-6xl font-semibold tracking-tight bg-gradient-to-br from-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-fuchsia-400"
+                className="font-heading text-6xl md:text-7xl font-semibold tracking-tight leading-[0.9] text-balance bg-gradient-to-br from-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-fuchsia-400"
               >
                 Mahardika
               </h1>

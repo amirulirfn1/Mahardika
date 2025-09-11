@@ -11,7 +11,7 @@
     @apply antialiased;
   }
   body {
-    @apply bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100;
+    @apply font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100;
     line-height: 1.6;
     background-image: radial-gradient(1200px 600px at 50% -10%, rgba(124, 58, 237, 0.15), transparent),
       radial-gradient(800px 400px at 80% 10%, rgba(217, 70, 239, 0.12), transparent);

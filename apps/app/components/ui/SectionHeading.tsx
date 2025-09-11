@@ -12,7 +12,7 @@ export const SectionHeading: React.FC<
       {overline ? (
         <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-500">{overline}</div>
       ) : null}
-      <h2 className="text-3xl md:text-4xl font-semibold tracking-tight bg-gradient-to-br from-[hsl(var(--accent))] to-fuchsia-400 bg-clip-text text-transparent dark:from-[hsl(var(--accent))] dark:to-fuchsia-400">
+      <h2 className="font-heading text-3xl md:text-4xl font-semibold tracking-tight bg-gradient-to-br from-[hsl(var(--accent))] to-fuchsia-400 bg-clip-text text-transparent dark:from-[hsl(var(--accent))] dark:to-fuchsia-400">
         {title}
       </h2>
       {subtitle ? (

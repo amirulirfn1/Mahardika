@@ -23,9 +23,9 @@ export const Button: React.FC<ButtonProps> = ({
     variant === "primary"
       ? "bg-[hsl(var(--accent))] text-white hover:opacity-90"
       : variant === "outline"
-      ? "ring-1 ring-neutral-300 text-neutral-900 hover:bg-neutral-100 dark:ring-white/10 dark:text-white dark:hover:bg-white/10"
+      ? "ring-1 ring-neutral-300 text-neutral-900 hover:bg-[hsl(var(--accent))]/10 dark:ring-white/10 dark:text-white dark:hover:bg-[hsl(var(--accent))]/20"
       : variant === "link"
       ? "bg-transparent underline underline-offset-4 text-[hsl(var(--accent))] hover:opacity-90 dark:text-white"
-      : "bg-transparent text-neutral-900 hover:bg-neutral-100 dark:text-white dark:hover:bg-white/10";
+      : "bg-transparent text-neutral-900 hover:bg-[hsl(var(--accent))]/10 dark:text-white dark:hover:bg-[hsl(var(--accent))]/20";
   return <button className={`${base} ${sizes} ${styles} ${className}`} {...props} />;
 };

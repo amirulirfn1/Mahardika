@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Inter } from "next/font/google";
+import { Space_Grotesk, Sora } from "next/font/google";
 
 import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
@@ -9,8 +9,14 @@ import { site } from "@/lib/site";
 
 import { Providers } from "./providers";
 
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+// Use a distinctive, modern type pairing: Space Grotesk (display) + Sora (sans)
+// Keep existing CSS variable names to avoid sweeping changes in Tailwind config
+const manrope = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+});
+const inter = Sora({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
   title: {

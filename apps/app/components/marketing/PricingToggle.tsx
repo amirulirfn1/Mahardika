@@ -1,12 +1,14 @@
 "use client";
-import React from "react";
+import { useState } from "react";
+
 import type { PricingTier } from "@/lib/site";
+
 import { PricingCard } from "./PricingCard";
 
 type Billing = "monthly" | "yearly";
 
 export function PricingToggle({ tiers }: { tiers: PricingTier[] }) {
-  const [billing, setBilling] = React.useState<Billing>("monthly");
+  const [billing, setBilling] = useState<Billing>("monthly");
   const priceFor = (t: PricingTier) =>
     billing === "monthly" ? t.priceMonthly : t.priceYearly;
 

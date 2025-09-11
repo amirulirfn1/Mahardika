@@ -1,16 +1,16 @@
 "use client";
-import React from "react";
+import { type FC, useEffect, useRef, useState } from "react";
 
-export const AnimatedPrice: React.FC<{
+export const AnimatedPrice: FC<{
   value: number;
   prefix?: string;
   suffix?: string;
   durationMs?: number;
 }> = ({ value, prefix = "$", suffix = "/mo", durationMs = 500 }) => {
-  const [display, setDisplay] = React.useState<number>(value);
-  const prevRef = React.useRef<number>(value);
+  const [display, setDisplay] = useState<number>(value);
+  const prevRef = useRef<number>(value);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const start = prevRef.current;
     const end = value;
     if (start === end) return;
@@ -38,4 +38,3 @@ export const AnimatedPrice: React.FC<{
     </span>
   );
 };
-

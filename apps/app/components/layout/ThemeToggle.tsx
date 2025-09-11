@@ -1,14 +1,14 @@
 "use client";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import React from "react";
+import { type FC, useEffect, useState } from "react";
 
 // Avoid hydration mismatch by rendering the icon only after mount.
 // next-themes sets theme on the client; during SSR it's undefined.
-export const ThemeToggle: React.FC = () => {
+export const ThemeToggle: FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => setMounted(true), []);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const isDark = mounted && resolvedTheme === "dark";
   return (

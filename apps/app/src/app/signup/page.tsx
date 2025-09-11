@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import { useState } from "react";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/Button";
@@ -15,10 +15,10 @@ const schema = z.object({
 });
 
 export default function SignUpPage() {
-  const [form, setForm] = React.useState<{ method: "email" | "phone"; email?: string; phone?: string; password: string }>({ method: "email", email: "", phone: "", password: "" });
-  const [errors, setErrors] = React.useState<Record<string, string>>({});
-  const [loading, setLoading] = React.useState(false);
-  const [notice, setNotice] = React.useState<string | null>(null);
+  const [form, setForm] = useState<{ method: "email" | "phone"; email?: string; phone?: string; password: string }>({ method: "email", email: "", phone: "", password: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();

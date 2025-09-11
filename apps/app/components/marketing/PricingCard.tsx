@@ -1,10 +1,10 @@
-import React from "react";
+import { type FC } from "react";
 
+import { AnimatedPrice } from "./AnimatedPrice";
 import { Button } from "../ui/Button";
 import { Card, CardContent, CardHeader } from "../ui/Card";
-import { AnimatedPrice } from "./AnimatedPrice";
 
-export const PricingCard: React.FC<{
+export const PricingCard: FC<{
   name: string;
   price?: string;
   animatedPrice?: number;

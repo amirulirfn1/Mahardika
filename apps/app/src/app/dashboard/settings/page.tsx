@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
+import { useState } from "react";
 
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { Card, CardContent } from "@/components/ui/Card";
 
 export default function SettingsPage() {
-  const [tab, setTab] = React.useState<"profile" | "application">("profile");
+  const [tab, setTab] = useState<"profile" | "application">("profile");
   return (
     <div className="container-default py-8">
       <PageHeader title="Settings" />

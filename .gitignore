@@ -13,6 +13,17 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Turbo cache
+.turbo
+apps/app/.turbo
+
+# Playwright reports
+apps/app/playwright-report
+
+# Local dev artifacts
+.dev_*
+test-results/
+
 # Env
 .env*
 !.env.example

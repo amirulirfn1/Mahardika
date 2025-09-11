@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import { type FC, useEffect, useState } from "react";
 
 import { site } from "@/lib/site";
 import { supabase } from "@/lib/supabase/client";
@@ -9,11 +9,11 @@ import { supabase } from "@/lib/supabase/client";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "../ui/Button";
 
-export const Header: React.FC = () => {
+export const Header: FC = () => {
   const pathname = usePathname();
-  const [email, setEmail] = React.useState<string | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     let mounted = true;
     supabase.auth.getUser().then(({ data }) => {
       if (!mounted) return;

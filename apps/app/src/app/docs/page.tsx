@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
+import { useState } from "react";
 
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export default function DocsIndexPage() {
-  const [q, setQ] = React.useState("");
+  const [q, setQ] = useState("");
   return (
     <main>
       <Section className="pt-10">

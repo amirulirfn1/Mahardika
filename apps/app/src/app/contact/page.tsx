@@ -1,13 +1,13 @@
 "use client";
-import React from "react";
+import { useState } from "react";
 
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export default function ContactPage() {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [message, setMessage] = React.useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();

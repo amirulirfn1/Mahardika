@@ -1,10 +1,13 @@
 "use client";
 import { ThemeProvider } from "next-themes";
-import React, { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 
-export const Providers: React.FC<PropsWithChildren> = ({ children }) => {
+import { AuthHashHandler } from "./auth/hash-handler";
+
+export const Providers = ({ children }: PropsWithChildren) => {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <AuthHashHandler />
       {children}
     </ThemeProvider>
   );

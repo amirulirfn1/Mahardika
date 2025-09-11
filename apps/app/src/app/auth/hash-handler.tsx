@@ -19,9 +19,21 @@ export function AuthHashHandler() {
     // Persist session from URL and redirect
     void (async () => {
       try {
-        // @ts-expect-error available in supabase-js v2
-        const { error } = await supabase.auth.getSessionFromUrl({ storeSession: true });
-        if (error) throw error;
+        // Prefer official helper if present (bypass types with any)
+        const anyAuth: any = supabase.auth as any;
+        if (typeof anyAuth.getSessionFromUrl === "function") {
+          const { error } = await anyAuth.getSessionFromUrl({ storeSession: true });
+          if (error) throw error;
+        } else {
+          // Fallback: parse tokens from hash and set session manually
+          const params = new URLSearchParams(hash.slice(1));
+          const access_token = params.get("access_token");
+          const refresh_token = params.get("refresh_token");
+          if (access_token && refresh_token) {
+            const { error } = await supabase.auth.setSession({ access_token, refresh_token });
+            if (error) throw error;
+          }
+        }
       } catch (e) {
         // best-effort: if this fails, we still cleanup the hash
         // eslint-disable-next-line no-console

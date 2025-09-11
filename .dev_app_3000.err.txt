@@ -1,1 +1,325 @@
- ⨯ Invalid project directory provided, no such directory: C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app\-p
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createServerClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createServerClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createServerClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá Fast Refresh had to perform a full reload when (app-pages-browser)/../../node_modules/.pnpm/next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734/node_modules/next/dist/build/webpack/loaders/next-flight-client-entry-loader.js?modules=%7B%22request%22%3A%22C%3A%5C%5CUsers%5C%5Camiru%5C%5COneDrive%5C%5CDocuments%5C%5CGitHub%5C%5CMahardika%5C%5Capps%5C%5Capp%5C%5Csrc%5C%5Capp%5C%5Csignup%5C%5Cpage.tsx%22%2C%22ids%22%3A%5B%5D%7D&server=false! changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ Γ¿» Error: The default export is not a React Component in page: "/signup"
+    at async Promise.all (index 0)
+    at async Promise.all (index 0)
+digest: "682967344"
+ Γ¿» Error: The default export is not a React Component in page: "/signup"
+    at async Promise.all (index 0)
+    at async Promise.all (index 0)
+digest: "682967344"
+ Γ¿» Error: The default export is not a React Component in page: "/signup"
+    at rU (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:9573)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:10360
+    at async Promise.all (index 0)
+    at async rU (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:10036)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:10360
+    at async Promise.all (index 0)
+    at async rU (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:10036)
+    at async rW (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:12534)
+    at async r0 (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:16238)
+    at async doRender (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1507:28)
+    at async DevServer.renderPageComponent (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1931:24)
+    at async DevServer.renderToResponseImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1969:32)
+    at async DevServer.pipeImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:816:17)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\router-server.js:174:21)
+    at async handleRequest (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\router-server.js:353:24)
+    at async requestHandlerImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\router-server.js:377:13)
+    at async Server.requestListener (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  page: '/signup'
+}
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createServerClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createServerClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá Fast Refresh had to perform a full reload when (app-pages-browser)/../../node_modules/.pnpm/next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734/node_modules/next/dist/build/webpack/loaders/next-flight-client-entry-loader.js?modules=%7B%22request%22%3A%22C%3A%5C%5CUsers%5C%5Camiru%5C%5COneDrive%5C%5CDocuments%5C%5CGitHub%5C%5CMahardika%5C%5Capps%5C%5Capp%5C%5Csrc%5C%5Capp%5C%5Csignup%5C%5Cpage.tsx%22%2C%22ids%22%3A%5B%5D%7D&server=false! changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ Γ¿» Error: The default export is not a React Component in page: "/signup"
+    at async Promise.all (index 0)
+    at async Promise.all (index 0)
+digest: "1770506550"
+ Γ¿» Error: The default export is not a React Component in page: "/signup"
+    at async Promise.all (index 0)
+    at async Promise.all (index 0)
+digest: "1770506550"
+ Γ¿» Error: The default export is not a React Component in page: "/signup"
+    at rU (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:9573)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:10360
+    at async Promise.all (index 0)
+    at async rU (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:10036)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:10360
+    at async Promise.all (index 0)
+    at async rU (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:10036)
+    at async rW (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:12534)
+    at async r0 (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:16238)
+    at async doRender (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1507:28)
+    at async DevServer.renderPageComponent (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1931:24)
+    at async DevServer.renderToResponseImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:1969:32)
+    at async DevServer.pipeImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\base-server.js:816:17)
+    at async C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\router-server.js:174:21)
+    at async handleRequest (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\router-server.js:353:24)
+    at async requestHandlerImpl (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\router-server.js:377:13)
+    at async Server.requestListener (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\node_modules\.pnpm\next@14.2.5_@babel+core@7.28.0_@opentelemetry+api@1.9.0_@playwright+test@1.54.2_react-dom@18._k3uzuz6vxxeklese7nyt4tu734\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  page: '/signup'
+}
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createServerClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createServerClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx
+ ΓÜá ../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+Critical dependency: the request of a dependency is an expression
+
+Import trace for requested module:
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/lib/websocket-factory.js
+../../node_modules/.pnpm/@supabase+realtime-js@2.15.0/node_modules/@supabase/realtime-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+supabase-js@2.54.0/node_modules/@supabase/supabase-js/dist/module/index.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/createBrowserClient.js
+../../node_modules/.pnpm/@supabase+ssr@0.5.2_@supabase+supabase-js@2.54.0/node_modules/@supabase/ssr/dist/module/index.js
+./lib/supabase/server.ts
+./src/app/notes/page.tsx

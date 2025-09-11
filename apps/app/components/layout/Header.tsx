@@ -4,12 +4,29 @@ import { usePathname } from "next/navigation";
 import React from "react";
 
 import { site } from "@/lib/site";
+import { supabase } from "@/lib/supabase/client";
 
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "../ui/Button";
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
+  const [email, setEmail] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    let mounted = true;
+    supabase.auth.getUser().then(({ data }) => {
+      if (!mounted) return;
+      setEmail(data.user?.email ?? null);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setEmail(session?.user?.email ?? null);
+    });
+    return () => {
+      mounted = false;
+      sub.subscription?.unsubscribe();
+    };
+  }, []);
   return (
     <header id="site-header" className="sticky top-0 z-40 w-full">
       <div className="container-default">
@@ -40,11 +57,29 @@ export const Header: React.FC = () => {
           </div>
           <div className="flex items-center gap-2 pr-3">
             <ThemeToggle />
-            <Link href="/signup" aria-label="Get started">
-              <Button className="hidden sm:inline-flex">
-                Get started
-              </Button>
-            </Link>
+            {email ? (
+              <>
+                <span className="hidden sm:inline text-sm text-neutral-600 dark:text-white/70">{email}</span>
+                <Button
+                  variant="outline"
+                  onClick={async () => {
+                    await supabase.auth.signOut();
+                    window.location.href = "/";
+                  }}
+                >
+                  Sign out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/signin" aria-label="Sign in">
+                  <Button variant="outline" className="hidden sm:inline-flex">Sign in</Button>
+                </Link>
+                <Link href="/signup" aria-label="Get started">
+                  <Button className="hidden sm:inline-flex">Get started</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

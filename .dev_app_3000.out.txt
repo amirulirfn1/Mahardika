@@ -1,5 +1,40 @@
+../..                                    | ΓÇëWARNΓÇë Unsupported engine: wanted: {"node":">=20 <21"} (current: {"node":"v22.19.0","pnpm":"9.0.0"})
 
 > app@0.1.0 dev C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app
-> next dev "--" "-p" "3000"
+> next dev
 
- ELIFECYCLE  Command failed with exit code 1.
+  Γû▓ Next.js 14.2.5
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ Γ£ô Starting...
+ Γ£ô Ready in 3s
+ Γùï Compiling /api/supabase-health ...
+ Γ£ô Compiled /api/supabase-health in 701ms (100 modules)
+ GET /api/supabase-health 200 in 1317ms
+ Γùï Compiling /notes ...
+ Γ£ô Compiled /notes in 6.7s (757 modules)
+ Γ£ô Compiled in 678ms (279 modules)
+ GET /notes 200 in 7606ms
+ GET /api/supabase-health 200 in 40ms
+ GET /notes 200 in 279ms
+ Γùï Compiling /_not-found ...
+ Γ£ô Compiled /_not-found in 610ms (726 modules)
+ GET /.well-known/appspecific/com.chrome.devtools.json 404 in 765ms
+ GET /api/supabase-health 200 in 29ms
+ Γùï Compiling /signup ...
+ GET /signup 200 in 176ms
+ GET /signup 200 in 97ms
+ GET /signup 200 in 64ms
+ GET /signup 500 in 676ms
+ GET /favicon.ico 200 in 683ms
+ GET /signup 200 in 1120ms
+ GET /signup 200 in 267ms
+ GET /favicon.ico 200 in 40ms
+ GET /signup 500 in 812ms
+ GET /favicon.ico 200 in 33ms
+ GET /signup 200 in 1007ms
+ GET /signup 200 in 168ms
+ GET /favicon.ico 200 in 20ms
+ GET /signin 200 in 136ms
+ GET / 200 in 1093ms

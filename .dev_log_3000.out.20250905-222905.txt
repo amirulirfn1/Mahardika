@@ -68,3 +68,5 @@ app:dev: [?25h
 @mahardika/ui:dev: 
 @mahardika/ui:dev: 
 @mahardika/ui:dev: 8:04:16 am - Found 0 errors. Watching for file changes.
+@mahardika/ui:dev: ^C
+ ELIFECYCLE  Command failed with exit code 3221225786.

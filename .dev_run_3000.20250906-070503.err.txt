@@ -1,2 +1,4 @@
 turbo 2.5.5
 
+app:dev: ERROR: command finished with error: command (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\apps\app) C:\Users\amiru\AppData\Roaming\npm\pnpm.cmd run dev exited (-1073741510)
+@mahardika/ui:dev: ERROR: command finished with error: command (C:\Users\amiru\OneDrive\Documents\GitHub\Mahardika\packages\ui) C:\Users\amiru\AppData\Roaming\npm\pnpm.cmd run dev exited (-1073741510)

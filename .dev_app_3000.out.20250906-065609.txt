@@ -56,3 +56,4 @@
  ✓ Compiled in 961ms (908 modules)
  ✓ Compiled in 2.4s (908 modules)
  ✓ Compiled in 640ms (908 modules)
+ ELIFECYCLE  Command failed with exit code 3221225786.

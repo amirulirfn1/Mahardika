@@ -67,3 +67,6 @@ app:dev:  ✓ Compiled in 559ms (685 modules)
 app:dev:  GET / 200 in 139ms
 app:dev:  ✓ Compiled /favicon.ico in 465ms (418 modules)
 app:dev:  GET /favicon.ico 200 in 590ms
+@mahardika/ui:dev:  ELIFECYCLE  Command failed with exit code 3221225786.
+app:dev:  ELIFECYCLE  Command failed with exit code 3221225786.
+ ELIFECYCLE  Command failed with exit code 3221225786.

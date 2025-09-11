@@ -42,3 +42,5 @@ app:dev:  ✓ Ready in 3.7s
 @mahardika/ui:dev: 
 @mahardika/ui:dev: 
 @mahardika/ui:dev: 8:04:16 am - Found 0 errors. Watching for file changes.
+@mahardika/ui:dev:  ELIFECYCLE  Command failed with exit code 3221225786.
+app:dev:  ELIFECYCLE  Command failed with exit code 3221225786.

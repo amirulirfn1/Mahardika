@@ -19,7 +19,8 @@
     "next-themes": "^0.4.6",
     "react": "^18",
     "react-dom": "^18",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "@prisma/client": "^5.20.0"
   },
   "devDependencies": {
     "@mahardika/config": "workspace:*",

@@ -29,9 +29,14 @@
     "mcp-supabase": "^0.1.0",
     "ts-node": "^10.9.2",
     "turbo": "^2.2.3",
-    "vercel-mcp": "^0.0.7"
+    "vercel-mcp": "^0.0.7",
+    "prisma": "^5.20.0",
+    "@prisma/client": "^5.20.0"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.5.0"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\",\"moduleResolution\":\"node\"} prisma/seed.ts"
   }
 }

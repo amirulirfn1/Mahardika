@@ -21,22 +21,37 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", "ui-sans-serif", "system-ui"],
-        heading: ["var(--font-manrope)", "ui-sans-serif", "system-ui"],
+        heading: ["var(--font-inter)", "ui-sans-serif", "system-ui"],
       },
       colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        muted: "hsl(var(--muted))",
+        "muted-foreground": "hsl(var(--muted-foreground))",
+        card: "hsl(var(--card))",
+        "card-foreground": "hsl(var(--card-foreground))",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        primary: "hsl(var(--primary))",
+        "primary-foreground": "hsl(var(--primary-foreground))",
         accent: "hsl(var(--accent))",
+        "accent-foreground": "hsl(var(--accent-foreground))",
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+        destructive: "hsl(var(--destructive))",
       },
       borderRadius: {
-        lg: "12px",
-        xl: "16px",
-        "2xl": "20px",
+        lg: "0.75rem",
+        xl: "1rem",
+        "2xl": "1.25rem",
       },
       boxShadow: {
-        premium:
-          "0 1px 0 0 rgba(255,255,255,0.05) inset, 0 8px 24px -16px rgba(0,0,0,0.8)",
+        card: "0 1px 2px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.06)",
+        focus: "0 0 0 4px hsl(var(--ring) / 0.15)",
       },
       ringColor: {
-        DEFAULT: "hsl(var(--accent))",
+        DEFAULT: "hsl(var(--ring))",
       },
       keyframes: {
         "fade-in": {

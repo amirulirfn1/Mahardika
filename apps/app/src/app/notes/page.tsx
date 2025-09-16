@@ -14,7 +14,7 @@ export default async function NotesPage() {
     return (
       <Section>
         <SectionHeading title="Notes" subtitle="Your saved notes" />
-        <div className="text-sm text-red-600 dark:text-red-400">Error loading notes: {error.message}</div>
+        <div className="text-sm text-destructive">Error loading notes: {error.message}</div>
       </Section>
     );
   }
@@ -24,18 +24,20 @@ export default async function NotesPage() {
       <Section>
         <SectionHeading title="Notes" subtitle="Your saved notes" />
         {notes && notes.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {notes.map((n) => (
-              <Card key={n.id}>
-                <CardContent>
-                  <div className="text-sm text-neutral-500">Note</div>
-                  <div className="mt-1 text-base font-medium">{n.title}</div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {notes.map((note) => (
+              <Card key={note.id} radius="marketing" intent="subtle">
+                <CardContent density="marketing">
+                  <div className="text-sm uppercase tracking-wide text-muted-foreground/80">Note</div>
+                  <div className="mt-2 text-base font-medium text-foreground">{note.title}</div>
                 </CardContent>
               </Card>
             ))}
           </div>
         ) : (
-          <div className="text-neutral-600 dark:text-white/70">No notes yet.</div>
+          <div className="rounded-lg border border-dashed border-border/60 bg-muted/50 p-6 text-sm text-muted-foreground">
+            No notes yet. Create a note from the dashboard to see it here.
+          </div>
         )}
       </Section>
     </main>

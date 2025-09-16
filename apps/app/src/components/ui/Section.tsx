@@ -1,11 +1,47 @@
-import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import type { PropsWithChildren } from "react";
 
-type Props = React.HTMLAttributes<HTMLElement>;
+import { Container } from "@/components/ui/Container";
+import { cn } from "@/lib/cn";
 
-export function Section({ className = "", children, ...rest }: Props) {
+const sectionVariants = cva("w-full", {
+  variants: {
+    variant: {
+      marketing: "py-20 md:py-28",
+      app: "py-8 md:py-10",
+    },
+  },
+  defaultVariants: {
+    variant: "marketing",
+  },
+});
+
+type SectionProps = PropsWithChildren<{
+  id?: string;
+  className?: string;
+  containerClassName?: string;
+  spotlight?: boolean;
+}> & VariantProps<typeof sectionVariants>;
+
+export function Section({
+  id,
+  className,
+  containerClassName,
+  variant,
+  spotlight = false,
+  children,
+}: SectionProps) {
   return (
-    <section className={`px-4 sm:px-6 lg:px-8 ${className}`} {...rest}>
-      <div className="mx-auto max-w-7xl">{children}</div>
+    <section id={id} className={cn(sectionVariants({ variant }), className)}>
+      <Container className={cn(containerClassName, spotlight && "px-0")}>
+        {spotlight ? (
+          <div className="spotlight relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 shadow-card px-8 py-12 md:px-14 md:py-16">
+            {children}
+          </div>
+        ) : (
+          children
+        )}
+      </Container>
     </section>
   );
 }

@@ -3,46 +3,51 @@ import { useState } from "react";
 
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { Card, CardContent } from "@/components/ui/Card";
+import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
 
 export default function SettingsPage() {
   const [tab, setTab] = useState<"profile" | "application">("profile");
   return (
-    <div className="container-default py-8">
-      <PageHeader title="Settings" />
-      <div className="mb-6 flex items-center gap-2 text-sm">
-        <button
-          className={`px-3 py-1 rounded-md border ${tab === "profile" ? "bg-neutral-100 dark:bg-neutral-800" : ""}`}
+    <Section variant="app">
+      <PageHeader title="Settings" variant="spotlight" subtitle="Manage your profile and workspace preferences" />
+      <div className="mb-6 flex gap-2">
+        <Button
+          type="button"
+          size="sm"
+          variant={tab === "profile" ? "primary" : "outline"}
           onClick={() => setTab("profile")}
           aria-pressed={tab === "profile"}
         >
           Profile
-        </button>
-        <button
-          className={`px-3 py-1 rounded-md border ${tab === "application" ? "bg-neutral-100 dark:bg-neutral-800" : ""}`}
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant={tab === "application" ? "primary" : "outline"}
           onClick={() => setTab("application")}
           aria-pressed={tab === "application"}
         >
           Application
-        </button>
+        </Button>
       </div>
       <Card>
-        <CardContent>
+        <CardContent className="space-y-3">
           {tab === "profile" ? (
-            <div className="space-y-4">
-              <div className="text-sm font-medium">Profile</div>
-              <div className="text-neutral-600 dark:text-neutral-300">Update your display name and contact info.</div>
-            </div>
+            <>
+              <div className="text-sm font-medium text-foreground">Profile</div>
+              <div className="text-sm text-muted-foreground">Update your display name and contact info.</div>
+            </>
           ) : (
-            <div className="space-y-4">
-              <div className="text-sm font-medium">Application</div>
-              <div className="text-neutral-600 dark:text-neutral-300">Manage workspace preferences and notifications.</div>
-            </div>
+            <>
+              <div className="text-sm font-medium text-foreground">Application</div>
+              <div className="text-sm text-muted-foreground">Manage workspace preferences and notifications.</div>
+            </>
           )}
         </CardContent>
       </Card>
-    </div>
+    </Section>
   );
 }
-
 
 

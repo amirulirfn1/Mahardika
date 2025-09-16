@@ -1,4 +1,4 @@
-import { Shield, CreditCard, Sparkles } from "lucide-react";
+import { CreditCard, Shield, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,70 +12,84 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { pricingTiers } from "@/lib/site";
 
+const trustSignals = [
+  { label: "8k+", description: "Policies managed" },
+  { label: "$4.2m", description: "Payments tracked" },
+  { label: "98%", description: "Customer satisfaction" },
+];
+
+const heroLogos = [
+  { name: "Acme Inc.", src: "/logos/acme.svg" },
+  { name: "Globex", src: "/logos/globex.svg" },
+  { name: "Umbrella", src: "/logos/umbrella.svg" },
+  { name: "Initech", src: "/logos/initech.svg" },
+  { name: "Soylent", src: "/logos/soylent.svg" },
+];
+
 export default function Home() {
   return (
     <main>
-      {/* Hero */}
-      <Section className="pt-28 md:pt-32">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-          <div className="motion-reduce:animate-none md:col-span-7 lg:col-span-7">
-            <Badge className="animate-fade-up" style={{ animationDelay: "100ms" }} variant="accent">New: Modern insurance dashboard</Badge>
-            <div className="hero-shine inline-block animate-fade-up" style={{ animationDelay: "150ms" }}>
-              <h1
-                id="home-hero"
-                className="font-heading text-6xl md:text-7xl font-semibold tracking-tight leading-[0.9] text-balance bg-gradient-to-br from-violet-600 to-fuchsia-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-fuchsia-400"
-              >
-                Mahardika
+      <Section spotlight>
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-center lg:gap-16">
+          <div className="space-y-8">
+            <Badge variant="accent" className="w-fit">Insurance teams ship faster with Mahardika</Badge>
+            <div className="space-y-6">
+              <h1 className="text-5xl font-semibold leading-tight tracking-tight text-balance md:text-6xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Policies, payments, and loyalty in one clear workspace
               </h1>
+              <p className="max-w-xl text-base text-muted-foreground md:text-lg">
+                Automate renewals, reconcile payments, and keep every customer record in sync. Built on Supabase with strong defaults for security and observability.
+              </p>
             </div>
-            <p className="mt-5 max-w-xl text-neutral-600 dark:text-white/70 animate-fade-up" style={{ animationDelay: "220ms" }}>
-              Policies, payments, customers, loyalty in one place.
-            </p>
-            <div className="mt-8 flex items-center gap-3 animate-fade-up" style={{ animationDelay: "280ms" }}>
+            <div className="flex flex-wrap items-center gap-3">
               <Link href="/signup" aria-label="Get started">
-                <Button size="lg" className="btn-sheen">Get started</Button>
+                <Button size="lg">Get started</Button>
               </Link>
               <Link href="/features" aria-label="Explore features">
-                <Button size="lg" variant="outline" className="btn-sheen">Explore features</Button>
+                <Button size="lg" variant="outline">
+                  Explore features
+                </Button>
               </Link>
             </div>
-            <div className="mt-8 grid grid-cols-3 gap-6 text-xs text-neutral-600 dark:text-white/70 animate-fade-up" style={{ animationDelay: "340ms" }}>
-              <div><div className="text-2xl font-semibold text-neutral-900 dark:text-white">8k+</div><div>Policies managed</div></div>
-              <div><div className="text-2xl font-semibold text-neutral-900 dark:text-white">$4.2m</div><div>Payments tracked</div></div>
-              <div><div className="text-2xl font-semibold text-neutral-900 dark:text-white">98%</div><div>CSAT</div></div>
+            <div className="grid gap-6 sm:grid-cols-3">
+              {trustSignals.map((item) => (
+                <div key={item.label} className="space-y-1 text-sm text-muted-foreground">
+                  <div className="text-2xl font-semibold text-foreground">{item.label}</div>
+                  <div>{item.description}</div>
+                </div>
+              ))}
             </div>
-            <div className="mt-10 animate-fade-up" style={{ animationDelay: "420ms" }}>
-              <div className="text-xs uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Trusted by teams at</div>
-              <div className="mt-3 flex flex-wrap items-center gap-3">
-                {[{
-                  name: "Acme Inc.", src: "/logos/acme.svg"
-                }, { name: "Globex", src: "/logos/globex.svg" }, { name: "Umbrella", src: "/logos/umbrella.svg" }, { name: "Initech", src: "/logos/initech.svg" }, { name: "Soylent", src: "/logos/soylent.svg" }].map((logo) => (
-                  <span key={logo.name} className="px-2 py-1 rounded-md ring-1 ring-neutral-200 bg-white dark:ring-white/10 dark:bg-white/5">
+            <div className="space-y-3 text-xs">
+              <span className="uppercase tracking-[0.2em] text-muted-foreground">Trusted by teams at</span>
+              <div className="flex flex-wrap items-center gap-3">
+                {heroLogos.map((logo) => (
+                  <span
+                    key={logo.name}
+                    className="inline-flex items-center rounded-md border border-border/80 bg-card px-3 py-1 shadow-card"
+                  >
                     <Image src={logo.src} alt={logo.name} width={96} height={28} loading="lazy" />
                   </span>
                 ))}
               </div>
             </div>
           </div>
-          <div className="relative md:col-span-5 lg:col-span-5">
-            {/* Ambient glows */}
-            <div className="orb orb--violet" style={{ width: 420, height: 420, top: -24, right: -40 }} aria-hidden />
-            <div className="orb orb--fuchsia" style={{ width: 320, height: 320, bottom: 40, right: 24 }} aria-hidden />
-            {/* Glass placeholders to suggest UI */}
+          <div className="relative">
+            <div className="pointer-events-none absolute -left-16 top-0 hidden h-72 w-72 rounded-full bg-primary/15 blur-3xl md:block" />
+            <div className="pointer-events-none absolute -right-10 bottom-0 hidden h-64 w-64 rounded-full bg-accent/15 blur-3xl md:block" />
             <div className="relative grid gap-4">
-              <Card className="max-w-md">
-                <CardContent>
-                  <div className="h-28 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
+              <Card intent="subtle" radius="marketing" className="max-w-sm">
+                <CardContent density="marketing">
+                  <div className="h-28 rounded-xl border border-dashed border-border/70 bg-muted" />
                 </CardContent>
               </Card>
-              <Card className="max-w-sm ml-auto">
-                <CardContent>
-                  <div className="h-28 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
+              <Card intent="subtle" radius="marketing" className="ml-auto max-w-xs">
+                <CardContent density="marketing">
+                  <div className="h-24 rounded-xl border border-dashed border-border/70 bg-muted" />
                 </CardContent>
               </Card>
-              <Card className="max-w-xs">
-                <CardContent>
-                  <div className="h-24 rounded-lg ring-1 ring-neutral-200 bg-neutral-50 dark:ring-white/10 dark:bg-white/5" />
+              <Card intent="subtle" radius="marketing" className="max-w-xs">
+                <CardContent density="marketing">
+                  <div className="h-20 rounded-xl border border-dashed border-border/70 bg-muted" />
                 </CardContent>
               </Card>
             </div>
@@ -83,45 +97,30 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Features */}
       <Section>
-        <SectionHeading overline="Capabilities" title="What you get" subtitle="Minimal, fast, and accessible building blocks for your app." />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <FeatureCard
-            title="Policies"
-            description="Create and manage insurance policies with ease."
-            icon={<Shield size={18} />}
-          />
-          <FeatureCard
-            title="Payments"
-            description="Track payments with clear, concise records."
-            icon={<CreditCard size={18} />}
-          />
-          <FeatureCard
-            title="Loyalty"
-            description="Reward customers and grow retention."
-            icon={<Sparkles size={18} />}
-          />
+        <SectionHeading eyebrow="Capabilities" title="Minimal building blocks" subtitle="Everything your agency needs without the noise." />
+        <div className="grid gap-6 md:grid-cols-3">
+          <FeatureCard title="Policies" description="Create, renew, and audit policies with ease." icon={<Shield size={18} />} />
+          <FeatureCard title="Payments" description="Track premium collection with full history." icon={<CreditCard size={18} />} />
+          <FeatureCard title="Loyalty" description="Reward loyal customers and grow retention." icon={<Sparkles size={18} />} />
         </div>
       </Section>
 
-      {/* Pricing */}
       <Section>
-        <SectionHeading overline="Pricing" title="Simple pricing" subtitle="Start free, scale when you need more." />
+        <SectionHeading eyebrow="Pricing" title="Plans that scale" subtitle="Start free, add seats and automation as you grow." />
         <PricingToggle tiers={pricingTiers} />
       </Section>
 
-      {/* FAQ */}
       <Section>
-        <SectionHeading overline="Answers" title="Frequently asked questions" />
+        <SectionHeading eyebrow="Answers" title="Frequently asked questions" />
         <FAQ
           items={[
             { q: "Is there a free tier?", a: "Yes, start for free and upgrade anytime." },
-            { q: "Is there dark mode?", a: "Yes, toggle in the header." },
-            { q: "Can I integrate payments?", a: "Yes, with your preferred provider." },
-            { q: "Do you support SSO?", a: "SSO is available on Business." },
-            { q: "Is my data secure?", a: "Row-Level Security and audit trails by default." },
-            { q: "How do I get support?", a: "Email support for free; priority on Pro." },
+            { q: "Does it support dark mode?", a: "Yes, toggle it from the header." },
+            { q: "Can I integrate payments?", a: "Bring your provider and track everything inside Mahardika." },
+            { q: "Do you support SSO?", a: "Single Sign-On is available on the Business plan." },
+            { q: "Is my data secure?", a: "Row-level security, audit trails, and soft delete are enabled by default." },
+            { q: "How do I get support?", a: "Email support on Free, priority Slack support on paid tiers." },
           ]}
         />
       </Section>

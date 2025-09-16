@@ -8,20 +8,20 @@ export const TableSimple: React.FC<{
     <div className="overflow-x-auto">
       <table className="min-w-full text-sm">
         <thead>
-          <tr className="border-b border-white/10">
-            {columns.map((c) => (
-              <th key={c.key} className="py-2 pr-4 text-left text-white/60 text-xs uppercase tracking-wide">
-                {c.header}
+          <tr className="border-b border-border/80 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            {columns.map((column) => (
+              <th key={column.key} className="py-2 pr-4 text-left">
+                {column.header}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, i) => (
-            <tr key={i} className="border-b border-white/5 hover:bg-white/5">
-              {columns.map((c) => (
-                <td key={c.key} className="py-2 pr-4">
-                  {row[c.key]}
+          {rows.map((row, index) => (
+            <tr key={index} className="border-b border-border/60 last:border-0 hover:bg-muted/40">
+              {columns.map((column) => (
+                <td key={column.key} className="py-2 pr-4 text-sm text-foreground">
+                  {row[column.key]}
                 </td>
               ))}
             </tr>
@@ -31,6 +31,3 @@ export const TableSimple: React.FC<{
     </div>
   );
 };
-
-
-

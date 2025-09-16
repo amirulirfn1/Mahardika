@@ -1,26 +1,59 @@
-import React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import type { HTMLAttributes } from "react";
 
-export const SectionHeading: React.FC<
-  React.HTMLAttributes<HTMLDivElement> & {
-    overline?: string;
+import { cn } from "@/lib/cn";
+
+const wrapperVariants = cva("", {
+  variants: {
+    variant: {
+      marketing: "space-y-4",
+      app: "space-y-2",
+    },
+    align: {
+      left: "text-left",
+      center: "text-center mx-auto",
+    },
+  },
+  defaultVariants: {
+    variant: "marketing",
+    align: "left",
+  },
+});
+
+type SectionHeadingProps = HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof wrapperVariants> & {
+    eyebrow?: string;
     title: string;
     subtitle?: string;
-  }
-> = ({ overline, title, subtitle, className = "", ...props }) => {
+  };
+
+export function SectionHeading({
+  eyebrow,
+  title,
+  subtitle,
+  className,
+  variant,
+  align,
+  ...props
+}: SectionHeadingProps) {
   return (
-    <div className={`mb-8 text-center ${className}`} {...props}>
-      {overline ? (
-        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-500">{overline}</div>
+    <div className={cn("max-w-3xl", wrapperVariants({ variant, align }), className)} {...props}>
+      {eyebrow ? (
+        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/80">
+          {eyebrow}
+        </span>
       ) : null}
-      <h2 className="font-heading text-3xl md:text-4xl font-semibold tracking-tight bg-gradient-to-br from-[hsl(var(--accent))] to-fuchsia-400 bg-clip-text text-transparent dark:from-[hsl(var(--accent))] dark:to-fuchsia-400">
+      <h2
+        className={cn(
+          "text-3xl md:text-4xl font-semibold leading-tight tracking-tight",
+          variant === "marketing"
+            ? "bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+            : "text-foreground",
+        )}
+      >
         {title}
       </h2>
-      {subtitle ? (
-        <p className="mx-auto mt-3 max-w-2xl text-neutral-600 dark:text-white/70">{subtitle}</p>
-      ) : null}
+      {subtitle ? <p className="text-base text-muted-foreground">{subtitle}</p> : null}
     </div>
   );
-};
-
-
-
+}

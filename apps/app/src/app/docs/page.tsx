@@ -8,25 +8,22 @@ export default function DocsIndexPage() {
   const [q, setQ] = useState("");
   return (
     <main>
-      <Section className="pt-10">
+      <Section>
         <SectionHeading title="Documentation" subtitle="Search and discover how everything fits together." />
-        <div className="mx-auto max-w-xl">
-          <label htmlFor="docs-search" className="sr-only">Search docs</label>
+        <div className="max-w-xl space-y-3">
+          <label htmlFor="docs-search" className="sr-only">
+            Search documentation
+          </label>
           <input
             id="docs-search"
-            className="w-full rounded-lg ring-1 ring-neutral-300 bg-neutral-50 px-4 py-2 text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--accent))] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:ring-white/10 dark:bg-white/5 dark:text-white"
+            className="w-full rounded-lg border border-input bg-background px-4 py-3 text-base text-foreground shadow-card focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring/40"
             placeholder="Search..."
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />
-          <div className="mt-6 text-sm text-neutral-600 dark:text-white/70">
-            {q ? `No results for "${q}" (yet)` : "Type to search..."}
-          </div>
+          <p className="text-sm text-muted-foreground">{q ? `No results for "${q}" (yet)` : "Type to search..."}</p>
         </div>
       </Section>
     </main>
   );
 }
-
-
-

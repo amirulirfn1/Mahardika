@@ -2,12 +2,13 @@ import Link from "next/link";
 
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { TableSimple } from "@/components/dashboard/TableSimple";
+import { Section } from "@/components/ui/Section";
 import { users } from "@/lib/mock";
 
 export default function UsersListPage() {
   return (
-    <div className="container-default py-8">
-      <PageHeader title="Users" />
+    <Section variant="app">
+      <PageHeader title="Users" variant="spotlight" subtitle="All workspace members" />
       <TableSimple
         columns={[
           { key: "name", header: "Name" },
@@ -15,20 +16,17 @@ export default function UsersListPage() {
           { key: "role", header: "Role" },
           { key: "action", header: "" },
         ]}
-        rows={users.map((u) => ({
-          name: u.name,
-          email: u.email,
-          role: u.role,
+        rows={users.map((user) => ({
+          name: user.name,
+          email: user.email,
+          role: user.role,
           action: (
-            <Link className="underline" href={`/dashboard/users/${u.id}`}>
+            <Link className="text-sm text-primary underline" href={`/dashboard/users/${user.id}`}>
               View
             </Link>
           ),
         }))}
       />
-    </div>
+    </Section>
   );
 }
-
-
-

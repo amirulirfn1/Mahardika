@@ -8,18 +8,15 @@ export const StatCard: React.FC<{
   change?: string;
 }> = ({ label, value, change }) => {
   return (
-    <Card className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120px_60px_at_10%_-10%,rgba(124,58,237,0.2),transparent)]" aria-hidden />
-      <CardContent className="relative">
-        <div className="text-xs uppercase tracking-wider text-white/60">{label}</div>
-        <div className="mt-1 text-2xl font-semibold text-white">{value}</div>
-        {change ? (
-          <div className="mt-1 text-xs text-white/70">{change}</div>
-        ) : null}
+    <Card radius="app" className="overflow-hidden">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary/70 via-accent/50 to-primary/70" aria-hidden />
+      <CardContent className="space-y-2">
+        <div className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+          {label}
+        </div>
+        <div className="text-2xl font-semibold text-foreground">{value}</div>
+        {change ? <div className="text-xs text-muted-foreground">{change}</div> : null}
       </CardContent>
     </Card>
   );
 };
-
-
-

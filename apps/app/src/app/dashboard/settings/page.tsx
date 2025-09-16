@@ -2,9 +2,9 @@
 import { useState } from "react";
 
 import { PageHeader } from "@/components/dashboard/PageHeader";
+import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Section } from "@/components/ui/Section";
-import { Button } from "@/components/ui/Button";
 
 export default function SettingsPage() {
   const [tab, setTab] = useState<"profile" | "application">("profile");
@@ -49,5 +49,3 @@ export default function SettingsPage() {
     </Section>
   );
 }
-
-

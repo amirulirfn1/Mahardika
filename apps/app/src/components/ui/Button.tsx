@@ -1,6 +1,6 @@
 "use client";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ButtonHTMLAttributes } from "react";
+import { cloneElement, isValidElement, type ButtonHTMLAttributes, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
@@ -26,8 +26,25 @@ const buttonVariants = cva(
   },
 );
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+    children?: ReactNode;
+  };
 
-export function Button({ className, variant, size, ...props }: ButtonProps) {
-  return <button className={cn(buttonVariants({ variant, size }), className)} {...props} />;
+export function Button({ className, variant, size, asChild = false, children, ...props }: ButtonProps) {
+  const classes = cn(buttonVariants({ variant, size }), className);
+
+  if (asChild && isValidElement(children)) {
+    return cloneElement(children, {
+      className: cn(classes, (children.props as { className?: string }).className),
+      ...props,
+    });
+  }
+
+  return (
+    <button className={classes} {...props}>
+      {children}
+    </button>
+  );
 }

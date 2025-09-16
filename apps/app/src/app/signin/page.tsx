@@ -8,17 +8,32 @@ import { Button } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { supabase } from "@/lib/supabase/client";
 
-const schema = z.object({
-  method: z.enum(["email", "phone"]).default("email"),
-  email: z.string().email().optional(),
-  phone: z.string().optional(),
-  password: z.string().min(6),
-});
+type FormState = { method: "email" | "phone"; email: string; phone: string; password: string };
+
+const schema = z
+  .object({
+    method: z.enum(["email", "phone"]),
+    email: z.string(),
+    phone: z.string(),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+  })
+  .superRefine((data, ctx) => {
+    if (data.method === "email") {
+      const trimmedEmail = data.email.trim();
+      if (!trimmedEmail) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["email"], message: "Email is required" });
+      } else if (!z.string().email().safeParse(trimmedEmail).success) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["email"], message: "Enter a valid email address" });
+      }
+    } else if (!data.phone.trim()) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["phone"], message: "Phone number is required" });
+    }
+  });
 
 export default function SignInPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [form, setForm] = useState<{ method: "email" | "phone"; email?: string; phone?: string; password: string }>({ method: "email", email: "", phone: "", password: "" });
+  const [form, setForm] = useState<FormState>({ method: "email", email: "", phone: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
@@ -28,11 +43,22 @@ export default function SignInPage() {
     if (err) setNotice(err);
   }, [searchParams]);
 
+  useEffect(() => {
+    setErrors({});
+    setNotice(null);
+  }, [form.method]);
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErrors({});
     setNotice(null);
-    const parsed = schema.safeParse(form);
+    const trimmedForm: FormState = {
+      ...form,
+      email: form.email.trim(),
+      phone: form.phone.trim(),
+    };
+    setForm(trimmedForm);
+    const parsed = schema.safeParse(trimmedForm);
     if (!parsed.success) {
       const fieldErrors: Record<string, string> = {};
       for (const issue of parsed.error.issues) fieldErrors[issue.path.join(".")] = issue.message;
@@ -41,11 +67,11 @@ export default function SignInPage() {
     }
     setLoading(true);
     try {
-      if (form.method === "email") {
-        const { error } = await supabase.auth.signInWithPassword({ email: form.email!, password: form.password });
+      if (parsed.data.method === "email") {
+        const { error } = await supabase.auth.signInWithPassword({ email: parsed.data.email.trim(), password: parsed.data.password });
         if (error) throw error;
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ phone: form.phone!, password: form.password });
+        const { error } = await supabase.auth.signInWithPassword({ phone: parsed.data.phone.trim(), password: parsed.data.password });
         if (error) throw error;
       }
       router.push("/dashboard");

@@ -73,6 +73,7 @@ model User {
   name      String?
   email     String?  @unique
   image     String?
+  passwordHash String?
   role      Role     @default(AGENCY_STAFF)
   agencyId  String?
   locale    String   @default("en")

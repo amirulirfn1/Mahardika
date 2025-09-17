@@ -23,6 +23,7 @@ apps/app/playwright-report
 # Local dev artifacts
 .dev_*
 test-results/
+supabase/.temp/
 
 # Env
 .env*

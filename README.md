@@ -99,6 +99,41 @@ rmdir /s /q apps\app\.next
 pnpm -w build
 ```
 
+## Supabase + Vercel integration
+
+- Link the Supabase project locally (required for CLI migrations):
+
+  ```bash
+  SUPABASE_ACCESS_TOKEN=... npx supabase link --project-ref uskwbfrmbqvpymxgpvqw
+  ```
+
+- Apply the latest migrations before deploying:
+
+  ```bash
+  npx supabase db push
+  pnpm db:migrate # optional Prisma deploy against DATABASE_URL
+  ```
+
+- Required Vercel environment variables (Preview + Production):
+  - `NEXT_PUBLIC_SUPABASE_URL=https://uskwbfrmbqvpymxgpvqw.supabase.co`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY` (see `supabase projects api-keys list`)
+  - `SUPABASE_SERVICE_ROLE_KEY` (server-only)
+  - `SUPABASE_JWT_SECRET`
+  - `DATABASE_URL` pointing to the pooled Supabase connection, e.g. `postgresql://postgres.<ref>:<password>@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require&pgbouncer=true&connection_limit=1`
+  - `NEXTAUTH_SECRET` (generate with `openssl rand -base64 32`)
+  - `NEXTAUTH_URL`/`APP_URL` for production (e.g. `https://mahardika.vercel.app`)
+
+- Propagate env vars to Vercel:
+
+  ```bash
+  vercel env pull --yes --environment=preview
+  vercel env add NEXTAUTH_SECRET production
+  vercel env add DATABASE_URL production
+  # repeat for other keys / environments
+  ```
+
+- Validate connectivity locally: `node scripts/check-supabase.mjs` and `pnpm -w test:e2e` (requires `DATABASE_URL`).
+
 ## Design notes
 
 - Tokens: CSS custom properties for spacing and radii defined in `apps/app/src/app/globals.css` (e.g., `--space-*`, `--radius-*`). Accent color is injected via `--accent` and defaults to indigo; override with `NEXT_PUBLIC_ACCENT`.

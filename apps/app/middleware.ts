@@ -1,36 +1,26 @@
-import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
+
+import { env } from "@/lib/env";
+
+const DASHBOARD_PREFIX = "/dashboard";
 
 export async function middleware(req: NextRequest) {
-  const url = new URL(req.url);
-  const isDashboard = url.pathname.startsWith("/dashboard");
-  if (!isDashboard) return NextResponse.next();
-
-  // Dev-only bypass to preview pages without auth
-  // Enable by setting SKIP_AUTH=true in .env.local
-  if (process.env.SKIP_AUTH === "true") {
+  if (!req.nextUrl.pathname.startsWith(DASHBOARD_PREFIX)) {
     return NextResponse.next();
   }
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_KEY!,
-    {
-      cookies: {
-        get: (name) => req.cookies.get(name)?.value,
-        set: () => {},
-        remove: () => {},
-      },
-    },
-  );
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  if (!session) {
-    const redirectUrl = new URL("/", req.url);
-    return NextResponse.redirect(redirectUrl);
+  if (env.SKIP_AUTH) {
+    return NextResponse.next();
   }
+
+  const token = await getToken({ req, secret: env.NEXTAUTH_SECRET });
+  if (!token) {
+    const signInUrl = new URL("/signin", req.url);
+    signInUrl.searchParams.set("callbackUrl", req.nextUrl.pathname + req.nextUrl.search);
+    return NextResponse.redirect(signInUrl);
+  }
+
   return NextResponse.next();
 }
 

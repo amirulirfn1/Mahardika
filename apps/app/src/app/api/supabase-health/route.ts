@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 
+import { env } from "@/lib/env";
+
 export async function GET() {
-  const url: string | undefined = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key: string | undefined = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
+  const url = env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
   if (!url || !key) {
     return NextResponse.json(
       { ok: false as const, error: "Missing env: NEXT_PUBLIC_SUPABASE_URL or ANON KEY" },

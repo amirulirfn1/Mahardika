@@ -27,16 +27,46 @@ const supabaseAnonKey = getPublicEnvValue(
   "SUPABASE_KEY",
 );
 
-export function createBrowserClient(): SupabaseClient {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    // Return a client with empty creds to avoid throwing during build; runtime should provide envs
+const hasCredentials = supabaseUrl.length > 0 && supabaseAnonKey.length > 0;
+let cachedClient: SupabaseClient | null | undefined;
+
+function initClient(): SupabaseClient | null {
+  if (typeof cachedClient !== "undefined") {
+    return cachedClient;
   }
-  return createClient(supabaseUrl, supabaseAnonKey, {
+  if (!hasCredentials) {
+    if (process.env.NODE_ENV !== "production") {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "Supabase client disabled: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are not set.",
+      );
+    }
+    cachedClient = null;
+    return cachedClient;
+  }
+  cachedClient = createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
     },
   });
+  return cachedClient;
 }
 
-export const supabase = createBrowserClient();
+export function getBrowserClient(): SupabaseClient | null {
+  return initClient();
+}
+
+export function requireBrowserClient(): SupabaseClient {
+  const client = initClient();
+  if (!client) {
+    throw new Error(
+      "Supabase client is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+    );
+  }
+  return client;
+}
+
+export function isSupabaseConfigured(): boolean {
+  return hasCredentials;
+}

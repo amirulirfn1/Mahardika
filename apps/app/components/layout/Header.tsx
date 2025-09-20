@@ -4,29 +4,32 @@ import { usePathname } from "next/navigation";
 import { type FC, useEffect, useState } from "react";
 
 import { site } from "@/lib/site";
-import { supabase } from "@/lib/supabase/client";
+import { getBrowserClient } from "@/lib/supabase/client";
 
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "../ui/Button";
 
 export const Header: FC = () => {
   const pathname = usePathname();
+  const supabase = getBrowserClient();
   const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!supabase) return;
     let mounted = true;
     supabase.auth.getUser().then(({ data }) => {
       if (!mounted) return;
       setEmail(data.user?.email ?? null);
     });
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       setEmail(session?.user?.email ?? null);
     });
     return () => {
       mounted = false;
-      sub.subscription?.unsubscribe();
+      authListener.subscription?.unsubscribe();
     };
-  }, []);
+  }, [supabase]);
+
   return (
     <header id="site-header" className="sticky top-0 z-40 w-full">
       <div className="container-default">
@@ -63,6 +66,7 @@ export const Header: FC = () => {
                 <Button
                   variant="outline"
                   onClick={async () => {
+                    if (!supabase) return;
                     await supabase.auth.signOut();
                     window.location.href = "/";
                   }}

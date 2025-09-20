@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Section } from "@/components/ui/Section";
-import { supabase } from "@/lib/supabase/client";
+import { getBrowserClient } from "@/lib/supabase/client";
 
 const schema = z
   .object({
@@ -35,10 +35,13 @@ const inputClasses =
 export default function SignInPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const supabase = getBrowserClient();
+  const authDisabled = !supabase;
+  const unavailableMessage = "Authentication is currently unavailable. Please try again later.";
   const [form, setForm] = useState({ method: "email" as "email" | "phone", email: "", phone: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(authDisabled ? unavailableMessage : null);
 
   useEffect(() => {
     const err = searchParams.get("error");
@@ -46,13 +49,18 @@ export default function SignInPage() {
   }, [searchParams]);
 
   useEffect(() => {
+    if (authDisabled) return;
     setErrors({});
     setNotice(null);
-  }, [form.method]);
+  }, [form.method, authDisabled]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErrors({});
+    if (authDisabled || !supabase) {
+      setNotice(unavailableMessage);
+      return;
+    }
     setNotice(null);
     const trimmedForm = {
       ...form,
@@ -92,6 +100,10 @@ export default function SignInPage() {
   }
 
   async function signInWithProvider(provider: "google" | "discord") {
+    if (authDisabled || !supabase) {
+      setNotice(unavailableMessage);
+      return;
+    }
     setLoading(true);
     setNotice(null);
     try {
@@ -110,6 +122,8 @@ export default function SignInPage() {
     }
   }
 
+  const disabled = loading || authDisabled;
+
   return (
     <main>
       <Section>
@@ -126,33 +140,32 @@ export default function SignInPage() {
                   variant="outline"
                   className="w-full justify-center gap-2"
                   onClick={() => signInWithProvider("google")}
-                  disabled={loading}
+                  disabled={disabled}
                 >
-                  <span aria-hidden>🔐</span> Sign in with Google
+                  Continue with Google
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   className="w-full justify-center gap-2"
                   onClick={() => signInWithProvider("discord")}
-                  disabled={loading}
+                  disabled={disabled}
                 >
-                  <span aria-hidden>💬</span> Sign in with Discord
+                  Continue with Discord
                 </Button>
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span className="h-px flex-1 bg-border" aria-hidden />
-                <span>or sign in with email</span>
-                <span className="h-px flex-1 bg-border" aria-hidden />
+              <div className="relative text-center text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                <span className="bg-card px-2">Or continue with</span>
+                <span className="absolute inset-x-0 top-1/2 -z-10 h-px bg-border" aria-hidden="true" />
               </div>
-              <div className="flex gap-2 rounded-lg border border-border bg-muted/50 p-1">
+              <div className="flex gap-2 rounded-xl border border-border bg-muted/50 p-1">
                 <Button
                   type="button"
                   size="sm"
                   variant={form.method === "email" ? "primary" : "ghost"}
                   className="flex-1"
                   onClick={() => setForm((f) => ({ ...f, method: "email" }))}
-                  disabled={loading}
+                  disabled={disabled}
                 >
                   Email
                 </Button>
@@ -162,7 +175,7 @@ export default function SignInPage() {
                   variant={form.method === "phone" ? "primary" : "ghost"}
                   className="flex-1"
                   onClick={() => setForm((f) => ({ ...f, method: "phone" }))}
-                  disabled={loading}
+                  disabled={disabled}
                 >
                   Phone
                 </Button>
@@ -184,6 +197,7 @@ export default function SignInPage() {
                       aria-invalid={!!errors.email}
                       aria-describedby={errors.email ? "email-error" : undefined}
                       required
+                      disabled={authDisabled}
                     />
                     {errors.email ? (
                       <p id="email-error" className="text-xs text-destructive">
@@ -208,6 +222,7 @@ export default function SignInPage() {
                       aria-invalid={!!errors.phone}
                       aria-describedby={errors.phone ? "phone-error" : undefined}
                       required
+                      disabled={authDisabled}
                     />
                     {errors.phone ? (
                       <p id="phone-error" className="text-xs text-destructive">
@@ -231,6 +246,7 @@ export default function SignInPage() {
                     aria-invalid={!!errors.password}
                     aria-describedby={errors.password ? "password-error" : undefined}
                     required
+                    disabled={authDisabled}
                   />
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <label className="inline-flex items-center gap-2 select-none">
@@ -241,6 +257,7 @@ export default function SignInPage() {
                           const el = document.getElementById("password") as HTMLInputElement | null;
                           if (el) el.type = e.target.checked ? "text" : "password";
                         }}
+                        disabled={authDisabled}
                       />
                       Show password
                     </label>
@@ -254,7 +271,7 @@ export default function SignInPage() {
                     </p>
                   ) : null}
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={disabled}>
                   {loading ? "Signing in..." : "Sign in"}
                 </Button>
                 {notice ? <p className="text-sm text-destructive">{notice}</p> : null}

@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Section } from "@/components/ui/Section";
-import { supabase } from "@/lib/supabase/client";
+import { getBrowserClient } from "@/lib/supabase/client";
 
 const schema = z
   .object({
@@ -34,19 +34,27 @@ const inputClasses =
 type FormState = { method: "email" | "phone"; email: string; phone: string; password: string };
 
 export default function SignUpPage() {
+  const supabase = getBrowserClient();
+  const authDisabled = !supabase;
+  const unavailableMessage = "Sign ups are temporarily unavailable. Please try again later.";
   const [form, setForm] = useState<FormState>({ method: "email", email: "", phone: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(authDisabled ? unavailableMessage : null);
 
   useEffect(() => {
+    if (authDisabled) return;
     setErrors({});
     setNotice(null);
-  }, [form.method]);
+  }, [form.method, authDisabled]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErrors({});
+    if (authDisabled || !supabase) {
+      setNotice(unavailableMessage);
+      return;
+    }
     setNotice(null);
     const trimmedForm: FormState = {
       ...form,
@@ -72,7 +80,10 @@ export default function SignUpPage() {
         if (error) throw error;
         setNotice("Check your email to confirm your account.");
       } else {
-        const { error } = await supabase.auth.signUp({ phone: parsed.data.phone.trim(), password: parsed.data.password });
+        const { error } = await supabase.auth.signUp({
+          phone: parsed.data.phone.trim(),
+          password: parsed.data.password,
+        });
         if (error) throw error;
         setNotice("We sent an SMS OTP. Verify to complete sign up.");
       }
@@ -85,6 +96,10 @@ export default function SignUpPage() {
   }
 
   async function signUpWithProvider(provider: "google" | "discord") {
+    if (authDisabled || !supabase) {
+      setNotice(unavailableMessage);
+      return;
+    }
     setLoading(true);
     setNotice(null);
     try {
@@ -103,6 +118,8 @@ export default function SignUpPage() {
     }
   }
 
+  const disabled = loading || authDisabled;
+
   return (
     <main>
       <Section>
@@ -119,18 +136,18 @@ export default function SignUpPage() {
                   variant="outline"
                   className="w-full justify-center gap-2"
                   onClick={() => signUpWithProvider("google")}
-                  disabled={loading}
+                  disabled={disabled}
                 >
-                  <span aria-hidden>🔐</span> Sign up with Google
+                  <span aria-hidden>??</span> Sign up with Google
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   className="w-full justify-center gap-2"
                   onClick={() => signUpWithProvider("discord")}
-                  disabled={loading}
+                  disabled={disabled}
                 >
-                  <span aria-hidden>💬</span> Sign up with Discord
+                  <span aria-hidden>??</span> Sign up with Discord
                 </Button>
               </div>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -145,7 +162,7 @@ export default function SignUpPage() {
                   variant={form.method === "email" ? "primary" : "ghost"}
                   className="flex-1"
                   onClick={() => setForm((f) => ({ ...f, method: "email" }))}
-                  disabled={loading}
+                  disabled={disabled}
                 >
                   Email
                 </Button>
@@ -155,7 +172,7 @@ export default function SignUpPage() {
                   variant={form.method === "phone" ? "primary" : "ghost"}
                   className="flex-1"
                   onClick={() => setForm((f) => ({ ...f, method: "phone" }))}
-                  disabled={loading}
+                  disabled={disabled}
                 >
                   Phone
                 </Button>
@@ -177,6 +194,7 @@ export default function SignUpPage() {
                       aria-invalid={!!errors.email}
                       aria-describedby={errors.email ? "email-error" : undefined}
                       required
+                      disabled={authDisabled}
                     />
                     {errors.email ? (
                       <p id="email-error" className="text-xs text-destructive">
@@ -201,6 +219,7 @@ export default function SignUpPage() {
                       aria-invalid={!!errors.phone}
                       aria-describedby={errors.phone ? "phone-error" : undefined}
                       required
+                      disabled={authDisabled}
                     />
                     {errors.phone ? (
                       <p id="phone-error" className="text-xs text-destructive">
@@ -224,6 +243,7 @@ export default function SignUpPage() {
                     aria-invalid={!!errors.password}
                     aria-describedby={errors.password ? "password-error" : undefined}
                     required
+                    disabled={authDisabled}
                   />
                   {errors.password ? (
                     <p id="password-error" className="text-xs text-destructive">
@@ -231,7 +251,7 @@ export default function SignUpPage() {
                     </p>
                   ) : null}
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={disabled}>
                   {loading ? "Creating..." : "Create account"}
                 </Button>
                 {notice ? <p className="text-sm text-muted-foreground">{notice}</p> : null}

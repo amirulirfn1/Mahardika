@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 
-import { supabase } from "@/lib/supabase/client";
+import { getBrowserClient } from "@/lib/supabase/client";
 
 /**
  * Handles Supabase deep-link redirects that arrive with a hash fragment
@@ -12,6 +12,8 @@ import { supabase } from "@/lib/supabase/client";
 export function AuthHashHandler() {
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const supabase = getBrowserClient();
+    if (!supabase) return;
     const { location, history, localStorage } = window as Window & { localStorage: Storage };
     // Prefer location.hash; fall back to stashed value written by the pre-hydration script
     let hash = location.hash || "";

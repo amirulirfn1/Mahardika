@@ -12,7 +12,7 @@
     "lint": "turbo run lint",
     "lint:fix": "turbo lint -- --fix",
     "typecheck": "turbo run typecheck",
-    "build": "turbo run build",
+    "build": "pnpm db:gen && turbo run build",
     "test": "turbo run test || echo no-tests",
     "test:e2e": "playwright test",
     "e2e:smoke": "playwright test -g \"@smoke\"",
@@ -30,8 +30,8 @@
     "ts-node": "^10.9.2",
     "turbo": "^2.2.3",
     "vercel-mcp": "^0.0.7",
-    "prisma": "^5.20.0",
-    "@prisma/client": "^5.20.0"
+    "prisma": "^5.22.0",
+    "@prisma/client": "^5.22.0"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.5.0"

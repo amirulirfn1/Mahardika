@@ -16,13 +16,13 @@ importers:
         specifier: ^1.46.1
         version: 1.54.2
       '@prisma/client':
-        specifier: ^5.20.0
+        specifier: ^5.22.0
         version: 5.22.0(prisma@5.22.0)
       mcp-supabase:
         specifier: ^0.1.0
         version: 0.1.0
       prisma:
-        specifier: ^5.20.0
+        specifier: ^5.22.0
         version: 5.22.0
       ts-node:
         specifier: ^10.9.2
@@ -43,7 +43,7 @@ importers:
         specifier: ^1.0.7
         version: 1.6.0(@prisma/client@5.22.0(prisma@5.22.0))
       '@prisma/client':
-        specifier: ^5.20.0
+        specifier: ^5.22.0
         version: 5.22.0(prisma@5.22.0)
       '@supabase/ssr':
         specifier: ^0.5.2
@@ -130,6 +130,9 @@ importers:
       prettier:
         specifier: ^3.3.3
         version: 3.6.2
+      prisma:
+        specifier: ^5.22.0
+        version: 5.22.0
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.17(ts-node@10.9.2(@types/node@20.19.10)(typescript@5.9.2))

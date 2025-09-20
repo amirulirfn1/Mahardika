@@ -13,38 +13,45 @@ const getPublicEnvValue = (...keys: string[]) => {
   return "";
 };
 
-const supabaseUrl = getPublicEnvValue(
-  "NEXT_PUBLIC_SUPABASE_URL",
-  "STORAGE_NEXT_PUBLIC_SUPABASE_URL",
-  "STORAGE_SUPABASE_URL",
-  "SUPABASE_URL",
-);
-const supabaseAnonKey = getPublicEnvValue(
-  "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-  "STORAGE_NEXT_PUBLIC_SUPABASE_ANON_KEY",
-  "STORAGE_SUPABASE_ANON_KEY",
-  "SUPABASE_ANON_KEY",
-  "SUPABASE_KEY",
-);
+const resolveCredentials = () => {
+  const url = getPublicEnvValue(
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "STORAGE_NEXT_PUBLIC_SUPABASE_URL",
+    "STORAGE_SUPABASE_URL",
+    "SUPABASE_URL",
+  );
+  const anonKey = getPublicEnvValue(
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "STORAGE_NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "STORAGE_SUPABASE_ANON_KEY",
+    "SUPABASE_ANON_KEY",
+    "SUPABASE_KEY",
+  );
+  return { url, anonKey, ok: url.length > 0 && anonKey.length > 0 };
+};
 
-const hasCredentials = supabaseUrl.length > 0 && supabaseAnonKey.length > 0;
 let cachedClient: SupabaseClient | null | undefined;
+let loggedMissing = false;
 
 function initClient(): SupabaseClient | null {
   if (typeof cachedClient !== "undefined") {
     return cachedClient;
   }
-  if (!hasCredentials) {
-    if (process.env.NODE_ENV !== "production") {
+
+  const creds = resolveCredentials();
+  if (!creds.ok) {
+    if (!loggedMissing && process.env.NODE_ENV !== "production") {
       // eslint-disable-next-line no-console
       console.warn(
-        "Supabase client disabled: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are not set.",
+        "Supabase client disabled: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY must be set.",
       );
+      loggedMissing = true;
     }
     cachedClient = null;
     return cachedClient;
   }
-  cachedClient = createClient(supabaseUrl, supabaseAnonKey, {
+
+  cachedClient = createClient(creds.url, creds.anonKey, {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
@@ -68,5 +75,5 @@ export function requireBrowserClient(): SupabaseClient {
 }
 
 export function isSupabaseConfigured(): boolean {
-  return hasCredentials;
+  return resolveCredentials().ok;
 }

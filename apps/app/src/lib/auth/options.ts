@@ -1,6 +1,7 @@
 import { compare } from "bcryptjs";
 import type { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { z } from "zod";
 
 import type { AppRole, AuthUser } from "@/lib/auth/types";
@@ -32,6 +33,73 @@ type MembershipRow = {
   role: AppRole;
   status: "ACTIVE" | "INVITED" | "SUSPENDED";
 };
+
+async function ensureUserProfile(params: {
+  email: string;
+  name?: string | null;
+  locale?: string | null;
+}): Promise<{ id: string } & Pick<AuthUser, "role" | "tenantId" | "locale">> {
+  const supabase = getServiceRoleClient();
+
+  const { data: existing, error: existingError } = await supabase
+    .from("user_profiles")
+    .select("id, locale, platform_role")
+    .eq("email", params.email)
+    .maybeSingle<UserProfileRow>();
+
+  if (existingError) {
+    throw new Error(existingError.message);
+  }
+
+  let userId = existing?.id;
+  let locale = existing?.locale ?? params.locale ?? "en";
+  let role: AppRole | "SUPER_ADMIN" = "STAFF";
+  let tenantId: string | null = null;
+
+  if (!existing) {
+    const { data: created, error: createError } = await supabase
+      .from("user_profiles")
+      .insert({
+        email: params.email,
+        name: params.name ?? null,
+        locale,
+      })
+      .select("id, locale")
+      .maybeSingle<{ id: string; locale: string | null }>();
+
+    if (createError || !created) {
+      throw createError ?? new Error("Failed to create Supabase profile");
+    }
+
+    userId = created.id;
+    locale = created.locale ?? locale;
+  } else if (existing.platform_role === "SUPER_ADMIN") {
+    return { id: existing.id, role: "SUPER_ADMIN", tenantId: null, locale };
+  }
+
+  const { data: membership, error: membershipErr } = await supabase
+    .from("agency_members")
+    .select("tenant_id, role, status")
+    .eq("user_id", userId!)
+    .eq("status", "ACTIVE")
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle<MembershipRow>();
+
+  if (membershipErr) {
+    throw new Error(membershipErr.message);
+  }
+
+  role = membership?.role ?? "STAFF";
+  tenantId = membership?.tenant_id ?? null;
+
+  return {
+    id: userId!,
+    role,
+    tenantId,
+    locale,
+  };
+}
 
 async function resolveUserClaims(userId: string): Promise<Pick<AuthUser, "role" | "tenantId" | "locale">> {
   const supabase = getServiceRoleClient();
@@ -135,8 +203,43 @@ export const authOptions: NextAuthOptions & { trustHost?: boolean } = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: false,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+        },
+      },
+    }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        const email = user.email?.toLowerCase();
+        if (!email) {
+          return false;
+        }
+
+        try {
+          const profile = await ensureUserProfile({
+            email,
+            name: user.name,
+          });
+
+          user.id = profile.id;
+          (user as AuthUser).role = profile.role as AppRole;
+          (user as AuthUser).tenantId = profile.tenantId;
+          (user as AuthUser).locale = profile.locale;
+        } catch (err) {
+          console.error("[auth] google sign-in failed", err);
+          return false;
+        }
+      }
+      return true;
+    },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub ?? "";
@@ -148,7 +251,17 @@ export const authOptions: NextAuthOptions & { trustHost?: boolean } = {
       session.tenantId = session.user?.tenantId ?? null;
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
+      if (user && account?.provider === "google") {
+        const authUser = user as AuthUser;
+        token.sub = authUser.id;
+        token.role = authUser.role;
+        token.tenantId = authUser.tenantId;
+        token.locale = authUser.locale;
+        token.userSyncedAt = nowEpochSeconds();
+        return token;
+      }
+
       if (user) {
         const authUser = user as AuthUser;
         token.role = authUser.role;

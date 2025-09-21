@@ -39,15 +39,15 @@
         "STORAGE_SUPABASE_JWT_SECRET"
       ]
     },
-    "build#@mahardika/config": {
-      "outputs": []
-    },
     "dev": {
       "cache": false,
       "persistent": true
     },
     "lint": {},
     "typecheck": {},
-    "test": {}
+    "test": {},
+    "@mahardika/config#build": {
+      "outputs": []
+    }
   }
 }

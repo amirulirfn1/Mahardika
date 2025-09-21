@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 
 import "./globals.css";
 
@@ -13,23 +12,25 @@ import { Providers } from "./providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
+const description = "Manage policies, payments, customers, and loyalty - all in one place.";
+
 export const metadata: Metadata = {
   title: {
     default: site.name,
     template: `%s - ${site.name}`,
   },
-  description: "Manage policies, payments, customers, and loyalty - all in one place.",
+  description,
   metadataBase: new URL("https://example.com"),
   openGraph: {
     title: site.name,
-    description: "Manage policies, payments, customers, and loyalty - all in one place.",
+    description,
     siteName: site.name,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: site.name,
-    description: "Manage policies, payments, customers, and loyalty - all in one place.",
+    description,
   },
 };
 
@@ -48,26 +49,6 @@ export default function RootLayout({
           "--accent": toHslChannels(process.env.NEXT_PUBLIC_ACCENT),
         }}
       >
-        {/* Early hash cleanup + stash for auth */}
-        <Script id="sb-hash-pre" strategy="beforeInteractive">
-          {`
-          (function(){
-            try{
-              var h = window.location.hash || '';
-              if (h && h.indexOf('access_token=') !== -1) {
-                // keep for later setSession after redirect
-                try { localStorage.setItem('sb-hash', h); } catch(e){}
-                var url = new URL(window.location.href);
-                var next = url.searchParams.get('next') || '/dashboard';
-                // remove hash from address bar immediately
-                history.replaceState(null, '', url.origin + url.pathname + (url.search || ''));
-                window.location.replace(next);
-              }
-            } catch(_){
-            }
-          })();
-          `}
-        </Script>
         <Providers>
           <Header />
           <main>{children}</main>

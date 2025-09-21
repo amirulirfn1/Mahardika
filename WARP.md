@@ -15,7 +15,7 @@ Common commands
 Setup
 - Install deps (workspace root):
   - pnpm i -w
-- Node and pnpm versions: Node 20 LTS, pnpm 9 (enforced via package.json engines).
+- Node and pnpm versions: Node 22, pnpm 9 (enforced via package.json engines).
 
 Develop
 - Run all workspaces in dev (parallel):

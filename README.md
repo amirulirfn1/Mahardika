@@ -4,7 +4,7 @@ Monorepo for Mahardika MVP built with Next.js 14, TypeScript, Tailwind, Supabase
 
 Requirements
 
-- Node 20 LTS (see `.nvmrc`)
+- Node 22.x (see `.nvmrc`)
 - pnpm 9.x
 
 Scripts

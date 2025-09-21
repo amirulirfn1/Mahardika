@@ -16,14 +16,31 @@
         "SUPABASE_JWT_SECRET",
         "NEXTAUTH_URL",
         "NEXTAUTH_SECRET",
+        "APP_URL",
         "RESEND_API_KEY",
         "FROM_EMAIL",
         "CRON_SECRET",
         "SKIP_AUTH",
         "SENTRY_DSN",
         "SENTRY_ENV",
-        "SENTRY_TRACES_SAMPLE_RATE"
+        "SENTRY_TRACES_SAMPLE_RATE",
+        "STORAGE_POSTGRES_URL",
+        "STORAGE_POSTGRES_PRISMA_URL",
+        "STORAGE_POSTGRES_URL_NON_POOLING",
+        "STORAGE_POSTGRES_HOST",
+        "STORAGE_POSTGRES_DATABASE",
+        "STORAGE_POSTGRES_USER",
+        "STORAGE_POSTGRES_PASSWORD",
+        "STORAGE_SUPABASE_URL",
+        "STORAGE_NEXT_PUBLIC_SUPABASE_URL",
+        "STORAGE_SUPABASE_ANON_KEY",
+        "STORAGE_NEXT_PUBLIC_SUPABASE_ANON_KEY",
+        "STORAGE_SUPABASE_SERVICE_ROLE_KEY",
+        "STORAGE_SUPABASE_JWT_SECRET"
       ]
+    },
+    "build#@mahardika/config": {
+      "outputs": []
     },
     "dev": {
       "cache": false,

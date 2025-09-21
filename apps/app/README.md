@@ -31,28 +31,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Loyalty
 
-Loyalty enables agency-configurable tiers with a points-per-MYR rate. When a policy payment is recorded, a trigger credits points into a per-customer ledger. If a payment amount changes or is deleted, balancing ledger rows are written.
+Loyalty enables tenant-configurable tiers with a ringgit-to-point rate. When policy payments are recorded, companion jobs or triggers can post credits into the customer ledger.
 
 Objects:
 
-- `public.loyalty_tiers`: Scoped by `agency_id`. Fields: `code`, `name`, `points_per_myr`, `is_default`. Bronze is seeded as default per agency on first use.
-- `public.loyalty_memberships`: Assigns a customer to a tier per agency.
-- `public.loyalty_ledger`: Append-only ledger of credits/debits with references to policy and payment.
-- `public.loyalty_balances_by_customer` view: Summarizes points balance per customer and agency.
+- `public.loyalty_tiers`: Scoped by `tenant_id`. Fields include `code`, `name`, `ringgit_to_point`, `threshold_visits`, `is_default`.
+- `public.loyalty_ledger`: Append-only ledger of point adjustments referencing policies or payments.
+- `public.customers`: Holds the current `loyalty_tier` code and cached `points_balance`.
+- `public.loyalty_balances_by_customer` view: Summarises balances by tenant and customer.
 
-Accrual:
-
-- On `policy_payments` insert: credit `floor(amount * rate)` points.
-- On update of `amount`: delta between new and old points is applied as credit/debit.
-- On delete (including soft delete): debit equal to previously credited points.
-
-RLS restricts access to rows where `agency_id = public.current_agency_id()`.
-
-Manage tiers at `/dashboard/agency/loyalty`. Default tiers are used when a customer has no membership.
+Manage tiers at `/dashboard/agency/loyalty`. Customers inherit the tenant default tier when no specific tier is set.
 
 ## WhatsApp Provider
 
-Pluggable WhatsApp sender with feature flag. Default provider is `stub` (no network). Optional `cloud` uses WhatsApp Cloud API.
+Pluggable WhatsApp sender with feature flag. Default provider is `stub` (console log only). Optional `cloud` posts to the WhatsApp Cloud API.
 
 Env:
 
@@ -62,9 +54,7 @@ WHATSAPP_CLOUD_TOKEN= # required for cloud
 WHATSAPP_PHONE_NUMBER_ID= # required for cloud
 ```
 
-- Stub writes to `public.outbound_messages` with status `sent` and logs a `wa.me` link.
-- Cloud posts to `https://graph.facebook.com/v20.0/<PHONE_NUMBER_ID>/messages` and logs rows with `sent` or `failed`.
-- View logs at `/dashboard/agency/communications`.
+Application log entries and conversation history are persisted in `public.conversations`. View the audit trail at `/dashboard/agency/communications`.
 
 ## Sentry
 

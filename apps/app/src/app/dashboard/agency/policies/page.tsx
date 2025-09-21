@@ -6,27 +6,26 @@ import { getServerClient } from "@/lib/supabase/server";
 export const revalidate = 0;
 
 function parseSearchParams(searchParams: Record<string, string | string[] | undefined>) {
-  const q = typeof searchParams.q === "string" ? searchParams.q : "";
-  const page = Math.max(1, parseInt((searchParams.page as string) || "1", 10));
+  const q = typeof searchParams.q === 'string' ? searchParams.q : '';
+  const page = Math.max(1, parseInt((searchParams.page as string) || '1', 10));
   const pageSize = 10;
   return { q, page, pageSize };
 }
 
 export default async function PoliciesListPage({ searchParams }: { searchParams: Record<string, string> }) {
   const { q, page, pageSize } = parseSearchParams(searchParams);
-  const supabase = getServerClient();
+  const supabase = await getServerClient();
 
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
   let query = supabase
-    .from("policies")
-    .select("id, policy_no, end_date, status, pdf_path, customer:customers(full_name)", { count: "exact" })
-    .order("created_at", { ascending: false });
+    .from('policies')
+    .select('id, policy_no, carrier, product, end_date, status, files_json, customer:customers(full_name)', { count: 'exact' })
+    .order('created_at', { ascending: false });
 
   if (q) {
-    // Simple OR across policy_no and customer name
-    query = query.or(`policy_no.ilike.%${q}%,customers.full_name.ilike.%${q}%`);
+    query = query.or(`policy_no.ilike.%${q}%,carrier.ilike.%${q}%,product.ilike.%${q}%,customers.full_name.ilike.%${q}%`);
   }
 
   const { data, count } = await query.range(from, to);
@@ -35,12 +34,12 @@ export default async function PoliciesListPage({ searchParams }: { searchParams:
     <div className="p-6 space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Policies</h1>
-        <Link href="/dashboard/agency/policies/new" className="rounded bg-black text-white px-3 py-2 text-sm">
+        <Link href="/dashboard/agency/policies/new" className="rounded bg-black px-3 py-2 text-sm text-white">
           New Policy
         </Link>
       </div>
       <form className="flex gap-2">
-        <input name="q" defaultValue={q} placeholder="Search policy no or customer" className="rounded border px-3 py-2 w-full" />
+        <input name="q" defaultValue={q} placeholder="Search policy, carrier, or customer" className="w-full rounded border px-3 py-2" />
         <button className="rounded border px-3 py-2" type="submit">Search</button>
       </form>
       <div className="rounded border overflow-x-auto">
@@ -49,33 +48,39 @@ export default async function PoliciesListPage({ searchParams }: { searchParams:
             <TR>
               <TH>Policy No</TH>
               <TH>Customer</TH>
+              <TH>Carrier</TH>
+              <TH>Product</TH>
               <TH>End Date</TH>
               <TH>Status</TH>
-              <TH>PDF</TH>
+              <TH>Files</TH>
               <TH>Actions</TH>
             </TR>
           </THead>
           <TBody>
-            {(data || []).map((p: { id: string; policy_no: string; end_date: string; status?: string | null; pdf_path?: string | null; customer?: { full_name: string } | { full_name: string }[] }) => (
-              <TR key={p.id}>
-                <TD>{p.policy_no}</TD>
-                <TD>
-                  {Array.isArray(p.customer) ? p.customer[0]?.full_name ?? "-" : p.customer?.full_name ?? "-"}
-                </TD>
-                <TD>{p.end_date}</TD>
-                <TD>{p.status ?? "active"}</TD>
-                <TD>{p.pdf_path ? "Yes" : "-"}</TD>
-                <TD>
-                  <div className="flex gap-2">
-                    <Link href={`/dashboard/agency/policies/${p.id}`} className="underline">View</Link>
-                    <Link href={`/dashboard/agency/policies/${p.id}/edit`} className="underline">Edit</Link>
-                  </div>
-                </TD>
-              </TR>
-            ))}
+            {(data || []).map((p) => {
+              const customer = Array.isArray(p.customer) ? p.customer[0] : p.customer;
+              const files = Array.isArray(p.files_json) ? p.files_json : [];
+              return (
+                <TR key={p.id}>
+                  <TD>{p.policy_no}</TD>
+                  <TD>{customer?.full_name ?? '-'}</TD>
+                  <TD>{p.carrier}</TD>
+                  <TD>{p.product}</TD>
+                  <TD>{p.end_date ?? '-'}</TD>
+                  <TD>{p.status}</TD>
+                  <TD>{files.length > 0 ? files.length : '-'}</TD>
+                  <TD>
+                    <div className="flex gap-2">
+                      <Link href={`/dashboard/agency/policies/${p.id}`} className="underline">View</Link>
+                      <Link href={`/dashboard/agency/policies/${p.id}/edit`} className="underline">Edit</Link>
+                    </div>
+                  </TD>
+                </TR>
+              );
+            })}
             {(!data || data.length === 0) && (
               <TR>
-                <TD colSpan={6}>
+                <TD colSpan={8}>
                   <div className="py-4 text-center text-gray-500">No policies</div>
                 </TD>
               </TR>
@@ -97,5 +102,3 @@ export default async function PoliciesListPage({ searchParams }: { searchParams:
     </div>
   );
 }
-
-

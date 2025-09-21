@@ -1,4 +1,4 @@
-﻿import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { CustomerForm } from "@/components/forms/CustomerForm";
 import { getServerClient } from "@/lib/supabase/server";
@@ -6,25 +6,21 @@ import { getServerClient } from "@/lib/supabase/server";
 import { updateCustomer } from "../../_actions";
 
 async function fetchCustomer(id: string) {
-  const supabase = getServerClient();
+  const supabase = await getServerClient();
   const { data } = await supabase
-    .from("customers")
-    .select("id, full_name, email, phone")
-    .eq("id", id)
+    .from('customers')
+    .select('id, full_name, email, phone, national_id, notes')
+    .eq('id', id)
     .maybeSingle();
   return data;
 }
 
-export default async function EditCustomerPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function EditCustomerPage({ params }: { params: { id: string } }) {
   const customer = await fetchCustomer(params.id);
   if (!customer) return <div className="p-6">Customer not found</div>;
 
   async function onSubmit(formData: FormData) {
-    "use server";
+    'use server';
     const res = await updateCustomer(params.id, formData);
     if (res.ok) redirect(`/dashboard/agency/customers/${params.id}`);
     return res;
@@ -40,9 +36,10 @@ export default async function EditCustomerPage({
           full_name: customer.full_name,
           email: customer.email,
           phone: customer.phone,
+          national_id: customer.national_id,
+          notes: customer.notes,
         }}
       />
     </div>
   );
 }
-

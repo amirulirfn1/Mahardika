@@ -13,7 +13,7 @@ type PageProps = { params: { slug: string } };
 export const revalidate = 60;
 
 async function fetchAgency(slug: string): Promise<Agency | null> {
-  const supabase = getServerClient();
+  const supabase = await getServerClient();
   const { data, error } = await supabase
     .from("agencies")
     .select("id, name, slug, description, phone")

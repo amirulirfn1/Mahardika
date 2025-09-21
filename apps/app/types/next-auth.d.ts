@@ -1,31 +1,31 @@
-import type { Role } from "@prisma/client";
 import type { DefaultSession } from "next-auth";
+
+import type { AppRole } from "@/lib/auth/types";
 
 declare module "next-auth" {
   interface Session {
-    user: (DefaultSession["user"] & {
+    user: (DefaultSession['user'] & {
       id: string;
-      role: Role;
-      agencyId: string | null;
+      role: AppRole;
+      tenantId: string | null;
       locale: string;
     }) | null;
     tenantId: string | null;
   }
 
   interface User {
-    role: Role;
-    agencyId: string | null;
+    role: AppRole;
+    tenantId: string | null;
     locale: string;
-    passwordHash?: string | null;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    role?: Role;
-    agencyId?: string | null;
-    locale?: string;
+    role?: AppRole;
     tenantId?: string | null;
+    locale?: string;
+    impersonatedTenantId?: string | null;
     userSyncedAt?: number;
   }
 }

@@ -1,30 +1,29 @@
-﻿"use server";
+"use server";
 
 import { logError } from "@/lib/log";
 import { getServerClient } from "@/lib/supabase/server";
 
 export async function setCustomerTierAction(customerId: string, tierId: string) {
   try {
-    const supabase = getServerClient();
-    // Resolve agency of customer to scope membership
-    const { data: cust, error: custErr } = await supabase
-      .from("customers")
-      .select("agency_id")
-      .eq("id", customerId)
+    const supabase = await getServerClient();
+    const { data: tier, error: tierErr } = await supabase
+      .from('loyalty_tiers')
+      .select('code')
+      .eq('id', tierId)
       .single();
-    if (custErr || !cust?.agency_id) return { ok: false as const, error: custErr?.message || "Customer not found" };
-    // Upsert membership unique on (agency_id, customer_id)
+    if (tierErr || !tier?.code) {
+      return { ok: false as const, error: tierErr?.message || 'Tier not found' };
+    }
+
     const { error } = await supabase
-      .from("loyalty_memberships")
-      .upsert({ agency_id: cust.agency_id, customer_id: customerId, tier_id: tierId } as Record<string, unknown>, { onConflict: "agency_id,customer_id" });
+      .from('customers')
+      .update({ loyalty_tier: tier.code })
+      .eq('id', customerId);
     if (error) return { ok: false as const, error: error.message };
     return { ok: true as const };
   } catch (e) {
-    logError(e, { op: "setCustomerTierAction", customerId, tierId });
-    const msg = e instanceof Error ? e.message : "Unknown error";
+    logError(e, { op: 'setCustomerTierAction', customerId, tierId });
+    const msg = e instanceof Error ? e.message : 'Unknown error';
     return { ok: false as const, error: msg };
   }
 }
-
-
-

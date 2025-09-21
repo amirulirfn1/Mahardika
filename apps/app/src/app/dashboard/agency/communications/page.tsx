@@ -6,11 +6,11 @@ import { getServerClient } from "@/lib/supabase/server";
 export const revalidate = 0;
 
 async function listMessages() {
-  const supabase = getServerClient();
+  const supabase = await getServerClient();
   const { data } = await supabase
-    .from("outbound_messages")
-    .select("id, channel, to_number, template, body, status, error, created_at")
-    .order("created_at", { ascending: false })
+    .from('conversations')
+    .select('id, created_at, channel, direction, body, customer:customers(full_name)')
+    .order('created_at', { ascending: false })
     .limit(50);
   return data || [];
 }
@@ -29,26 +29,27 @@ export default async function CommunicationsPage() {
             <TR>
               <TH>When</TH>
               <TH>Channel</TH>
-              <TH>To</TH>
-              <TH>Status</TH>
+              <TH>Direction</TH>
+              <TH>Customer</TH>
               <TH>Body</TH>
-              <TH>Error</TH>
             </TR>
           </THead>
           <TBody>
-            {rows.map((r) => (
-              <TR key={r.id}>
-                <TD>{new Date(r.created_at as string).toLocaleString()}</TD>
-                <TD>{r.channel}</TD>
-                <TD>{r.to_number}</TD>
-                <TD>{r.status}</TD>
-                <TD className="max-w-[400px] truncate" title={r.body || ''}>{r.body}</TD>
-                <TD className="max-w-[300px] truncate" title={r.error || ''}>{r.error}</TD>
-              </TR>
-            ))}
+            {rows.map((r) => {
+              const customer = Array.isArray(r.customer) ? r.customer[0] : r.customer;
+              return (
+                <TR key={r.id}>
+                  <TD>{new Date(r.created_at as string).toLocaleString()}</TD>
+                  <TD>{r.channel}</TD>
+                  <TD>{r.direction}</TD>
+                  <TD>{customer?.full_name ?? '-'}</TD>
+                  <TD className="max-w-[400px] truncate" title={r.body || ''}>{r.body ?? '-'}</TD>
+                </TR>
+              );
+            })}
             {rows.length === 0 && (
               <TR>
-                <TD colSpan={6}>No messages yet</TD>
+                <TD colSpan={5}>No communications yet</TD>
               </TR>
             )}
           </TBody>
@@ -57,5 +58,3 @@ export default async function CommunicationsPage() {
     </div>
   );
 }
-
-

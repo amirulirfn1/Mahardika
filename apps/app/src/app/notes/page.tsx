@@ -4,11 +4,12 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { getServerClient } from "@/lib/supabase/server";
 
 export default async function NotesPage() {
-  const supabase = getServerClient();
+  const supabase = await getServerClient();
   const { data: notes, error } = await supabase
-    .from("notes")
-    .select("id, title")
-    .order("id", { ascending: true });
+    .from('notes')
+    .select('id, subject')
+    .order('created_at', { ascending: false })
+    .limit(30);
 
   if (error) {
     return (
@@ -29,7 +30,7 @@ export default async function NotesPage() {
               <Card key={note.id} radius="marketing" intent="subtle">
                 <CardContent density="marketing">
                   <div className="text-sm uppercase tracking-wide text-muted-foreground/80">Note</div>
-                  <div className="mt-2 text-base font-medium text-foreground">{note.title}</div>
+                  <div className="mt-2 text-base font-medium text-foreground">{note.subject}</div>
                 </CardContent>
               </Card>
             ))}

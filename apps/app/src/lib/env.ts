@@ -19,9 +19,8 @@ const envSchema = z
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z
       .string()
       .min(1, { message: "NEXT_PUBLIC_SUPABASE_ANON_KEY is required" }),
-    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
-    SUPABASE_JWT_SECRET: z.string().min(1).optional(),
-    DATABASE_URL: z.string().min(1, { message: "DATABASE_URL is required" }),
+    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1, { message: "SUPABASE_SERVICE_ROLE_KEY is required" }),
+    SUPABASE_JWT_SECRET: z.string().min(1, { message: "SUPABASE_JWT_SECRET is required" }),
     NEXTAUTH_SECRET: z.string().min(1).optional(),
     NEXTAUTH_URL: z.string().url().optional(),
     APP_URL: z.string().url().optional(),
@@ -50,7 +49,6 @@ const parsed = envSchema.safeParse({
   ),
   SUPABASE_SERVICE_ROLE_KEY: getEnvValue("SUPABASE_SERVICE_ROLE_KEY", "STORAGE_SUPABASE_SERVICE_ROLE_KEY"),
   SUPABASE_JWT_SECRET: getEnvValue("SUPABASE_JWT_SECRET", "STORAGE_SUPABASE_JWT_SECRET"),
-  DATABASE_URL: getEnvValue("DATABASE_URL", "STORAGE_POSTGRES_PRISMA_URL", "STORAGE_POSTGRES_URL"),
   NEXTAUTH_SECRET: getEnvValue("NEXTAUTH_SECRET"),
   NEXTAUTH_URL: getEnvValue("NEXTAUTH_URL"),
   APP_URL: getEnvValue("APP_URL"),

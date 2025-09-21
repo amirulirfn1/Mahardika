@@ -2,25 +2,23 @@ import { getServerClient } from "./supabase/server";
 
 export type Counts = { customers: number; policies: number; payments: number };
 
-export async function getCounts(
-  agencyId: string | null | undefined,
-): Promise<Counts> {
-  if (!agencyId) return { customers: 0, policies: 0, payments: 0 };
-  const supabase = getServerClient();
+export async function getCounts(tenantId: string | null | undefined): Promise<Counts> {
+  if (!tenantId) return { customers: 0, policies: 0, payments: 0 };
+  const supabase = await getServerClient();
 
   const [cRes, pRes, payRes] = await Promise.all([
     supabase
-      .from("customers")
-      .select("id", { count: "exact", head: true })
-      .eq("agency_id", agencyId),
+      .from('customers')
+      .select('id', { count: 'exact', head: true })
+      .eq('tenant_id', tenantId),
     supabase
-      .from("policies")
-      .select("id", { count: "exact", head: true })
-      .eq("agency_id", agencyId),
+      .from('policies')
+      .select('id', { count: 'exact', head: true })
+      .eq('tenant_id', tenantId),
     supabase
-      .from("payments")
-      .select("id", { count: "exact", head: true })
-      .eq("agency_id", agencyId),
+      .from('policy_payments')
+      .select('id', { count: 'exact', head: true })
+      .eq('tenant_id', tenantId),
   ]);
 
   const customers = cRes.count ?? 0;
@@ -36,34 +34,23 @@ export type RecentPolicy = {
   customer_name: string | null;
 };
 
-export async function getRecentPolicies(
-  agencyId: string | null | undefined,
-  limit = 5,
-): Promise<RecentPolicy[]> {
-  if (!agencyId) return [];
-  const supabase = getServerClient();
+export async function getRecentPolicies(tenantId: string | null | undefined, limit = 5): Promise<RecentPolicy[]> {
+  if (!tenantId) return [];
+  const supabase = await getServerClient();
   const { data, error } = await supabase
-    .from("policies")
-    .select("policy_no, end_date, customers(full_name)")
-    .eq("agency_id", agencyId)
-    .order("end_date", { ascending: false })
+    .from('policies')
+    .select('policy_no, end_date, customer:customers(full_name)')
+    .eq('tenant_id', tenantId)
+    .order('end_date', { ascending: false })
     .limit(limit);
 
   if (error || !data) return [];
-  return data.map(
-    (row: {
-      policy_no: string;
-      end_date: string;
-      customers?: Array<{ full_name?: string } | null> | null;
-    }) => {
-      const name = Array.isArray(row.customers)
-        ? (row.customers[0]?.full_name ?? null)
-        : null;
-      return {
-        policy_no: row.policy_no,
-        end_date: row.end_date,
-        customer_name: name,
-      };
-    },
-  );
+  return data.map(row => {
+    const customer = Array.isArray(row.customer) ? row.customer[0] : row.customer;
+    return {
+      policy_no: row.policy_no,
+      end_date: row.end_date,
+      customer_name: customer?.full_name ?? null,
+    };
+  });
 }

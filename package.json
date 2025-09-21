@@ -18,10 +18,6 @@
     "e2e:smoke": "playwright test -g \"@smoke\"",
     "e2e:ui": "playwright test --ui",
     "fmt": "prettier --write .",
-    "db:gen": "prisma generate",
-    "db:migrate": "prisma migrate deploy",
-    "db:push": "prisma db push",
-    "db:seed": "prisma db seed",
     "vercel:dev": "vercel dev --cwd apps/app --listen 3000"
   },
   "devDependencies": {
@@ -29,14 +25,9 @@
     "mcp-supabase": "^0.1.0",
     "ts-node": "^10.9.2",
     "turbo": "^2.2.3",
-    "vercel-mcp": "^0.0.7",
-    "prisma": "^5.22.0",
-    "@prisma/client": "^5.22.0"
+    "vercel-mcp": "^0.0.7"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.5.0"
-  },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\",\"moduleResolution\":\"node\"} prisma/seed.ts"
   }
 }

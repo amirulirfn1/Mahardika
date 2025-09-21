@@ -1,56 +1,49 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+function sanitiseFileName(name: string) {
+  return name.trim().replace(/[^a-zA-Z0-9_.-]+/g, '-');
+}
+
 type UploadArgs = {
   supabase: SupabaseClient;
   policyId: string;
+  tenantId: string;
   file: File;
 };
 
-export async function uploadPolicyPdf({ supabase, policyId, file }: UploadArgs) {
+export async function uploadPolicyPdf({ supabase, policyId, tenantId, file }: UploadArgs) {
   try {
-    if (!file) return { ok: false, error: "No file" } as const;
-    if (file.size > 5 * 1024 * 1024) return { ok: false, error: "File too large (max 5MB)" } as const;
-    const lowerName = (file.name || "").toLowerCase();
-    const ct = (file.type || "").toLowerCase();
-    const isPdf = ct === "application/pdf" || lowerName.endsWith(".pdf");
-    if (!isPdf) return { ok: false, error: "Only PDF files are allowed" } as const;
+    if (!file) return { ok: false as const, error: 'No file' };
+    if (file.size > 5 * 1024 * 1024) return { ok: false as const, error: 'File too large (max 5MB)' };
+    const lowerName = (file.name || '').toLowerCase();
+    const ct = (file.type || '').toLowerCase();
+    const isPdf = ct === 'application/pdf' || lowerName.endsWith('.pdf');
+    if (!isPdf) return { ok: false as const, error: 'Only PDF files are allowed' };
 
-    // Resolve agency from the authenticated user's profile on the server
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return { ok: false, error: "Unauthorized" } as const;
-    const { data: profile, error: profErr } = await supabase
-      .from("profiles")
-      .select("agency_id")
-      .eq("user_id", user.id)
-      .single();
-    if (profErr || !profile?.agency_id) return { ok: false, error: "No agency" } as const;
-
-    const path = `${profile.agency_id}/${policyId}.pdf`;
-    const { error } = await supabase.storage.from("policy-pdfs").upload(path, file, {
+    const safeName = sanitiseFileName(file.name || 'policy.pdf') || 'policy.pdf';
+    const path = `${tenantId}/${policyId}/${Date.now()}-${safeName}`;
+    const { error } = await supabase.storage.from('policy-docs').upload(path, file, {
       upsert: true,
-      contentType: "application/pdf",
-      metadata: { agency_id: profile.agency_id, table_ref: "policies", row_id: policyId },
+      contentType: 'application/pdf',
+      metadata: { tenant_id: tenantId, policy_id: policyId },
     });
-    if (error) return { ok: false, error: error.message } as const;
-    return { ok: true, path } as const;
+    if (error) return { ok: false as const, error: error.message };
+
+    const fileEntry = {
+      path,
+      name: file.name,
+      kind: 'POLICY' as const,
+      uploaded_at: new Date().toISOString(),
+    };
+    return { ok: true as const, path, fileEntry };
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "Unknown error";
-    return { ok: false, error: msg } as const;
+    const msg = e instanceof Error ? e.message : 'Unknown error';
+    return { ok: false as const, error: msg };
   }
 }
 
-export async function getPolicyPdfUrl({
-  supabase,
-  path,
-}: {
-  supabase: SupabaseClient;
-  path: string;
-}) {
-  const { data, error } = await supabase.storage.from("policy-pdfs").createSignedUrl(path, 60 * 10);
+export async function getPolicyPdfUrl({ supabase, path }: { supabase: SupabaseClient; path: string }) {
+  const { data, error } = await supabase.storage.from('policy-docs').createSignedUrl(path, 60 * 10);
   if (error) return { ok: false as const, error: error.message };
   return { ok: true as const, url: data.signedUrl };
 }
-
-

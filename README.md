@@ -20,25 +20,25 @@ Workspaces
 - `packages/ui` shared UI components
 - `packages/config` shared configs (ESLint, Tailwind, TS, Prettier)
 
-## Security model for policies and PDFs
+## Security model for policies and documents
 
-- `public.policies` is protected by strict RLS: same-agency users can select/insert/update; delete is limited to `agency_owner` (and platform admins) within the same agency.
-- Policy PDFs are stored in a private bucket `policy-pdfs`. RLS on `storage.objects` restricts access by `metadata.agency_id == current_agency_id()`.
-- Server code ensures all PDF uploads set `metadata.agency_id` automatically; clients cannot override it.
+- `public.policies` is protected by tenant-scoped RLS. Owners and admins can manage any policy in their tenant; agents can be restricted to their assigned policies via policy checks.
+- Policy documents live in the private bucket `policy-docs`. Storage policies ensure the first path segment matches the authenticated `tenant_id`.
+- Server utilities automatically write files to `policy-docs/{tenant_id}/{policy_id}/...` and store metadata in `policies.files_json`.
 - Signed URLs expire after 10 minutes.
 
 ## Payment tracking
 
-- `public.policy_payments` tracks incoming payments tied to `public.policies`.
-- RLS strictly scopes all operations to the agency of the owning policy. Delete is limited to agency owners (and platform admins).
-- UI: create and list payments under a policy detail, with a dedicated payments page for more entries.
+- `public.policy_payments` tracks incoming payments tied to `public.policies` with fields for `method`, `reference`, `notes`, and soft-delete support.
+- RLS strictly scopes all operations to the tenant of the owning policy. Deletion/restoration is limited to owners/admins.
+- UI: create and list payments under a policy detail, with a dedicated payments page for expanded history.
 
 ## Soft delete and audit trail
 
-- Both `public.policies` and `public.policy_payments` support soft delete via `deleted_at`.
-- RLS hides soft-deleted rows by default in SELECT/UPDATE/INSERT checks.
-- `public.audit_events` records inserts/updates/deletes and soft-delete/restore, scoped by `actor_agency_id`.
-- Policy detail includes a danger zone to soft delete/restore; audit visibility is restricted to the same agency.
+- `public.policies`, `public.policy_payments`, and other core tables include `deleted_at` for reversible deletes.
+- RLS excludes soft-deleted rows by default.
+- `public.audit_log` captures inserts, updates, deletes, soft-delete, and restore events along with JSON snapshots.
+- Policy detail includes a danger zone section to soft delete/restore and surfaces the audit history.
 
 ## Monitoring (Sentry)
 
@@ -74,10 +74,9 @@ Workspaces
 - **Branch rules**: Pushes to `develop` or `staging` trigger the `Staging Deploy` workflow.
 - **Manual runs**: Use the `Staging Deploy` workflow's manual dispatch and optionally provide `ref` to deploy a specific commit/branch/tag.
 - **Gated by E2E**: The deploy is gated by the reusable `pr_e2e.yml` job. Deployment runs only if E2E passes.
-- **Required secrets**: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `STAGING_DATABASE_URL`.
+- **Required secrets**: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
 - **Optional variables**:
   - `STAGING_ALIAS`: Friendly domain alias (e.g., `staging.mahardika.app`).
-  - `RUN_MIGRATIONS`: Set to `1` to run `pnpm -w exec prisma migrate deploy` against `STAGING_DATABASE_URL`.
 - **Windows note**: If a build fails due to a readlink error, clean and rebuild:
 
 ```cmd
@@ -111,7 +110,6 @@ pnpm -w build
 
   ```bash
   npx supabase db push
-  pnpm db:migrate # optional Prisma deploy against DATABASE_URL
   ```
 
 - Required Vercel environment variables (Preview + Production):
@@ -119,7 +117,6 @@ pnpm -w build
   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` (see `supabase projects api-keys list`)
   - `SUPABASE_SERVICE_ROLE_KEY` (server-only)
   - `SUPABASE_JWT_SECRET`
-  - `DATABASE_URL` pointing to the pooled Supabase connection, e.g. `postgresql://postgres.<ref>:<password>@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require&pgbouncer=true&connection_limit=1`
   - `NEXTAUTH_SECRET` (generate with `openssl rand -base64 32`)
   - `NEXTAUTH_URL`/`APP_URL` for production (e.g. `https://mahardika.vercel.app`)
 
@@ -128,11 +125,9 @@ pnpm -w build
   ```bash
   vercel env pull --yes --environment=preview
   vercel env add NEXTAUTH_SECRET production
-  vercel env add DATABASE_URL production
   # repeat for other keys / environments
   ```
 
-- Validate connectivity locally: `node scripts/check-supabase.mjs` and `pnpm -w test:e2e` (requires `DATABASE_URL`).
 
 ## Design notes
 

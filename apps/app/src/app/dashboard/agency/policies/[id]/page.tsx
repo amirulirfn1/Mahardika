@@ -1,49 +1,67 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/Button";
 import { listAuditForEntity } from "@/lib/audit";
 import { getCustomerBalance } from "@/lib/loyalty";
 import { listPaymentsByPolicy } from "@/lib/payments";
-import { softDeletePolicy, restorePolicy } from "@/lib/policies";
+import { restorePolicy, softDeletePolicy } from "@/lib/policies";
 import { getPolicyPdfUrl } from "@/lib/storage";
 import { getServerClient } from "@/lib/supabase/server";
 
 import { sendRenewalReminderAction } from "./_actions";
 
+interface FileEntry {
+  path: string;
+  name?: string;
+  kind?: string;
+  uploaded_at?: string;
+}
 
-type PolicyDetail = {
+interface PolicyDetail {
   id: string;
   policy_no: string;
-  start_date: string;
-  end_date: string;
-  premium_myr: number;
-  status?: string | null;
-  pdf_path?: string | null;
-  customer?: { full_name: string } | { full_name: string }[] | null;
-  vehicle?: { plate_no: string } | { plate_no: string }[] | null;
-};
+  carrier: string;
+  product: string;
+  status: string;
+  start_date: string | null;
+  end_date: string | null;
+  premium_gross: number | null;
+  premium_net: number | null;
+  files_json: unknown;
+  customer?: { full_name?: string } | { full_name?: string }[] | null;
+}
 
 async function fetchPolicy(id: string): Promise<PolicyDetail | null> {
-  const supabase = getServerClient();
+  const supabase = await getServerClient();
   const { data } = await supabase
-    .from("policies")
-    .select("id, policy_no, start_date, end_date, premium_myr, status, pdf_path, customer:customers(full_name), vehicle:vehicles(plate_no)")
-    .eq("id", id)
+    .from('policies')
+    .select('id, policy_no, carrier, product, status, start_date, end_date, premium_gross, premium_net, files_json, customer:customers(full_name)')
+    .eq('id', id)
     .maybeSingle();
-  return (data as unknown as PolicyDetail) ?? null;
+  return (data as PolicyDetail | null) ?? null;
 }
 
 export default async function PolicyDetailPage({ params }: { params: { id: string } }) {
   const policy = await fetchPolicy(params.id);
   if (!policy) return <div className="p-6">Policy not found</div>;
-  const supabase = getServerClient();
-  const signed = policy.pdf_path ? await getPolicyPdfUrl({ supabase, path: policy.pdf_path }) : null;
+
+  const supabase = await getServerClient();
+  const files = (Array.isArray(policy.files_json) ? policy.files_json : []) as FileEntry[];
+  const primaryFile = files.length > 0 ? files[files.length - 1] : null;
+  const signed = primaryFile ? await getPolicyPdfUrl({ supabase, path: primaryFile.path }) : null;
   const signedUrl = signed && signed.ok ? signed.url : null;
+
   const payments = await listPaymentsByPolicy(params.id);
   const audit = await listAuditForEntity('policy', params.id, 50);
-  const { data: policyRow } = await supabase.from("policies").select("customer_id").eq("id", params.id).maybeSingle();
-  const custId = (policyRow?.customer_id as string | undefined) ?? undefined;
-  const balance = custId ? await getCustomerBalance(custId) : null;
+  const { data: policyRow } = await supabase
+    .from('policies')
+    .select('customer_id')
+    .eq('id', params.id)
+    .maybeSingle();
+  const customerId = (policyRow?.customer_id as string | undefined) ?? undefined;
+  const balance = customerId ? await getCustomerBalance(customerId) : null;
+
+  const customer = Array.isArray(policy.customer) ? policy.customer[0] : policy.customer;
 
   return (
     <div className="p-6 space-y-6">
@@ -59,98 +77,109 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <div className="text-gray-600 text-sm">Customer</div>
-          <div>
-            {Array.isArray(policy.customer)
-              ? policy.customer[0]?.full_name ?? "-"
-              : policy.customer?.full_name ?? "-"}
-          </div>
+          <div className="text-sm text-gray-600">Customer</div>
+          <div>{customer?.full_name ?? '-'}</div>
         </div>
         <div>
-          <div className="text-gray-600 text-sm">Vehicle</div>
-          <div>
-            {Array.isArray(policy.vehicle)
-              ? policy.vehicle[0]?.plate_no ?? "-"
-              : policy.vehicle?.plate_no ?? "-"}
-          </div>
+          <div className="text-sm text-gray-600">Carrier</div>
+          <div>{policy.carrier}</div>
         </div>
         <div>
-          <div className="text-gray-600 text-sm">Start</div>
-          <div>{policy.start_date}</div>
+          <div className="text-sm text-gray-600">Product</div>
+          <div>{policy.product}</div>
         </div>
         <div>
-          <div className="text-gray-600 text-sm">End</div>
-          <div>{policy.end_date}</div>
+          <div className="text-sm text-gray-600">Status</div>
+          <div>{policy.status}</div>
         </div>
         <div>
-          <div className="text-gray-600 text-sm">Premium (MYR)</div>
-          <div>{policy.premium_myr}</div>
+          <div className="text-sm text-gray-600">Start</div>
+          <div>{policy.start_date ?? '-'}</div>
         </div>
         <div>
-          <div className="text-gray-600 text-sm">Status</div>
-          <div>{policy.status ?? "active"}</div>
+          <div className="text-sm text-gray-600">End</div>
+          <div>{policy.end_date ?? '-'}</div>
+        </div>
+        <div>
+          <div className="text-sm text-gray-600">Premium Gross</div>
+          <div>{policy.premium_gross != null ? policy.premium_gross.toFixed(2) : '-'}</div>
+        </div>
+        <div>
+          <div className="text-sm text-gray-600">Premium Net</div>
+          <div>{policy.premium_net != null ? policy.premium_net.toFixed(2) : '-'}</div>
         </div>
       </div>
 
-      {policy.pdf_path ? (
+      {primaryFile ? (
         signedUrl ? (
           <a href={signedUrl} target="_blank" rel="noopener noreferrer">
-            <Button type="button">Open PDF (signed URL)</Button>
+            <Button type="button">Open Latest PDF</Button>
           </a>
         ) : (
           <div className="text-sm text-gray-600">Unable to generate signed URL</div>
         )
       ) : (
-        <div className="text-sm text-gray-600">No PDF uploaded</div>
+        <div className="text-sm text-gray-600">No documents uploaded</div>
       )}
 
-      <div className="rounded border p-4 space-y-3">
+      <div className="space-y-3 rounded border p-4">
         <div className="font-medium">Communications</div>
-        <form action={async (fd) => {
-          'use server';
-          const to = String(fd.get('to'));
-          if (!to) return;
-          await sendRenewalReminderAction(policy.id, to);
-        }} className="flex items-end gap-2">
+        <form
+          action={async (fd) => {
+            'use server';
+            const to = String(fd.get('to'));
+            if (!to) return;
+            await sendRenewalReminderAction(policy.id, to);
+          }}
+          className="flex items-end gap-2"
+        >
           <div className="flex-1">
-            <label className="block text-sm mb-1">WhatsApp number</label>
+            <label className="mb-1 block text-sm">WhatsApp number</label>
             <input name="to" className="w-full rounded border px-3 py-2" placeholder="60XXXXXXXXX" />
           </div>
           <Button type="submit">Send WhatsApp reminder</Button>
         </form>
         <div>
-          <a className="underline text-sm" href="/dashboard/agency/communications">View Communications log</a>
+          <a className="text-sm underline" href="/dashboard/agency/communications">
+            View communications log
+          </a>
         </div>
       </div>
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">Payments</h2>
-          <Link href={`/dashboard/agency/policies/${policy.id}/payments`} className="underline">Manage</Link>
+          <Link href={`/dashboard/agency/policies/${policy.id}/payments`} className="underline">
+            Manage
+          </Link>
         </div>
         <div className="rounded border overflow-hidden">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b bg-gray-50">
-                <th className="text-left p-2">Paid At</th>
-                <th className="text-left p-2">Amount</th>
-                <th className="text-left p-2">Channel</th>
-                <th className="text-left p-2">Reference</th>
+                <th className="p-2 text-left">Paid At</th>
+                <th className="p-2 text-left">Amount</th>
+                <th className="p-2 text-left">Method</th>
+                <th className="p-2 text-left">Reference</th>
               </tr>
             </thead>
             <tbody>
-              {(payments.ok ? payments.data : []).slice(0, 5).map((p: { id: string; amount: number; channel: string; reference?: string | null; paid_at: string }) => (
+              {(payments.ok ? payments.data : []).slice(0, 5).map((p) => (
                 <tr key={p.id} className="border-b">
                   <td className="p-2">{new Date(p.paid_at).toLocaleString()}</td>
                   <td className="p-2">{Number(p.amount).toFixed(2)}</td>
-                  <td className="p-2">{p.channel}</td>
+                  <td className="p-2">{p.method}</td>
                   <td className="p-2">{p.reference || '-'}</td>
                 </tr>
               ))}
               {(!payments.ok || (payments.data || []).length === 0) && (
-                <tr><td className="p-3 text-center text-gray-500" colSpan={4}>No payments yet</td></tr>
+                <tr>
+                  <td className="p-3 text-center text-gray-500" colSpan={4}>
+                    No payments yet
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
@@ -164,15 +193,15 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
         <h2 className="text-xl font-semibold">Danger zone</h2>
         <form
           action={async () => {
-            "use server";
+            'use server';
             await softDeletePolicy(policy.id);
           }}
         >
-          <button className="rounded bg-red-600 text-white px-4 py-2">Soft delete policy</button>
+          <button className="rounded bg-red-600 px-4 py-2 text-white">Soft delete policy</button>
         </form>
         <form
           action={async () => {
-            "use server";
+            'use server';
             await restorePolicy(policy.id);
           }}
         >
@@ -186,23 +215,29 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b bg-gray-50">
-                <th className="text-left p-2">When</th>
-                <th className="text-left p-2">Action</th>
-                <th className="text-left p-2">Actor</th>
-                <th className="text-left p-2">Summary</th>
+                <th className="p-2 text-left">When</th>
+                <th className="p-2 text-left">Action</th>
+                <th className="p-2 text-left">Actor</th>
+                <th className="p-2 text-left">Summary</th>
               </tr>
             </thead>
             <tbody>
-              {((audit.ok ? audit.data : []) as Array<{ id: string; occurred_at: string; action: string; actor_user_id: string | null; before: Record<string, unknown> | null; after: Record<string, unknown> | null }>).map((e) => (
-                <tr key={e.id} className="border-b">
-                  <td className="p-2">{new Date(e.occurred_at).toLocaleString()}</td>
-                  <td className="p-2">{e.action}</td>
-                  <td className="p-2">{e.actor_user_id ? e.actor_user_id.slice(0, 6) + 'â€¦' : '-'}</td>
-                  <td className="p-2 max-w-[500px] truncate" title={JSON.stringify(e.after || e.before || {})}>{Object.keys(e.after || e.before || {}).join(', ')}</td>
+              {(audit.ok ? audit.data : []).map((entry) => (
+                <tr key={entry.id} className="border-b">
+                  <td className="p-2">{new Date(entry.at).toLocaleString()}</td>
+                  <td className="p-2">{entry.action}</td>
+                  <td className="p-2">{entry.actor_id ? entry.actor_id.slice(0, 8) : '-'}</td>
+                  <td className="p-2 max-w-[500px] truncate" title={JSON.stringify(entry.after || entry.before || {})}>
+                    {Object.keys(entry.after || entry.before || {}).join(', ') || '-'}
+                  </td>
                 </tr>
               ))}
               {(!audit.ok || (audit.data || []).length === 0) && (
-                <tr><td className="p-3 text-center text-gray-500" colSpan={4}>No audit entries</td></tr>
+                <tr>
+                  <td className="p-3 text-center text-gray-500" colSpan={4}>
+                    No audit entries
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
@@ -211,6 +246,3 @@ export default async function PolicyDetailPage({ params }: { params: { id: strin
     </div>
   );
 }
-
-
-

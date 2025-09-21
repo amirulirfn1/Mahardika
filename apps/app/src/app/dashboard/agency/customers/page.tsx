@@ -14,41 +14,41 @@ import { deleteCustomer } from "./_actions";
 export const revalidate = 0;
 
 function parseSearchParams(searchParams: Record<string, string | string[] | undefined>) {
-  const q = typeof searchParams.q === "string" ? searchParams.q : "";
-  const page = Math.max(1, parseInt((searchParams.page as string) || "1", 10));
-  const pageSize = Math.max(1, parseInt((searchParams.pageSize as string) || "10", 10));
+  const q = typeof searchParams.q === 'string' ? searchParams.q : '';
+  const page = Math.max(1, parseInt((searchParams.page as string) || '1', 10));
+  const pageSize = Math.max(1, parseInt((searchParams.pageSize as string) || '10', 10));
   return { q, page, pageSize };
 }
 
 export default async function CustomersListPage({ searchParams }: { searchParams: Record<string, string> }) {
   const { q, page, pageSize } = parseSearchParams(searchParams);
-  const supabase = getServerClient();
+  const supabase = await getServerClient();
   const from = (page - 1) * pageSize;
   const to = from + pageSize - 1;
 
   let query = supabase
-    .from("customers")
-    .select("id, full_name, email, phone, vehicles(id)", { count: "exact" })
-    .order("created_at", { ascending: false });
+    .from('customers')
+    .select('id, full_name, email, phone, loyalty_tier, points_balance, created_at', { count: 'exact' })
+    .order('created_at', { ascending: false });
 
   if (q) {
     query = query.or(`full_name.ilike.%${q}%,email.ilike.%${q}%,phone.ilike.%${q}%`);
   }
 
-  const { data, count } = await query.range(from, to);
+  const { data, count, error } = await query.range(from, to);
 
   async function onDelete(formData: FormData) {
-    "use server";
-    const id = String(formData.get("id"));
+    'use server';
+    const id = String(formData.get('id'));
     await deleteCustomer(id);
-    revalidatePath("/dashboard/agency/customers");
+    revalidatePath('/dashboard/agency/customers');
   }
 
   return (
     <Section variant="app">
       <PageHeader
         title="Customers"
-        subtitle="Manage customer records and vehicles"
+        subtitle="Manage customer records and loyalty status"
         variant="spotlight"
         actions={
           <Link href="/dashboard/agency/customers/new">
@@ -76,17 +76,19 @@ export default async function CustomersListPage({ searchParams }: { searchParams
                   <TH>Name</TH>
                   <TH>Email</TH>
                   <TH>Phone</TH>
-                  <TH>Vehicles (#)</TH>
+                  <TH>Tier</TH>
+                  <TH>Points</TH>
                   <TH>Actions</TH>
                 </TR>
               </THead>
               <TBody>
-                {(data || []).map((customer: { id: string; full_name: string; email?: string | null; phone?: string | null; vehicles?: { id: string }[] }) => (
+                {(data || []).map((customer) => (
                   <TR key={customer.id}>
                     <TD>{customer.full_name}</TD>
-                    <TD>{customer.email ?? "-"}</TD>
-                    <TD>{customer.phone ?? "-"}</TD>
-                    <TD>{Array.isArray(customer.vehicles) ? customer.vehicles.length : 0}</TD>
+                    <TD>{customer.email ?? '-'}</TD>
+                    <TD>{customer.phone ?? '-'}</TD>
+                    <TD>{customer.loyalty_tier ?? 'Not set'}</TD>
+                    <TD>{customer.points_balance ?? 0}</TD>
                     <TD>
                       <div className="flex items-center gap-3">
                         <Link className="text-sm text-primary underline" href={`/dashboard/agency/customers/${customer.id}`}>
@@ -105,9 +107,16 @@ export default async function CustomersListPage({ searchParams }: { searchParams
                     </TD>
                   </TR>
                 ))}
-                {(!data || data.length === 0) && (
+                {error && (
                   <TR>
-                    <TD colSpan={5}>
+                    <TD colSpan={6}>
+                      <div className="py-6 text-center text-sm text-destructive">{error.message}</div>
+                    </TD>
+                  </TR>
+                )}
+                {(!data || data.length === 0) && !error && (
+                  <TR>
+                    <TD colSpan={6}>
                       <div className="py-6 text-center text-sm text-muted-foreground">No customers</div>
                     </TD>
                   </TR>

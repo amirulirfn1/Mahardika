@@ -1,4 +1,4 @@
-﻿import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { PolicyForm } from "@/components/forms/PolicyForm";
 import { getServerClient } from "@/lib/supabase/server";
@@ -6,31 +6,30 @@ import { getServerClient } from "@/lib/supabase/server";
 import { updatePolicyAction, uploadPolicyPdfAction } from "../../_actions";
 
 async function fetchPolicyAndOptions(id: string) {
-  const supabase = getServerClient();
-  const [{ data: policy }, { data: customers }, { data: vehicles }] = await Promise.all([
+  const supabase = await getServerClient();
+  const [{ data: policy }, { data: customers }] = await Promise.all([
     supabase
-      .from("policies")
-      .select("id, policy_no, start_date, end_date, premium_myr, customer_id, vehicle_id")
-      .eq("id", id)
+      .from('policies')
+      .select('id, policy_no, carrier, product, status, start_date, end_date, premium_gross, premium_net, customer_id, agent_id')
+      .eq('id', id)
       .maybeSingle(),
-    supabase.from("customers").select("id, full_name").order("full_name"),
-    supabase.from("vehicles").select("id, plate_no").order("created_at", { ascending: false }),
+    supabase.from('customers').select('id, full_name').order('full_name'),
   ]);
   return {
     policy,
     customers: (customers || []).map((c) => ({ id: c.id, label: c.full_name })),
-    vehicles: (vehicles || []).map((v) => ({ id: v.id, label: v.plate_no })),
+    agents: [],
   };
 }
 
 export default async function EditPolicyPage({ params }: { params: { id: string } }) {
-  const { policy, customers, vehicles } = await fetchPolicyAndOptions(params.id);
+  const { policy, customers, agents } = await fetchPolicyAndOptions(params.id);
   if (!policy) return <div className="p-6">Policy not found</div>;
 
   async function onSubmit(formData: FormData) {
-    "use server";
+    'use server';
     const res = await updatePolicyAction(params.id, formData);
-    const file = formData.get("pdf") as File | null;
+    const file = formData.get('pdf') as File | null;
     if (file && file.size > 0) {
       await uploadPolicyPdfAction(params.id, file);
     }
@@ -44,20 +43,21 @@ export default async function EditPolicyPage({ params }: { params: { id: string 
       <PolicyForm
         onSubmit={onSubmit}
         customers={customers}
-        vehicles={vehicles}
+        agents={agents}
         initial={{
           policy_no: policy.policy_no,
-          start_date: policy.start_date,
-          end_date: policy.end_date,
-          premium_myr: policy.premium_myr,
+          carrier: policy.carrier,
+          product: policy.product,
+          status: policy.status,
+          start_date: policy.start_date ?? undefined,
+          end_date: policy.end_date ?? undefined,
+          premium_gross: policy.premium_gross ?? undefined,
+          premium_net: policy.premium_net ?? undefined,
           customer_id: policy.customer_id,
-          vehicle_id: policy.vehicle_id,
+          agent_id: policy.agent_id ?? undefined,
         }}
         submitLabel="Update"
       />
     </div>
   );
 }
-
-
-

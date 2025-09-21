@@ -1,31 +1,112 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import { Role } from "@prisma/client";
 import { compare } from "bcryptjs";
 import type { NextAuthOptions } from "next-auth";
-import type { Adapter } from "next-auth/adapters";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 
+import type { AppRole, AuthUser } from "@/lib/auth/types";
 import { env } from "@/lib/env";
-import { prisma } from "@/lib/prisma";
+import { getServiceRoleClient } from "@/lib/supabase/service";
 
 const credentialsSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
 
+const USER_REFRESH_INTERVAL_SECONDS = 60 * 5;
+
 function nowEpochSeconds() {
   return Math.floor(Date.now() / 1000);
 }
 
-const USER_REFRESH_INTERVAL_SECONDS = 60 * 5;
+type UserProfileRow = {
+  id: string;
+  email: string;
+  name: string | null;
+  locale: string | null;
+  password_hash: string | null;
+  platform_role: string | null;
+};
 
-const adapter = PrismaAdapter(prisma) as Adapter;
+type MembershipRow = {
+  tenant_id: string;
+  role: AppRole;
+  status: "ACTIVE" | "INVITED" | "SUSPENDED";
+};
 
-type ExtendedAuthOptions = NextAuthOptions & { trustHost?: boolean };
+async function resolveUserClaims(userId: string): Promise<Pick<AuthUser, "role" | "tenantId" | "locale">> {
+  const supabase = getServiceRoleClient();
+  const { data: profile, error } = await supabase
+    .from("user_profiles")
+    .select("id, locale, platform_role")
+    .eq("id", userId)
+    .maybeSingle<UserProfileRow>();
 
-export const authOptions: ExtendedAuthOptions = {
-  adapter,
+  if (error) {
+    throw new Error(error.message);
+  }
+  if (!profile) {
+    throw new Error("Profile not found");
+  }
+
+  const locale = profile.locale ?? "en";
+  if (profile.platform_role === "SUPER_ADMIN") {
+    return { role: "SUPER_ADMIN", tenantId: null, locale };
+  }
+
+  const { data: membership, error: membershipErr } = await supabase
+    .from("agency_members")
+    .select("tenant_id, role, status")
+    .eq("user_id", userId)
+    .eq("status", "ACTIVE")
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle<MembershipRow>();
+
+  if (membershipErr) {
+    throw new Error(membershipErr.message);
+  }
+
+  return {
+    role: membership?.role ?? "STAFF",
+    tenantId: membership?.tenant_id ?? null,
+    locale,
+  };
+}
+
+async function authenticateWithCredentials(email: string, password: string): Promise<AuthUser | null> {
+  const supabase = getServiceRoleClient();
+  const { data: userRow, error } = await supabase
+    .from("user_profiles")
+    .select("id, email, name, locale, password_hash, platform_role")
+    .eq("email", email)
+    .maybeSingle<UserProfileRow>();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!userRow?.password_hash) {
+    return null;
+  }
+
+  const passwordValid = await compare(password, userRow.password_hash);
+  if (!passwordValid) {
+    return null;
+  }
+
+  const claims = await resolveUserClaims(userRow.id);
+
+  return {
+    id: userRow.id,
+    name: userRow.name,
+    email: userRow.email,
+    locale: claims.locale,
+    role: claims.role,
+    tenantId: claims.tenantId,
+  };
+}
+
+export const authOptions: NextAuthOptions & { trustHost?: boolean } = {
   session: { strategy: "jwt" },
   secret: env.NEXTAUTH_SECRET,
   pages: {
@@ -45,38 +126,13 @@ export const authOptions: ExtendedAuthOptions = {
         }
 
         const { email, password } = parsed.data;
-        const user = await prisma.user.findUnique({
-          where: { email },
-        });
-
-        if (!user?.passwordHash) {
+        try {
+          const user = await authenticateWithCredentials(email.toLowerCase(), password);
+          return user ?? null;
+        } catch (err) {
+          console.error("[auth] credential auth error", err);
           return null;
         }
-
-        const passwordValid = await compare(password, user.passwordHash);
-        if (!passwordValid) {
-          return null;
-        }
-
-        if (user.role !== Role.PLATFORM_ADMIN && !user.agencyId) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          agencyId: user.agencyId,
-          locale: user.locale,
-        } as {
-          id: string;
-          name: string | null;
-          email: string | null;
-          role: Role;
-          agencyId: string | null;
-          locale: string;
-        };
       },
     }),
   ],
@@ -84,19 +140,20 @@ export const authOptions: ExtendedAuthOptions = {
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub ?? "";
-        session.user.role = (token.role as Role | undefined) ?? Role.AGENCY_STAFF;
-        session.user.agencyId = (token.agencyId as string | null | undefined) ?? null;
+        session.user.role = (token.role as AppRole | undefined) ?? "STAFF";
+        session.user.tenantId = (token.impersonatedTenantId as string | null | undefined) ?? (token.tenantId as string | null | undefined) ?? null;
         session.user.locale = (token.locale as string | undefined) ?? "en";
       }
 
-      session.tenantId = (token.tenantId as string | null | undefined) ?? session.user?.agencyId ?? null;
+      session.tenantId = session.user?.tenantId ?? null;
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
-        token.role = (user as { role?: Role }).role ?? token.role;
-        token.agencyId = (user as { agencyId?: string | null }).agencyId ?? null;
-        token.locale = (user as { locale?: string }).locale ?? token.locale ?? "en";
+        const authUser = user as AuthUser;
+        token.role = authUser.role;
+        token.tenantId = authUser.tenantId;
+        token.locale = authUser.locale;
         token.userSyncedAt = nowEpochSeconds();
         return token;
       }
@@ -105,16 +162,14 @@ export const authOptions: ExtendedAuthOptions = {
       const shouldRefresh = nowEpochSeconds() - lastSynced >= USER_REFRESH_INTERVAL_SECONDS;
 
       if (shouldRefresh && token.sub) {
-        const freshUser = await prisma.user.findUnique({
-          where: { id: token.sub },
-          select: { role: true, agencyId: true, locale: true },
-        });
-
-        if (freshUser) {
-          token.role = freshUser.role;
-          token.agencyId = freshUser.agencyId ?? null;
-          token.locale = freshUser.locale;
+        try {
+          const claims = await resolveUserClaims(token.sub);
+          token.role = claims.role;
+          token.tenantId = claims.tenantId;
+          token.locale = claims.locale;
           token.userSyncedAt = nowEpochSeconds();
+        } catch (err) {
+          console.error("[auth] refresh claims failed", err);
         }
       }
 

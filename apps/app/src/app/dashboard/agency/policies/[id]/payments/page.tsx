@@ -1,99 +1,115 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 
 import { getCustomerBalance } from "@/lib/loyalty";
 import { listPaymentsByPolicy } from "@/lib/payments";
+import { getServerClient } from "@/lib/supabase/server";
 
-import { createPaymentAction, softDeletePaymentAction, restorePaymentAction } from "./_actions";
+import { createPaymentAction, restorePaymentAction, softDeletePaymentAction } from "./_actions";
 
 export const revalidate = 0;
 
 export default async function PolicyPaymentsPage({ params }: { params: { id: string } }) {
   const payments = await listPaymentsByPolicy(params.id);
-  const supabase = (await import("@/lib/supabase/server")).getServerClient();
+  const supabase = await getServerClient();
   const { data: policy } = await supabase
-    .from("policies")
-    .select("customer_id")
-    .eq("id", params.id)
+    .from('policies')
+    .select('customer_id')
+    .eq('id', params.id)
     .maybeSingle();
-  const custId = policy?.customer_id as string | undefined;
-  const balance = custId ? await getCustomerBalance(custId) : null;
+  const customerId = policy?.customer_id as string | undefined;
+  const balance = customerId ? await getCustomerBalance(customerId) : null;
+
   return (
     <div className="p-6 space-y-6 max-w-3xl">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Payments</h1>
-        <Link href={`/dashboard/agency/policies/${params.id}`} className="underline">Back to Policy</Link>
+        <Link href={`/dashboard/agency/policies/${params.id}`} className="underline">
+          Back to Policy
+        </Link>
       </div>
 
-      <form action={async (fd) => {
-        'use server';
-        await createPaymentAction(params.id, fd);
-      }} className="space-y-3 rounded border p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <form
+        action={async (fd) => {
+          'use server';
+          await createPaymentAction(params.id, fd);
+        }}
+        className="space-y-3 rounded border p-4"
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <div>
-            <label className="block text-sm mb-1">Amount</label>
+            <label className="mb-1 block text-sm">Amount</label>
             <input name="amount" type="number" step="0.01" min="0.01" required className="w-full rounded border px-3 py-2" />
           </div>
           <div>
-            <label className="block text-sm mb-1">Channel</label>
-            <select name="channel" className="w-full rounded border px-3 py-2">
-              <option value="cash">Cash</option>
-              <option value="bank_transfer">Bank Transfer</option>
-              <option value="ewallet">eWallet</option>
-              <option value="card">Card</option>
-              <option value="other">Other</option>
+            <label className="mb-1 block text-sm">Method</label>
+            <select name="method" className="w-full rounded border px-3 py-2">
+              <option value="TRANSFER">Bank Transfer</option>
+              <option value="CASH">Cash</option>
+              <option value="CARD">Card</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm mb-1">Reference</label>
+            <label className="mb-1 block text-sm">Reference</label>
             <input name="reference" className="w-full rounded border px-3 py-2" placeholder="optional" />
           </div>
           <div>
-            <label className="block text-sm mb-1">Paid At</label>
+            <label className="mb-1 block text-sm">Paid At</label>
             <input name="paid_at" type="datetime-local" className="w-full rounded border px-3 py-2" />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm mb-1">Notes</label>
+            <label className="mb-1 block text-sm">Notes</label>
             <textarea name="notes" className="w-full rounded border px-3 py-2" rows={3} />
           </div>
         </div>
-        <button className="rounded bg-black text-white px-4 py-2">Add Payment</button>
+        <button className="rounded bg-black px-4 py-2 text-white">Add Payment</button>
       </form>
 
       <div className="rounded border">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b bg-gray-50">
-              <th className="text-left p-2">Paid At</th>
-              <th className="text-left p-2">Amount</th>
-              <th className="text-left p-2">Channel</th>
-              <th className="text-left p-2">Reference</th>
+              <th className="p-2 text-left">Paid At</th>
+              <th className="p-2 text-left">Amount</th>
+              <th className="p-2 text-left">Method</th>
+              <th className="p-2 text-left">Reference</th>
+              <th className="p-2 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {(payments.ok ? payments.data : []).map((p: { id: string; amount: number; channel: string; reference?: string | null; paid_at: string }) => (
+            {(payments.ok ? payments.data : []).map((p) => (
               <tr key={p.id} className="border-b">
                 <td className="p-2">{new Date(p.paid_at).toLocaleString()}</td>
                 <td className="p-2">{Number(p.amount).toFixed(2)}</td>
-                <td className="p-2">{p.channel}</td>
-                <td className="p-2 flex items-center gap-2">
-                  <span>{p.reference || '-'}</span>
-                  <form action={async () => {
-                    'use server';
-                    await softDeletePaymentAction(p.id);
-                  }}>
+                <td className="p-2">{p.method}</td>
+                <td className="p-2">{p.reference || '-'}</td>
+                <td className="p-2 space-x-2">
+                  <form
+                    action={async () => {
+                      'use server';
+                      await softDeletePaymentAction(p.id);
+                    }}
+                    className="inline"
+                  >
                     <button className="text-xs underline">Soft delete</button>
                   </form>
-                  <form action={async () => {
-                    'use server';
-                    await restorePaymentAction(p.id);
-                  }}>
+                  <form
+                    action={async () => {
+                      'use server';
+                      await restorePaymentAction(p.id);
+                    }}
+                    className="inline"
+                  >
                     <button className="text-xs underline">Restore</button>
                   </form>
                 </td>
               </tr>
             ))}
             {(!payments.ok || (payments.data || []).length === 0) && (
-              <tr><td className="p-3 text-center text-gray-500" colSpan={4}>No payments yet</td></tr>
+              <tr>
+                <td className="p-3 text-center text-gray-500" colSpan={5}>
+                  No payments yet
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
@@ -104,6 +120,3 @@ export default async function PolicyPaymentsPage({ params }: { params: { id: str
     </div>
   );
 }
-
-
-

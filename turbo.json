@@ -2,27 +2,18 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"],
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**"
+      ],
       "env": [
         "NEXT_PUBLIC_SUPABASE_URL",
         "NEXT_PUBLIC_SUPABASE_ANON_KEY",
         "SUPABASE_SERVICE_ROLE_KEY",
         "SUPABASE_JWT_SECRET",
-        "DATABASE_URL",
-        "STORAGE_NEXT_PUBLIC_SUPABASE_URL",
-        "STORAGE_NEXT_PUBLIC_SUPABASE_ANON_KEY",
-        "STORAGE_SUPABASE_URL",
-        "STORAGE_SUPABASE_ANON_KEY",
-        "STORAGE_SUPABASE_SERVICE_ROLE_KEY",
-        "STORAGE_SUPABASE_JWT_SECRET",
-        "STORAGE_POSTGRES_URL",
-        "STORAGE_POSTGRES_PRISMA_URL",
-        "STORAGE_POSTGRES_URL_NON_POOLING",
-        "STORAGE_POSTGRES_USER",
-        "STORAGE_POSTGRES_PASSWORD",
-        "STORAGE_POSTGRES_DATABASE",
-        "STORAGE_POSTGRES_HOST",
         "NEXTAUTH_URL",
         "NEXTAUTH_SECRET",
         "RESEND_API_KEY",

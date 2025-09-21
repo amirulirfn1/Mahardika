@@ -1,7 +1,7 @@
 import { canImpersonateTenant } from "@/lib/auth/rbac";
-import type { SessionWithUser } from "@/lib/auth/types";
+import type { AuthSession } from "@/lib/auth/types";
 
-export function resolveTenantId(session: SessionWithUser, asTenant?: string | null) {
+export function resolveTenantId(session: AuthSession, asTenant?: string | null) {
   if (canImpersonateTenant(session.user) && asTenant) {
     return asTenant;
   }
@@ -13,7 +13,7 @@ export function resolveTenantId(session: SessionWithUser, asTenant?: string | nu
   return session.user.tenantId;
 }
 
-export function requireTenantId(session: SessionWithUser, asTenant?: string | null) {
+export function requireTenantId(session: AuthSession, asTenant?: string | null) {
   const tenantId = resolveTenantId(session, asTenant);
   if (!tenantId) {
     throw new Error("Tenant context is required");
@@ -22,7 +22,7 @@ export function requireTenantId(session: SessionWithUser, asTenant?: string | nu
 }
 
 interface TenantScopeOptions<TWhere extends Record<string, unknown>> {
-  session: SessionWithUser;
+  session: AuthSession;
   where?: TWhere;
   asTenant?: string | null;
   field?: string;

@@ -1,9 +1,9 @@
 "use server";
 
-import { hash } from "bcryptjs";
 import { randomUUID } from "crypto";
 import { z } from "zod";
 
+import { getSession } from "@/lib/auth/session";
 import { getServiceRoleClient } from "@/lib/supabase/service";
 
 type ActionResult =
@@ -13,8 +13,6 @@ type ActionResult =
 const schema = z.object({
   fullName: z.string().min(1, { message: "Full name is required" }).max(120),
   agencyName: z.string().min(1, { message: "Agency name is required" }).max(120),
-  email: z.string().email({ message: "Enter a valid email" }).max(160),
-  password: z.string().min(8, { message: "Password must be at least 8 characters" }).max(128),
 });
 
 function slugify(value: string) {
@@ -67,19 +65,15 @@ async function ensureUniqueSlug(base: string): Promise<string> {
   throw new Error("Unable to allocate a unique agency slug");
 }
 
-export async function registerOwnerAction(raw: FormData | Record<string, unknown>): Promise<ActionResult> {
+export async function completeOwnerSetupAction(raw: FormData | Record<string, unknown>): Promise<ActionResult> {
   const payload = raw instanceof FormData
     ? {
         fullName: String(raw.get("full_name") ?? ""),
         agencyName: String(raw.get("agency_name") ?? ""),
-        email: String(raw.get("email") ?? ""),
-        password: String(raw.get("password") ?? ""),
       }
     : {
         fullName: String((raw as Record<string, unknown>).fullName ?? ""),
         agencyName: String((raw as Record<string, unknown>).agencyName ?? ""),
-        email: String((raw as Record<string, unknown>).email ?? ""),
-        password: String((raw as Record<string, unknown>).password ?? ""),
       };
 
   const parsed = schema.safeParse(payload);
@@ -88,51 +82,45 @@ export async function registerOwnerAction(raw: FormData | Record<string, unknown
     return { ok: false, error: issue?.message ?? "Invalid form submission" };
   }
 
-  const { fullName, agencyName, email, password } = parsed.data;
+  const session = await getSession();
+  if (!session) {
+    return { ok: false, error: "Sign in to finish setting up your agency." };
+  }
   const supabase = getServiceRoleClient();
 
   try {
-    const lowerEmail = email.trim().toLowerCase();
-
-    const { data: existing, error: existingError } = await supabase
+    await supabase
       .from("user_profiles")
-      .select("id")
-      .eq("email", lowerEmail)
-      .maybeSingle<{ id: string }>();
+      .upsert(
+        {
+          id: session.user.id,
+          email: session.user.email,
+          name: parsed.data.fullName,
+          locale: session.user.locale ?? "en",
+        },
+        { onConflict: "id" }
+      );
 
-    if (existingError && existingError.code !== "PGRST116") {
-      throw existingError;
+    const { data: existingMembership } = await supabase
+      .from("agency_members")
+      .select("tenant_id")
+      .eq("user_id", session.user.id)
+      .eq("status", "ACTIVE")
+      .limit(1)
+      .maybeSingle<{ tenant_id: string }>();
+
+    if (existingMembership?.tenant_id) {
+      return { ok: true, userId: session.user.id, tenantId: existingMembership.tenant_id };
     }
 
-    if (existing) {
-      return { ok: false, error: "An account with this email already exists" };
-    }
-
-    const passwordHash = await hash(password, 12);
-
-    const { data: user, error: userError } = await supabase
-      .from("user_profiles")
-      .insert({
-        email: lowerEmail,
-        name: fullName,
-        password_hash: passwordHash,
-        locale: "en",
-      })
-      .select("id")
-      .maybeSingle<{ id: string }>();
-
-    if (userError || !user) {
-      throw userError ?? new Error("Failed to create user");
-    }
-
-    const slug = await ensureUniqueSlug(agencyName);
+    const slug = await ensureUniqueSlug(parsed.data.agencyName);
 
     const { data: agency, error: agencyError } = await supabase
       .from("agencies")
       .insert({
-        name: agencyName,
+        name: parsed.data.agencyName,
         slug,
-        created_by: user.id,
+        created_by: session.user.id,
       })
       .select("id")
       .maybeSingle<{ id: string }>();
@@ -145,7 +133,7 @@ export async function registerOwnerAction(raw: FormData | Record<string, unknown
       .from("agency_members")
       .insert({
         tenant_id: agency.id,
-        user_id: user.id,
+        user_id: session.user.id,
         role: "OWNER",
         status: "ACTIVE",
       })
@@ -165,7 +153,7 @@ export async function registerOwnerAction(raw: FormData | Record<string, unknown
         active: true,
       });
 
-    return { ok: true, userId: user.id, tenantId: agency.id };
+    return { ok: true, userId: session.user.id, tenantId: agency.id };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unexpected error";
     return { ok: false, error: message };

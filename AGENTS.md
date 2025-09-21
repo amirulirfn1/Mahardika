@@ -37,7 +37,7 @@ This document covers roles, data model, RLS, auth and tenancy, UI flows, API and
 
 * Front end: Next.js App Router. Relevant routes today include `/dashboard`, `/dashboard/agency/*`, `/dashboard/staff`, `/dashboard/customer`, `/dashboard/users`, `/dashboard/settings`, `/dashboard/agency/loyalty`, `/dashboard/agency/communications`, `/dashboard/agency/customers`, `/dashboard/agency/policies` and related CRUD pages.
 * Back end: Supabase Postgres with RLS, RPC functions, triggers, Storage buckets. Optional serverless Next.js Route Handlers under `/api/*` for value added orchestration and webhooks.
-* Auth: Auth.js (NextAuth) with JWT that carries `tenant_id` and `role`. Session middleware redirects users per tenant. Database role checks are done by RLS regardless of session.
+* Auth: Supabase Auth (email/password + OAuth). Server helpers mint tenant-scoped JWTs for RLS enforcement.
 * Jobs: Database driven queues in `jobs` table for reminders and async processing. No external workers required initially. Cron can be implemented with Supabase scheduled functions.
 
 ---
@@ -490,3 +490,4 @@ create policy policies_agent_update on public.policies
 * Optional: ship Copilot panel with draft only actions.
 
 This is a living spec. Update this file as soon as scope or decisions change.
+

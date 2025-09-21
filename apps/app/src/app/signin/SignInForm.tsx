@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Section } from "@/components/ui/Section";
+import { getBrowserClient } from "@/lib/supabase/client";
 
 const schema = z.object({
   email: z.string().email({ message: "Enter a valid email" }),
@@ -19,28 +19,11 @@ const inputClasses =
 
 function GoogleIcon({ className }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      focusable="false"
-    >
-      <path
-        fill="#EA4335"
-        d="M12 10.2v3.9h5.5c-.2 1.2-.9 2.2-1.9 2.9l3 2.3c1.7-1.6 2.7-3.9 2.7-6.7 0-.6-.1-1.2-.2-1.8H12z"
-      />
-      <path
-        fill="#34A853"
-        d="M6.5 13.9l-.9.7-2.4 1.9C4.8 19.5 8.2 21.5 12 21.5c2.4 0 4.4-.8 5.9-2.2l-3-2.3c-.8.5-1.8.8-2.9.8-2.2 0-4.1-1.5-4.8-3.6z"
-      />
-      <path
-        fill="#4A90E2"
-        d="M3.2 7.5C2.4 8.9 2 10.4 2 12c0 1.6.4 3.1 1.2 4.5l3.3-2.6c-.2-.5-.3-1-.3-1.9 0-.8.2-1.4.3-1.9z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M12 6.5c1.3 0 2.5.5 3.4 1.3l2.5-2.5C16.4 3.6 14.4 2.5 12 2.5c-3.8 0-7.2 2-9.1 5l3.4 2.6c.7-2.1 2.6-3.6 4.8-3.6z"
-      />
+    <svg className={className} aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+      <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.2-.9 2.2-1.9 2.9l3 2.3c1.7-1.6 2.7-3.9 2.7-6.7 0-.6-.1-1.2-.2-1.8H12z" />
+      <path fill="#34A853" d="M6.5 13.9l-.9.7-2.4 1.9C4.8 19.5 8.2 21.5 12 21.5c2.4 0 4.4-.8 5.9-2.2l-3-2.3c-.8.5-1.8.8-2.9.8-2.2 0-4.1-1.5-4.8-3.6z" />
+      <path fill="#4A90E2" d="M3.2 7.5C2.4 8.9 2 10.4 2 12c0 1.6.4 3.1 1.2 4.5l3.3-2.6c-.2-.5-.3-1-.3-1.9 0-.8.2-1.4.3-1.9z" />
+      <path fill="#FBBC05" d="M12 6.5c1.3 0 2.5.5 3.4 1.3l2.5-2.5C16.4 3.6 14.4 2.5 12 2.5c-3.8 0-7.2 2-9.1 5l3.4 2.6c.7-2.1 2.6-3.6 4.8-3.6z" />
     </svg>
   );
 }
@@ -52,18 +35,28 @@ export interface SignInFormProps {
 export function SignInForm({ googleEnabled }: SignInFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard";
+  const callbackUrl = searchParams.get("next") || searchParams.get("callbackUrl") || "/dashboard";
+  const errorParam = searchParams.get("error");
+
+  const supabase = getBrowserClient();
+  const authDisabled = !supabase;
 
   const [values, setValues] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(authDisabled ? "Authentication is temporarily unavailable." : null);
   const [submitting, setSubmitting] = useState(false);
   const [oauthLoading, setOauthLoading] = useState(false);
 
-  const disabled = submitting || oauthLoading;
+  useEffect(() => {
+    if (errorParam) {
+      setNotice(errorParam);
+    }
+  }, [errorParam]);
+
+  const disabled = submitting || oauthLoading || authDisabled;
 
   async function handleGoogleSignIn() {
-    if (!googleEnabled) {
+    if (!googleEnabled || !supabase) {
       return;
     }
 
@@ -71,16 +64,24 @@ export function SignInForm({ googleEnabled }: SignInFormProps) {
     setErrors({});
     setOauthLoading(true);
     try {
-      const result = await signIn("google", { callbackUrl, redirect: false });
-      if (result?.error) {
-        setNotice("Google sign-in failed. Please try again.");
+      const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(callbackUrl)}`;
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data?.url) {
+        window.location.assign(data.url);
         return;
       }
-      if (result?.url) {
-        router.push(result.url);
-        return;
-      }
-      window.location.href = callbackUrl;
+
+      setNotice("Redirecting to Google sign-in failed. Please try again.");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Google sign-in failed";
       setNotice(message);
@@ -93,6 +94,11 @@ export function SignInForm({ googleEnabled }: SignInFormProps) {
     e.preventDefault();
     setErrors({});
     setNotice(null);
+
+    if (!supabase) {
+      setNotice("Authentication is temporarily unavailable.");
+      return;
+    }
 
     const parsed = schema.safeParse(values);
     if (!parsed.success) {
@@ -107,26 +113,19 @@ export function SignInForm({ googleEnabled }: SignInFormProps) {
 
     setSubmitting(true);
     try {
-      const result = await signIn("credentials", {
-        redirect: false,
+      const { error } = await supabase.auth.signInWithPassword({
         email: parsed.data.email.trim().toLowerCase(),
         password: parsed.data.password,
-        callbackUrl,
       });
 
-      if (result?.error) {
-        setNotice(result.error === "CredentialsSignin" ? "Invalid email or password" : result.error);
-        return;
-      }
-
-      if (result?.url) {
-        router.push(result.url);
-        return;
+      if (error) {
+        throw error;
       }
 
       router.push(callbackUrl);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Unexpected error";
+      router.refresh();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unable to sign in";
       setNotice(message);
     } finally {
       setSubmitting(false);
@@ -144,7 +143,7 @@ export function SignInForm({ googleEnabled }: SignInFormProps) {
                 <p className="text-sm text-muted-foreground">Sign in with your Mahardika credentials.</p>
               </header>
 
-              {googleEnabled ? (
+              {googleEnabled && (
                 <div className="space-y-2">
                   <Button
                     type="button"
@@ -156,7 +155,7 @@ export function SignInForm({ googleEnabled }: SignInFormProps) {
                     Continue with Google
                   </Button>
                   <p className="text-center text-xs text-muted-foreground">
-                    We use NextAuth with Supabase for secure login.
+                    Secure login powered by Supabase Auth.
                   </p>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <span className="h-px flex-1 bg-border" aria-hidden />
@@ -164,7 +163,7 @@ export function SignInForm({ googleEnabled }: SignInFormProps) {
                     <span className="h-px flex-1 bg-border" aria-hidden />
                   </div>
                 </div>
-              ) : null}
+              )}
 
               <form onSubmit={onSubmit} className="space-y-4">
                 <div className="space-y-1">

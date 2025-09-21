@@ -1,15 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import { useState, useTransition } from "react";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Section } from "@/components/ui/Section";
+import { getBrowserClient } from "@/lib/supabase/client";
 
-import { registerOwnerAction } from "./_actions";
+import { completeOwnerSetupAction } from "./_actions";
 
 const schema = z.object({
   fullName: z.string().min(1, { message: "Full name is required" }),
@@ -23,6 +23,9 @@ const inputClasses =
 
 export default function SignUpPage() {
   const router = useRouter();
+  const supabase = getBrowserClient();
+  const authDisabled = !supabase;
+
   const [form, setForm] = useState({
     fullName: "",
     agencyName: "",
@@ -30,17 +33,17 @@ export default function SignUpPage() {
     password: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [notice, setNotice] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(authDisabled ? "Sign up is unavailable right now." : null);
   const [isPending, startTransition] = useTransition();
 
-  const disabled = isPending;
+  const disabled = isPending || authDisabled;
 
   function handleChange<Key extends keyof typeof form>(key: Key, value: string) {
     setForm((prev) => ({ ...prev, [key]: value }));
   }
 
   function validate() {
-    const parsed = schema.safeParse(form);
+      const parsed = schema.safeParse(form);
     if (parsed.success) {
       setErrors({});
       return parsed.data;
@@ -59,37 +62,52 @@ export default function SignUpPage() {
     event.preventDefault();
     setNotice(null);
     const parsed = validate();
-    if (!parsed) {
+    if (!parsed || !supabase) {
+      if (!supabase) {
+        setNotice("Authentication is unavailable. Please try again later.");
+      }
       return;
     }
 
     startTransition(async () => {
-      const result = await registerOwnerAction({
-        fullName: parsed.fullName.trim(),
-        agencyName: parsed.agencyName.trim(),
-        email: parsed.email.trim().toLowerCase(),
-        password: parsed.password,
-      });
+      try {
+        const email = parsed.email.trim().toLowerCase();
+        const { error, data } = await supabase.auth.signUp({
+          email,
+          password: parsed.password,
+          options: {
+            data: {
+              full_name: parsed.fullName,
+            },
+            emailRedirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
+          },
+        });
 
-      if (!result.ok) {
-        setNotice(result.error);
-        return;
+        if (error) {
+          throw error;
+        }
+
+        if (!data.session) {
+          setNotice("Check your email to confirm your account. Once signed in, you can finish setting up your agency.");
+          return;
+        }
+
+        const result = await completeOwnerSetupAction({
+          fullName: parsed.fullName,
+          agencyName: parsed.agencyName,
+        });
+
+        if (!result.ok) {
+          setNotice(result.error);
+          return;
+        }
+
+        router.push("/dashboard");
+        router.refresh();
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Unable to sign up";
+        setNotice(message);
       }
-
-      const signInResult = await signIn("credentials", {
-        redirect: false,
-        email: parsed.email.trim().toLowerCase(),
-        password: parsed.password,
-        callbackUrl: "/dashboard",
-      });
-
-      if (signInResult?.error) {
-        setNotice("Account created. Please sign in manually.");
-        router.push("/signin");
-        return;
-      }
-
-      router.push(signInResult?.url ?? "/dashboard");
     });
   }
 
@@ -199,7 +217,7 @@ export default function SignUpPage() {
                 <Button type="submit" className="w-full" disabled={disabled}>
                   {disabled ? "Creating..." : "Create agency"}
                 </Button>
-                {notice ? <p className="text-sm text-destructive">{notice}</p> : null}
+                {notice ? <p className="text-sm text-muted-foreground">{notice}</p> : null}
               </form>
               <p className="text-center text-xs text-muted-foreground">
                 By creating an account you agree to the Mahardika Terms and Privacy Policy.

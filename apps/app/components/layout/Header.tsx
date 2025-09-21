@@ -1,18 +1,41 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
-import { type FC } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { type FC, useEffect, useMemo, useState } from "react";
 
 import { site } from "@/lib/site";
+import { getBrowserClient } from "@/lib/supabase/client";
 
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "../ui/Button";
 
 export const Header: FC = () => {
   const pathname = usePathname();
-  const { data: session } = useSession();
-  const email = session?.user?.email ?? null;
+  const router = useRouter();
+  const supabase = useMemo(() => getBrowserClient(), []);
+  const [email, setEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!supabase) {
+      return;
+    }
+
+    let mounted = true;
+
+    supabase.auth.getUser().then(({ data }) => {
+      if (!mounted) return;
+      setEmail(data.user?.email ?? null);
+    });
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setEmail(session?.user?.email ?? null);
+    });
+
+    return () => {
+      mounted = false;
+      authListener.subscription.unsubscribe();
+    };
+  }, [supabase]);
 
   return (
     <header id="site-header" className="sticky top-0 z-40 w-full">
@@ -49,8 +72,11 @@ export const Header: FC = () => {
                 <span className="hidden sm:inline text-sm text-neutral-600 dark:text-white/70">{email}</span>
                 <Button
                   variant="outline"
-                  onClick={() => {
-                    void signOut({ callbackUrl: "/" });
+                  onClick={async () => {
+                    if (!supabase) return;
+                    await supabase.auth.signOut();
+                    router.push("/signin");
+                    router.refresh();
                   }}
                 >
                   Sign out

@@ -174,35 +174,33 @@ async function authenticateWithCredentials(email: string, password: string): Pro
   };
 }
 
-export const authOptions: NextAuthOptions & { trustHost?: boolean } = {
-  session: { strategy: "jwt" },
-  secret: env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: "/signin",
-  },
-  providers: [
-    Credentials({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(rawCredentials) {
-        const parsed = credentialsSchema.safeParse(rawCredentials);
-        if (!parsed.success) {
-          return null;
-        }
+const providers: NextAuthOptions["providers"] = [
+  Credentials({
+    name: "Credentials",
+    credentials: {
+      email: { label: "Email", type: "email" },
+      password: { label: "Password", type: "password" },
+    },
+    async authorize(rawCredentials) {
+      const parsed = credentialsSchema.safeParse(rawCredentials);
+      if (!parsed.success) {
+        return null;
+      }
 
-        const { email, password } = parsed.data;
-        try {
-          const user = await authenticateWithCredentials(email.toLowerCase(), password);
-          return user ?? null;
-        } catch (err) {
-          console.error("[auth] credential auth error", err);
-          return null;
-        }
-      },
-    }),
+      const { email, password } = parsed.data;
+      try {
+        const user = await authenticateWithCredentials(email.toLowerCase(), password);
+        return user ?? null;
+      } catch (err) {
+        console.error("[auth] credential auth error", err);
+        return null;
+      }
+    },
+  }),
+];
+
+if (env.GOOGLE_AUTH_ENABLED && env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET) {
+  providers.push(
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
@@ -213,8 +211,17 @@ export const authOptions: NextAuthOptions & { trustHost?: boolean } = {
           access_type: "offline",
         },
       },
-    }),
-  ],
+    })
+  );
+}
+
+export const authOptions: NextAuthOptions & { trustHost?: boolean } = {
+  session: { strategy: "jwt" },
+  secret: env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/signin",
+  },
+  providers,
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "google") {

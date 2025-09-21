@@ -21,8 +21,8 @@ const envSchema = z
       .min(1, { message: "NEXT_PUBLIC_SUPABASE_ANON_KEY is required" }),
     SUPABASE_SERVICE_ROLE_KEY: z.string().min(1, { message: "SUPABASE_SERVICE_ROLE_KEY is required" }),
     SUPABASE_JWT_SECRET: z.string().min(1, { message: "SUPABASE_JWT_SECRET is required" }),
-    GOOGLE_CLIENT_ID: z.string().min(1, { message: "GOOGLE_CLIENT_ID is required" }),
-    GOOGLE_CLIENT_SECRET: z.string().min(1, { message: "GOOGLE_CLIENT_SECRET is required" }),
+    GOOGLE_CLIENT_ID: z.string().optional(),
+    GOOGLE_CLIENT_SECRET: z.string().optional(),
     NEXTAUTH_SECRET: z.string().min(1).optional(),
     NEXTAUTH_URL: z.string().url().optional(),
     APP_URL: z.string().url().optional(),
@@ -34,6 +34,16 @@ const envSchema = z
         code: z.ZodIssueCode.custom,
         message: "NEXTAUTH_SECRET is required when SKIP_AUTH is false",
         path: ["NEXTAUTH_SECRET"],
+      });
+    }
+
+    const hasGoogleId = Boolean(value.GOOGLE_CLIENT_ID);
+    const hasGoogleSecret = Boolean(value.GOOGLE_CLIENT_SECRET);
+    if (hasGoogleId !== hasGoogleSecret) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET must both be set",
+        path: hasGoogleId ? ["GOOGLE_CLIENT_SECRET"] : ["GOOGLE_CLIENT_ID"],
       });
     }
   });
@@ -64,8 +74,15 @@ if (!parsed.success) {
   throw new Error(`Invalid environment configuration\n${issues.join("\n")}`);
 }
 
+const googleAuthConfigured = Boolean(
+  parsed.data.GOOGLE_CLIENT_ID && parsed.data.GOOGLE_CLIENT_SECRET
+);
+
 export const env = {
   ...parsed.data,
   SKIP_AUTH: parsed.data.SKIP_AUTH === "true",
   NEXTAUTH_URL: parsed.data.NEXTAUTH_URL ?? parsed.data.APP_URL,
+  GOOGLE_CLIENT_ID: parsed.data.GOOGLE_CLIENT_ID ?? null,
+  GOOGLE_CLIENT_SECRET: parsed.data.GOOGLE_CLIENT_SECRET ?? null,
+  GOOGLE_AUTH_ENABLED: googleAuthConfigured,
 };
